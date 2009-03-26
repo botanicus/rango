@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby1.9
+# coding=utf-8
+
+rango_root = File.join(File.dirname(__FILE__), '..')
+
+$: << "#{rango_root}/lib"
+require "#{rango_root}/lib/rango"

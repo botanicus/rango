@@ -1,0 +1,34 @@
+=== Initialization ===
+reloading of changed files
+setttings:
+	- plugins
+
+=== MVC ===
+templates:
+	- extends "base.html"
+	- load foo
+	- escape everything
+	- escape @ in emails
+
+generic views
+
+=== Bundling ===
+pupu
+
+bundling:
+	- install from GH
+
+=== General ===
+rdoc comments style (yardoc?)
+
+=== Later ===
+m17n
+merb messenger-like notifications
+
+middleware:
+	- as in Django
+
+server:
+	- threads
+	- worker
+	- middleware

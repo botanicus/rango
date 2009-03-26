@@ -1,0 +1,13 @@
+h1. About
+
+Rango is ultralightweight, ultracustomizable, ultracool web framework deeply inspired by Django.
+
+h1. Installation
+
+Rango requires Ruby 1.9, Ruby 1.8 isn't supported.
+
+You can optinally install term-ansicolor gem for colored logger messages.
+
+h1. Usage
+
+thin start -R config.ru
