@@ -14,10 +14,12 @@ class Rango
     end
 
     def run(route, request, params)
-      require route.file if route.file
+      Project.import(route.file) if route.file
       args = params.map { |key, value| value }
       klass, method = route.callable.split("#")
-      controller = klass.new(request)
+      controller = klass.new
+      controller.request = request
+      controller.params  = params
       controller.method(method).call(*args)
     end
   end

@@ -1,5 +1,5 @@
 class Rango
   class Controller
-    # TODO
+    attr_accessor :request, :params
   end
 end

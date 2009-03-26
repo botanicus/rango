@@ -50,9 +50,8 @@ class Rango
     end
 
     def find(uri)
-      @routes.find do |route|
-        route.match?(uri)
-      end
+      route = @routes.find { |route| route.match?(uri) }
+      route = Error404.new
     end
   end
 
@@ -78,7 +77,16 @@ class Rango
     def call(request)
       strategy = self.strategy || Router.strategies.find { |strategy| strategy.match?(self) }
       raise(AnyStrategyMatched) unless strategy
-      strategy.run(self, request, self.params)
+      begin
+        strategy.run(self, request, self.params)
+      rescue Exception => exception
+        # TODO: how to get superclass
+        if exception.superclass.eql?(Rango::ControllerException)
+          raise exception
+        else
+          raise Error500.new(exception)
+        end
+      end
     end
 
     def match?(uri)
