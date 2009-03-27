@@ -1,8 +1,5 @@
 require "logger"
 
-# TODO: moznost ovlivnovat konfiguraci
-# TODO: logger.debug(object: @object)
-
 class Rango
   class Logger < Logger
     def initialize(output = STDERR)
@@ -19,7 +16,6 @@ class Rango
     def exception(exception)
       self.error(exception.message)
       exception.backtrace.each do |line|
-        # TODO: general, safe solution for filtering backtraces
         unless line.match(/thin|eventmachine/)
           STDERR.puts("- #{line.colorize.cyan}")
         end

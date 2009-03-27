@@ -1,3 +1,4 @@
+# TODO: copy it's spec file
 class Path
   attr_reader :absolute
   # Path.new("public/uploads")

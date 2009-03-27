@@ -51,7 +51,7 @@ class Rango
     
     def call(request)
       # request.status = 500
-      ["<h1>500 Internal Server Error</h1>", "TODO: backtraces"]
+      ["<h1>500 Internal Server Error</h1>", "backtraces"]
     end
   end
 end

@@ -41,11 +41,23 @@ class Rango
     def initialize(env)
       @env  = env
       @path = env["REQUEST_PATH"]
-      @method = env["REQUEST_METHOD"]
+      @method = env["REQUEST_METHOD"].downcase
     end
     
     def params
       {:method => @method}
+    end
+    
+    def post?
+      @method.eql("post")
+    end
+    
+    def get?
+      @method.eql("get")
+    end
+    
+    def head?
+      @method.eql("head")
     end
   end
 end

@@ -1,4 +1,3 @@
-# TODO: Router can handle subdomains
 # TODO: includes
 
 Rango.import("router/strategies")

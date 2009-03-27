@@ -35,7 +35,11 @@ class Rango
       hattribute :database_path, lambda { "#{Rango.environment}.db" }
       hattribute :database_adapter, "sqlite3"
       hattribute :logger_strategy, "fireruby"
-      hattribute :daemonize, false
+      # following attributes are mainly for plugins, so the plugin will know which ORM to use
+      hattribute :orm # datamapper or nil
+      hattribute :template_engine # haml, erb, erubis or nil (so just plain html will be returned)
+      hattribute :testing_engine # spec or nil
+      hattribute :features_engine # cucumber or nil
     end
   end
 end
