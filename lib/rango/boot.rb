@@ -17,6 +17,7 @@ class Rango
 end
 
 # init.rb
+Rango.import("router/router") # so user can register strategies in settings or init file
 Project.import("init", :soft => true, :verbose => false)
 
 # settings.rb
