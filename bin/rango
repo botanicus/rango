@@ -4,4 +4,26 @@
 rango_root = File.join(File.dirname(__FILE__), '..')
 
 $: << "#{rango_root}/lib"
-require "#{rango_root}/lib/rango"
+
+def create(stubs_dirs, type, name)
+  dir = stubs_dirs.find { |dir| File.directory?("#{dir}/#{type}") }
+  %x(cp -R "#{dir}/#{type}" #{name})
+  puts "#{type.capitalize} #{name} have been created (used stub from #{dir})."
+end
+
+stubs_dirs = ["#{rango_root}/lib/rango/stubs", "#{ENV["HOME"]}/.rango/stubs"]
+
+case command = ARGV.first
+when "help", "--help", "-h", "-H"
+  puts "=== Usage ==="
+  puts "rango startproject mycoolproject"
+  puts "rango startapp mycoolapp"
+when "startproject"
+  create(stubs_dirs, "project", ARGV[1])
+when "startapp"
+  create(stubs_dirs, "app", ARGV[1])
+when "-i"
+  require "rango"
+else
+  puts "Unknown command: #{command}"
+end
