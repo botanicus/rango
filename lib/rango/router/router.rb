@@ -23,17 +23,20 @@ class Rango
       end
     end
 
+    attribute :routes, Array.new
     def initialize
-      @routes = Array.new
+      self.routes = Array.new
     end
 
-    def match(pattern, &block)
+    # match("kontakt/", :method => "get")
+    def match(pattern, params = Hash.new, &block)
       if pattern.is_a?(String)
         escaped = Regexp::quote(pattern)
         pattern = %r[^#{escaped}]
       end
       route = Route.new
-      route.pattern = pattern
+      route.match_pattern = pattern
+      route.match_params = params
       @routes.push(route)
       return route
     end
@@ -43,6 +46,7 @@ class Rango
     end
 
     def redirect(url)
+      # TODO
     end
 
     def inspect
@@ -51,46 +55,62 @@ class Rango
 
     def find(uri)
       route = @routes.find { |route| route.match?(uri) }
-      route = Error404.new
+      route = Error404.new unless route
+      return route
     end
   end
 
   class Route
-    attribute :pattern
+    # %r[blog/post]
+    attribute :match_pattern
+    # {:method => "get"}
+    attribute :match_params, Hash.new
     attribute :strategy
-    attribute :callable
     attribute :params, Hash.new # FIXME: nemuze to takhle ukazovat pro vsechny routy na stejnej hash?
-    attribute :file
+    # to(Rango.logger.method(:debug)), to("blog/views", "Post#show")
+    attribute :arguments, Array.new
+    # {:page => 1}
+    # will be merged with params
+    attribute :default_params, Hash.new
+    attribute :block
 
     # TODO: full const get
     # to(Rango.logger.method(:debug))
     # => Rango.logger.debug(request, *args)
     # to("Post#show", "blog/views")
     # => Post.new(request).show(*args)
-    def to(callable = nil, file = nil, &block)
-      self.callable = callable || block
-      raise "TODO: write error class" unless self.callable
-      self.file = file
+    def to(*args, &block)
+      self.arguments = args
+      self.block = block
       return self
     end
 
     def call(request)
-      strategy = self.strategy || Router.strategies.find { |strategy| strategy.match?(self) }
+      strategy = self.strategy || Router.strategies.find { |strategy| strategy.match?(request, self.default_params, *self.arguments, &self.block) }
       raise(AnyStrategyMatched) unless strategy
       begin
-        strategy.run(self, request, self.params)
+        params = self.default_params.merge(self.params)
+        strategy.run(request, params, *self.arguments, &self.block)
       rescue Exception => exception
-        # TODO: how to get superclass
-        if exception.superclass.eql?(Rango::ControllerException)
+        if exception.class.superclass.eql?(Rango::ControllerExceptions)
           raise exception
         else
-          raise Error500.new(exception)
+          Project.logger.exception(exception)
+          Project.logger.debug("strategy: #{strategy.inspect}")
+          Project.logger.debug("route: #{self.inspect}")
+          # raise Error500.new(exception)
+          Error500.new(exception).call(request)
         end
       end
     end
+    
+    # default(:page => 1)
+    def default(params)
+      self.default_params = params
+    end
 
     def match?(uri)
-      data = uri.match(@pattern)
+      data = uri.match(@match_pattern)
       unless data.nil?
         data.names.each { |argument| self.params[argument.to_sym] = data[argument] }
       end
@@ -98,7 +118,3 @@ class Rango
     end
   end
 end
-
-# TODO: user should register strategies
-Rango::ControllerStrategy.new.register
-Rango::CallableStrategy.new.register
