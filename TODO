@@ -1,40 +1,131 @@
-=== Initialization ===
-rango logger's methods as debug etc should returns (not colored) messages, so it will be possible to route requests to them directly through match(/foo/).to(Rango.logger.method(:debug))
+=== Rango 0.1: Miracle born ===
+Full README & inline documentation
+spec Rango & write rango spec tasks
+refactoring of error handling
+404, 500 HTML output (with backtraces/routes, at least some CSS)
+(logger) general, safe solution for filtering backtraces (maybe settings: filter_backtraces: true/false, filter_backtraces_pattern: regexp)
 
+=== Rango 0.2: ===
+=> Requests handling, settings, router, logging.
+settings: logger options
+log to file
 router:
+	- redirect
   - placeholders
   - unnamed args
   - 404 & 500 errors
+	- match(:domain => "somecooldomain.com").to(:controller => "main").name(:main)
+	- :subdomain => /regexp/
+	- defer_to
+	- include
+	with(:controller => "static") do
+    match("/kontakt") do
+      to(:action => "contact")
+    end
+  end
+	
+=== Rango 0.3 ===
+=> Documentation & tasks, testing
+Thor 1.9 compatible
+update task for all the thor classes (thor pupu:selfupdate)
+thor stats for projects
+cucumber adapter
+rspec adapter
+spec: should have_xpath, have_selector, match etc
+thor spec:features
+thor spec:models
+thor spec:coverage (rcov)
+autotest, autospec
+factories
 
-setttings:
-  - plugins
+=== Rango 0.4 ===
+=> 
 
-=== MVC ===
-templates:
-  - extends "base.html"
-  - load foo
-  - escape everything
-  - escape @ in emails
+=== Rango 0.5 ===
 
-generic views
 
-=== Bundling ===
+=== Rango 0.6 ===
+=> Exceptions
+raise PostNotFound unless @post => route to Exceptions or what?
+
+=== Rango 0.7 ===
+=> rack
+static content serving
+files uploading
+middlewares
+registering mime types
+etag, last modified middleware
+http://wiki.merbivore.com/deployment/haproxy
+auth
+cache
+
+=== Rango 0.8 ===
+=> Bundling
+possibility how to run without rubygems (microgems?)
+GemDependencyStrategy
 pupu
+install from GH
+bundlovani: na serveru chceme jine gemy nez na lokalhostu, ale bundlovat chceme vsechny (gems/development maybe)
+what about git submodules?
 
-bundling:
-  - install from GH
+=== Rango 0.9 ===
+=> templates
+- extends "base.html"
+- load foo
+- escape everything
+- escape @ in emails
+"provides" API for handling mime-types as in merb?
+router resources? if so, then with translation
+profiling, benchmarking (test oproti merb, rails, django, sinatra)
+# TODO: parse backtrace (another color for path, another for line and method)
+# TODO: maybe relative paths for project files will be better
 
-=== General ===
-rdoc comments style (yardoc?)
+=== Rango 0.9 ===
+=> MVC
+render & display: automatically find template
+redirect
+flash messages
+views helpers
+filters, skipping filters
+error_messages_for
+plugins can add new stubs (for controller etc)
+
+=== Rango 1.0 ===
+=> refactoring, respecing, redocumenting
+support: TM bundle
+mailer
+forms? something like Django forms?
 
 === Later ===
-m17n
+generic views
 merb messenger-like notifications
+http://debu.gs/live-console
+m17n
+contrib:
+	autoadmin
+	comments
+	flatpages
+	exceptions notifications (=> email)
 
-middleware:
-  - as in Django
+=== Initialization ===
+cookies, sessions
+setttings:
+  - plugins
+fireruby logger adapter
 
-server:
-  - threads
-  - worker
-  - middleware
+=== Small tasks ===
+Increase version: change version in gemspec, gems to rubyforge
+setup.rb uninstall
+install task for
+RubyForge project
+Read about RubyGems options http://rubygems.org/read/chapter/20
+diff configuration (global vs. mine, anyone else vs. mine)
+use symbol#to_proc
+
+yardoc:
+- syntax off for shell commands
+- examples: not use <pre>, do not escape characters here, enable usage of comments, options keys
+- what is just optional argument
+- array of string etc
+
+Rango.boot => runner
