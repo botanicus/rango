@@ -1,0 +1,4 @@
+require "rango/tasks/generator.thor"
+require "rango/tasks/bundle.thor"
+
+# add your tasks to the tasks directory and give them ".thor" suffix
