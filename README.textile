@@ -11,3 +11,11 @@ You can optinally install term-ansicolor gem for colored logger messages.
 h1. Usage
 
 thin start -R config.ru
+
+h1. Writing plugins
+
+<pre>
+class Rango::Plugin::MyPlugin
+  include Rango::Settings
+end
+</pre>

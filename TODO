@@ -1,14 +1,23 @@
 === Initialization ===
-reloading of changed files
+rango logger's methods as debug etc should returns (not colored) messages, so it will be possible to route requests to them directly through match(/foo/).to(Rango.logger.method(:debug))
+
+== Logging ==
+more arguments: Project.logger.debug(*args)
+
+router:
+  - placeholders
+  - unnamed args
+  - 404 & 500 errors
+
 setttings:
-	- plugins
+  - plugins
 
 === MVC ===
 templates:
-	- extends "base.html"
-	- load foo
-	- escape everything
-	- escape @ in emails
+  - extends "base.html"
+  - load foo
+  - escape everything
+  - escape @ in emails
 
 generic views
 
@@ -16,7 +25,7 @@ generic views
 pupu
 
 bundling:
-	- install from GH
+  - install from GH
 
 === General ===
 rdoc comments style (yardoc?)
@@ -26,9 +35,9 @@ m17n
 merb messenger-like notifications
 
 middleware:
-	- as in Django
+  - as in Django
 
 server:
-	- threads
-	- worker
-	- middleware
+  - threads
+  - worker
+  - middleware
