@@ -1,9 +1,6 @@
 === Initialization ===
 rango logger's methods as debug etc should returns (not colored) messages, so it will be possible to route requests to them directly through match(/foo/).to(Rango.logger.method(:debug))
 
-== Logging ==
-more arguments: Project.logger.debug(*args)
-
 router:
   - placeholders
   - unnamed args

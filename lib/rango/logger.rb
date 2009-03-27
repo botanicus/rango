@@ -1,7 +1,6 @@
 require "logger"
 
-# TODO: dedit z loggeru, napsat lepe, moznost ovlivnovat konfiguraci
-# TODO: logger.debug("watch this:", @object)
+# TODO: moznost ovlivnovat konfiguraci
 # TODO: logger.debug(object: @object)
 
 class Rango
@@ -25,6 +24,39 @@ class Rango
           STDERR.puts("- #{line.colorize.cyan}")
         end
       end
+    end
+
+    # Logger methods can takes more arguments and they returns array with arguments
+    # NOTE: why we dup args each time? Because we colorize messages, but if logger method
+    # is used for handling requests, we just need to send noncolored messages as response.
+    def debug(*args)
+      original = args.dup
+      args.map { |arg| super(arg) }
+      return original
+    end
+    
+    def info(*args)
+      original = args.dup
+      args.map { |arg| super(arg) }
+      return original
+    end
+    
+    def warn(*args)
+      original = args.dup
+      args.map { |arg| super(arg) }
+      return original
+    end
+    
+    def error(*args)
+      original = args.dup
+      args.map { |arg| super(arg) }
+      return original
+    end
+    
+    def fatal(*args)
+      original = args.dup
+      args.map { |arg| super(arg) }
+      return original
     end
     
     # Project.logger.inspect(@posts, item)
