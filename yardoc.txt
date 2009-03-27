@@ -1,0 +1,38 @@
+=== Useful ===
+# @param [Types] name Description
+# @param [String, #read] Should respond to read method
+Allows for the definition of a method parameter with optional type information.
+
+# @yieldparam [Types] name Description
+Allows for the definition of a method parameter to a yield block with optional type information.
+
+# @yield [paramnames] Description
+Allows the developer to document the purpose of a yield block in a method.
+
+# @return [Types] Description
+Describes what the method returns with optional type information.
+
+# @raise [Class] Description
+Tells the developer that the method may raise an exception and of what type.
+
+# @see name
+References another object, URL, or other for extra information.
+
+# @since number
+Lists the version number in which the object first appeared.
+
+# @version number
+Lists the current version of the documentation for the object.
+
+=== Less useful at the moment ===
+# @author name
+The authors responsible for the module
+=> At the moment I'm the author of the whole Rango
+
+# @deprecated Description
+Informs the developer that a method is deprecated and should no longer be used. The description offers the developer an alternative solution or method for the problem.
+=> deprecations will be used from Rango 1.0
+
+Textile: http://hobix.com/textile
+Yard: http://github.com/lsegal/yard
+RDoc: http://rdoc.sourceforge.net/doc/files/README.html
