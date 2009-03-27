@@ -19,10 +19,11 @@ try_require "term/ansicolor", "term-ansicolor"
 class String
   def colorize
     return self unless defined?(Term)
-    class << self
+    message = self.dup # otherwise it can try to modify frozen string
+    class << message
       include Term::ANSIColor
     end
-    return self
+    return message
   end
 end
 
