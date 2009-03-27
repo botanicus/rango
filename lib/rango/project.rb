@@ -10,7 +10,7 @@ class Project
     attribute :router
 
     def logger
-      Rango::Logger.new.logger
+      Rango::Logger.new
     end
 
     def import(path, options = Hash.new)

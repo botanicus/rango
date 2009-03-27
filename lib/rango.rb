@@ -15,7 +15,7 @@ class Rango
     end
 
     def logger
-      Rango::Logger.new.logger
+      Rango::Logger.new
     end
 
     # Rango.import("router")
@@ -39,10 +39,7 @@ begin
 rescue Exception => exception
   # TODO: parse backtrace (another color for path, another for line and method)
   # TODO: maybe relative paths for project files will be better
-  Rango.logger.error(exception.message)
-  exception.backtrace.each do |line|
-    puts "- #{line.colorize.cyan}"
-  end
+  Rango.logger.exception(exception)
 end
 
 # irb
