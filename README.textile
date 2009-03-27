@@ -1,16 +1,143 @@
-h1. About
+h1. Why Rango?
 
-Rango is ultralightweight, ultracustomizable, ultracool web framework deeply inspired by Django.
+The problem of the big Ruby frameworks as Ruby on Rails or Merb is that they *are trying to solve everything*. They are solving threading, communication with webserver and similar things. Nor Rango. Rango is just web framework. It's up to you to configure your server cluster and get it working with it. It's much less confusing, because user exactly knows what
+
+And not just that – while we care about just the web framework stuff, Rango is *really small* and has *very readable code*. Have you ever read Rails sources? Felt confused? I did. But not with Rango.
+
+Rango redefined the meaning of word *customizable*. Merb told he is customizable, but was he? Could you include one router to another? Or route request directly to callable object? Or just ship your plugins with default templates? No problem in Rango.
+
+Rango also *performs very well*. It works just with Ruby 1.9 which is already pretty fast and Rango itself is really lightweight and nearly doesn't use magical methods as method_missing.
+
+One of the greatest thing about Rango is that it comes with *"Pupu":http://github.com/botanicus/pupu/tree/master integration*. Pupu is framework for writing assets plugins and there are already bundled many of useful javascript libraries and frameworks. You like MooTools, ya? Just run @thor pupu:install mootools@ and you're done!
 
 h1. Installation
 
-Rango requires Ruby 1.9, Ruby 1.8 isn't supported.
+Rango requires Ruby 1.9, _Ruby 1.8 isn't supported_. While we use many of 1.9 features, there is no way how to play well with 1.8.
 
-You can optinally install term-ansicolor gem for colored logger messages.
+You will need a rack-compatible webserver. Thin works fine.
+
+h2. RubyGems
+
+Download the sources and run @thor gem:install@ here. Althought we are using Ruby 1.9, thor at the moment doesn't work with 1.9, so you must run thor binary with Ruby 1.8.
+
+h2. System-wide installation
+
+Download the sources and run @ruby setup.rb@ here.
+
+h1. Documentation
+
+Run @thor yardoc:generate@ in the sources directory and open doc/index.html in your browser. You will need to have "Yard":http://github.com/lsegal/yard installed.
 
 h1. Usage
 
+<pre>
+# first of all we need to generate project (the whole site)
+rango starproject 101ideas.cz
+cd 101ideas.cz
+
+# project can contains one or many applications
+# application can be blog, forum, static pages, admin
+rango startapp blog
+
+# and finally run webserver
 thin start -R config.ru
+
+# or live console if you like to inspect your code
+rango -i
+</pre>
+
+h1. Boot
+
+h1. Init file @init.rb@
+
+h1. Configuration
+
+Main configuration is in file @settings.rb@
+
+h1. Router
+
+h2. Matching URL
+
+You can match *regexp or string*. String will be matched as be matched as @/^url/@. When you use regexp you also can match parts of URL which will be available in request params hash. These arguments can be *positional or named*. Positional arguments are simply groups in regexp as @%r[/post/(\w+)]@. "Named regexps groups":http://pragdave.blogs.pragprog.com/pragdave/2008/10/fun-with-ruby-19-regular-expressions.html are new feature of Ruby 1.9 and it's syntax is @(?<name>pattern)@, for example @%r[/post/(?<slug>.+)$/]@
+
+<pre>
+"post/foo-bar".match(%r[^post/(?<slug>.+)$])
+# => #<MatchData "post/foo-bar" slug:"foo-bar">
+</pre>
+
+h2. Strategies
+
+h3. ControllerStrategy
+
+<pre>
+match(%r[^/(?<slug>.+)$]).to("Post#show", "blog/views")
+will require or load (depends on Project.settings.debug) "blog/views"
+and then creates new instance of Post and call show method this way:
+controller = Post.new(request, params)
+controller.show(slug)
+</pre>
+
+h3. CallableStrategy
+
+<pre>
+match(/.*/).to(Rango.logger.method(:debug))
+</pre>
+
+h2. Returned value
+
+Returned value must be ....
+
+<pre>
+# coding=utf-8
+
+Rango::Router.register do
+  match("admin/").include('admin/urls.rb')
+  # match regexp, positional argument
+  match(%r[post/(.+)/$]).to('Posts#show', 'blog/views')
+  # match regexp, named argument
+  match(%r[^/post/(?<slug>.+)$]).to('blog/views', 'Posts#show')
+  match("/kontakt").to(Rango.logger.method(:debug))
+  match("/kontakt").to do |request|
+    Project.logger.debug("Huraaa!")
+    "Huraaa!"
+  end
+  match(%r[^/(?<slug>.+)$]).to(Rango.logger.method(:debug))
+  match("block/").to do |request|
+    "<h1>hello from block!</h1>"
+  end
+end
+</pre>
+
+h1. Pupu
+
+"Pupu":http://github.com/botanicus/pupu/tree/master is framework for writing assets plugins and there are already bundled many of useful javascript libraries and frameworks. It can handle dependencies.
+
+h2. CLI usage
+
+<pre>
+# install autocompleter and its dependencies from my github repo
+thor pupu:install botanicus/mootools
+
+# or uninstall, it's the same
+thor pupu:remove mootools
+
+# list all installed pupus
+thor pupu:list
+</pre>
+
+h2. Usage in templates
+
+<pre>
+= pupu :mootools, :more => true
+= pupu :autocompleter, :type => "request"
+= pupu :blueprint
+</pre>
+
+If you like to write your own pupu, please read "Pupu README":http://github.com/botanicus/pupu/tree/master
+
+h1. Generators
+
+Rango is simple so we don't need to generate much code, so there are just two generators: project generator and application generator. The only thing they do is that they copy @lib/stubs/project@, resp. @lib/stubs/app@ to current directory. If you like to use your own stubs, just create @~/.rango/stubs@ with @project@ and/or @app@ directories and fill them with your files.
 
 h1. Writing plugins
 
@@ -19,3 +146,7 @@ class Rango::Plugin::MyPlugin
   include Rango::Settings
 end
 </pre>
+
+h1. Deployment
+
+Rango application is classic rack application, so it can be deployed to all of the rack-compatible server. I recommend Apache with Passenger.
