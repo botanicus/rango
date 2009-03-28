@@ -16,6 +16,8 @@ Rango requires Ruby 1.9, _Ruby 1.8 isn't supported_. While we use many of 1.9 fe
 
 You will need a rack-compatible webserver. "Thin":http://github.com/macournoyer/thin works fine.
 
+If you are TextMate user, you can install Rango TextMate bundle from support directory.
+
 h2. RubyGems
 
 Download the sources and run @thor gem:install@ here. Althought we are using Ruby 1.9, thor at the moment doesn't work with 1.9, so you must run thor binary with Ruby 1.8.

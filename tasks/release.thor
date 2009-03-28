@@ -2,9 +2,10 @@ class Release < Thor
   def all(version)
     self.version(version)
     self.doc(version)
-    self.tag(version)
+    self.tmbundle
     Gem.new.package
     self.gems
+    self.tag(version)
   end
 
   def version(version)
@@ -32,5 +33,13 @@ class Release < Thor
   desc "gems", "Propagate the gems to the RubyForge."
   def gems
     # TODO
+  end
+  
+  desc "tmbundle", "Upgrade the TextMate bundle."
+  def tmbundle
+    %x[rm -rf support/Rango.tmbundle]
+    %x[cp -R "#{ENV["HOME"]}/Library/Application\ Support/TextMate/Bundles/Rango.tmbundle" support/]
+    %x[git add support/Rango.tmbundle]
+    %x[git commit support/Rango.tmbundle -m "Updated Rango TextMate bundle."]
   end
 end

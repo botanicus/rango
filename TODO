@@ -32,13 +32,17 @@ raise NotFound unless @post => route to Exceptions or what?
 diff configuration (global vs. mine, anyone else vs. mine)
 
 === Rango 0.3 ===
-=> rack
+=> rack, controllers
 static content serving
 files uploading
 middlewares (see http://wiki.merbivore.com/deployment/haproxy)
 registering mime types
 "provides" API for handling mime-types as in merb?
 cookies, sessions
+render & display: automatically find template
+redirect
+flash messages
+filters, skipping filters
 
 === Rango 0.4 ===
 => templates
@@ -49,13 +53,12 @@ cookies, sessions
 router resources? if so, then with translation
 parse backtrace (another color for path, another for line and method)
 maybe relative paths for project files will be better
+views helpers (error_messages_for etc)
 
 === Rango 0.5 ===
-=> Bundling
+=> Bundling, pupu
 possibility how to run without rubygems (microgems?)
 GemDependencyStrategy, GitDependencyStrategy, SvnDependencyStrategy etc, user can write his own strategies
-pupu
-install from GH
 bundlovani: na serveru chceme jine gemy nez na lokalhostu, ale bundlovat chceme vsechny (gems/development maybe)
 Rango.bundle("do_mysql" "version")
 what about git submodules?
@@ -81,40 +84,25 @@ etag, last modified middleware
 cache
 mailer (merb messenger-like notifications)
 auth
-
 generic views
 contrib:
 	- syndication
 	- flatpages
 
 === Rango 0.8 ===
-=> API for writing plugins
+=> API for writing plugins & profiling & benchmarking & debuging
+fireruby logger adapter
+http://debu.gs/live-console
+plugins can add new stubs (for controller etc)
 profiling, benchmarking (test oproti merb, rails, django, sinatra)
 
 === Rango 0.9 ===
-=> MVC
-render & display: automatically find template
-redirect
-flash messages
-views helpers
-filters, skipping filters
-error_messages_for
-plugins can add new stubs (for controller etc)
+=> m17n
 
 === Rango 1.0 ===
-=> refactoring, respecing, redocumenting
-support: TM bundle
-Error500 in browser just like in TM (txmt://, filter backtraces, show code etc) ... the code should be highlighted if uv is installed
-
-=== Rango 1.1 ===
-=> m17n & fireruby
-fireruby logger adapter
-http://debu.gs/live-console
-
-=== Rango 1.2 ===
 => contrib
-comments
-exceptions notifications (=> email)
-
-=== Rango 1.3 ===
-=> autoadmin
+	autoadmin
+	comments
+	exceptions notifications (=> email)
+=> refactoring, respecing, redocumenting
+Error500 in browser just like in TM (txmt://, filter backtraces, show code etc) ... the code should be highlighted if uv is installed
