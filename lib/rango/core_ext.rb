@@ -1,5 +1,6 @@
 # coding=utf-8
 
+# TODO: spec it
 require File.join(File.dirname(__FILE__), "path")
 
 module Kernel
