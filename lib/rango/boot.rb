@@ -3,6 +3,7 @@
 require "ostruct"
 Rango.import("project")
 Rango.import("router/router")
+Rango.import("request")
 
 # === Boot sequence:
 # 1) logger

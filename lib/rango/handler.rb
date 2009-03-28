@@ -1,5 +1,6 @@
 # coding=utf-8
 
+# TODO: specs
 class Rango::Handler
   # @since 0.0.1
   # @return [String] HTTP status.

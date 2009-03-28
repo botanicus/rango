@@ -1,6 +1,7 @@
 === Common tasks ===
 Full README
 spec Rango
+generate flat app
 yardoc:
 	- syntax off for shell commands
 	- examples: not use <pre>, do not escape characters here, enable usage of comments, options keys
