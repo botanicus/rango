@@ -4,7 +4,7 @@ class Yardoc < Thor
     # template, textile or rdoc or md
     # -t: template [available: default, javadoc]
     # -m: markup style used in documentation [available: textile, markdown, rdoc]
-    %x[yardoc -r README.textile lib/rango.rb lib/rango/**/*.rb -t default]
+    %x[yardoc -r README.textile lib/rango.rb lib/rango/**/*.rb -t default -o doc/head]
   end
   
   desc "clean", "Remove the documentation"

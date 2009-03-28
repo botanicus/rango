@@ -3,6 +3,9 @@
 
 rango_root = File.join(File.dirname(__FILE__), '..')
 
+require "term/ansicolor"
+String.send(:include, Term::ANSIColor)
+
 $: << "#{rango_root}/lib"
 
 def create(stubs_dirs, type, name)
@@ -11,13 +14,21 @@ def create(stubs_dirs, type, name)
   puts "#{type.capitalize} #{name} have been created (used stub from #{dir})."
 end
 
-stubs_dirs = ["#{rango_root}/lib/rango/stubs", "#{ENV["HOME"]}/.rango/stubs"]
+def help(command, description, indentation = 40)
+  indentation = indentation - command.length
+  spaces = " " * indentation
+  STDERR.puts(command + spaces + description)
+end
+
+stubs_dirs = ["#{rango_root}/stubs", "#{ENV["HOME"]}/.rango/stubs"]
 
 case command = ARGV.first
-when "help", "--help", "-h", "-H"
-  puts "=== Usage ==="
-  puts "rango startproject mycoolproject"
-  puts "rango startapp mycoolapp"
+when "help", "--help", "-h", "-H", nil
+  STDERR.puts("=== Usage ===".cyan)
+  help "rango startproject mycoolproject", "Generate new site"
+  help "rango startapp mycoolapp", "Generate new application"
+  help "rango -i", "Start Rango console"
+  exit 1
 when "startproject"
   create(stubs_dirs, "project", ARGV[1])
 when "startapp"

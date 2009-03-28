@@ -8,13 +8,13 @@ Rango redefined the meaning of word *customizable*. Merb told he is customizable
 
 Rango also *performs very well*. It works just with Ruby 1.9 which is already pretty fast and Rango itself is really lightweight and nearly doesn't use magical methods as method_missing.
 
-One of the greatest thing about Rango is that it comes with *"Pupu":http://github.com/botanicus/pupu/tree/master integration*. Pupu is framework for writing assets plugins and there are already bundled many of useful javascript libraries and frameworks. You like MooTools, ya? Just run @thor pupu:install mootools@ and you're done!
+One of the greatest thing about Rango is that it comes with *"Pupu":http://github.com/botanicus/pupu integration*. Pupu is framework for writing assets plugins and there are already bundled many of useful javascript libraries and frameworks. You like MooTools, ya? Just run @thor pupu:install mootools@ and you're done!
 
 h1. Installation
 
 Rango requires Ruby 1.9, _Ruby 1.8 isn't supported_. While we use many of 1.9 features, there is no way how to play well with 1.8.
 
-You will need a rack-compatible webserver. Thin works fine.
+You will need a rack-compatible webserver. "Thin":http://github.com/macournoyer/thin works fine.
 
 h2. RubyGems
 
@@ -27,6 +27,8 @@ Download the sources and run @ruby setup.rb@ here.
 h1. Documentation
 
 Run @thor yardoc:generate@ in the sources directory and open doc/index.html in your browser. You will need to have "Yard":http://github.com/lsegal/yard installed.
+
+You can also check the "Example Rango project":http://github.com/botanicus/rango-example
 
 h1. Usage
 
@@ -110,7 +112,7 @@ end
 
 h1. Pupu
 
-"Pupu":http://github.com/botanicus/pupu/tree/master is framework for writing assets plugins and there are already bundled many of useful javascript libraries and frameworks. It can handle dependencies.
+"Pupu":http://github.com/botanicus/pupu is framework for writing assets plugins and there are already bundled many of useful javascript libraries and frameworks. It can handle dependencies.
 
 h2. CLI usage
 
@@ -133,7 +135,7 @@ h2. Usage in templates
 = pupu :blueprint
 </pre>
 
-If you like to write your own pupu, please read "Pupu README":http://github.com/botanicus/pupu/tree/master
+If you like to write your own pupu, please read "Pupu README":http://github.com/botanicus/pupu
 
 h1. Generators
 
