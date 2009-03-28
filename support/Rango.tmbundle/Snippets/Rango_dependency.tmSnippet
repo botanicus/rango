@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>Rango.dependency "${1:}", :github =&gt; "${2:repo}"</string>
+	<key>name</key>
+	<string>Rango.dependency</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>rd</string>
+	<key>uuid</key>
+	<string>ED6249C5-EEBD-4ACB-B6E3-93A399BB05A5</string>
+</dict>
+</plist>

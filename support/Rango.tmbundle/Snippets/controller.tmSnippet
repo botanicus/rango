@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>class ${1:ControllerName} &lt; Rango::Controller
+  def before
+    # hook runed before method
+  end
+
+  def after
+    # hook runed after method
+  end
+
+  def list
+    display @posts
+  end
+end</string>
+	<key>name</key>
+	<string>controller</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>controller</string>
+	<key>uuid</key>
+	<string>3A4EC7EA-FD5B-4611-BE8F-95D52E22981E</string>
+</dict>
+</plist>

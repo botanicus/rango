@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Rango</string>
+	<key>ordering</key>
+	<array>
+		<string>4F8F9055-7EFB-4ACF-AF0C-527F251E731D</string>
+		<string>A80040DD-2567-4FBB-8C4F-BF9168BB91C9</string>
+		<string>BA3BE8B8-17C6-4BF8-8187-2400F9AB23C0</string>
+		<string>154FF789-DA73-4C56-BF40-F6CE31FC973F</string>
+		<string>9F520D4D-5564-4E68-ADAE-5803803DA262</string>
+		<string>3F6B5A3C-4738-4654-9E73-2F53D2EEF32C</string>
+		<string>D1987F0F-F268-4105-AC4D-5A83EA2DE92A</string>
+		<string>7A5B5DF8-4B24-4850-B15A-777F7F11E447</string>
+		<string>417492C4-53BA-44CF-84DE-9C2EEAA97E06</string>
+		<string>ED6249C5-EEBD-4ACB-B6E3-93A399BB05A5</string>
+		<string>3A4EC7EA-FD5B-4611-BE8F-95D52E22981E</string>
+	</array>
+	<key>uuid</key>
+	<string>77CFA541-7A79-4D0F-BD05-84F9D38379D7</string>
+</dict>
+</plist>
