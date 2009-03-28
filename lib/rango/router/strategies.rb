@@ -1,3 +1,6 @@
+# coding=utf-8
+
+# TODO: documentation
 class Rango
   class RouterStrategy
     def register

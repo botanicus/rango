@@ -1,7 +1,10 @@
+# coding=utf-8
+
+# TODO: documentation
 require "logger"
 
 class Rango
-  class Logger < Logger
+  class Logger < ::Logger
     def initialize(output = STDERR)
       super(output)
       self.setup

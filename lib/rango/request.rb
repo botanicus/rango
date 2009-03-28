@@ -1,3 +1,5 @@
+# coding=utf-8
+
 # Rack env keys (localhost, url /test):
 # SERVER_SOFTWARE: thin 1.0.0 codename That's What She Said
 # rack.input: #<StringIO:0x44cb7c>
@@ -32,32 +34,74 @@
 
 class Rango
   class Request
-    attribute :env, Hash.new # original rack env
+    # @since 0.0.1
+    # @return [Hash] Original Rack environment.
+    attribute :env, Hash.new
+    
+    # @since 0.0.1
+    # @return [Hash] Original Rack environment.
     attribute :headers, Hash.new
+
+    # @since 0.0.1
+    # @example: "cz"
+    # @return [String] Top level domain.
+    attribute :tld
+    
+    # @since 0.0.1
+    # @example: "101ideas.cz"
+    # @return [String] Domain name.
     attribute :domain
+    
+    # TODO: what about user.blog.mysite.com?
+    # @since 0.0.1
+    # @example: "blog"
+    # @return [String] Subdomain name.
     attribute :subdomain
+    
+    # @since 0.0.1
+    # @example: blog/post/rango-released
+    # @return [Hash] Original Rack environment.
     attr_reader :path
 
+    # @since 0.0.1
+    # @param [Hash] env Rack environment.
     def initialize(env)
       @env  = env
-      @path = env["REQUEST_PATH"]
+      # /path will be transformed to path/
+      @path = (env["REQUEST_PATH"][1..-1] + "/").gsub(%r[/+], '/')
       @method = env["REQUEST_METHOD"].downcase
     end
     
+    # @since 0.0.1
+    # @example
+    #   {:message => {:error => "Bad username"}, :method => "post"}
+    # @return [Hash[Symbol => String]] Hash with params from request
     def params
       {:method => @method}
     end
     
-    def post?
-      @method.eql("post")
-    end
-    
+    # @since 0.0.1
+    # @return [Boolean] True if request is HTTP GET.
     def get?
       @method.eql("get")
     end
     
+    # @since 0.0.1
+    # @return [Boolean] True if request is HTTP POST.
+    def post?
+      @method.eql("post")
+    end
+
+    # @since 0.0.1
+    # @return [Boolean] True if request is HTTP HEAD.
     def head?
       @method.eql("head")
+    end
+    
+    # @since 0.0.1
+    # @return [Boolean] True if request is HTTP PUT.
+    def put?
+      @method.eql("put")
     end
   end
 end

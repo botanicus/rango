@@ -1,3 +1,6 @@
+# coding=utf-8
+
+# TODO: documentation
 class SettingsNotFound < StandardError
 end
 

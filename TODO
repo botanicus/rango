@@ -1,15 +1,6 @@
-=== Rango 0.1: Miracle born ===
-Full README & inline documentation
+=== Common tasks ===
+Full README
 spec Rango & write rango spec tasks
-refactoring of error handling
-404, 500 HTML output (with backtraces/routes, at least some CSS)
-Rango.template("404.html")
-(logger) general, safe solution for filtering backtraces (maybe settings: filter_backtraces: true/false, filter_backtraces_pattern: regexp)
-Rango.boot => runner
-installing:
-	- setup.rb uninstall
-	- install task for
-	- Read about RubyGems options http://rubygems.org/read/chapter/20
 yardoc:
 	- syntax off for shell commands
 	- examples: not use <pre>, do not escape characters here, enable usage of comments, options keys
@@ -18,6 +9,7 @@ yardoc:
 
 === Rango 0.2: ===
 => Requests logger, router
+refactoring of error handling
 logger:
 	- settings (where to log - file, STDERR, format)
 router:
@@ -30,6 +22,9 @@ router:
 	- router method default can take blok
 raise NotFound unless @post => route to Exceptions or what?
 diff configuration (global vs. mine, anyone else vs. mine)
+(logger) general, safe solution for filtering backtraces (maybe settings: filter_backtraces: true/false, filter_backtraces_pattern: regexp)
+404, 500 HTML output (with backtraces/routes, at least some CSS)
+Rango.template("404.html")
 
 === Rango 0.3 ===
 => rack, controllers
@@ -105,4 +100,5 @@ profiling, benchmarking (test oproti merb, rails, django, sinatra)
 	comments
 	exceptions notifications (=> email)
 => refactoring, respecing, redocumenting
+http://rubyforge.org/projects/rango
 Error500 in browser just like in TM (txmt://, filter backtraces, show code etc) ... the code should be highlighted if uv is installed

@@ -1,3 +1,5 @@
+# coding=utf-8
+
 module Rango
   class Bundle
     desc 'install', 'install all the runtime dependencies'

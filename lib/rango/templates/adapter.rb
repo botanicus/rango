@@ -1,3 +1,5 @@
+# coding=utf-8
+
 class Rango::Template
   class Adapter
     def proceed(io)

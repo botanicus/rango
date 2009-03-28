@@ -24,7 +24,7 @@ Download the sources and run @thor gem:install@ here. Althought we are using Rub
 
 h2. System-wide installation
 
-Download the sources and run @ruby setup.rb@ here.
+First you must get the setup.rb command: @sudo gem install setup@. Then download the sources and run @setup.rb install@ here. If you will need to uninstall it later, just run @setup.rb uninstall@ again from sources directory, or manually delete rango and rango.rb from site_ruby and rango executable.
 
 h1. Documentation
 
@@ -51,6 +51,16 @@ rango -i
 </pre>
 
 h1. Boot
+
+Rango.boot
+
+h1. Flat applications
+
+<pre>
+Rango.boot(:flat => true)
+</pre>
+
+@thin start -R flat.rb@
 
 h1. Init file @init.rb@
 
@@ -84,7 +94,10 @@ controller.show(slug)
 h3. CallableStrategy
 
 <pre>
-match(/.*/).to(Rango.logger.method(:debug))
+match(/.*/).to do |request|
+	Rango.logger.debug(request)
+	"Logged" # will be returned as response
+end
 </pre>
 
 h2. Returned value
@@ -100,12 +113,12 @@ Rango::Router.register do
   match(%r[post/(.+)/$]).to('Posts#show', 'blog/views')
   # match regexp, named argument
   match(%r[^/post/(?<slug>.+)$]).to('blog/views', 'Posts#show')
-  match("/kontakt").to(Rango.logger.method(:debug))
+  match("/kontakt").to(method(:foo))
   match("/kontakt").to do |request|
     Project.logger.debug("Huraaa!")
     "Huraaa!"
   end
-  match(%r[^/(?<slug>.+)$]).to(Rango.logger.method(:debug))
+  match(%r[^/(?<slug>.+)$]).to(method(:foo))
   match("block/").to do |request|
     "<h1>hello from block!</h1>"
   end
@@ -150,6 +163,10 @@ class Rango::Plugin::MyPlugin
   include Rango::Settings
 end
 </pre>
+
+h1. Contributing
+
+Please follow Rango documentation standard.
 
 h1. Deployment
 

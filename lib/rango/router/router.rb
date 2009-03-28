@@ -1,4 +1,7 @@
+# coding=utf-8
+
 # TODO: includes
+# TODO: documentation
 
 Rango.import("router/strategies")
 

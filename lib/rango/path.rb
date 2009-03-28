@@ -1,3 +1,6 @@
+# coding=utf-8
+
+# TODO: documentation
 # TODO: copy it's spec file
 class Path
   attr_reader :absolute

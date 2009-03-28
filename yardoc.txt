@@ -1,6 +1,13 @@
+@example
+@note
+@future
+
 === Useful ===
 # @param [Types] name Description
 # @param [String, #read] Should respond to read method
+# @param [String, @optional] *args
+# @param [Array[String], Hash[:verbose => Boolean]] *args Can be array of strings or hash with key :verbose
+# @param [Hash[:soft => Boolean, :verbose => Boolean]]
 Allows for the definition of a method parameter with optional type information.
 
 # @yieldparam [Types] name Description
@@ -36,3 +43,4 @@ Informs the developer that a method is deprecated and should no longer be used. 
 Textile: http://hobix.com/textile
 Yard: http://github.com/lsegal/yard
 RDoc: http://rdoc.sourceforge.net/doc/files/README.html
+Merb documentation standard: http://merbivore.com/contribute.html

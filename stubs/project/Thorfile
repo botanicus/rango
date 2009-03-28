@@ -1,3 +1,5 @@
+# coding=utf-8
+
 require "rango/tasks/generator.thor"
 require "rango/tasks/bundle.thor"
 
