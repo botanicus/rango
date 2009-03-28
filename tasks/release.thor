@@ -29,7 +29,7 @@ class Release < Thor
 
   desc "tag", "Create Git tag for this version and push it to GitHub."
   def tag
-    puts "Creating new git tag and pushing it online ..."
+    puts "Creating new git tag #{Rango.version} with description #{Rango.codename} and pushing it online ..."
     %x[git tag -a -m 'Version #{Rango.version} "#{Rango.codename}"' #{Rango.version}]
     %x[git push --tags]
     puts "Tag #{Rango.version} was created and pushed to GitHub."
