@@ -1,17 +1,25 @@
 specroot = File.join(File.dirname(__FILE__), "..")
 require File.join(specroot, "spec_helper")
 
-describe Rango::Controller do
-  it "should respond to request" do
-    Rango.should respond_to(:request)
+describe Rango::Settings do
+  before(:each) do
+    @settings = Rango::Settings::Framework.new
   end
   
-  it "should respond to params" do
-    Rango.should respond_to(:params)
+  it "should can merge one settings with another" do
+    # TODO
   end
   
-  it "should have logger" do
-    Rango.should respond_to(:logger)
-    Rango.logger.should eql(Project.logger)
+  it "should can merge! one settings with another" do
+    # TODO
+  end
+  
+  it "should log message if anyone tries to write nonexisting property" do
+    # TODO
+    @settings.foobar = "something"
+  end
+  
+  describe Rango::Settings::Framework do
+    # TODO
   end
 end

@@ -32,6 +32,7 @@
 # SCRIPT_NAME: 
 # REMOTE_ADDR: 127.0.0.1
 
+# TODO: specs
 class Rango
   class Request
     # @since 0.0.1
