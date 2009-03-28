@@ -1,6 +1,7 @@
 # coding=utf-8
 
 # TODO: documentation
+# TODO: specs
 class SettingsNotFound < StandardError
 end
 

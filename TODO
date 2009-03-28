@@ -1,6 +1,6 @@
 === Common tasks ===
 Full README
-spec Rango & write rango spec tasks
+spec Rango
 yardoc:
 	- syntax off for shell commands
 	- examples: not use <pre>, do not escape characters here, enable usage of comments, options keys
