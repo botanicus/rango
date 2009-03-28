@@ -1,17 +1,45 @@
 specroot = File.join(File.dirname(__FILE__), "..")
 require File.join(specroot, "spec_helper")
 
-describe Rango::Controller do
-  it "should respond to request" do
-    Rango.should respond_to(:request)
+describe Project do
+  it "should have root" do
+    Project.should respond_to(:root)
+    Project.root.should be_kind_of(String)
   end
   
-  it "should respond to params" do
-    Rango.should respond_to(:params)
+  it "should have path which is similar as root, but it is Path, not String" do
+    Project.should respond_to(:path)
+    Project.path.should be_kind_of(Path)
+  end
+  
+  it "should respond to name" do
+    Project.should respond_to(:name)
+    Project.name.should eql("rango") # it's derived from Dir.pwd
+  end
+  
+  it "should have settings" do
+    Project.should respond_to(:settings)
+    Project.root.should be_kind_of(Rango::Settings::Framework)
+  end
+  
+  it "should have router" do
+    Project.should respond_to(:router)
   end
   
   it "should have logger" do
-    Rango.should respond_to(:logger)
-    Rango.logger.should eql(Project.logger)
+    Project.should respond_to(:logger)
+    Project.root.should be_kind_of(Rango::Logger)
+  end
+  
+  describe ".import" do
+    # TODO
+  end
+  
+  describe ".import!" do
+    # TODO
+  end
+  
+  describe ".configure" do
+    # TODO
   end
 end
