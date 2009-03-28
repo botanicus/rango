@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="style.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="syntax_highlight.css" type="text/css" charset="utf-8" />
+
+    <title>README</title>
+  </head>
+  <body>
+    <div id="content">
+      <div class="section docstring readme">
+        <h1>Why Rango?</h1>
+<p>The problem of the big Ruby frameworks as Ruby on Rails or Merb is that they <strong>are trying to solve everything</strong>. They are solving threading, communication with webserver and similar things. Nor Rango. Rango is just web framework. It&#8217;s up to you to configure your server cluster and get it working with it. It&#8217;s much less confusing, because user exactly knows what</p>
+<p>And not just that – while we care about just the web framework stuff, Rango is <strong>really small</strong> and has <strong>very readable code</strong>. Have you ever read Rails sources? Felt confused? I did. But not with Rango.</p>
+<p>Rango redefined the meaning of word <strong>customizable</strong>. Merb told he is customizable, but was he? Could you include one router to another? Or route request directly to callable object? Or just ship your plugins with default templates? No problem in Rango.</p>
+<p>Rango also <strong>performs very well</strong>. It works just with Ruby 1.9 which is already pretty fast and Rango itself is really lightweight and nearly doesn&#8217;t use magical methods as method_missing.</p>
+<p>One of the greatest thing about Rango is that it comes with <strong><a href="http://github.com/botanicus/pupu">Pupu</a> integration</strong>. Pupu is framework for writing assets plugins and there are already bundled many of useful javascript libraries and frameworks. You like MooTools, ya? Just run <code>thor pupu:install mootools</code> and you&#8217;re done!</p>
+<h1>Installation</h1>
+<p>Rango requires Ruby 1.9, <em>Ruby 1.8 isn&#8217;t supported</em>. While we use many of 1.9 features, there is no way how to play well with 1.8.</p>
+<p>You will need a rack-compatible webserver. <a href="http://github.com/macournoyer/thin">Thin</a> works fine.</p>
+<p>If you are TextMate user, you can install Rango TextMate bundle from support directory.</p>
+<h2>RubyGems</h2>
+<p>Download the sources and run <code>thor gem:install</code> here. Althought we are using Ruby 1.9, thor at the moment doesn&#8217;t work with 1.9, so you must run thor binary with Ruby 1.8.</p>
+<h2>System-wide installation</h2>
+<p>First you must get the setup.rb command: <code>sudo gem install setup</code>. Then download the sources and run <code>setup.rb install</code> here. If you will need to uninstall it later, just run <code>setup.rb uninstall</code> again from sources directory, or manually delete rango and rango.rb from site_ruby and rango executable.</p>
+<h1>Documentation</h1>
+<p>Run <code>thor yardoc:generate</code> in the sources directory and open doc/index.html in your browser. You will need to have <a href="http://github.com/lsegal/yard">Yard</a> installed.</p>
+<p>You can also check the <a href="http://github.com/botanicus/rango-example">Example Rango project</a></p>
+<h1>Usage</h1>
+<pre class="code">
+<span class='comment val'># first of all we need to generate project (the whole site)</span>
+<span class='rango identifier id'>rango</span> <span class='starproject identifier id'>starproject</span> <span class='integer val'>101</span><span class='ideas identifier id'>ideas</span><span class='dot token'>.</span><span class='cz identifier id'>cz</span>
+<span class='cd identifier id'>cd</span> <span class='integer val'>101</span><span class='ideas identifier id'>ideas</span><span class='dot token'>.</span><span class='cz identifier id'>cz</span>
+
+<span class='comment val'># project can contains one or many applications</span>
+<span class='comment val'># application can be blog, forum, static pages, admin</span>
+<span class='rango identifier id'>rango</span> <span class='startapp identifier id'>startapp</span> <span class='blog identifier id'>blog</span>
+
+<span class='comment val'># and finally run webserver</span>
+<span class='thin identifier id'>thin</span> <span class='start identifier id'>start</span> <span class='minus op'>-</span><span class='R constant id'>R</span> <span class='config identifier id'>config</span><span class='dot token'>.</span><span class='ru identifier id'>ru</span>
+
+<span class='comment val'># or live console if you like to inspect your code</span>
+<span class='rango identifier id'>rango</span> <span class='minus op'>-</span><span class='i identifier id'>i</span>
+</pre>
+<h1>Boot</h1>
+<p>Rango.boot</p>
+<h1>Flat applications</h1>
+<pre class="code">
+<span class='Rango constant id'>Rango</span><span class='dot token'>.</span><span class='boot identifier id'>boot</span><span class='lparen token'>(</span><span class='symbol val'>:flat</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='true true kw'>true</span><span class='rparen token'>)</span>
+</pre>
+<p><code>thin start -R flat.rb</code></p>
+<h1>Init file <code>init.rb</code></h1>
+<h1>Configuration</h1>
+<p>Main configuration is in file <code>settings.rb</code></p>
+<h1>Router</h1>
+<h2>Matching <span class="caps">URL</span></h2>
+<p>You can match <strong>regexp or string</strong>. String will be matched as be matched as <code>/^url/</code>. When you use regexp you also can match parts of <span class="caps">URL</span> which will be available in request params hash. These arguments can be <strong>positional or named</strong>. Positional arguments are simply groups in regexp as <code>%r[/post/(\w+)]</code>. <a href="http://pragdave.blogs.pragprog.com/pragdave/2008/10/fun-with-ruby-19-regular-expressions.html">Named regexps groups</a> are new feature of Ruby 1.9 and it&#8217;s syntax is <code>(?&lt;name&gt;pattern)</code>, for example <code>%r[/post/(?&lt;slug&gt;.+)$/]</code></p>
+<pre class="code">
+<span class='string val'>&quot;post/foo-bar&quot;</span><span class='dot token'>.</span><span class='match identifier id'>match</span><span class='lparen token'>(</span><span class='regexp val'>%r[^post/(?&lt;slug&gt;.+)$]</span><span class='rparen token'>)</span>
+<span class='comment val'># =&gt; #&lt;MatchData &quot;post/foo-bar&quot; slug:&quot;foo-bar&quot;&gt;</span>
+</pre>
+<h2>Strategies</h2>
+<h3>ControllerStrategy</h3>
+<pre class="code">
+<span class='match identifier id'>match</span><span class='lparen token'>(</span><span class='regexp val'>%r[^/(?&lt;slug&gt;.+)$]</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='to identifier id'>to</span><span class='lparen token'>(</span><span class='string val'>&quot;Post#show&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;blog/views&quot;</span><span class='rparen token'>)</span>
+<span class='will identifier id'>will</span> <span class='require identifier id'>require</span> <span class='or or kw'>or</span> <span class='load identifier id'>load</span> <span class='lparen token'>(</span><span class='depends identifier id'>depends</span> <span class='on identifier id'>on</span> <span class='Project constant id'>Project</span><span class='dot token'>.</span><span class='settings identifier id'>settings</span><span class='dot token'>.</span><span class='debug identifier id'>debug</span><span class='rparen token'>)</span> <span class='string val'>&quot;blog/views&quot;</span>
+<span class='and and kw'>and</span> <span class='then then kw'>then</span> <span class='creates identifier id'>creates</span> <span class='new identifier id'>new</span> <span class='instance identifier id'>instance</span> <span class='of identifier id'>of</span> <span class='Post constant id'>Post</span> <span class='and and kw'>and</span> <span class='call identifier id'>call</span> <span class='show identifier id'>show</span> <span class='method identifier id'>method</span> <span class='this identifier id'>this</span> <span class='way identifier id'>way</span><span class='colon op'>:</span>
+<span class='controller identifier id'>controller</span> <span class='assign token'>=</span> <span class='Post constant id'>Post</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='request identifier id'>request</span><span class='comma token'>,</span> <span class='params identifier id'>params</span><span class='rparen token'>)</span>
+<span class='controller identifier id'>controller</span><span class='dot token'>.</span><span class='show identifier id'>show</span><span class='lparen token'>(</span><span class='slug identifier id'>slug</span><span class='rparen token'>)</span>
+</pre>
+<h3>CallableStrategy</h3>
+<pre class="code">
+<span class='match identifier id'>match</span><span class='lparen token'>(</span><span class='regexp val'>/.*/</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='to identifier id'>to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='request identifier id'>request</span><span class='bitor op'>|</span>
+  <span class='Rango constant id'>Rango</span><span class='dot token'>.</span><span class='logger identifier id'>logger</span><span class='dot token'>.</span><span class='debug identifier id'>debug</span><span class='lparen token'>(</span><span class='request identifier id'>request</span><span class='rparen token'>)</span>
+  <span class='string val'>&quot;Logged&quot;</span> <span class='comment val'># will be returned as response</span>
+<span class='end end kw'>end</span>
+</pre>
+<h2>Returned value</h2>
+<p>Returned value must be &#8230;.</p>
+<pre class="code">
+<span class='comment val'># coding=utf-8</span>
+
+<span class='Rango constant id'>Rango</span><span class='colon2 op'>::</span><span class='Router constant id'>Router</span><span class='dot token'>.</span><span class='register identifier id'>register</span> <span class='do do kw'>do</span>
+  <span class='match identifier id'>match</span><span class='lparen token'>(</span><span class='string val'>&quot;admin/&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='include identifier id'>include</span><span class='lparen token'>(</span><span class='string val'>'admin/urls.rb'</span><span class='rparen token'>)</span>
+  <span class='comment val'># match regexp, positional argument</span>
+  <span class='match identifier id'>match</span><span class='lparen token'>(</span><span class='regexp val'>%r[post/(.+)/$]</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='to identifier id'>to</span><span class='lparen token'>(</span><span class='string val'>'Posts#show'</span><span class='comma token'>,</span> <span class='string val'>'blog/views'</span><span class='rparen token'>)</span>
+  <span class='comment val'># match regexp, named argument</span>
+  <span class='match identifier id'>match</span><span class='lparen token'>(</span><span class='regexp val'>%r[^/post/(?&lt;slug&gt;.+)$]</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='to identifier id'>to</span><span class='lparen token'>(</span><span class='string val'>'blog/views'</span><span class='comma token'>,</span> <span class='string val'>'Posts#show'</span><span class='rparen token'>)</span>
+  <span class='match identifier id'>match</span><span class='lparen token'>(</span><span class='string val'>&quot;/kontakt&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='to identifier id'>to</span><span class='lparen token'>(</span><span class='method identifier id'>method</span><span class='lparen token'>(</span><span class='symbol val'>:foo</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+  <span class='match identifier id'>match</span><span class='lparen token'>(</span><span class='string val'>&quot;/kontakt&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='to identifier id'>to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='request identifier id'>request</span><span class='bitor op'>|</span>
+    <span class='Project constant id'>Project</span><span class='dot token'>.</span><span class='logger identifier id'>logger</span><span class='dot token'>.</span><span class='debug identifier id'>debug</span><span class='lparen token'>(</span><span class='string val'>&quot;Huraaa!&quot;</span><span class='rparen token'>)</span>
+    <span class='string val'>&quot;Huraaa!&quot;</span>
+  <span class='end end kw'>end</span>
+  <span class='match identifier id'>match</span><span class='lparen token'>(</span><span class='regexp val'>%r[^/(?&lt;slug&gt;.+)$]</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='to identifier id'>to</span><span class='lparen token'>(</span><span class='method identifier id'>method</span><span class='lparen token'>(</span><span class='symbol val'>:foo</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+  <span class='match identifier id'>match</span><span class='lparen token'>(</span><span class='string val'>&quot;block/&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='to identifier id'>to</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='request identifier id'>request</span><span class='bitor op'>|</span>
+    <span class='string val'>&quot;&lt;h1&gt;hello from block!&lt;/h1&gt;&quot;</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+<h1>Pupu</h1>
+<p><a href="http://github.com/botanicus/pupu">Pupu</a> is framework for writing assets plugins and there are already bundled many of useful javascript libraries and frameworks. It can handle dependencies.</p>
+<h2><span class="caps">CLI</span> usage</h2>
+<pre class="code">
+<span class='comment val'># install autocompleter and its dependencies from my github repo</span>
+<span class='thor identifier id'>thor</span> <span class='pupu identifier id'>pupu</span><span class='symbol val'>:install</span> <span class='botanicus identifier id'>botanicus</span><span class='div op'>/</span><span class='mootools identifier id'>mootools</span>
+
+<span class='comment val'># or uninstall, it's the same</span>
+<span class='thor identifier id'>thor</span> <span class='pupu identifier id'>pupu</span><span class='symbol val'>:remove</span> <span class='mootools identifier id'>mootools</span>
+
+<span class='comment val'># list all installed pupus</span>
+<span class='thor identifier id'>thor</span> <span class='pupu identifier id'>pupu</span><span class='symbol val'>:list</span>
+</pre>
+<h2>Usage in templates</h2>
+<pre class="code">
+<span class='assign token'>=</span> <span class='pupu identifier id'>pupu</span> <span class='symbol val'>:mootools</span><span class='comma token'>,</span> <span class='symbol val'>:more</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='true true kw'>true</span>
+<span class='assign token'>=</span> <span class='pupu identifier id'>pupu</span> <span class='symbol val'>:autocompleter</span><span class='comma token'>,</span> <span class='symbol val'>:type</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;request&quot;</span>
+<span class='assign token'>=</span> <span class='pupu identifier id'>pupu</span> <span class='symbol val'>:blueprint</span>
+</pre>
+<p>If you like to write your own pupu, please read <a href="http://github.com/botanicus/pupu">Pupu <span class="caps">README</span></a></p>
+<h1>Generators</h1>
+<p>Rango is simple so we don&#8217;t need to generate much code, so there are just two generators: project generator and application generator. The only thing they do is that they copy <code>lib/stubs/project</code>, resp. <code>lib/stubs/app</code> to current directory. If you like to use your own stubs, just create <code>~/.rango/stubs</code> with <code>project</code> and/or <code>app</code> directories and fill them with your files.</p>
+<h1>Writing plugins</h1>
+<pre class="code">
+<span class='class class kw'>class</span> <span class='Rango constant id'>Rango</span><span class='colon2 op'>::</span><span class='Plugin constant id'>Plugin</span><span class='colon2 op'>::</span><span class='MyPlugin constant id'>MyPlugin</span>
+  <span class='include identifier id'>include</span> <span class='Rango constant id'>Rango</span><span class='colon2 op'>::</span><span class='Settings constant id'>Settings</span>
+<span class='end end kw'>end</span>
+</pre>
+<h1>Contributing</h1>
+<p>Please follow Rango documentation standard.</p>
+<h1>Deployment</h1>
+<p>Rango application is classic rack application, so it can be deployed to all of the rack-compatible server. I recommend Apache with Passenger.</p>
+      </div>
+    </div>
+  </body>
+</html>
