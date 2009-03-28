@@ -9,7 +9,8 @@ String.send(:include, Term::ANSIColor)
 $: << "#{rango_root}/lib"
 
 def create(stubs_dirs, type, name)
-  dir = stubs_dirs.find { |dir| File.directory?("#{dir}/#{type}") }
+  dir = stubs_dirs.find { |dir| File.exist?("#{dir}/#{type}") }
+  puts %(cp -R "#{dir}/#{type}" #{name})
   %x(cp -R "#{dir}/#{type}" #{name})
   puts "#{type.capitalize} #{name} have been created (used stub from #{dir})."
 end
@@ -33,6 +34,8 @@ when "startproject"
   create(stubs_dirs, "project", ARGV[1])
 when "startapp"
   create(stubs_dirs, "app", ARGV[1])
+when "startflat"
+  create(stubs_dirs, "flat.rb", "#{ARGV[1]}.rb")
 when "-i"
   require "rango"
 else
