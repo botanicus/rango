@@ -10,7 +10,8 @@ describe Rango::Controller do
     Rango.should respond_to(:params)
   end
   
-  it "should respond to logger" do
+  it "should have logger" do
     Rango.should respond_to(:logger)
+    Rango.logger.should eql(Project.logger)
   end
 end
