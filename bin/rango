@@ -38,6 +38,7 @@ when "startflat"
   create(stubs_dirs, "flat.rb", "#{ARGV[1]}.rb")
 when "-i"
   require "rango"
+  Rango.boot
 else
   puts "Unknown command: #{command}"
 end

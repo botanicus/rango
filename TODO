@@ -1,7 +1,8 @@
 === Common tasks ===
 Full README
+in README should be just basic informations, others should be in doc/rango or so
+class Dispatcher move from config.ru to library
 spec Rango
-generate flat app
 yardoc:
 	- syntax off for shell commands
 	- examples: not use <pre>, do not escape characters here, enable usage of comments, options keys

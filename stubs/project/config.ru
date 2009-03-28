@@ -6,7 +6,7 @@ require ::File.join(project_dir, "..", "rango", "lib", "rango")
 Thin::Logging.debug = true
 Thin::Logging.trace = true
 
-Rango.import("request")
+Rango.boot
 Rango.import("handler")
 
 class Dispatcher < Rango::Handler

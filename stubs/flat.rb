@@ -7,7 +7,6 @@ Thin::Logging.debug = true
 Thin::Logging.trace = true
 
 Rango.boot(:flat => true)
-Rango.import("request")
 Rango.import("handler")
 
 class Dispatcher < Rango::Handler
