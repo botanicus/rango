@@ -1,3 +1,5 @@
+# coding=utf-8
+
 class Rango
   module Helpers
     def textile(text)

@@ -1,3 +1,5 @@
+# coding=utf-8
+
 require File.join(Dir.pwd, "spec", "spec_helper")
 
 describe Rango::Settings do

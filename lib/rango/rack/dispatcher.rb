@@ -1,3 +1,5 @@
+# coding=utf-8
+
 Rango.import("rack/handler")
 
 class Rango::Dispatcher < Rango::Handler

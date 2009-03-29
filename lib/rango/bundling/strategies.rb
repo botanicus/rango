@@ -1,3 +1,5 @@
+# coding=utf-8
+
 # how to bundle:
 #   - gems
 #   - git submodules

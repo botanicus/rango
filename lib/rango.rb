@@ -17,8 +17,9 @@ class Rango
     #   Rango.framework.root
     #   # => /usr/lib/ruby/lib/ruby/site_ruby/1.8/rango
     # @return [OpenStruct] OpenStruct with informations about the framework. Options are: <code>root</code>.
+    # FIXME: when we install it through setup.rb, it will not copy stubs etc
     def framework
-      root = File.join(File.dirname(__FILE__), "..")
+      root = File.join(File.dirname(__FILE__), "rango")
       framework = OpenStruct.new
       framework.root = root
       framework.path = Path.new(root)
@@ -58,13 +59,13 @@ class Rango
     def import(path, options = Hash.new)
       if options[:soft]
         begin
-          require File.join(Rango.framework.root, "lib", "rango", path)
+          require File.join(Rango.framework.root, path)
         rescue LoadError
           Rango.logger.warn("File #{path} can't be loaded")
           return false
         end
       else
-        require File.join(Rango.framework.root, "lib", "rango", path)
+        require File.join(Rango.framework.root, path)
       end
     end
 

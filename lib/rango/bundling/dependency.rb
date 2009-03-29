@@ -1,3 +1,5 @@
+# coding=utf-8
+
 Rango.import("bundling/strategies")
 
 class Rango
