@@ -2,6 +2,11 @@
 
 class Rango
   module Helpers
+    def copyright(from)
+      now = Time.now.year
+      now.eql?(from) ? now : "#{from} - #{now}"
+    end
+
     def textile(text)
       require "redcloth"
     end
