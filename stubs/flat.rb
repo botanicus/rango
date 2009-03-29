@@ -1,28 +1,9 @@
 # coding=utf-8
 
-project_dir = ::File.dirname(__FILE__)
-require ::File.join(project_dir, "rango", "lib", "rango")
-
-Thin::Logging.debug = true
-Thin::Logging.trace = true
+require "rango"
 
 Rango.boot(:flat => true)
-Rango.import("handler")
-
-class Dispatcher < Rango::Handler
-  def call(env)
-    request  = Rango::Request.new(env)
-    route    = Project.router.find(request.path)
-    @body    = route.call(request)
-    response = super(env)
-    Project.logger.debug("Response: #{response}")
-    return response
-  rescue Exception => exception
-    Project.logger.exception(exception)
-  end
-end
-
-run Dispatcher.new
+Rango.run
 
 Project.configure do
   # TODO

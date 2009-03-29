@@ -3,11 +3,5 @@
 Rango.import("controller")
 
 class Posts < Rango::Controller
-  def before
-    # hook runed before method
-  end
-
-  def after
-    # hook runed after method
-  end
+  # TODO
 end
