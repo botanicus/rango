@@ -8,6 +8,7 @@ Rango.import("router/strategies")
 
 class Rango
   class Router
+    include Rango::HttpExceptions
     class << self
       attribute :routers, Array.new
       attribute :strategies, Array.new
@@ -58,12 +59,13 @@ class Rango
 
     def find(uri)
       route = @routes.find { |route| route.match?(uri) }
-      route = Error404.new unless route
+      raise Error404.new unless route
       return route
     end
   end
 
   class Route
+    include Rango::HttpExceptions
     # %r[blog/post]
     attribute :match_pattern
     # {:method => "get"}
@@ -87,26 +89,23 @@ class Rango
       self.block = block
       return self
     end
-
+    
     def call(request)
-      strategy = self.strategy || Router.strategies.find { |strategy| strategy.match?(request, self.default_params, *self.arguments, &self.block) }
+      strategy = self.find_strategy(request)
       raise(AnyStrategyMatched) unless strategy
-      begin
-        params = self.default_params.merge(self.params)
-        strategy.run(request, params, *self.arguments, &self.block)
-      rescue Exception => exception
-        if exception.class.superclass.eql?(Rango::ControllerExceptions)
-          raise exception
-        else
-          Project.logger.exception(exception)
-          Project.logger.debug("strategy: #{strategy.inspect}")
-          Project.logger.debug("route: #{self.inspect}")
-          # raise Error500.new(exception)
-          Error500.new(exception).call(request)
-        end
-      end
+      params = self.default_params.merge(self.params)
+      strategy.run(request, params, *self.arguments, &self.block)
+    rescue Exception => exception
+      Project.logger.exception(exception)
+      Project.logger.debug("strategy: #{strategy.inspect}")
+      Project.logger.debug("route: #{self.inspect}")
+      raise Error500.new(exception, self.params)
     end
     
+    def find_strategy(request)
+      self.strategy || Router.strategies.find { |strategy| strategy.match?(request, self.default_params, *self.arguments, &self.block) }
+    end
+
     # default(:page => 1)
     def default(params)
       self.default_params = params
