@@ -5,8 +5,8 @@ require "rack"
 
 root = File.join(File.dirname(__FILE__), "rango")
 require File.join(root, "exceptions")
-require File.join(root, "logger")
-require File.join(root, "core_ext")
+require File.join(root, "loggers", "logger")
+require File.join(root, "ext", "core_ext")
 
 class Rango
   class << self
@@ -98,8 +98,8 @@ class Rango
           use Rack::ContentLength
           run ::Rango::Dispatcher.new
         end
-        p x
-        run x
+        p x ###
+        run x ###
       rescue Exception => exception
         Rango.logger.exception(exception)
         return false
