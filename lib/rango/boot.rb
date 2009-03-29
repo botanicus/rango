@@ -5,6 +5,9 @@ Rango.import("project")
 Rango.import("router/router")
 Rango.import("request")
 
+Rango.import("helpers")
+Rango::HttpExceptions::HttpError.send(:include, Rango::Helpers)
+
 # === Boot sequence:
 # 1) logger
 # 2) Project

@@ -49,15 +49,15 @@ class Rango
       
       # @since 0.0.1
       # @return [Boolean] Path to your router. Default +urls.rb+.
-      hattribute :router, lambda { Project.path.join("urls.rb") }
+      hattribute :router, "urls.rb"
       
       # @since 0.0.1
       # @return [String] Path to your +media+ directory.
-      hattribute :media_root, lambda { Project.path.join("media") }
+      hattribute :media_root, ["media"]
       
       # @since 0.0.1
       # @return [Array[String]] Array with paths where Rango will trying to find templates.
-      hattribute :template_dirs, lambda { [Project.path.join("templates")] }
+      hattribute :template_dirs, ["templates"]
       
       # @since 0.0.1
       # @return [String] Name of your database or path to the database if you are using SQLite3.
@@ -77,7 +77,7 @@ class Rango
       
       # @since 0.0.1
       # @return [Boolean] Template engine. Can be haml, erb, erubis or nil (so just plain html will be returned).
-      hattribute :template_engine
+      hattribute :template_engine, "haml"
       
       # @since 0.0.1
       # @return [Boolean] Testing engine. Can be rspec or nil.
@@ -86,6 +86,8 @@ class Rango
       # @since 0.0.1
       # @return [Boolean] Features engine. Can be cucumber or nil.
       hattribute :features_engine
+      
+      hattribute :mime_formats, Array.new
     end
   end
 end
