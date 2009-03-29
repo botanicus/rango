@@ -1,5 +1,6 @@
 === Common tasks ===
 Full README
+Doc for classes, not just for methods
 in README should be just basic informations, others should be in doc/rango or so
 class Dispatcher move from config.ru to library
 spec Rango
@@ -8,6 +9,13 @@ yardoc:
 	- examples: not use <pre>, do not escape characters here, enable usage of comments, options keys
 	- what is just optional argument
 	- array of string etc
+Before release it should generate project, application and flatproject and try if server properly start with default setup
+init.rb in app: Blog.logger etc, not just Project.logger
+extlib, maybe extensions, look for rack middlewares
+vygeneruj a otestuj zda neselze spusteni serveru
+rescue SkipRoute => exception # TODO: implement this feature
+  Rango.logger.debug("Skipping route #{exception.route}") # TODO: the route
+raise Error404.new unless @post: predavat params. Kernel#caller maybe?
 
 === Rango 0.2: ===
 => Requests logger, router
@@ -39,14 +47,14 @@ cookies, sessions
 render & display: automatically find template
 redirect
 flash messages
-filters, skipping filters
+what about request.path? rack works with /foo
 
 === Rango 0.4 ===
 => templates
 - extends "base.html"
 - load foo
 - escape everything
-- escape @ in emails
+- escape @ in emails => middleware!
 router resources? if so, then with translation
 parse backtrace (another color for path, another for line and method)
 maybe relative paths for project files will be better
