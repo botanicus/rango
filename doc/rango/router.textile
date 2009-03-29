@@ -1,0 +1,56 @@
+h1. Router
+
+h2. Matching URL
+
+You can match *regexp or string*. String will be matched as be matched as @/^url/@. When you use regexp you also can match parts of URL which will be available in request params hash. These arguments can be *positional or named*. Positional arguments are simply groups in regexp as @%r[/post/(\w+)]@. "Named regexps groups":http://pragdave.blogs.pragprog.com/pragdave/2008/10/fun-with-ruby-19-regular-expressions.html are new feature of Ruby 1.9 and it's syntax is @(?<name>pattern)@, for example @%r[/post/(?<slug>.+)$/]@
+
+<pre>
+"post/foo-bar".match(%r[^post/(?<slug>.+)$])
+# => #<MatchData "post/foo-bar" slug:"foo-bar">
+</pre>
+
+h2. Strategies
+
+h3. ControllerStrategy
+
+<pre>
+match(%r[^/(?<slug>.+)$]).to("Post#show", "blog/views")
+will require or load (depends on Project.settings.debug) "blog/views"
+and then creates new instance of Post and call show method this way:
+controller = Post.new(request, params)
+controller.show(slug)
+</pre>
+
+h3. CallableStrategy
+
+<pre>
+match(/.*/).to do |request|
+  Rango.logger.debug(request)
+  "Logged" # will be returned as response
+end
+</pre>
+
+h2. Returned value
+
+Returned value must be ....
+
+<pre>
+# coding=utf-8
+
+Rango::Router.register do
+  match("admin/").include('admin/urls.rb')
+  # match regexp, positional argument
+  match(%r[post/(.+)/$]).to('Posts#show', 'blog/views')
+  # match regexp, named argument
+  match(%r[^/post/(?<slug>.+)$]).to('blog/views', 'Posts#show')
+  match("/kontakt").to(method(:foo))
+  match("/kontakt").to do |request|
+    Project.logger.debug("Huraaa!")
+    "Huraaa!"
+  end
+  match(%r[^/(?<slug>.+)$]).to(method(:foo))
+  match("block/").to do |request|
+    "<h1>hello from block!</h1>"
+  end
+end
+</pre>

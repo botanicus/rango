@@ -1,0 +1,3 @@
+h1. Generators
+
+Rango is simple so we don't need to generate much code, so there are just two generators: project generator and application generator. The only thing they do is that they copy @lib/stubs/project@, resp. @lib/stubs/app@ to current directory. If you like to use your own stubs, just create @~/.rango/stubs@ with @project@ and/or @app@ directories and fill them with your files.

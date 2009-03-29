@@ -1,0 +1,11 @@
+h1. Boot
+
+Rango.boot
+
+h1. Flat applications
+
+<pre>
+Rango.boot(:flat => true)
+</pre>
+
+@rackup config.ru@

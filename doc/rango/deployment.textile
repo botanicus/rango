@@ -1,0 +1,3 @@
+h1. Deployment
+
+Rango application is classic rack application, so it can be deployed to all of the rack-compatible server. I recommend Apache with Passenger.

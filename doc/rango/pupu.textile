@@ -1,0 +1,26 @@
+h1. Pupu
+
+"Pupu":http://github.com/botanicus/pupu is framework for writing assets plugins and there are already bundled many of useful javascript libraries and frameworks. It can handle dependencies.
+
+h2. CLI usage
+
+<pre>
+# install autocompleter and its dependencies from my github repo
+thor pupu:install botanicus/mootools
+
+# or uninstall, it's the same
+thor pupu:remove mootools
+
+# list all installed pupus
+thor pupu:list
+</pre>
+
+h2. Usage in templates
+
+<pre>
+= pupu :mootools, :more => true
+= pupu :autocompleter, :type => "request"
+= pupu :blueprint
+</pre>
+
+If you like to write your own pupu, please read "Pupu README":http://github.com/botanicus/pupu
