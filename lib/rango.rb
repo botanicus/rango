@@ -68,7 +68,7 @@ class Rango
         require File.join(Rango.framework.root, path)
       end
     end
-
+    
     # @since 0.0.1
     # @example
     #   Rango.boot(:flat => true)
