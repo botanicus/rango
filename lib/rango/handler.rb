@@ -2,6 +2,7 @@
 
 # TODO: specs
 class Rango::Handler
+  include Rango::HttpExceptions
   # @since 0.0.1
   # @return [String] HTTP status.
   attr_accessor :status
@@ -37,20 +38,12 @@ class Rango::Handler
   end
   
   # @since 0.0.1
-  # @return [Hash["Content-Length": String<length>]] Returns
-  # @future This will return just the +length+.
-  def content_length
-    lengths = self.body.map { |line| line.to_s.size }
-    length  = lengths.inject { |sum, item| sum + item }
-    return {'Content-Length' => length.to_s}
-  end
-
-  # @since 0.0.1
   # @param [Hash] env Rack request environment.
   # @return [Array[String:status], Hash:headers[String => String], #each:body] This array will be returned to Rack.
   def call(env)
-    headers = self.headers.merge(content_length)
-    return [self.status, headers, self.body]
+    return [self.status, self.headers, self.body]
+  rescue Rango::HttpExceptions::HttpError => exception
+    return [exception.status, exception.headers, exception.body]
   rescue Exception => exception
     Project.logger.exception(exception)
     @body = ["<h1>#{exception.message}</h1>"]
