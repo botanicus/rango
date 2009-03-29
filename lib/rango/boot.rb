@@ -6,6 +6,7 @@ Rango.import("router/router")
 Rango.import("request")
 
 Rango.import("helpers")
+Rango.import("bundling/dependency")
 Rango::HttpExceptions::HttpError.send(:include, Rango::Helpers)
 
 # === Boot sequence:
@@ -20,28 +21,6 @@ class Rango
     # @since 0.0.1
     # @return [String] Returns current environment name. Possibilities are +development+ or +production+.
     attribute :environment, "development"
-
-    # @examples
-    #   Rango.dependency("dm-core", :github => "datamapper/dm-core")
-    #   Rango.dependency("dm-core", "1.0.2", :svn => "datamapper/dm-core")
-    #   Rango.dependency("dm-core", "1.0.2", :gem => "datamapper/dm-core")
-    #   Rango.dependency("a-rango-plugin") do
-    #     # code which will be called when the library is imported
-    #   end
-    # </pre>
-    # 
-    # === Bundling:
-    # Dependencies aren't good just for importing libraries, but also for their bundling. It's the reason why we have +github+, +git+, +svn+ and +gem+ options.
-    #
-    # @since 0.0.1
-    # @param [String] library Library to require
-    # @param [String] version Which version should be required (optional)
-    # @param [Hash] options Available options: <tt>:soft => boolean</tt>, <tt>:github => user/repo</tt>, <tt>:git => repo</tt>, <tt>:svn => repo</tt>, <tt>:gem => gemname</tt>.
-    # @raise [LoadError] Unless soft importing is enable, it will raise LoadError if the file wasn't found
-    # @return [Boolean] Returns true if importing succeed or false if not.
-    def dependency(library, version = nil, options = Hash.new)
-      require library
-    end
   end
 end
 
