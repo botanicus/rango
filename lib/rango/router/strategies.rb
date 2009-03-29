@@ -17,7 +17,7 @@ class Rango
     def match?(request, params, *args, &block)
       args.length.eql?(2) && args.all? { |arg| arg.is_a?(String) } && !block_given?
     end
-
+    
     def run(request, params, *args, &block)
       file = args.first
       callable = args.last
@@ -25,10 +25,8 @@ class Rango
       args = params.map { |key, value| value }
       klass_name, method = callable.split("#")
       klass = Object.const_get(klass_name)
-      controller = klass.new
-      controller.request = request
-      controller.params  = params
-      controller.method(method).call(*args)
+      # raise ControllerExpected unless klass.respond_to?(:controller_class) # Or something like that. Otherwise it's confusing when user forgot "s", Post instead of Posts etc
+      klass.run(request, params, method, *args)
     end
   end
 
