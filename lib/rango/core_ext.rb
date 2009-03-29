@@ -41,6 +41,9 @@ class String
     end
     return message
   end
+  
+  # rack
+  alias_method :each, :each_line
 end
 
 # default value for attr
