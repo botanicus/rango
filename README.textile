@@ -44,7 +44,7 @@ cd 101ideas.cz
 rango startapp blog
 
 # and finally run webserver
-thin start -R config.ru
+rackup config.ru
 
 # or live console if you like to inspect your code
 rango -i
@@ -60,7 +60,7 @@ h1. Flat applications
 Rango.boot(:flat => true)
 </pre>
 
-@thin start -R flat.rb@
+@rackup config.ru@
 
 h1. Init file @init.rb@
 
@@ -155,6 +155,22 @@ If you like to write your own pupu, please read "Pupu README":http://github.com/
 h1. Generators
 
 Rango is simple so we don't need to generate much code, so there are just two generators: project generator and application generator. The only thing they do is that they copy @lib/stubs/project@, resp. @lib/stubs/app@ to current directory. If you like to use your own stubs, just create @~/.rango/stubs@ with @project@ and/or @app@ directories and fill them with your files.
+
+h1. Controllers
+
+class Posts < Rango::Controller
+	before :authenticate
+	
+	def authenticate
+		raise SkipFilter if session.user.authorized?
+		# ...
+	end
+	
+	def show(slug)
+		@post = Post.get(slug)
+		display @post
+	end
+end
 
 h1. Writing plugins
 
