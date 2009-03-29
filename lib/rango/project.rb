@@ -56,6 +56,16 @@ class Project
         Kernel.require(fullpath)
       end
     end
+    
+    def import_first(paths, options = Hash.new)
+      paths.each do |path|
+        path = path.relative if path.is_a?(Path)
+        fullpath = find_file(File.join(Project.root, path))
+        next if fullpath.nil?
+        return Project.import(fullpath, options)
+      end
+      raise LoadError unless options[:soft]
+    end
 
     # @since 0.0.1
     # @param [String] path Path to loaded file.
@@ -78,7 +88,11 @@ class Project
     
     private
     def find_file(path)
-      [path, "#{path}.rb"].find { |path| File.exist?(path) }
+      path = [path, "#{path}.rb"].find { |path| File.exist?(path) }
+      path = Path.new(path)
+      path.relative
+    rescue
+      return nil
     end
   end
 end
