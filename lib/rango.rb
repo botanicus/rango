@@ -1,6 +1,7 @@
 # coding=utf-8
 
 require "ostruct"
+require "rack"
 
 root = File.join(File.dirname(__FILE__), "rango")
 require File.join(root, "exceptions")
@@ -17,9 +18,10 @@ class Rango
     #   # => /usr/lib/ruby/lib/ruby/site_ruby/1.8/rango
     # @return [OpenStruct] OpenStruct with informations about the framework. Options are: <code>root</code>.
     def framework
-      root = File.join(File.dirname(__FILE__), "rango")
+      root = File.join(File.dirname(__FILE__), "..")
       framework = OpenStruct.new
       framework.root = root
+      framework.path = Path.new(root)
       return framework
     end
     
@@ -56,13 +58,13 @@ class Rango
     def import(path, options = Hash.new)
       if options[:soft]
         begin
-          require File.join(Rango.framework.root, path)
+          require File.join(Rango.framework.root, "lib", "rango", path)
         rescue LoadError
           Rango.logger.warn("File #{path} can't be loaded")
           return false
         end
       else
-        require File.join(Rango.framework.root, path)
+        require File.join(Rango.framework.root, "lib", "rango", path)
       end
     end
 
@@ -83,6 +85,24 @@ class Rango
       # irb
       if ARGV.include?("-i")
         Rango.interactive
+      end
+    end
+    
+    def run
+      begin
+        Rango.import("dispatcher")
+        x = Rack::Builder.new do
+          # serve static files
+          # http://rack.rubyforge.org/doc/classes/Rack/Static.html
+          use Rack::File.new(Project.settings.media_root)
+          use Rack::ContentLength
+          run ::Rango::Dispatcher.new
+        end
+        p x
+        run x
+      rescue Exception => exception
+        Rango.logger.exception(exception)
+        return false
       end
     end
     
