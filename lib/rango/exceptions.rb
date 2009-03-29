@@ -31,7 +31,7 @@ class Rango
       end
       
       def render
-        content = Rango.framework.path.join("templates/#{self.status}.html.erb").read
+        content = Rango.framework.path.join("../../templates/errors/#{self.status}.html.erb").read
         ERB.new(content).result(binding)
       end
 
@@ -48,6 +48,7 @@ class Rango
       
       def body
         @routes = Project.router.routes
+        @router = Project.settings.router
         self.render
       end
     end

@@ -11,6 +11,9 @@ $: << "#{rango_root}/lib"
 def create(stubs_dirs, type, name)
   dir = stubs_dirs.find { |dir| File.exist?("#{dir}/#{type}") }
   puts %(cp -R "#{dir}/#{type}" #{name})
+  if File.exist?(name)
+    abort "#{name} already exist, aborting."
+  end
   %x(cp -R "#{dir}/#{type}" #{name})
   puts "#{type.capitalize} #{name} have been created (used stub from #{dir})."
 end
