@@ -5,10 +5,10 @@ in README should be just basic informations, others should be in doc/rango or so
 class Dispatcher move from config.ru to library
 spec Rango
 yardoc:
-	- syntax off for shell commands
-	- examples: not use <pre>, do not escape characters here, enable usage of comments, options keys
-	- what is just optional argument
-	- array of string etc
+  - syntax off for shell commands
+  - examples: not use <pre>, do not escape characters here, enable usage of comments, options keys
+  - what is just optional argument
+  - array of string etc
 Before release it should generate project, application and flatproject and try if server properly start with default setup
 init.rb in app: Blog.logger etc, not just Project.logger
 extlib, maybe extensions, look for rack middlewares
@@ -21,15 +21,15 @@ raise Error404.new unless @post: predavat params. Kernel#caller maybe?
 => Requests logger, router
 refactoring of error handling
 logger:
-	- settings (where to log - file, STDERR, format)
+  - settings (where to log - file, STDERR, format)
 router:
-	- redirect
+  - redirect
   - placeholders
   - unnamed args
   - 404 & 500 errors
-	- match(:domain => "somecooldomain.com", :subdomain => /regexp/)
-	- implement include and defer_to
-	- router method default can take blok
+  - match(:domain => "somecooldomain.com", :subdomain => /regexp/)
+  - implement include and defer_to
+  - router method default can take blok
 raise NotFound unless @post => route to Exceptions or what?
 diff configuration (global vs. mine, anyone else vs. mine)
 (logger) general, safe solution for filtering backtraces (maybe settings: filter_backtraces: true/false, filter_backtraces_pattern: regexp)
@@ -73,6 +73,7 @@ what about git submodules?
 Thor 1.9 compatible
 update task for all the thor classes (thor pupu:selfupdate)
 thor stats for projects
+spec will be app-level, but what about features? project level?
 spec: should have_xpath, have_selector, match etc
 thor spec:features
 thor spec:models
@@ -85,14 +86,14 @@ rcov (project & rango)
 
 === Rango 0.7 ===
 forms? something like Django forms?
-etag, last modified middleware
+etag, last modified middleware (rack-contrib)
 cache
 mailer (merb messenger-like notifications)
 auth
 generic views
 contrib:
-	- syndication
-	- flatpages
+  - syndication
+  - flatpages
 
 === Rango 0.8 ===
 => API for writing plugins & profiling & benchmarking & debuging
@@ -106,9 +107,9 @@ profiling, benchmarking (test oproti merb, rails, django, sinatra)
 
 === Rango 1.0 ===
 => contrib
-	autoadmin
-	comments
-	exceptions notifications (=> email)
+  autoadmin
+  comments
+  exceptions notifications (=> email)
 => refactoring, respecing, redocumenting
 http://rubyforge.org/projects/rango
 Error500 in browser just like in TM (txmt://, filter backtraces, show code etc) ... the code should be highlighted if uv is installed

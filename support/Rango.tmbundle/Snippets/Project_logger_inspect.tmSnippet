@@ -2,15 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>content</key>
-	<string>Project.logger.inspect($1)</string>
-	<key>name</key>
-	<string>Project.logger.inspect</string>
-	<key>scope</key>
-	<string>source.ruby</string>
-	<key>tabTrigger</key>
-	<string>pli</string>
-	<key>uuid</key>
-	<string>154FF789-DA73-4C56-BF40-F6CE31FC973F</string>
+  <key>content</key>
+  <string>Project.logger.inspect($1)</string>
+  <key>name</key>
+  <string>Project.logger.inspect</string>
+  <key>scope</key>
+  <string>source.ruby</string>
+  <key>tabTrigger</key>
+  <string>pli</string>
+  <key>uuid</key>
+  <string>154FF789-DA73-4C56-BF40-F6CE31FC973F</string>
 </dict>
 </plist>

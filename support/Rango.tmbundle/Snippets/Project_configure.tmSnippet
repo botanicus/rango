@@ -2,17 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>content</key>
-	<string>Project.configure do
+  <key>content</key>
+  <string>Project.configure do
   self.${1:key} = ${2:value}
 end</string>
-	<key>name</key>
-	<string>Project.configure</string>
-	<key>scope</key>
-	<string>source.ruby</string>
-	<key>tabTrigger</key>
-	<string>conf</string>
-	<key>uuid</key>
-	<string>A80040DD-2567-4FBB-8C4F-BF9168BB91C9</string>
+  <key>name</key>
+  <string>Project.configure</string>
+  <key>scope</key>
+  <string>source.ruby</string>
+  <key>tabTrigger</key>
+  <string>conf</string>
+  <key>uuid</key>
+  <string>A80040DD-2567-4FBB-8C4F-BF9168BB91C9</string>
 </dict>
 </plist>

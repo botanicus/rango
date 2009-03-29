@@ -95,8 +95,8 @@ h3. CallableStrategy
 
 <pre>
 match(/.*/).to do |request|
-	Rango.logger.debug(request)
-	"Logged" # will be returned as response
+  Rango.logger.debug(request)
+  "Logged" # will be returned as response
 end
 </pre>
 
@@ -159,17 +159,17 @@ Rango is simple so we don't need to generate much code, so there are just two ge
 h1. Controllers
 
 class Posts < Rango::Controller
-	before :authenticate
-	
-	def authenticate
-		raise SkipFilter if session.user.authorized?
-		# ...
-	end
-	
-	def show(slug)
-		@post = Post.get(slug)
-		display @post
-	end
+  before :authenticate
+  
+  def authenticate
+    raise SkipFilter if session.user.authorized?
+    # ...
+  end
+  
+  def show(slug)
+    @post = Post.get(slug)
+    display @post
+  end
 end
 
 h1. Writing plugins
