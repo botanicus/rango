@@ -88,9 +88,9 @@ class Path
 
   def read(&block)
     if block_given?
-      File.open(file, "r", &block)
+      File.open(@absolute, "r", &block)
     else
-      File.read(file)
+      File.read(@absolute)
     end
   end
 
