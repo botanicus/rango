@@ -27,14 +27,19 @@ class Rango
     # @param [Hash] options Available options: <tt>:soft => boolean</tt>, <tt>:github => user/repo</tt>, <tt>:git => repo</tt>, <tt>:svn => repo</tt>, <tt>:gem => gemname</tt>.
     # @raise [LoadError] Unless soft importing is enable, it will raise LoadError if the file wasn't found
     # @return [Boolean] Returns true if importing succeed or false if not.
-    def dependency(library, version = nil, options = Hash.new)
-      self.bundle(library, version, options)
-      require library
+    def dependency(library, options = Hash.new)
+      self.bundle(library, options)
+      if options[:as]
+        require options[:as]
+      else
+        require library
+      end
     end
     
+    # options[:version]
     # you may need to bundle software which you do not use at the moment. For example on development machine you are using SQLite3, but on server you are using MySQL, so you will need to bundle do_mysql as well.
-    def bundle(library, version = nil, options = Hash.new)
-      self.dependencies[library] = {:version => version, :options => options}
+    def bundle(library, options = Hash.new)
+      self.dependencies[library] = {:options => options}
     end
     
     def bundle!
