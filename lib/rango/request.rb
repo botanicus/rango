@@ -33,31 +33,13 @@
 # REMOTE_ADDR: 127.0.0.1
 
 # TODO: specs
+# http://rack.rubyforge.org/doc/
+# http://rack.rubyforge.org/doc/classes/Rack/Request.html
 class Rango
-  class Request
+  class Request < Rack::Request
     # @since 0.0.1
     # @return [Hash] Original Rack environment.
     attribute :env, Hash.new
-    
-    # @since 0.0.1
-    # @return [Hash] Original Rack environment.
-    attribute :headers, Hash.new
-
-    # @since 0.0.1
-    # @example: "cz"
-    # @return [String] Top level domain.
-    attribute :tld
-    
-    # @since 0.0.1
-    # @example: "101ideas.cz"
-    # @return [String] Domain name.
-    attribute :domain
-    
-    # TODO: what about user.blog.mysite.com?
-    # @since 0.0.1
-    # @example: "blog"
-    # @return [String] Subdomain name.
-    attribute :subdomain
     
     # @since 0.0.1
     # @example: blog/post/rango-released
@@ -74,35 +56,30 @@ class Rango
     end
     
     # @since 0.0.1
-    # @example
-    #   {:message => {:error => "Bad username"}, :method => "post"}
-    # @return [Hash[Symbol => String]] Hash with params from request
-    def params
-      {:method => @method}
+    # @example: "cz"
+    # @return [String] Top level domain.
+    def tld
+      host.match(/^localhost/) ? nil : host.split(".").last
     end
     
     # @since 0.0.1
-    # @return [Boolean] True if request is HTTP GET.
-    def get?
-      @method.eql("get")
+    # @example: "101ideas.cz"
+    # @return [String] Domain name.
+    def domain
+      if host.match(/^localhost/)
+        return host.split(".").last
+      else
+        return host.split(".").last(2).join(".")
+      end
     end
     
     # @since 0.0.1
-    # @return [Boolean] True if request is HTTP POST.
-    def post?
-      @method.eql("post")
-    end
-
-    # @since 0.0.1
-    # @return [Boolean] True if request is HTTP HEAD.
-    def head?
-      @method.eql("head")
-    end
-    
-    # @since 0.0.1
-    # @return [Boolean] True if request is HTTP PUT.
-    def put?
-      @method.eql("put")
+    # @example: "blog" or "user.blog"
+    # @return [String] Subdomain name.
+    def subdomain
+      parts = host.split(".")
+      index = parts.index(self.domain)
+      parts[0..(index - 1)]
     end
   end
 end
