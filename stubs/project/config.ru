@@ -3,4 +3,4 @@
 require "rango"
 
 Rango.boot
-Rango.run
+run Rango.app

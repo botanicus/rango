@@ -3,9 +3,9 @@
 require "ostruct"
 Rango.import("project")
 Rango.import("router/router")
-Rango.import("request")
+Rango.import("rack/request")
 
-Rango.import("helpers")
+Rango.import("mvc/helpers")
 Rango.import("bundling/dependency")
 Rango::HttpExceptions::HttpError.send(:include, Rango::Helpers)
 

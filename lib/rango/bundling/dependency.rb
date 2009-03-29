@@ -26,8 +26,13 @@ class Rango
     # @raise [LoadError] Unless soft importing is enable, it will raise LoadError if the file wasn't found
     # @return [Boolean] Returns true if importing succeed or false if not.
     def dependency(library, version = nil, options = Hash.new)
-      self.dependencies[library] = {:version => version, :options => options}
+      self.bundle(library, version, options)
       require library
+    end
+    
+    # you may need to bundle software which you do not use at the moment. For example on development machine you are using SQLite3, but on server you are using MySQL, so you will need to bundle do_mysql as well.
+    def bundle(library, version = nil, options = Hash.new)
+      self.dependencies[library] = {:version => version, :options => options}
     end
     
     def bundle!

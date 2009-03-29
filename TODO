@@ -15,7 +15,7 @@ extlib, maybe extensions, look for rack middlewares
 vygeneruj a otestuj zda neselze spusteni serveru
 rescue SkipRoute => exception # TODO: implement this feature
   Rango.logger.debug("Skipping route #{exception.route}") # TODO: the route
-raise Error404.new unless @post: predavat params. Kernel#caller maybe?
+raise Error404.new unless @post: predavat params. Kernel#caller maybe? or not_found method of controller?
 
 === Rango 0.2: ===
 => Requests logger, router
@@ -40,10 +40,8 @@ Rango.template("404.html")
 => rack, controllers
 static content serving
 files uploading
-middlewares (see http://wiki.merbivore.com/deployment/haproxy)
 registering mime types
 "provides" API for handling mime-types as in merb?
-cookies, sessions
 render & display: automatically find template
 redirect
 flash messages
@@ -63,10 +61,6 @@ views helpers (error_messages_for etc)
 === Rango 0.5 ===
 => Bundling, pupu
 possibility how to run without rubygems (microgems?)
-GemDependencyStrategy, GitDependencyStrategy, SvnDependencyStrategy etc, user can write his own strategies
-bundlovani: na serveru chceme jine gemy nez na lokalhostu, ale bundlovat chceme vsechny (gems/development maybe)
-Rango.bundle("do_mysql" "version")
-what about git submodules?
 
 === Rango 0.6 ===
 => Documentation, tasks, testing

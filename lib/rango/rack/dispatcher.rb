@@ -1,8 +1,7 @@
-Rango.import("handler")
+Rango.import("rack/handler")
 
 class Rango::Dispatcher < Rango::Handler
   def call(env)
-    self.register
     request  = Rango::Request.new(env)
     route    = Project.router.find(request.path)
     @body    = route.call(request)

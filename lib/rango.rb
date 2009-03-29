@@ -88,18 +88,18 @@ class Rango
       end
     end
     
-    def run
+    def app
       begin
-        Rango.import("dispatcher")
-        x = Rack::Builder.new do
+        # $DEBUG = Project.settings.debug # It looks terrible, but rack works with it
+        Rango.import("rack/dispatcher")
+        Rack::Builder.new do
           # serve static files
           # http://rack.rubyforge.org/doc/classes/Rack/Static.html
-          use Rack::File.new(Project.settings.media_root)
+          # use Rack::File.new(Project.settings.media_root)
+          # use Rack::File, Project.settings.media_root
           use Rack::ContentLength
           run ::Rango::Dispatcher.new
         end
-        p x ###
-        run x ###
       rescue Exception => exception
         Rango.logger.exception(exception)
         return false

@@ -1,5 +1,4 @@
-specroot = File.join(File.dirname(__FILE__), "..")
-require File.join(specroot, "spec_helper")
+require File.join(Dir.pwd, "spec", "spec_helper")
 
 describe Project do
   it "should have root" do
@@ -19,7 +18,7 @@ describe Project do
   
   it "should have settings" do
     Project.should respond_to(:settings)
-    Project.root.should be_kind_of(Rango::Settings::Framework)
+    Project.setttings.should be_kind_of(Rango::Settings::Framework)
   end
   
   it "should have router" do
@@ -28,7 +27,7 @@ describe Project do
   
   it "should have logger" do
     Project.should respond_to(:logger)
-    Project.root.should be_kind_of(Rango::Logger)
+    Project.logger.should be_kind_of(Rango::Logger)
   end
   
   describe ".import" do

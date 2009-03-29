@@ -1,6 +1,5 @@
 # doesn't require spec helper, we do not need to init rango environment
-specroot = File.dirname(__FILE__)
-require File.join(specroot, "..", "lib", "rango")
+require File.join(Dir.pwd, "lib", "rango")
 
 describe Rango do
   it "should have version and codename" do

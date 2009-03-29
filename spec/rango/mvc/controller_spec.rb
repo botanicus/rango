@@ -1,7 +1,6 @@
-specroot = File.join(File.dirname(__FILE__), "..")
-require File.join(specroot, "spec_helper")
+require File.join(Dir.pwd, "spec", "spec_helper")
 
-Rango.import("controller")
+Rango.import("mvc/controller")
 
 describe Rango::Controller do
   before(:each) do

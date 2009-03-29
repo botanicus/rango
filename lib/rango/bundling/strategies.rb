@@ -1,5 +1,14 @@
+# how to bundle:
+#   - gems
+#   - git submodules
+
 class Rango
   class DependencyStrategy
+    class << self
+      def register
+        # TODO
+      end
+    end
   end
 
   class GitDependencyStrategy < DependencyStrategy

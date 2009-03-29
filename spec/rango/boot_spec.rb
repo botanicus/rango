@@ -1,5 +1,4 @@
-specroot = File.join(File.dirname(__FILE__), "..")
-require File.join(specroot, "spec_helper")
+require File.join(Dir.pwd, "spec", "spec_helper")
 
 describe Rango do
   describe ".environment" do
