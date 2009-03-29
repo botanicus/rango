@@ -26,10 +26,10 @@
 # GATEWAY_INTERFACE: CGI/1.2
 # SERVER_NAME: localhost
 # SERVER_PORT: 3000
-# QUERY_STRING: 
+# QUERY_STRING:
 # SERVER_PROTOCOL: HTTP/1.1
 # rack.url_scheme: http
-# SCRIPT_NAME: 
+# SCRIPT_NAME:
 # REMOTE_ADDR: 127.0.0.1
 
 # TODO: specs
@@ -40,7 +40,7 @@ class Rango
     # @since 0.0.1
     # @return [Hash] Original Rack environment.
     attribute :env, Hash.new
-    
+
     # @since 0.0.1
     # @example: blog/post/rango-released
     # @return [Hash] Original Rack environment.
@@ -54,14 +54,14 @@ class Rango
       @path = (env["REQUEST_PATH"][1..-1] + "/").gsub(%r[/+], '/')
       @method = env["REQUEST_METHOD"].downcase
     end
-    
+
     # @since 0.0.1
     # @example: "cz"
     # @return [String] Top level domain.
     def tld
       host.match(/^localhost/) ? nil : host.split(".").last
     end
-    
+
     # @since 0.0.1
     # @example: "101ideas.cz"
     # @return [String] Domain name.
@@ -72,7 +72,7 @@ class Rango
         return host.split(".").last(2).join(".")
       end
     end
-    
+
     # @since 0.0.1
     # @example: "blog" or "user.blog"
     # @return [String] Subdomain name.

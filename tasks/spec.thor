@@ -7,7 +7,7 @@ class Spec < Thor
     command = %[#{spec} #{path} --options spec/spec.opts]
     puts(command) ; exec(command)
   end
-  
+
   desc "stubs", "Create stubs of all library files."
   def stubs
     Dir.glob("lib/**/*.rb").each do |file|

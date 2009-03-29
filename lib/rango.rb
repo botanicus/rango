@@ -25,13 +25,13 @@ class Rango
       framework.path = Path.new(root)
       return framework
     end
-    
+
     # @since 0.0.1
     # @return [String] Rango version string in +major.minor.update+ format.
     def version
       "0.0.1"
     end
-    
+
     # @since 0.0.1
     # @return [String] Rango codename.
     def codename
@@ -68,7 +68,7 @@ class Rango
         require File.join(Rango.framework.root, path)
       end
     end
-    
+
     # @since 0.0.1
     # @example
     #   Rango.boot(:flat => true)
@@ -82,13 +82,8 @@ class Rango
         Rango.logger.exception(exception)
         return false
       end
-
-      # irb
-      if ARGV.include?("-i")
-        Rango.interactive
-      end
     end
-    
+
     def app
       begin
         # $DEBUG = Project.settings.debug # It looks terrible, but rack works with it
@@ -106,14 +101,14 @@ class Rango
         return false
       end
     end
-    
+
     # Start IRB interactive session
     # @since 0.0.1
     def interactive
       require "irb"
       require "irb/completion"
       ARGV.clear # otherwise irb will read it
-      IRB.start(__FILE__)
+      IRB.start
     end
 
     # @since 0.0.1

@@ -34,7 +34,7 @@ class Release < Thor
     %x[git push --tags]
     puts "Tag #{Rango.version} was created and pushed to GitHub."
   end
-  
+
   desc "rubyforge", "Push sources to RubyForge."
   def rubyforge
     puts "Pushing sources to RubyForge ..."
@@ -48,7 +48,7 @@ class Release < Thor
     puts "Propagating gems to the RubyForge ..."
     puts "Task for propagating gems to RubyForge isn't written yet. Please do so."
   end
-  
+
   desc "tmbundle", "Upgrade the TextMate bundle."
   def tmbundle
     puts "Updating the TextMate bundle ..."

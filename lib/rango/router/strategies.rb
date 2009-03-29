@@ -17,7 +17,7 @@ class Rango
     def match?(request, params, *args, &block)
       args.length.eql?(2) && args.all? { |arg| arg.is_a?(String) } && !block_given?
     end
-    
+
     def run(request, params, *args, &block)
       file = args.first
       callable = args.last

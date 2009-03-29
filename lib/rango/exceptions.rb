@@ -29,7 +29,7 @@ class Rango
       def headers
         {'Content-Type' => 'text/html'}
       end
-      
+
       def render
         content = Rango.framework.path.join("../../templates/errors/#{self.status}.html.erb").read
         ERB.new(content).result(binding)
@@ -45,7 +45,7 @@ class Rango
       def initialize(params = nil)
         super("404")
       end
-      
+
       def body
         @routes = Project.router.routes
         @router = Project.settings.router

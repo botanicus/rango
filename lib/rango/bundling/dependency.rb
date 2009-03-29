@@ -17,7 +17,7 @@ class Rango
     #     # code which will be called when the library is imported
     #   end
     # </pre>
-    # 
+    #
     # === Bundling:
     # Dependencies aren't good just for importing libraries, but also for their bundling. It's the reason why we have +github+, +git+, +svn+ and +gem+ options.
     #
@@ -35,13 +35,13 @@ class Rango
         require library
       end
     end
-    
+
     # options[:version]
     # you may need to bundle software which you do not use at the moment. For example on development machine you are using SQLite3, but on server you are using MySQL, so you will need to bundle do_mysql as well.
     def bundle(library, options = Hash.new)
       self.dependencies[library] = {:options => options}
     end
-    
+
     def bundle!
       self.dependencies.each do |library, options|
         #

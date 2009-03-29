@@ -41,7 +41,7 @@ class String
     end
     return message
   end
-  
+
   # rack
   alias_method :each, :each_line
 end
@@ -81,7 +81,7 @@ class Class
 
   # This will also define title and title= methods, but it doesn't define @title variable,
   # but @__hattributes__ hash with all the attributes
-  
+
   # @since 0.0.1
   # @example
   #   class Post

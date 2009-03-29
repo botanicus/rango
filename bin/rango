@@ -42,6 +42,7 @@ when "startflat"
 when "-i"
   require "rango"
   Rango.boot
+  Rango.interactive
 else
   puts "Unknown command: #{command}"
 end

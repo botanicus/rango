@@ -7,12 +7,12 @@ class Project
     # @since 0.0.1
     # @return [String] String reprezentation of project root directory.
     root = attribute :root, Dir.pwd
-    
+
     # @since 0.0.1
     # @see Path
     # @return [Path] Path reprezentation of project root directory.
     path = attribute :path, Path.new(root)
-    
+
     # @since 0.0.1
     # @return [String] Name of the project. Taken from basename of project directory.
     name = attribute :name, path.basename
@@ -20,7 +20,7 @@ class Project
     # @since 0.0.1
     # @return [Rango::Settings::Framework] Project settings.
     attribute :settings, Rango::Settings::Framework.new
-    
+
     # @since 0.0.1
     # @return [Rango::Router] Project main router.
     attribute :router
@@ -34,7 +34,7 @@ class Project
     #   Project.import("blog/views")
     #   Project.import("blog/views", :soft => true)
     # @param [String] path Path to file which will be loaded using +Kernel#load+ if +Project.settings.debug+ is true or +Kernel#require+ if not.
-    # @param [Hash[:soft => Boolean(default true)], @optional] options 
+    # @param [Hash[:soft => Boolean(default true)], @optional] options
     # @raise [LoadError] Unless <tt>:soft => true</tt> option is used, it will raise +LoadError+ if the file wasn't found.
     # @return [Boolean] If loading suceed.
     def import(path, options = Hash.new)
@@ -56,7 +56,7 @@ class Project
         Kernel.require(fullpath)
       end
     end
-    
+
     def import_first(paths, options = Hash.new)
       paths.each do |path|
         path = path.relative if path.is_a?(Path)
@@ -85,10 +85,11 @@ class Project
     def configure(&block)
       self.settings.instance_eval(&block)
     end
-    
+
     private
     def find_file(path)
-      path = [path, "#{path}.rb"].find { |path| File.exist?(path) }
+      # first try to match .rb version, because there may be views.rb and views/
+      path = ["#{path}.rb", path].find { |path| File.exist?(path) }
       path = Path.new(path)
       path.relative
     rescue

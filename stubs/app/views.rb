@@ -1,6 +1,6 @@
 # coding=utf-8
 
-Rango.import("controller")
+Rango.import("mvc/controller")
 
 class Posts < Rango::Controller
   # TODO

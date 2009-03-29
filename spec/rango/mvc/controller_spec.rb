@@ -12,11 +12,11 @@ describe Rango::Controller do
   it "should respond to request" do
     @controller.should respond_to(:request)
   end
-  
+
   it "should respond to params" do
     @controller.should respond_to(:params)
   end
-  
+
   it "should have logger" do
     @controller.should respond_to(:logger)
     @controller.logger.should eql(Project.logger)

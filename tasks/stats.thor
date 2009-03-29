@@ -12,19 +12,19 @@ class Stats < Thor
     puts
     self.docs
   end
-  
+
   def libs
     self.count(Dir.glob("lib/rango/**/*.rb") + ["lib/rango.rb"])
   end
-  
+
   def specs
     self.count(Dir.glob("spec/rango/**/*.rb") + ["spec/rango.rb"])
   end
-  
+
   def docs
     self.count(Dir.glob("README.textile"))
   end
-  
+
   protected
   def count(files)
     puts %x[wc -l #{files.join(" ")}]

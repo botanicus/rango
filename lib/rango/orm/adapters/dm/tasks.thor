@@ -7,12 +7,12 @@ class Db < Thor
   def automigrate
     DataMapper.auto_migrate!
   end
-  
+
   desc "autoupgrade", "Autoupgrade the database structure. Data should stay untouched."
   def autoupgrade
     DataMapper.auto_upgrade!
   end
-  
+
   desc "migrate", "Run migrations."
   def migrate
   end

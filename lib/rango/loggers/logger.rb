@@ -16,7 +16,7 @@ class Rango
       self.datetime_format = "%H:%M:%S"
       self.setup_format
     end
-    
+
     def exception(exception)
       self.error("#{exception.message} (#{exception.class})")
       exception.backtrace.each do |line|
@@ -34,31 +34,31 @@ class Rango
       args.map { |arg| super(arg) }
       return original
     end
-    
+
     def info(*args)
       original = args.dup
       args.map { |arg| super(arg) }
       return original
     end
-    
+
     def warn(*args)
       original = args.dup
       args.map { |arg| super(arg) }
       return original
     end
-    
+
     def error(*args)
       original = args.dup
       args.map { |arg| super(arg) }
       return original
     end
-    
+
     def fatal(*args)
       original = args.dup
       args.map { |arg| super(arg) }
       return original
     end
-    
+
     # Project.logger.inspect(@posts, item)
     # Project.logger.inspect("@post" => @post)
     def inspect(*args)

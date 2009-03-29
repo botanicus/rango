@@ -46,47 +46,47 @@ class Rango
       # @since 0.0.1
       # @return [Boolean] explanation
       hattribute :debug, true
-      
+
       # @since 0.0.1
       # @return [Boolean] Path to your router. Default +urls.rb+.
       hattribute :router, "urls.rb"
-      
+
       # @since 0.0.1
       # @return [String] Path to your +media+ directory.
       hattribute :media_root, ["media"]
-      
+
       # @since 0.0.1
       # @return [Array[String]] Array with paths where Rango will trying to find templates.
       hattribute :template_dirs, ["templates"]
-      
+
       # @since 0.0.1
       # @return [String] Name of your database or path to the database if you are using SQLite3.
       hattribute :database_name, lambda { "#{Rango.environment}.db" }
-      
+
       # @since 0.0.1
       # @return [String] Database adapter.
       hattribute :database_adapter, "sqlite3"
-      
+
       # @since 0.0.1
       # @return [String] explanation
       # hattribute :logger_strategy, "fireruby"
-      
+
       # @since 0.0.1
       # @return [Boolean] ORM. Can be datamapper or nil.
       hattribute :orm
-      
+
       # @since 0.0.1
       # @return [Boolean] Template engine. Can be haml, erb, erubis or nil (so just plain html will be returned).
       hattribute :template_engine, "haml"
-      
+
       # @since 0.0.1
       # @return [Boolean] Testing engine. Can be rspec or nil.
       hattribute :testing_engine
-      
+
       # @since 0.0.1
       # @return [Boolean] Features engine. Can be cucumber or nil.
       hattribute :features_engine
-      
+
       hattribute :mime_formats, Array.new
     end
   end

@@ -89,7 +89,7 @@ class Rango
       self.block = block
       return self
     end
-    
+
     def call(request)
       strategy = self.find_strategy(request)
       raise(AnyStrategyMatched) unless strategy
@@ -101,7 +101,7 @@ class Rango
       Project.logger.debug("route: #{self.inspect}")
       raise Error500.new(exception, self.params)
     end
-    
+
     def find_strategy(request)
       self.strategy || Router.strategies.find { |strategy| strategy.match?(request, self.default_params, *self.arguments, &self.block) }
     end

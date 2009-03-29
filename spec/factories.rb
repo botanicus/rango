@@ -5,12 +5,12 @@ class Factory
     def rack_env(environment = Hash.new)
       {"REQUEST_PATH" => "/blog/post/a-slug", "REQUEST_METHOD" => "GET"}.merge(environment)
     end
-    
+
     # TODO: Rack MocRequest
     def request
       Rango::Request.new(self.rack_env)
     end
-    
+
     def controller
       controller = Rango::Controller.new
       controller.request

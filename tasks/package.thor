@@ -11,13 +11,13 @@ class Gem < Thor
     ::Gem::Builder.new(SPECIFICATION).build
     FileUtils.mv(SPECIFICATION.file_name, File.join(Dir.pwd, "pkg", SPECIFICATION.file_name))
   end
-  
+
   desc "install", "Package and install the gem."
   def install
     self.package
     puts %x[sudo gem install #{Dir["pkg/*.gem"].last}]
   end
-  
+
   desc "uninstall", "Uninstall the gem."
   def uninstall
     puts %x[sudo gem uninstall rango -a -x]

@@ -11,11 +11,11 @@ class Rango
       def before(action, options = Hash.new)
         self.before_filters[action] = options
       end
-      
+
       def after(action, options = Hash.new)
         self.after_filters[action] = options
       end
-      
+
       def run(request, params, method, *args)
         controller = self.new
         controller.request = request
@@ -25,7 +25,7 @@ class Rango
         controller.run_filters(:after, method)
         return value
       end
-      
+
       def get_filters(type)
         self.instance_variable_get("@#{type}_filters")
       end
@@ -34,7 +34,7 @@ class Rango
     # @return [Rango::Request]
     # @see Rango::Request
     attr_accessor :request
-    
+
     # @since 0.0.1
     # @return [Hash] Hash with params from request. For example <code>{:messages => {:success => "You're logged in"}, :post => {:id => 2}}</code>
     attr_accessor :params
@@ -43,7 +43,7 @@ class Rango
     # @return [Rango::Logger] Logger for logging project related stuff.
     # @see Rango::Logger
     attribute :logger, Project.logger
-    
+
     def find_template(template)
       Project.settings.template_dirs.each do |directory|
         path = File.join(directory, template)
@@ -61,7 +61,7 @@ class Rango
       path = self.find_template(template)
       self.template_engine.render(File.new(path), self)
     end
-    
+
     def template_engine
       # TODO: test if Project.settings.template_engine nil => useful message
       # TODO: maybe more template engines?
@@ -73,7 +73,7 @@ class Rango
       Rango.logger.fatal("Template engine #{engine_name} can't be loaded.")
       raise Error406.new(self.params)
     end
-    
+
     # TODO: default option for template
     def display(object, template)
       render(template)
@@ -84,7 +84,7 @@ class Rango
       end
       format ? object.send("to_#{format}") : raise(Error406.new(self.params))
     end
-    
+
     # TODO
     def messages
       self.params[:messages]
@@ -93,7 +93,7 @@ class Rango
     # TODO
     def redirect(url)
     end
-    
+
     # TODO
     def cookies
     end
@@ -101,7 +101,7 @@ class Rango
     # TODO
     def session
     end
-    
+
     def run_filters(name, method)
       self.class.get_filters(name).each do |filter_method, options|
         begin
