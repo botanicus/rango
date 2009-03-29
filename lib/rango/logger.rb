@@ -18,7 +18,7 @@ class Rango
     end
     
     def exception(exception)
-      self.error(exception.message)
+      self.error("#{exception.message} (#{exception.class})")
       exception.backtrace.each do |line|
         unless line.match(/thin|eventmachine/)
           STDERR.puts("- #{line.colorize.cyan}")
