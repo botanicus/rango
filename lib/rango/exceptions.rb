@@ -1,5 +1,7 @@
 # coding=utf-8
 
+require "erb"
+
 # TODO: documentation
 # TODO: specs
 class SettingsNotFound < StandardError
@@ -8,54 +10,71 @@ end
 class AnyStrategyMatched < StandardError
 end
 
+class SkipFilter < StandardError
+end
+
+class SkipRoute < StandardError
+end
+
 # superclass of all the controller exceptions
 class Rango
-  class ControllerExceptions
-    attr_reader :status
-    def initialize(status)
-      @status = status
-    end
-    
-    def headers
-      {'Content-Type' => 'text/html'}
-    end
-    
-    def content_length
-      lengths = self.body.map { |line| line.length }
-      length  = lengths.inject { |sum, item| sum + item }
-      {'Content-Length' => length.to_s}
-    end
-    
-    def call(env)
-      headers = self.headers.merge(content_length)
-      return [self.status, headers, self.body]
-    end
-  end
+  module HttpExceptions
+    class HttpError < StandardError
+      attr_accessor :status, :params
+      def initialize(status, params = nil)
+        @status = status
+        @params = params
+      end
 
-  class Error404 < ControllerExceptions
-    def initialize
-      super("404")
+      def headers
+        {'Content-Type' => 'text/html'}
+      end
+      
+      def render
+        content = Rango.framework.path.join("templates/#{self.status}.html.erb").read
+        ERB.new(content).result(binding)
+      end
+
+      def call(env)
+        return [self.status, self.headers, self.body]
+      end
     end
 
-    def call(request)
-      # request.status = 500
-      routes = Project.router.routes.map { |route| route.match_pattern.inspect + " " + route.match_params.inspect}
-      actual = request.path
-      ["<h1>404 Page Not Found</h1>", "URL was <code>#{actual}</code>", "<h2>Available routes</h2>", routes.join("<br />")]
+    class Error404 < HttpError
+      attr_accessor :params
+      def initialize(params = nil)
+        super("404")
+      end
+      
+      def body
+        @routes = Project.router.routes
+        self.render
+      end
     end
-  end
-  
-  class Error500 < ControllerExceptions
-    attr_reader :exception
-    def initialize(exception)
-      super("500")
-      @exception = exception
-      @body = ["<h1>#{exception.message}</h2>", '@exception.bactrace.join("<br />")']
+
+    class Error406 < HttpError
+      attr_accessor :params
+      def initialize(params)
+        super("406")
+      end
+
+      def body
+        self.render
+      end
     end
-    
-    def call(request)
-      # request.status = 500
-      ["<h1>500 Internal Server Error</h1>", "backtraces"]
+
+    class Error500 < HttpError
+      attr_reader :exception, :params
+      def initialize(exception, params)
+        super("500")
+        @exception = exception
+        @params = params
+      end
+
+      def body
+        self.render
+        # ["<h1>#{exception.message}</h2>", '@exception.bactrace.join("<br />")']
+      end
     end
   end
 end
