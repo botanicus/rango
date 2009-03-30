@@ -1,8 +1,11 @@
 # coding=utf-8
 
+Rango.import("templates/template")
+
 class Rango
   class Controller
     include Rango::HttpExceptions
+    include Rango::Helpers
     class << self
       attribute :before_filters, Hash.new
       attribute :after_filters,  Hash.new
@@ -46,36 +49,9 @@ class Rango
     # @see Rango::Logger
     attribute :logger, Project.logger
 
-    def find_template(template)
-      Project.settings.template_dirs.each do |directory|
-        path = File.join(directory, template)
-        if File.exist?(path)
-          return path
-        elsif first = Dir["#{path}.*"].first
-          return first
-        end
-      end
-      return nil
-    end
-
     # TODO: default option for template
     def render(template)
-      path = self.find_template(template)
-      raise TemplateNotFound.new(template, Project.settings.template_dirs) if path.nil?
-      file = File.new(path)
-      self.template_engine.render(file, self)
-    end
-
-    def template_engine
-      # TODO: test if Project.settings.template_engine nil => useful message
-      # TODO: maybe more template engines?
-      engine_name = Project.settings.template_engine
-      Rango.import("templates/adapters/#{engine_name}.rb")
-      engine_class = Rango::Template.engine(engine_name)
-      engine_class.new
-    rescue LoadError
-      Rango.logger.fatal("Template engine #{engine_name} can't be loaded.")
-      raise Error406.new(self.params)
+      Rango::Templates::Template.new(template, self).render
     end
 
     # TODO: default option for template

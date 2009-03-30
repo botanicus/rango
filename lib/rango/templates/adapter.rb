@@ -1,15 +1,17 @@
 # coding=utf-8
 
-class Rango::Template
-  class << self
-    def engine(name)
-      Rango::Template.const_get(name.capitalize)
+class Rango
+  module Templates
+    class << self
+      def engine(name)
+        Rango::Templates.const_get(name.capitalize)
+      end
     end
-  end
 
-  class Adapter
-    def proceed(io)
-      raise "This must be redefined in subclasses!"
+    class Adapter
+      def proceed(io)
+        raise "This must be redefined in subclasses!"
+      end
     end
   end
 end

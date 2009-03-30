@@ -72,7 +72,7 @@ class Rango
     end
 
     class Error500 < HttpError
-      attr_reader :exception, :params
+      attr_accessor :exception, :params
       def initialize(exception, params)
         super("500")
         self.exception = exception

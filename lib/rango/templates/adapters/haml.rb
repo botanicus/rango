@@ -3,10 +3,12 @@
 require "haml"
 Rango.import("templates/adapter")
 
-class Rango::Template
-  class Haml < ::Rango::Template::Adapter
-    def render(io, scope)
-      ::Haml::Engine.new(io.read).render(scope)
+class Rango
+  module Templates
+    class Haml < ::Rango::Templates::Adapter
+      def render(io, scope)
+        ::Haml::Engine.new(io.read, :filename => io.path).render(scope)
+      end
     end
   end
 end
