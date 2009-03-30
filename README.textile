@@ -14,7 +14,7 @@ h1. Installation
 
 Rango requires Ruby 1.9, _Ruby 1.8 isn't supported_. While we use many of 1.9 features, there is no way how to play well with 1.8.
 
-You will need a rack-compatible webserver. "Thin":http://github.com/macournoyer/thin works fine.
+Please note that for full unicode support you will need the latest Rack from "GitHub":http://github.com/chneukirchen/rack. You will have problems with Content-Length otherwise.
 
 If you are TextMate user, you can install Rango TextMate bundle from support directory.
 
