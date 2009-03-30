@@ -107,6 +107,18 @@ Slo by predefinovat v Hamlu
         Rango.logger.inspect($_blocks)
         return $_blocks[name]
       end
+      
+      def partial(template)
+        if template.match(%r[/])
+          path, last = File.split(template)[0..-1]
+          template = File.join(path, "_#{last}")
+        else
+          template = "_#{template}"
+        end
+        # TODO: variables
+        template = Rango::Templates::Template.new(template, context)
+        return template.render
+      end
     
       def extends(template)
         $extends = template #######

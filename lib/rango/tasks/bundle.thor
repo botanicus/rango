@@ -1,6 +1,6 @@
 # coding=utf-8
 
-module Rango
+class Rango
   class Bundle < Thor
     desc 'install', 'install all the runtime dependencies'
     def install(name)
