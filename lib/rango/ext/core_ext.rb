@@ -24,6 +24,10 @@ module Kernel
       end
     end
   end
+  
+  def try_dup
+    self.dup rescue self
+  end
 end
 
 try_require "term/ansicolor", "term-ansicolor"
@@ -66,7 +70,7 @@ class Class
         # lazy loading
         # TODO: why is it lazy loaded?
         default_value = default_value.call if default_value.is_a?(Proc)
-        instance_variable_set("@#{name}", default_value)
+        instance_variable_set("@#{name}", default_value.try_dup) # dup is terribly important, otherwise all the objects will points to one object. If it is for example array, all of the objects will push into one array.
       end
       instance_variable_get("@#{name}")
     end
@@ -74,6 +78,7 @@ class Class
     # define writer method
     define_method("#{name}=") do |value|
       instance_variable_set("@#{name}", value)
+      # TODO: here should be rewritten the reader for cases when user want to do foo.bar = nil because now it will still returns the default value
     end
 
     return default_value
@@ -101,7 +106,7 @@ class Class
         # instance_variable_set("@#{name}", default_value)
         # lazy loading
         default_value = default_value.call if default_value.is_a?(Proc)
-        properties[name] = default_value
+        properties[name] = default_value.try_dup
       end
       # instance_variable_get("@#{name}")
       properties[name]
