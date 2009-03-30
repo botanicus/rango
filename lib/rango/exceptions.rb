@@ -7,6 +7,13 @@ require "erb"
 class SettingsNotFound < StandardError
 end
 
+class TemplateNotFound < StandardError
+  attr_accessor :message
+  def initialize(template, locations)
+    self.message = "Template '#{template}' wasn't found in any of these locations: #{locations.join(", ")}."
+  end
+end
+
 class AnyStrategyMatched < StandardError
 end
 
@@ -22,8 +29,8 @@ class Rango
     class HttpError < StandardError
       attr_accessor :status, :params
       def initialize(status, params = nil)
-        @status = status
-        @params = params
+        self.status = status
+        self.params = params
       end
 
       def headers
@@ -68,8 +75,8 @@ class Rango
       attr_reader :exception, :params
       def initialize(exception, params)
         super("500")
-        @exception = exception
-        @params = params
+        self.exception = exception
+        self.params = params
       end
 
       def body
