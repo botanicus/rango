@@ -1,0 +1,3 @@
+Page.current is pretty bad idea
+Features should works
+Everything should be in Rango::Pagination ... or maybe Rango::Page? It will be better because it do not conflict with existing rango-pagination package

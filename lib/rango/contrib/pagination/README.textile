@@ -1,0 +1,21 @@
+h1. About
+
+h1. Usage
+
+<pre>
+dependency "rango-haml"
+dependency "rango-pagination"
+</pre>
+
+<pre>
+class Posts < Application
+  before :setup_page
+  private
+  def setup_page
+    @page = Order.page(params[:page] || 1)
+  end
+end
+</pre>
+
+# it will be partial "gems/gems/rango-pagination/app/rango-pagination/views", :page => @page
+paginate @page
