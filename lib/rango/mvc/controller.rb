@@ -6,6 +6,7 @@ class Rango
     class << self
       attribute :before_filters, Hash.new
       attribute :after_filters,  Hash.new
+
       # before :login
       # before :login, :actions => [:send]
       def before(action, options = Hash.new)
@@ -27,9 +28,10 @@ class Rango
       end
 
       def get_filters(type)
-        self.instance_variable_get("@#{type}_filters")
+        self.send("#{type}_filters")
       end
     end
+
     # @since 0.0.1
     # @return [Rango::Request]
     # @see Rango::Request
@@ -59,7 +61,9 @@ class Rango
     # TODO: default option for template
     def render(template)
       path = self.find_template(template)
-      self.template_engine.render(File.new(path), self)
+      raise TemplateNotFound.new(template, Project.settings.template_dirs) if path.nil?
+      file = File.new(path)
+      self.template_engine.render(file, self)
     end
 
     def template_engine
@@ -103,10 +107,16 @@ class Rango
     end
 
     def run_filters(name, method)
+      Rango.logger.debug(self.class.instance_variables)
       self.class.get_filters(name).each do |filter_method, options|
         begin
           unless options[:except] && options[:except].include?(method)
-            self.send(filter_method)
+            if self.respond_to?(filter_method)
+              Rango.logger.debug("Calling filter #{filter_method} for controller #{self}")
+              self.send(filter_method)
+            else
+              Rango.logger.error("Filter #{filter_method} doesn't exists!")
+            end
           end
         rescue SkipFilter
           Rango.logger.debug("Skipping #{name} filter")
