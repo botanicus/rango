@@ -1,3 +1,6 @@
+require "pathname" # TODO: it should be done in dm-aggregates
+Rango.dependency("dm-aggregates")
+
 Rango.import("contrib/pagination/page")
 Rango.import("contrib/pagination/strategies")
 Rango.import("contrib/pagination/helpers")
