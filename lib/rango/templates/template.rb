@@ -1,30 +1,35 @@
-# # base.html
-# block "head" do
-#   %script{:type => "text/javascript", :src => "/mootools-core.js"}
-# end
-# 
-# # index.html
-# 
-# - extends "base.html"
+# TODO: qattribute :partial, true
+# => define #partial?
 
 class Rango
   module Templates
     class Template
-      attr_reader :template, :context
-      def initialize(template, context)
-        @template = template
-        @context  = extend_context(context)
+      # template -> supertemplate is the same relationship as class -> superclass
+      attr_accessor :template, :context, :locals, :supertemplate
+
+      attribute :blocks, Hash.new
+      attribute :partial, false
+
+      def initialize(template, context, locals = Hash.new)
+        self.template = template#[context.class.template_prefix.chomp("/"), template].join("/")
+        self.context  = context
+        self.locals   = locals
       end
 
       def render
+        self.context = extend_context(self.context) unless self.partial
         path = self.find(self.template)
         raise TemplateNotFound.new(template, Project.settings.template_dirs) if path.nil?
         file = File.new(path)
-        $extends = nil #######
-        value = self.engine.render(file, context)
-        if $extends
-          Rango.logger.debug("Extends call: #{$extends}")
-          value = self.class.new($extends, self.context).render
+        value = self.engine.render(file, context, self.locals)
+        STDOUT.puts
+        Rango.logger.debug("Rendering template #{self.template}")
+        # Rango.logger.inspect(self.blocks)
+        if self.supertemplate
+          Rango.logger.debug("Extends call: #{self.supertemplate}")
+          supertemplate = self.class.new(self.supertemplate, self.context, self.locals)
+          supertemplate.blocks = self.blocks
+          return supertemplate.render
         end
         return value
       end
@@ -32,18 +37,12 @@ class Rango
       def extend_context(context)
         class << context
           include TemplateHelpers
-          attr_accessor :template
+          attr_accessor :_template
         end
-        context.template = self
+        context._template = self
         return context
       end
       
-      # the template which doesn't contains extends is top level
-      attribute :top_level, true
-      def top_level?
-        @top_level
-      end
-
       def engine
         # TODO: test if Project.settings.template_engine nil => useful message
         # TODO: maybe more template engines?
@@ -69,59 +68,36 @@ class Rango
       end
     end
 
-=begin
-At the begining we have a template which probably contains extends call.
-We need to find the top level template. Top level template doesn't extend another template.
-So ... Render all of them and if the aren't top-level, just save the blocks but doesn't render anything.
-=end
-
-=begin
-Pruser je s navratovyma hodnotama bloku
-Slo by predefinovat v Hamlu
-=end
     module TemplateHelpers
-      # TODO: this is haml specific
       # TODO: take capture_erb from merb-core
-      # TODO: replace by capture_haml
-      def capture(&block)
-        # first we need to backup the old buffer
-        # old_buffer   = @haml_buffer
-        # @haml_buffer = Haml::Buffer.new
-        old_buffer = @haml_buffer.buffer 
-        @haml_buffer.buffer = ""
-        block.call
-        returned = @haml_buffer.buffer
-        @haml_buffer.buffer = old_buffer
-        return returned
-      end
-      
       # post/show.html: it's block is the block we like to see in output
       # post/base.html
       # base.html: here it will be rendered, so we need block to returns the correct block code
       def block(name, value = nil, &block)
-        value = capture(&block) if value.nil? && block
-        Rango.logger.debug("Value:")
-        STDOUT.puts value
-        $_blocks ||= Hash.new
-        $_blocks[name] ||= value
-        Rango.logger.inspect($_blocks)
-        return $_blocks[name]
+        value = capture_haml(&block) if value.nil? && block
+        self._template.blocks[name] ||= value
+        return self._template.blocks[name]
       end
       
-      def partial(template)
+      # partial "products/list"
+      def partial(template, locals = Hash.new)
         if template.match(%r[/])
           path, last = File.split(template)[0..-1]
           template = File.join(path, "_#{last}")
         else
           template = "_#{template}"
         end
-        # TODO: variables
-        template = Rango::Templates::Template.new(template, context)
-        return template.render
+        template = Rango::Templates::Template.new(template, self._template.context, locals)
+        template.partial = true
+        # TODO: #block in partial templates
+        output = template.render
+        # Rango.logger.debug("Partial: #{output[0..20]} ...")
+        return output
       end
     
+      # extends "base.html"
       def extends(template)
-        $extends = template #######
+        self._template.supertemplate = template
       end
     end
   end
