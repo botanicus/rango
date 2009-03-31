@@ -6,8 +6,8 @@
 # @param [Types] name Description
 # @param [String, #read] Should respond to read method
 # @param [String, @optional] *args
-# @param [Array[String], Hash[:verbose => Boolean]] *args Can be array of strings or hash with key :verbose
-# @param [Hash[:soft => Boolean, :verbose => Boolean]]
+# @param [Array[String], Hash[verbose: Boolean]] *args Can be array of strings or hash with key :verbose
+# @param [Hash[soft: Boolean, verbose: Boolean]]
 Allows for the definition of a method parameter with optional type information.
 
 # @yieldparam [Types] name Description

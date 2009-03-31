@@ -51,7 +51,7 @@ class Rango
     # @since 0.0.1
     # @example
     #   Rango.import("router")
-    #   Rango.import("orm/adapters/#{Project.orm}", :soft => true)
+    #   Rango.import("orm/adapters/#{Project.orm}", soft: true)
     # @param [String] path Relative path from lib/rango
     # @param [Hash] options Available options: soft
     # @raise [LoadError] Unless soft importing is enable, it will raise LoadError if the file wasn't found
@@ -71,8 +71,8 @@ class Rango
 
     # @since 0.0.1
     # @example
-    #   Rango.boot(:flat => true)
-    # @param [Hash] options You can specify :flat => true for sinatra-like flat application.
+    #   Rango.boot(flat: true)
+    # @param [Hash] options You can specify flat: true for sinatra-like flat application.
     # @return [Boolean] Returns true if boot succeed or false if not. If ARGV includes "-i", IRB interactive session will start.
     def boot(options = Hash.new)
       begin

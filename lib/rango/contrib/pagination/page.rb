@@ -58,23 +58,23 @@ class Page
   # Current plus 1 or nil if it' the last page
   def next
     if @number < max
-      return Page.new(:current => @number + 1, :count => @count, :per_page => @per_page)
+      return Page.new(current: @number + 1, count: @count, per_page: @per_page)
     end
   end
 
   # Current minus 1 or nil if it' the first page
   def previous
     if @number > 1
-      return Page.new(:current => @number - 1, :count => @count, :per_page => @per_page)
+      return Page.new(current: @number - 1, count: @count, per_page: @per_page)
     end
   end
 
   def last
-    Page.new(:current => max, :count => @count, :per_page => @per_page)
+    Page.new(current: max, count: @count, per_page: @per_page)
   end
 
   def first
-    Page.new(:current => 1, :count => @count, :per_page => @per_page)
+    Page.new(current: 1, count: @count, per_page: @per_page)
   end
 
   def first?

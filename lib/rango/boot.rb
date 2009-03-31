@@ -29,7 +29,7 @@ if Rango.flat?
   Rango.logger.debug("Loading flat application")
 else
   # init.rb
-  Project.import_first(["init", "config/init"], :soft => true, :verbose => false)
+  Project.import_first(["init", "config/init"], soft: true, verbose: false)
 
   # settings.rb
   begin
@@ -43,7 +43,7 @@ else
   end
 
   # settings_local.rb
-  Project.import_first(["settings_local", "config/settings_local"], :soft => true, :verbose => false)
+  Project.import_first(["settings_local", "config/settings_local"], soft: true, verbose: false)
 
   # urls.rb
   Project.import(Project.settings.router)

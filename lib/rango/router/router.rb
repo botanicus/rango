@@ -32,7 +32,7 @@ class Rango
       self.routes = Array.new
     end
 
-    # match("kontakt/", :method => "get")
+    # match("kontakt/", method: "get")
     # Regexp#source returns the string representation
     def match(pattern, params = Hash.new, &block)
       if pattern.is_a?(String)
@@ -69,13 +69,13 @@ class Rango
     include Rango::HttpExceptions
     # %r[blog/post]
     attribute :match_pattern
-    # {:method => "get"}
+    # {method: "get"}
     attribute :match_params, Hash.new
     attribute :strategy
     attribute :params, Hash.new # FIXME: nemuze to takhle ukazovat pro vsechny routy na stejnej hash?
     # to(Rango.logger.method(:debug)), to("blog/views", "Post#show")
     attribute :arguments, Array.new
-    # {:page => 1}
+    # {page: 1}
     # will be merged with params
     attribute :default_params, Hash.new
     attribute :block
@@ -107,7 +107,7 @@ class Rango
       self.strategy || Router.strategies.find { |strategy| strategy.match?(request, self.default_params, *self.arguments, &self.block) }
     end
 
-    # default(:page => 1)
+    # default(page: 1)
     def default(params)
       self.default_params = params
     end

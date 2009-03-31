@@ -17,5 +17,5 @@ class Posts < Application
 end
 </pre>
 
-# it will be partial "gems/gems/rango-pagination/app/rango-pagination/views", :page => @page
+# it will be partial "gems/gems/rango-pagination/app/rango-pagination/views", page: @page
 paginate @page

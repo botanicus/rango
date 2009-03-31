@@ -3,8 +3,8 @@
 require "rubygems"
 
 # dependencies
-Rango.dependency "dm-core", :github => "datamapper/dm-core"
-Rango.dependency "haml", :github => "nex3/haml"
+Rango.dependency "dm-core", github: "datamapper/dm-core"
+Rango.dependency "haml", github: "nex3/haml"
 
 if File.directory?("gems")
   Gem.path.clear

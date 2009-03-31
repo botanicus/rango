@@ -2,7 +2,7 @@
 
 require "rango"
 
-Rango.boot(:flat => true)
+Rango.boot(flat: true)
 run Rango.app
 
 Project.configure do

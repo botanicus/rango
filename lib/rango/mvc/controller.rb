@@ -13,7 +13,7 @@ class Rango
       attribute :template_prefix, ""
 
       # before :login
-      # before :login, :actions => [:send]
+      # before :login, actions: [:send]
       def before(action, options = Hash.new)
         self.before_filters[action] = options
       end
@@ -43,7 +43,7 @@ class Rango
     attr_accessor :request
 
     # @since 0.0.1
-    # @return [Hash] Hash with params from request. For example <code>{:messages => {:success => "You're logged in"}, :post => {:id => 2}}</code>
+    # @return [Hash] Hash with params from request. For example <code>{messages: {success: "You're logged in"}, post: {id: 2}}</code>
     attr_accessor :params
 
     # @since 0.0.1

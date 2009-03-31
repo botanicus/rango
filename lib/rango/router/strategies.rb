@@ -23,7 +23,7 @@ class Rango
       file = args[0]
       callable = args[1]
       options  = args[2]
-      params = params.merge(options) if options # match(%r[^/$]).to("eshop/views.rb", "Static#show", :template => "index")
+      params = params.merge(options) if options # match(%r[^/$]).to("eshop/views.rb", "Static#show", template: "index")
       Project.import(file) if file.is_a?(String)
       args = params.map { |key, value| value }
       klass_name, method = callable.split("#")

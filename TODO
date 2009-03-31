@@ -25,7 +25,7 @@ redirect
 placeholders
 unnamed args
 404 & 500 errors
-match(:domain => "somecooldomain.com", :subdomain => /regexp/)
+match(domain: "somecooldomain.com", subdomain: /regexp/)
 implement include and defer_to
 router method default can take blok
 router resources? if so, then with translation

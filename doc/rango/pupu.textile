@@ -18,8 +18,8 @@ thor pupu:list
 h2. Usage in templates
 
 <pre>
-= pupu :mootools, :more => true
-= pupu :autocompleter, :type => "request"
+= pupu :mootools, more: true
+= pupu :autocompleter, type: "request"
 = pupu :blueprint
 </pre>
 

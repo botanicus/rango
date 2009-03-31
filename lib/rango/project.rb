@@ -32,10 +32,10 @@ class Project
     # @since 0.0.1
     # @example
     #   Project.import("blog/views")
-    #   Project.import("blog/views", :soft => true)
+    #   Project.import("blog/views", soft: true)
     # @param [String] path Path to file which will be loaded using +Kernel#load+ if +Project.settings.debug+ is true or +Kernel#require+ if not.
-    # @param [Hash[:soft => Boolean(default true)], @optional] options
-    # @raise [LoadError] Unless <tt>:soft => true</tt> option is used, it will raise +LoadError+ if the file wasn't found.
+    # @param [Hash[soft: Boolean(default true)], @optional] options
+    # @raise [LoadError] Unless <tt>soft: true</tt> option is used, it will raise +LoadError+ if the file wasn't found.
     # @return [Boolean] If loading suceed.
     def import(path, options = Hash.new)
       # it is better than rescue LoadError, because

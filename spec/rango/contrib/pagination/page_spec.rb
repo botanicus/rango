@@ -4,22 +4,22 @@ require "rango-pagination/page"
 
 describe Page do
   before(:each) do
-    @page = Page.new(:count => 41, :current => 4, :per_page => 5)
+    @page = Page.new(count: 41, current: 4, per_page: 5)
   end
 
   describe "#initialize" do
     it "should setup current page to first page if something less than 1 is given" do
-      page = Page.new(:count => 41, :current => 0, :per_page => 5)
+      page = Page.new(count: 41, current: 0, per_page: 5)
       page.number.should eql(1)
     end
 
     it "should setup current page to first page if nil is given" do
-      page = Page.new(:count => 41, :current => nil, :per_page => 5)
+      page = Page.new(count: 41, current: nil, per_page: 5)
       page.number.should eql(1)
     end
 
     it "should setup current page to last page if something bigger than total count of pagegs is given" do
-      page = Page.new(:count => 41, :current => 10, :per_page => 5)
+      page = Page.new(count: 41, current: 10, per_page: 5)
       page.number.should eql(9)
     end
 
@@ -28,12 +28,12 @@ describe Page do
     end
 
     it "should require just params[:count]" do
-      lambda { Page.new(:count => 1) }.should_not raise_error(ArgumentError)
+      lambda { Page.new(count: 1) }.should_not raise_error(ArgumentError)
     end
 
     it "should have default values" do
-      Page.new(:count => 1).per_page.should eql(10)
-      Page.new(:count => 1).number.should eql(1)
+      Page.new(count: 1).per_page.should eql(10)
+      Page.new(count: 1).number.should eql(1)
     end
   end
 
@@ -43,7 +43,7 @@ describe Page do
     end
 
     it "should count pages total" do
-      page = Page.new(:count => 40, :current => 4, :per_page => 5)
+      page = Page.new(count: 40, current: 4, per_page: 5)
       page.max.should eql(8)
     end
   end
