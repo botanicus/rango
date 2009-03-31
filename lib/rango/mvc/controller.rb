@@ -10,6 +10,8 @@ class Rango
       attribute :before_filters, Hash.new
       attribute :after_filters,  Hash.new
 
+      attribute :template_prefix, ""
+
       # before :login
       # before :login, :actions => [:send]
       def before(action, options = Hash.new)

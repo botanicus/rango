@@ -33,6 +33,7 @@ class Rango
     end
 
     # match("kontakt/", :method => "get")
+    # Regexp#source returns the string representation
     def match(pattern, params = Hash.new, &block)
       if pattern.is_a?(String)
         escaped = Regexp::quote(pattern)
