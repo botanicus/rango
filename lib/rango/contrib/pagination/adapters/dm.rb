@@ -1,6 +1,7 @@
 module DataMapper
   module Resource
     module ClassMethods
+      # @since 0.0.2
       def paginate(pagenum = 1, options = Hash.new)
         pagenum = 1 if pagenum.nil?
         page = self.page(pagenum.to_i, options)
@@ -8,7 +9,8 @@ module DataMapper
         offset = page.number(:db) * page.per_page
         self.all(offset: offset, limit: page.per_page, order: [:updated_at.desc]).all(options)
       end
-
+      
+      # @since 0.0.2
       def page(current, options = Hash.new)
         per_page = defined?(PER_PAGE) ? PER_PAGE : 10
         # the count options are very important

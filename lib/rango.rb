@@ -84,6 +84,7 @@ class Rango
       end
     end
 
+    # @since 0.0.2
     def app
       begin
         # $DEBUG = Project.settings.debug # It looks terrible, but rack works with it

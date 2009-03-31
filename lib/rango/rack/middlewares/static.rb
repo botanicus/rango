@@ -5,11 +5,13 @@ class Rango
   class Static
     FILE_METHODS = %w(GET HEAD).freeze
 
+    # @since 0.0.2
     def initialize(app)
       @app = app
       @file_server = ::Rack::File.new(Project.settings.media_root)
     end
 
+    # @since 0.0.2
     def call(env)
       path        = env['PATH_INFO'].chomp('/')
       method      = env['REQUEST_METHOD']

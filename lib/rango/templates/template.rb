@@ -5,17 +5,23 @@ class Rango
   module Templates
     class Template
       # template -> supertemplate is the same relationship as class -> superclass
+      # @since 0.0.2
       attr_accessor :template, :context, :locals, :supertemplate
 
+      # @since 0.0.2
       attribute :blocks, Hash.new
+      
+      # @since 0.0.2
       attribute :partial, false
 
+      # @since 0.0.2
       def initialize(template, context, locals = Hash.new)
         self.template = template#[context.class.template_prefix.chomp("/"), template].join("/")
         self.context  = context
         self.locals   = locals
       end
 
+      # @since 0.0.2
       def render
         self.context = extend_context(self.context) unless self.partial
         path = self.find(self.template)
@@ -34,6 +40,7 @@ class Rango
         return value
       end
       
+      # @since 0.0.2
       def extend_context(context)
         class << context
           include TemplateHelpers
@@ -43,6 +50,7 @@ class Rango
         return context
       end
       
+      # @since 0.0.2
       def engine
         # TODO: test if Project.settings.template_engine nil => useful message
         # TODO: maybe more template engines?
@@ -55,6 +63,7 @@ class Rango
         raise Error406.new(self.params)
       end
 
+      # @since 0.0.2
       def find(template)
         Project.settings.template_dirs.each do |directory|
           path = File.join(directory, template)
@@ -73,6 +82,7 @@ class Rango
       # post/show.html: it's block is the block we like to see in output
       # post/base.html
       # base.html: here it will be rendered, so we need block to returns the correct block code
+      # @since 0.0.2
       def block(name, value = nil, &block)
         value = capture_haml(&block) if value.nil? && block
         self._template.blocks[name] ||= value
@@ -80,6 +90,7 @@ class Rango
       end
       
       # partial "products/list"
+      # @since 0.0.2
       def partial(template, locals = Hash.new)
         if template.match(%r[/])
           path, last = File.split(template)[0..-1]
@@ -96,6 +107,7 @@ class Rango
       end
     
       # extends "base.html"
+      # @since 0.0.2
       def extends(template)
         self._template.supertemplate = template
       end

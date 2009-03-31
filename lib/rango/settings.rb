@@ -61,7 +61,7 @@ class Rango
 
       # @since 0.0.1
       # @return [String] Name of your database or path to the database if you are using SQLite3.
-      hattribute :database_name, lambda { "#{Rango.environment}.db" }
+      hattribute :database_name, -> { "#{Rango.environment}.db" }
 
       # @since 0.0.1
       # @return [String] Database adapter.
@@ -87,6 +87,7 @@ class Rango
       # @return [Boolean] Features engine. Can be cucumber or nil.
       hattribute :features_engine
 
+      # @since 0.0.2
       hattribute :mime_formats, Array.new
     end
   end

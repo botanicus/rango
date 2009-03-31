@@ -56,6 +56,7 @@ class Project
       end
     end
 
+    # @since 0.0.2
     def import_first(paths, options = Hash.new)
       paths.each do |path|
         path = path.relative if path.is_a?(Path)

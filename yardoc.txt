@@ -1,6 +1,6 @@
 @example
 @note
-@future
+@future [version] [change in feature]
 
 === Useful ===
 # @param [Types] name Description

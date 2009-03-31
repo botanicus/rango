@@ -39,7 +39,10 @@ class Rango
   class Request < Rack::Request
     # @since 0.0.1
     # @return [Hash] Original Rack environment.
-    attribute :env, Hash.new
+    attr_reader :env
+    
+    # @since 0.0.2
+    attribute :message, Hash.new
 
     # @since 0.0.1
     # @example: blog/post/rango-released
@@ -51,7 +54,7 @@ class Rango
     def initialize(env)
       @env  = env
       # /path will be transformed to path/
-      @path = (env["REQUEST_PATH"][1..-1] + "/").gsub(%r[/+], '/')
+      @path = env["REQUEST_PATH"].chomp("/")
       @method = env["REQUEST_METHOD"].downcase
     end
 

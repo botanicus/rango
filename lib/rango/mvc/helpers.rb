@@ -2,48 +2,22 @@
 
 class Rango
   module Helpers
-    # stolen from pupu (but it's OK, it's my code)
-    def javascript(basename)
-      path = Path.new(File.join(Project.settings.media_root, "javascripts", "#{basename}.js"))
-      "<script src='#{path.url}' type='text/javascript'></script>"
+    # tag :a, href: "/contact" { anchor }
+    # tag :a, "contact", href: "/contact"
+    # @since 0.0.2
+    def tag(tag, content, attrs = Hash.new)
+      attrs, content = content, String.new if attrs.empty? && content.is_a?(Hash)
+      %[<#{tag} #{attrs.to_html_attrs}>#{content}</#{tag}>]
     end
-
-    def stylesheet(basename, params = Hash.new)
-      path = Path.new(File.join(Project.media_root, basename))
-      default = {media: 'screen', rel: 'stylesheet', type: 'text/css'}
-      params = default.merge(params)
-      "<link href='#{path.url}' #{params.to_html_attrs} />"
-    end
-
-    def javascripts(*names)
-      names.map { |name| self.javascript(name) }.join("\n")
-    end
-
-    def stylesheets(*names)
-      names.map { |name| self.stylesheet(name) }.join("\n")
-    end
-
-    def copyright(from)
-      now = Time.now.year
-      now.eql?(from) ? now : "#{from} - #{now}"
-    end
-
-    def textile(text)
-      require "redcloth"
-    end
-
-    def markdown(text)
-      require "bluecloth"
-    end
-
-    def maruku(text, options = Hash.new)
-      require "maruku"
-    end
-
-    def syntax(text, options = Hash.new)
-      require "syntax/convertors/html"
-      convertor = Syntax::Convertors::HTML.for_syntax(options[:language] || "ruby")
-      convertor.convert(text, false)
+    
+    # @since 0.0.2
+    def single_tag(tag, attrs = Hash.new)
+      %[<#{tag} #{attrs.to_html_attrs} />]
     end
   end
 end
+
+Rango.import("mvc/helpers/assets")
+Rango.import("mvc/helpers/forms")
+Rango.import("mvc/helpers/syntax")
+Rango.import("mvc/helpers/general")

@@ -6,6 +6,7 @@
 require "rango/ext/thor"
 
 class Db < RangoThor
+  # @since 0.0.2
   desc "automigrate", "Automigrate the database. It will destroy all the data!"
   def automigrate
     Rango.logger.debug("Migrating database #{Project.settings.database_name} ...")
@@ -13,6 +14,7 @@ class Db < RangoThor
     Rango.logger.debug("Result: #{result.inspect}")
   end
 
+  # @since 0.0.2
   desc "autoupgrade", "Autoupgrade the database structure. Data should stay untouched."
   def autoupgrade
     Rango.logger.debug("Upgrading database #{Project.settings.database_name} ...")
@@ -20,6 +22,7 @@ class Db < RangoThor
     Rango.logger.debug("Result: #{result.inspect}")
   end
 
+  # @since 0.0.2
   desc "migrate", "Run migrations."
   def migrate
   end

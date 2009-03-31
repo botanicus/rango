@@ -30,11 +30,11 @@ describe Rango do
     end
 
     it "should raise LoadError if file doesn't exist" do
-      lambda { Rango.import("i_do_not_exist") }.should raise_error(LoadError)
+      -> { Rango.import("i_do_not_exist") }.should raise_error(LoadError)
     end
 
     it "should not raise LoadError if soft: true" do
-      lambda { Rango.import("i_do_not_exist", soft: true) }.should_not raise_error(LoadError)
+      -> { Rango.import("i_do_not_exist", soft: true) }.should_not raise_error(LoadError)
     end
   end
 

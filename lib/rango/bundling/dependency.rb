@@ -36,6 +36,7 @@ class Rango
       end
     end
 
+    # @since 0.0.1
     # options[:version]
     # you may need to bundle software which you do not use at the moment. For example on development machine you are using SQLite3, but on server you are using MySQL, so you will need to bundle do_mysql as well.
     def bundle(library, options = Hash.new)

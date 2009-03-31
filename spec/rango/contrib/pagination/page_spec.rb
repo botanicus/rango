@@ -24,11 +24,11 @@ describe Page do
     end
 
     it "should raise argument error if params aren't hash" do
-      lambda { Page.new(1) }.should raise_error(ArgumentError)
+      -> { Page.new(1) }.should raise_error(ArgumentError)
     end
 
     it "should require just params[:count]" do
-      lambda { Page.new(count: 1) }.should_not raise_error(ArgumentError)
+      -> { Page.new(count: 1) }.should_not raise_error(ArgumentError)
     end
 
     it "should have default values" do

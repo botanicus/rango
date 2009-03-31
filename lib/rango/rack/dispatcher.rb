@@ -3,6 +3,7 @@
 Rango.import("rack/handler")
 
 class Rango::Dispatcher < Rango::Handler
+  # @since 0.0.2
   def call(env)
     request  = Rango::Request.new(env)
     route    = Project.router.find(request.path)

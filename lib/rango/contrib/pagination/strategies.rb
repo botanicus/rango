@@ -4,6 +4,7 @@ Rango.import("contrib/pagination/page")
 class Rango
   module Pagination
     class Strategy
+      # @since 0.0.2
       def self.activate
         Page.register_route_hook(self.new.method(:hook))
         #Page.register_route_hook do |request, page|
@@ -14,12 +15,14 @@ class Rango
 
     module Strategies
       class Default < Rango::Pagination::Strategy
+        # @since 0.0.2
         def hook(request, page)
           return "?page=#{page}"
         end
       end
 
       class PageNumberOnTheEndOfRoute < Rango::Pagination::Strategy
+        # @since 0.0.2
         def hook(request, page)
           # /products/1
           return File.join(File.split(request.full_uri)[0..-2].push(page.to_s))
@@ -27,6 +30,7 @@ class Rango
       end
 
       class PageNumberOnTheEndOfRouteExcludeFirstPage < Rango::Pagination::Strategy
+        # @since 0.0.2
         def hook(request, page)
           if page.eql?(1)
             # /products

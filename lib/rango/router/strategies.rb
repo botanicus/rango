@@ -4,6 +4,7 @@
 # TODO: specs
 class Rango
   class RouterStrategy
+    # @since 0.0.1
     def register
       # TODO: different strategies for each router
       Rango::Router.strategies.push(self)
@@ -14,10 +15,13 @@ class Rango
   # to("Post#show", "blog/views")
   # => Post.new(request).show(*args)
   class ControllerStrategy < RouterStrategy
+    # @since 0.0.1
     def match?(request, params, *args, &block)
       args.length >= 2 && args[0..1].all? { |arg| arg.is_a?(String) } && !block_given?
     end
 
+    # @since 0.0.1
+    # @version 0.0.2
     def run(request, params, *args, &block)
       Rango.import("mvc/controller")
       file = args[0]
@@ -36,10 +40,12 @@ class Rango
   # to(Rango.logger.method(:debug))
   # => Rango.logger.debug(request, *args)
   class CallableStrategy < RouterStrategy
+    # @since 0.0.1
     def match?(request, params, *args, &block)
       (args.length.eql?(1) && args.first.respond_to?(:call)) || block_given?
     end
 
+    # @since 0.0.1
     def run(request, params, *args, &block)
       callable = args.first || block
       args = params.map { |key, value| value }
