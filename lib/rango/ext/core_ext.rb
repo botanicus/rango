@@ -3,6 +3,12 @@
 # TODO: spec it
 require File.join(File.dirname(__FILE__), "path")
 
+class Hash
+  def to_html_attrs
+    self.map { |key, value| "#{key}='#{value}'" }.join(" ")
+  end
+end
+
 module Kernel
   # @since 0.0.1
   # @example

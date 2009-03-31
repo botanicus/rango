@@ -26,6 +26,11 @@ class Path
     path[Dir.pwd + "/"] = String.new
     return path
   end
+  
+  def url
+    path = @absolute.dup
+    path[Project.settings.media_root.first] = String.new ###### HACK
+  end
 
   def ==(another)
     raise TypeError unless another.is_a?(self.class)
