@@ -94,6 +94,13 @@ class Rango
           # use Rack::File.new(Project.settings.media_root)
           # use Rack::File, Project.settings.media_root
           use Rack::ContentLength
+          use Rack::Reloader
+
+          # TODO: MEDIA_PREFIX (rango, pupu, apache)
+
+          Rango.import("rack/middlewares/static.rb")
+          use Rango::Static
+
           run ::Rango::Dispatcher.new
         end
       rescue Exception => exception
