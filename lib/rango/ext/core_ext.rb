@@ -28,6 +28,17 @@ module Kernel
   def try_dup
     self.dup rescue self
   end
+  
+  # for quick inspection
+  def puts_and_return(*args)
+    puts(*args)
+    return *args
+  end
+  
+  def p_and_return(*args)
+    p(*args)
+    return *args
+  end
 end
 
 try_require "term/ansicolor", "term-ansicolor"
