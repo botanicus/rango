@@ -40,15 +40,14 @@ class Project
     def import(path, options = Hash.new)
       # it is better than rescue LoadError, because
       # LoadError can be raise inside the required file
-      path = path.relative if path.is_a?(Path)
-      fullpath = find_file(File.join(Project.root, path)) # TODO: what if fullpath is already given?
+      fullpath = find_file(path)
       debug = Project.settings.respond_to?(:debug) && Project.settings.debug
       if fullpath.nil? && options[:soft] && debug       # any file found, debug mode and soft importing enabled
         Project.logger.warn("File #{path} not found")
       elsif fullpath.nil? && options[:soft] && !debug   # any file found, debug mode and soft importing enabled
         # do nothing
       elsif fullpath.nil? && !options[:soft]            # any file found, debug mode and soft importing disabled
-        raise LoadError, "#{path.inspect} vas given, expected string with path to file"
+        raise LoadError, "File #{path.inspect} doesn't exist"
       elsif !fullpath.nil? && debug                     # the file was found
         Project.logger.debug("Loading #{path}")
         Kernel.load(fullpath)
@@ -88,6 +87,7 @@ class Project
 
     private
     def find_file(path)
+      path = path.relative if path.is_a?(Path)
       # first try to match .rb version, because there may be views.rb and views/
       path = ["#{path}.rb", path].find { |path| File.exist?(path) }
       path = Path.new(path)
