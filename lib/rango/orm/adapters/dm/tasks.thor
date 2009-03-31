@@ -2,15 +2,22 @@
 
 # TODO: db:automigrate etc
 # dm:automigrate must fail in production, but it will be overridable by --force option
-class Db < Thor
+
+require "rango/ext/thor"
+
+class Db < RangoThor
   desc "automigrate", "Automigrate the database. It will destroy all the data!"
   def automigrate
-    DataMapper.auto_migrate!
+    Rango.logger.debug("Migrating database #{Project.settings.database_name} ...")
+    result = DataMapper.auto_migrate!
+    Rango.logger.debug("Result: #{result.inspect}")
   end
 
   desc "autoupgrade", "Autoupgrade the database structure. Data should stay untouched."
   def autoupgrade
-    DataMapper.auto_upgrade!
+    Rango.logger.debug("Upgrading database #{Project.settings.database_name} ...")
+    result = DataMapper.auto_upgrade!
+    Rango.logger.debug("Result: #{result.inspect}")
   end
 
   desc "migrate", "Run migrations."
