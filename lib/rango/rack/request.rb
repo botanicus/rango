@@ -54,7 +54,8 @@ class Rango
     def initialize(env)
       @env  = env
       # /path will be transformed to path/
-      @path = env["REQUEST_PATH"].chomp("/")
+      @path = env["REQUEST_PATH"]
+      @path.chomp!("/") if @path.length > 1 # so let the / just if the path is only /
       @method = env["REQUEST_METHOD"].downcase
     end
 
