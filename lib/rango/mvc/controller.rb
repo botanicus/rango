@@ -15,7 +15,7 @@ class Rango
 
       # @since 0.0.2
       attribute :template_prefix, ""
-
+      
       # before :login
       # before :login, actions: [:send]
       # @since 0.0.2
@@ -31,12 +31,14 @@ class Rango
       # @since 0.0.2
       def run(request, params, method, *args)
         controller = self.new
+        Rango.logger.inspect(before: ::Application.get_filters(:before), after: ::Application.get_filters(:after))
+        Rango.logger.inspect(before: get_filters(:before), after: get_filters(:after))
         controller.request = request
         controller.params  = params
         controller.run_filters(:before, method)
         value = controller.method(method).call(*args)
         controller.run_filters(:after, method)
-        return value
+        return [value, controller.status, controller.headers]
       end
 
       # @since 0.0.2
@@ -53,6 +55,9 @@ class Rango
     # @since 0.0.1
     # @return [Hash] Hash with params from request. For example <code>{messages: {success: "You're logged in"}, post: {id: 2}}</code>
     attr_accessor :params
+    
+    attribute :status
+    attribute :headers, Hash.new
 
     # @since 0.0.1
     # @return [Rango::Logger] Logger for logging project related stuff.
@@ -90,8 +95,13 @@ class Rango
       self.params[:msg] || Hash.new
     end
 
-    # TODO
-    def redirect(url)
+    # @since 0.0.2
+    def redirect(url, options = Hash.new)
+      # TODO: encode options ito url
+      # for example ?msg[error]=foo
+      self.status = 302
+      self.headers["Location"] = url
+      return String.new
     end
 
     # TODO
@@ -105,7 +115,9 @@ class Rango
     # @since 0.0.2
     def run_filters(name, method)
       Rango.logger.debug(self.class.instance_variables)
+      Rango.logger.inspect(name: name, method: method)
       self.class.get_filters(name).each do |filter_method, options|
+        Rango.logger.inspect(fm: filter_method, options: options)
         begin
           unless options[:except] && options[:except].include?(method)
             if self.respond_to?(filter_method)
