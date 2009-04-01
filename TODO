@@ -15,7 +15,7 @@ raise NotFound unless @post => route to Exceptions or what?
 404, 500 HTML output (with backtraces/routes, at least some CSS)
 
 === Dependencies ===
-extlib, maybe extensions, look for rack middlewares
+extlib, look for rack middlewares
 
 === Rango tests ===
 generate all kinds of apps and test if server will start properly
@@ -28,25 +28,21 @@ unnamed args
 match(domain: "somecooldomain.com", subdomain: /regexp/)
 implement include and defer_to
 router method default can take blok
+match("/admin/objednavky/nove/:page")
 router resources? if so, then with translation
 rescue SkipRoute
 Rango.logger.debug("Skipping route #{exception.route}") # TODO: the route
+named routes
 
 === Templates ===
-extends "base.html"
-load foo
 escape everything
 
-=== Middlewares ===
-escape @ in emails
-etag, last-modified (rack or rack-contrib)
-evil
-
 === Rack ===
-static content serving
 files uploading
 registering mime types
-what about request.path? rack works with /foo
+escape @ in emails
+etag, last-modified (rack or rack-contrib)
+evil middleware
 
 === MVC ===
 "provides" API for handling mime-types as in merb?
@@ -61,8 +57,8 @@ pupu
 
 === Adapters ===
 DataMapper
-Erb, Erubis
-Thor 1.9 compatible
+Erb, Erubis, Markaby
+Thor 1.9 compatible, pupu:foo instead of pupu:tasks:foo
 
 === Configuration ===
 logger: settings (where to log - file, STDERR, format)
@@ -105,11 +101,12 @@ contrib:
 
 === Plugins ===
 plugins can add new stubs (for controller etc)
+pupu generator
 
 === Benchmarking & Logging & Live debuging ===
 fireruby logger adapter
 http://debu.gs/live-console
-profiling, benchmarking (test against merb, rails, django, sinatra)
+profiling, benchmarking (bm against merb, rails, django, sinatra, ramaze)
 
 === Contrib ===
 syndication
