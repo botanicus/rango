@@ -17,7 +17,7 @@ class Rango
   end
 end
 
-Rango.import("mvc/helpers/assets")
-Rango.import("mvc/helpers/forms")
-Rango.import("mvc/helpers/syntax")
-Rango.import("mvc/helpers/general")
+Rango.import("helpers/assets")
+Rango.import("helpers/forms")
+Rango.import("helpers/syntax")
+Rango.import("helpers/general")

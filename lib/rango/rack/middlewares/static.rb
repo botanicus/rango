@@ -41,7 +41,7 @@ class Rango
 
       def directory_exist?(path)
         full_path = File.join(@file_server.root, ::Rack::Utils.unescape(path))
-        File.directory?(full_path) && File.readable?(full_path)
+        Dir.exist?(full_path) && File.readable?(full_path)
       end
   end
 end
