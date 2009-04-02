@@ -6,7 +6,7 @@ Rango.import("contrib/pagination/strategies")
 Rango.import("contrib/pagination/helpers")
 Rango.import("contrib/pagination/adapters/#{Project.settings.orm || "dm"}")
 
-Rango.import("mvc/controller")
+Rango.import("mvc/controller") # TODO: it should not works just with controller
 Rango::Controller.send(:include, Rango::Pagination::PaginationMixin)
 # require code that must be loaded before the application
 

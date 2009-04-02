@@ -16,28 +16,31 @@ class Rango
     module Strategies
       class Default < Rango::Pagination::Strategy
         # @since 0.0.2
-        def hook(request, page)
+        def hook(request, from, page)
           return "?page=#{page}"
         end
       end
 
       class PageNumberOnTheEndOfRoute < Rango::Pagination::Strategy
         # @since 0.0.2
-        def hook(request, page)
+        def hook(request, from, page)
           # /products/1
-          return File.join(File.split(request.full_uri)[0..-2].push(page.to_s))
+          return File.join(File.split(request.url)[0..-2].push(page.to_s))
         end
       end
 
       class PageNumberOnTheEndOfRouteExcludeFirstPage < Rango::Pagination::Strategy
+        # Here is terrible important the from parameter
         # @since 0.0.2
-        def hook(request, page)
-          if page.eql?(1)
+        def hook(request, from, page)
+          if from.number.eql?(1)
             # /products
-            return File.join(File.split(request.full_uri)[0..-2])
+            File.join(request.url, page.to_s)
+          elsif page.eql?(1) && ! from.number.eql?(1)
+            File.join((request.url)[0..-2]).chomp("/")
           else
             # /products/2
-            return PageNumberOnTheEndOfRoute.new.hook(request, page)
+            return PageNumberOnTheEndOfRoute.new.hook(request, from, page)
           end
         end
       end

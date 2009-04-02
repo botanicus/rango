@@ -21,11 +21,11 @@ class Page
     # @since 0.0.2
     def register_route_hook(callable = nil, &block)
       callable = (callable.nil? ? block : callable)
-      self.route_hook = block
+      self.route_hook = callable
     end
 
-    def route(request, int)
-      self.route_hook.call(request, int)
+    def route(request, page, int)
+      self.route_hook.call(request, page, int)
     end
   end
 
