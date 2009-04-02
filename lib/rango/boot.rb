@@ -37,12 +37,13 @@ else
   # settings.rb
   begin
     Project.import_first(["settings", "config/settings"])
-    # TODO: move it somewhere
-    if orm = Project.settings.orm
-      Rango.import("orm/adapters/#{orm}/setup")
-    end
   rescue LoadError
     Rango.logger.fatal("Settings.rb wasn't found or it cause another LoadError.")
+  end
+  
+  # TODO: move it somewhere
+  if orm = Project.settings.orm
+    Rango.import("orm/adapters/#{orm}/setup")
   end
 
   # settings_local.rb
