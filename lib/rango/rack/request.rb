@@ -9,7 +9,7 @@
 # rack.multiprocess: false
 # rack.run_once: false
 # REQUEST_METHOD: GET
-# REQUEST_PATH: /test
+# PATH_INFO: /test
 # PATH_INFO: /test
 # REQUEST_URI: /test
 # HTTP_VERSION: HTTP/1.1
@@ -54,7 +54,7 @@ class Rango
     def initialize(env)
       @env  = env
       # /path will be transformed to path/
-      @path = env["REQUEST_PATH"]
+      @path = env["PATH_INFO"]
       @path.chomp!("/") if @path.length > 1 # so let the / just if the path is only /
       @method = env["REQUEST_METHOD"].downcase
     end
