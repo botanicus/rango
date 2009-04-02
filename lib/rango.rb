@@ -59,7 +59,8 @@ class Rango
     def import(path, options = Hash.new)
       if options[:soft]
         begin
-          require File.join(Rango.framework.root, path)
+          # TODO: load or require, the same as in Project
+          load File.join(Rango.framework.root, path)
         rescue LoadError
           Rango.logger.warn("File #{path} can't be loaded")
           return false
@@ -101,7 +102,7 @@ class Rango
 
           Rango.import("rack/middlewares/static.rb")
           use Rango::Static
-
+          use Rack::Session::Cookie#, key: 'rack.session', domain: 'foo.com', path: '/', expire_after: 2592000, secret: 'change_me'
           run ::Rango::Dispatcher.new
         end
       rescue Exception => exception

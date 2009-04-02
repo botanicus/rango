@@ -16,6 +16,12 @@ class Rango
       # @since 0.0.2
       attribute :template_prefix, ""
       
+      def inherited(subclass)
+        Rango.logger.debug("Inheritting filters from #{self.inspect} to #{subclass.inspect}")
+        subclass.before_filters = self.before_filters
+        subclass.after_filters = self.after_filters
+      end
+      
       # before :login
       # before :login, actions: [:send]
       # @since 0.0.2
@@ -30,17 +36,21 @@ class Rango
 
       # @since 0.0.2
       def run(request, params, method, *args)
-        controller = self.new
-        Rango.logger.inspect(before: ::Application.get_filters(:before), after: ::Application.get_filters(:after))
-        Rango.logger.inspect(before: get_filters(:before), after: get_filters(:after))
-        controller.request = request
-        controller.params  = params
+        response = Rack::Response.new
+        controller = self.new(request, params)
+        controller.response = response
+        # Rango.logger.inspect(before: ::Application.get_filters(:before), after: ::Application.get_filters(:after))
+        # Rango.logger.inspect(before: get_filters(:before), after: get_filters(:after))
         controller.run_filters(:before, method)
+        Rango.logger.debug("Calling method #{method} with arguments #{args.inspect}")
         value = controller.method(method).call(*args)
         controller.run_filters(:after, method)
-        return [value, controller.status, controller.headers]
+        response.body = value
+        response.status = controller.status if controller.status
+        response.headers.merge!(controller.headers)
+        return response.finish
       end
-
+      
       # @since 0.0.2
       def get_filters(type)
         self.send("#{type}_filters")
@@ -50,7 +60,13 @@ class Rango
     # @since 0.0.1
     # @return [Rango::Request]
     # @see Rango::Request
-    attr_accessor :request
+    attr_accessor :request, :params, :cookies, :response
+    
+    def initialize(request, params)
+      @request = request
+      @params  = params
+      @cookies = request.cookies
+    end
 
     # @since 0.0.1
     # @return [Hash] Hash with params from request. For example <code>{messages: {success: "You're logged in"}, post: {id: 2}}</code>
@@ -58,6 +74,7 @@ class Rango
     
     attribute :status
     attribute :headers, Hash.new
+    attribute :session, Hash.new
 
     # @since 0.0.1
     # @return [Rango::Logger] Logger for logging project related stuff.
@@ -105,17 +122,13 @@ class Rango
     end
 
     # TODO
-    def cookies
-    end
-
-    # TODO
     def session
     end
 
     # @since 0.0.2
     def run_filters(name, method)
-      Rango.logger.debug(self.class.instance_variables)
-      Rango.logger.inspect(name: name, method: method)
+      # Rango.logger.debug(self.class.instance_variables)
+      # Rango.logger.inspect(name: name, method: method)
       self.class.get_filters(name).each do |filter_method, options|
         Rango.logger.inspect(fm: filter_method, options: options)
         begin

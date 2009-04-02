@@ -5,8 +5,11 @@ Rango.import("project")
 Rango.import("router/router")
 Rango.import("rack/request")
 
-Rango.import("mvc/helpers")
+Rango.import("ext/time_dsl")
+
+Rango.import("helpers")
 Rango.import("bundling/dependency")
+
 Rango::HttpExceptions::HttpError.send(:include, Rango::Helpers)
 
 # === Boot sequence:
