@@ -27,13 +27,14 @@ class Rango
     # @param [Hash] options Available options: <tt>soft: boolean</tt>, <tt>github: user/repo</tt>, <tt>git: repo</tt>, <tt>svn: repo</tt>, <tt>gem: gemname</tt>.
     # @raise [LoadError] Unless soft importing is enable, it will raise LoadError if the file wasn't found
     # @return [Boolean] Returns true if importing succeed or false if not.
-    def dependency(library, options = Hash.new)
+    def dependency(library, options = Hash.new, &block)
       self.bundle(library, options)
       if options[:as]
         require options[:as]
       else
         require library
       end
+      block.call if block_given?
     end
 
     # @since 0.0.1
