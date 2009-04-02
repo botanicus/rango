@@ -83,13 +83,13 @@ class Rango
     
     # TODO: default option for template
     # @since 0.0.2
-    def render(template)
+    def render(template, options = Hash.new)
       Rango::Templates::Template.new(template, self).render
     end
 
     # TODO: default option for template
     # @since 0.0.2
-    def display(object, template)
+    def display(object, template, options = Hash.new)
       render(template)
     rescue Error406
       # TODO: provides API
@@ -130,7 +130,6 @@ class Rango
       # Rango.logger.debug(self.class.instance_variables)
       # Rango.logger.inspect(name: name, method: method)
       self.class.get_filters(name).each do |filter_method, options|
-        Rango.logger.inspect(fm: filter_method, options: options)
         begin
           unless options[:except] && options[:except].include?(method)
             if self.respond_to?(filter_method)

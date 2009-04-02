@@ -46,6 +46,7 @@ class Rango
       options  = self.args[2]
       # match(%r[^/$]).to("eshop/views.rb", "Static#show", template: "index")
       params = options ? options.merge(self.params) : self.params
+      params.merge!(request.params.deep_symbolize_keys)
       Rango.logger.inspect(params: params)
       Project.import(file) if file.is_a?(String)
       args = params.map { |key, value| value }

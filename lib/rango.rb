@@ -102,7 +102,8 @@ class Rango
 
           Rango.import("rack/middlewares/static.rb")
           use Rango::Static
-          use Rack::Session::Cookie#, key: 'rack.session', domain: 'foo.com', path: '/', expire_after: 2592000, secret: 'change_me'
+          use Rack::Session::Cookie, path: '/'
+          #, key: 'rack.session', domain: 'foo.com', path: '/', expire_after: 2592000, secret: 'change_me'
           run ::Rango::Dispatcher.new
         end
       rescue Exception => exception

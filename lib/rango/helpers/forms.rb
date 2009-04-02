@@ -13,5 +13,9 @@ class Rango
     def submit(title = "submit")
       field "submit", title, title: title
     end
+    
+    def form(url, &block)
+      tag :from, action: url, method: "post", &block
+    end
   end
 end

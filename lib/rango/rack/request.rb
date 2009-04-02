@@ -58,6 +58,10 @@ class Rango
       @path.chomp!("/") if @path.length > 1 # so let the / just if the path is only /
       @method = env["REQUEST_METHOD"].downcase
     end
+    
+    def cookies
+      super.symbolize_keys
+    end
 
     # @since 0.0.1
     # @example: "cz"
