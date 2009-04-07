@@ -9,19 +9,19 @@ class Rango
     class << self
       # @since 0.0.2
       attribute :before_filters, Hash.new
-      
+
       # @since 0.0.2
       attribute :after_filters,  Hash.new
 
       # @since 0.0.2
       attribute :template_prefix, ""
-      
+
       def inherited(subclass)
         Rango.logger.debug("Inheritting filters from #{self.inspect} to #{subclass.inspect}")
         subclass.before_filters = self.before_filters
         subclass.after_filters = self.after_filters
       end
-      
+
       # before :login
       # before :login, actions: [:send]
       # @since 0.0.2
@@ -50,7 +50,7 @@ class Rango
         response.headers.merge!(controller.headers)
         return response.finish
       end
-      
+
       # @since 0.0.2
       def get_filters(type)
         self.send("#{type}_filters")
@@ -61,26 +61,27 @@ class Rango
     # @return [Rango::Request]
     # @see Rango::Request
     attr_accessor :request, :params, :cookies, :response
-    
+
     def initialize(request, params)
       @request = request
       @params  = params
       @cookies = request.cookies
+      @session = request.session
     end
+    attr_reader :session
 
     # @since 0.0.1
     # @return [Hash] Hash with params from request. For example <code>{messages: {success: "You're logged in"}, post: {id: 2}}</code>
     attr_accessor :params
-    
+
     attribute :status
     attribute :headers, Hash.new
-    attribute :session, Hash.new
 
     # @since 0.0.1
     # @return [Rango::Logger] Logger for logging project related stuff.
     # @see Rango::Logger
     attribute :logger, Project.logger
-    
+
     # TODO: default option for template
     # @since 0.0.2
     def render(template, options = Hash.new)
@@ -121,10 +122,6 @@ class Rango
       return String.new
     end
 
-    # TODO
-    def session
-    end
-
     # @since 0.0.2
     def run_filters(name, method)
       # Rango.logger.debug(self.class.instance_variables)
@@ -147,3 +144,6 @@ class Rango
     end
   end
 end
+
+Rango.import("auth/core")
+Rango.import("auth/more")

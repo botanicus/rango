@@ -17,7 +17,7 @@ class Rango
       Rango::Router.strategies.push(self)
       Rango.logger.debug("Strategy #{self} have been registered")
     end
-    
+
     # @since 0.0.2
     def initialize(request, params, *args, &block)
       @request = request

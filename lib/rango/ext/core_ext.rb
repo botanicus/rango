@@ -8,7 +8,7 @@ class Hash
   def to_html_attrs
     self.map { |key, value| "#{key}='#{value}'" }.join(" ")
   end
-  
+
   def symbolize_keys
     output = Hash.new
     self.each do |key, value|
@@ -16,11 +16,11 @@ class Hash
     end
     return output
   end
-  
+
   def symbolize_keys!
     self.replace(self.symbolize_keys)
   end
-  
+
   def deep_symbolize_keys
     output = Hash.new
     self.each do |key, value|
@@ -32,7 +32,7 @@ class Hash
     end
     return output
   end
-  
+
   def deep_symbolize_keys!
     self.replace(self.deep_symbolize_keys)
   end

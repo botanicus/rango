@@ -13,7 +13,7 @@ class Rango
 
     def valid?
     end
-    
+
     def to_html
       output = Array.new
       output << %{<form action="#{@action}" method="post">}
@@ -22,8 +22,8 @@ class Rango
       return output.join("\n")
     end
   end
-  
+
   class ModelForm
-    
+
   end
 end

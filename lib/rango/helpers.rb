@@ -10,7 +10,7 @@ class Rango
       block.call if block
       %[<#{tag} #{attrs.to_html_attrs}>#{content}</#{tag}>]
     end
-    
+
     # @since 0.0.2
     def single_tag(tag, attrs = Hash.new)
       %[<#{tag} #{attrs.to_html_attrs} />]

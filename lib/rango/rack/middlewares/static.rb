@@ -22,7 +22,7 @@ class Rango
         else
           # cached_path = directory_exist?(path) ? "#{path}/index" : path
           # cached_path += ::ActionController::Base.page_cache_extension
-          # 
+          #
           # if file_exist?(cached_path)
           #   env['PATH_INFO'] = cached_path
           #   return @file_server.call(env)

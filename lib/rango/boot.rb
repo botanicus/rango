@@ -40,7 +40,7 @@ else
   rescue LoadError
     Rango.logger.fatal("Settings.rb wasn't found or it cause another LoadError.")
   end
-  
+
   # TODO: move it somewhere
   if orm = Project.settings.orm
     Rango.import("orm/adapters/#{orm}/setup")

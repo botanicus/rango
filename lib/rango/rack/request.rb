@@ -40,7 +40,7 @@ class Rango
     # @since 0.0.1
     # @return [Hash] Original Rack environment.
     attr_reader :env
-    
+
     # @since 0.0.2
     attribute :message, Hash.new
 
@@ -57,10 +57,26 @@ class Rango
       @path = env["PATH_INFO"]
       @path.chomp!("/") if @path.length > 1 # so let the / just if the path is only /
       @method = env["REQUEST_METHOD"].downcase
+      self.extend_session
     end
-    
+
     def cookies
       super.symbolize_keys
+    end
+
+    def params
+      super.symbolize_keys
+    end
+
+    def session
+      Rango.logger.inspect(session: @env['rack.session'])
+      @env['rack.session'] ||= {}
+    end
+
+    def extend_session
+      class << session
+        include Rango::Session
+      end
     end
 
     # @since 0.0.1

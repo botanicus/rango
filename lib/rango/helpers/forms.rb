@@ -8,12 +8,12 @@ class Rango
       attrs = attrs.merge(options)
       single_tag :input, attrs
     end
-    
+
     # @since 0.0.2
     def submit(title = "submit")
       field "submit", title, title: title
     end
-    
+
     def form(url, &block)
       tag :from, action: url, method: "post", &block
     end

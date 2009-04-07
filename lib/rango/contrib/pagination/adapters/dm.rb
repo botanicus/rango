@@ -9,7 +9,7 @@ module DataMapper
         offset = page.number(:db) * page.per_page
         self.all(offset: offset, limit: page.per_page, order: [:updated_at.desc]).all(options)
       end
-      
+
       # @since 0.0.2
       def page(current, options = Hash.new)
         per_page = defined?(PER_PAGE) ? PER_PAGE : 10

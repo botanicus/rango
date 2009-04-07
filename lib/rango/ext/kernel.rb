@@ -21,19 +21,19 @@ module Kernel
       end
     end
   end
-  
+
   # @since 0.0.2
   def try_dup
     self.dup rescue self
   end
-  
+
   # for quick inspection
   # @since 0.0.2
   def puts_and_return(*args)
     puts(*args)
     return *args
   end
-  
+
   # @since 0.0.2
   def p_and_return(*args)
     p(*args)

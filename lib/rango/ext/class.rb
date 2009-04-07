@@ -74,7 +74,7 @@ class Class
 
     return default_value
   end
-  
+
   # class Post
   #   questionable :updated, true
   # end

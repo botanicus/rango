@@ -8,7 +8,7 @@ class Rango
       @path = path
       @context = context
     end
-    
+
     def generate!
       if Dir.exist?(@path)
         Find.find(@path) do |file|
@@ -19,7 +19,7 @@ class Rango
       else
       end
     end
-    
+
     def substitute(file)
       content = File.read(file)
       @context.each do |key, value|

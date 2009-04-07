@@ -23,7 +23,7 @@ class Rango
     # will be merged with params
     # @since 0.0.1
     attribute :default_params, Hash.new
-    
+
     # @since 0.0.1
     attribute :block
 
@@ -38,8 +38,8 @@ class Rango
       self.block = block
       return self
     end
-    
-    
+
+
     # @since 0.0.2
     def include(*args)
       return self
@@ -54,7 +54,7 @@ class Rango
         Rack::Response.new(String.new, 302, headers).finish
       end
     end
-    
+
     # So we can returns responses directly from route
     def call(request)
       if self.response
@@ -76,7 +76,7 @@ class Rango
       Project.logger.debug("route: #{self.inspect}")
       raise Error500.new(exception, self.params)
     end
-    
+
     # @since 0.0.1
     def find_strategy(request)
       return self.strategy if self.strategy

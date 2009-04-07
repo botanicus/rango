@@ -10,7 +10,7 @@ class Rango
 
       # @since 0.0.2
       attribute :blocks, Hash.new
-      
+
       # @since 0.0.2
       attribute :partial, false
 
@@ -39,7 +39,7 @@ class Rango
         end
         return value
       end
-      
+
       # @since 0.0.2
       def extend_context(context)
         class << context
@@ -49,7 +49,7 @@ class Rango
         context._template = self
         return context
       end
-      
+
       # @since 0.0.2
       def engine
         # TODO: test if Project.settings.template_engine nil => useful message
@@ -88,7 +88,7 @@ class Rango
         self._template.blocks[name] ||= value
         return self._template.blocks[name]
       end
-      
+
       # partial "products/list"
       # @since 0.0.2
       def partial(template, locals = Hash.new)
@@ -105,7 +105,7 @@ class Rango
         # Rango.logger.debug("Partial: #{output[0..20]} ...")
         return output
       end
-    
+
       # extends "base.html"
       # @since 0.0.2
       def extends(template)

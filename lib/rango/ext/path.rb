@@ -7,7 +7,7 @@ class Path
   attr_reader :absolute
 
   # Path.new("public/uploads")
-  # Path.new("#{Merb.root}/public/uploads")
+  # Path.new("#{Rango::.root}/public/uploads")
   # @since 0.0.1
   def initialize(path)
     path = path.absolute if path.is_a?(Path) # TODO: spec it
@@ -30,7 +30,7 @@ class Path
     path[Dir.pwd + "/"] = String.new
     return path
   end
-  
+
   # @since 0.0.1
   def url
     path = @absolute.dup
