@@ -17,7 +17,6 @@ class Rango
     # The intention is that you overwrite this method
     #
     # @return <User Class Object>
-    #
     # @api overwritable
     cattr_accessor :user_class
 
@@ -26,16 +25,13 @@ class Rango
     end
 
     # Returns true if there is an authenticated user attached to this session
-    #
     # @return <TrueClass|FalseClass>
-    #
     def authenticated?
       !!session[:user]
     end
 
     # This method will retrieve the user object stored in the session or nil if there
     # is no user logged in.
-    #
     # @return <User class>|NilClass
     def user
       return nil if !session[:user]
@@ -47,8 +43,6 @@ class Rango
     # @return <User Class>|NilClass
     def user=(user)
       session[:user] = nil && return if user.nil?
-      Rango.logger.inspect(user: user) ###
-      Rango.logger.inspect(first: session[:user]) ###
       session[:user] = store_user(user)
       @user = session[:user] ? user : session[:user]
     end
@@ -59,15 +53,12 @@ class Rango
     #
     # If a strategy returns some kind of user object, this will be stored
     # in the session, otherwise a Rango::Controller::Unauthenticated exception is raised
-    #
     # @params Rango::Request, [List,Of,Strategies, optional_options_hash]
     #
     # Pass in a list of strategy objects to have this list take precedence over the normal defaults
     #
     # Use an options hash to provide an error message to be passed into the exception.
-    #
     # @return user object of the verified user.  An exception is raised if no user is found
-    #
     def authenticate!(request, params, *rest)
       opts = rest.last.kind_of?(Hash) ? rest.pop : {}
       rest = rest.flatten
@@ -187,6 +178,5 @@ class Rango
       end
       user
     end
-
   end
 end

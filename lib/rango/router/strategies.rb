@@ -51,7 +51,7 @@ class Rango
       Project.import(file) if file.is_a?(String)
       args = params.map { |key, value| value }
       klass_name, method = callable.split("#")
-      klass = Object.const_get(klass_name)
+      klass = Object.full_const_get(klass_name)
       # raise ControllerExpected unless klass.respond_to?(:controller_class) # Or something like that. Otherwise it's confusing when user forgot "s", Post instead of Posts etc
       klass.run(self.request, params, method, *args) # should returns Rack::Response
     end

@@ -9,8 +9,9 @@ class Rango
     end
 
     # @since 0.0.2
-    def link_to(name, url)
-      tag :a, name, href: url, title: name
+    def link_to(name, url, options = Hash.new)
+      default = {href: url, title: name}
+      tag :a, name, default.merge(options)
     end
 
     # @since 0.0.2
