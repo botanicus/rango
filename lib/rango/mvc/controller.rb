@@ -42,8 +42,14 @@ class Rango
         # Rango.logger.inspect(before: ::Application.get_filters(:before), after: ::Application.get_filters(:after))
         # Rango.logger.inspect(before: get_filters(:before), after: get_filters(:after))
         controller.run_filters(:before, method)
-        Rango.logger.debug("Calling method #{method} with arguments #{args.inspect}")
-        value = controller.method(method).call(*args)
+        # If you don't care about arguments or if you prefer usage of params.
+        if controller.method(method).arity.eql?(0)
+          Rango.logger.info("Calling method #{method} without arguments")
+          value = controller.method(method).call
+        else
+          Rango.logger.info("Calling method #{method} with arguments #{args.inspect}")
+          value = controller.method(method).call(*args)
+        end
         controller.run_filters(:after, method)
         response.body = value
         response.status = controller.status if controller.status
@@ -130,14 +136,14 @@ class Rango
         begin
           unless options[:except] && options[:except].include?(method)
             if self.respond_to?(filter_method)
-              Rango.logger.debug("Calling filter #{filter_method} for controller #{self}")
+              Rango.logger.info("Calling filter #{filter_method} for controller #{self}")
               self.send(filter_method)
             else
               Rango.logger.error("Filter #{filter_method} doesn't exists!")
             end
           end
         rescue SkipFilter
-          Rango.logger.debug("Skipping #{name} filter")
+          Rango.logger.info("Skipping #{name} filter")
           next
         end
       end
