@@ -78,13 +78,12 @@ class Rango
     end
 
     module TemplateHelpers
-      # TODO: take capture_erb from merb-core
       # post/show.html: it's block is the block we like to see in output
       # post/base.html
       # base.html: here it will be rendered, so we need block to returns the correct block code
       # @since 0.0.2
       def block(name, value = nil, &block)
-        value = capture_haml(&block) if value.nil? && block
+        value = self._template.context.capture(&block) if value.nil? && block
         self._template.blocks[name] ||= value
         return self._template.blocks[name]
       end

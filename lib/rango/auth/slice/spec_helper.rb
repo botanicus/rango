@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'merb-core'
 require 'merb-slices'
 require 'spec'

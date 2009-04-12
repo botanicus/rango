@@ -43,17 +43,14 @@ class Rango
       Rango.import("mvc/controller")
       file = self.args[0]
       callable = self.args[1]
-      options  = self.args[2]
-      # match(%r[^/$]).to("eshop/views.rb", "Static#show", template: "index")
-      params = options ? options.merge(self.params) : self.params
-      params.merge!(request.params.deep_symbolize_keys)
-      Rango.logger.inspect(params: params)
+      options  = self.args[2] || Hash.new
       Project.import(file) if file.is_a?(String)
-      args = params.map { |key, value| value }
       klass_name, method = callable.split("#")
       klass = Object.full_const_get(klass_name)
-      # raise ControllerExpected unless klass.respond_to?(:controller_class) # Or something like that. Otherwise it's confusing when user forgot "s", Post instead of Posts etc
-      klass.run(self.request, params, method, *args) # should returns Rack::Response
+      raise "Controller expected, but #{klass} seems not to be controller" unless klass.controller?
+      # match(%r[^/$]).to("eshop/views.rb", "Static#show", template: "index")
+      # params. vs options: params are /post/:slug, options template: "index"
+      klass.run(self.request, options.merge(params), method) # should returns Rack::Response
     end
   end
 

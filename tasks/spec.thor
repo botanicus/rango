@@ -3,8 +3,7 @@
 class Spec < Thor
   desc "rango [path]", "Run Rango specs"
   def rango(path = "spec")
-    spec = "/opt/pkg/ruby-1.9.1/lib/ruby1.9/gems/1.9.1/gems/rspec-1.2.0/bin/spec"
-    command = %[#{spec} #{path} --options spec/spec.opts]
+    command = %[spec #{path} --options spec/spec.opts]
     puts(command) ; exec(command)
   end
 

@@ -11,7 +11,7 @@
 #     - On successful login, the user may be redirect_back_or("/home") and they will
 #       return to the /page url.  The /home  url is ignored
 
-class Rango::AuthenticatedHelper
+class Rango::Controller
   # Add a helper to do the redirect_back_or  for you.  Also tidies up the session afterwards
   # If there has been a failed login attempt on some page using this method
   # you'll be redirected back to that page.  Otherwise redirect to the default_url
@@ -34,7 +34,7 @@ end
 # This mixin is mixed into the Exceptions controller to setup the correct methods
 # And filters.  It is implemented as a mixin so that it is completely overwritable in
 # your controllers
-class Rango::Authentication::Mixins
+module Rango::Authentication::Mixins
   module RedirectBack
     def self.included(base)
       base.class_eval do
@@ -54,9 +54,9 @@ class Rango::Authentication::Mixins
 end
 
 # Adds required methods to  the Authentication object for redirection
-Rango::BootLoader.after_app_loads do
-  Rango::Authentication.maintain_session_keys << :return_to
-end
+# Rango::BootLoader.after_app_loads do
+#   Rango::Authentication.maintain_session_keys << :return_to
+# end
 
 # class Rango::Authentication
 #
@@ -70,6 +70,6 @@ end
 # end
 
 # Mixin the RedirectBack mixin before the after_app_loads block (i.e. make sure there is an exceptions controller)
-Rango::Authentication.customize_default do
-  Exceptions.class_eval{ include Rango::Authentication::Mixins::RedirectBack }
-end
+# Rango::Authentication.customize_default do
+#   Exceptions.class_eval { include Rango::Authentication::Mixins::RedirectBack }
+# end

@@ -60,7 +60,7 @@ class Rango
       if options[:soft]
         begin
           # TODO: load or require, the same as in Project
-          load File.join(Rango.framework.root, path)
+          require File.join(Rango.framework.root, path)
         rescue LoadError
           Rango.logger.warn("File #{path} can't be loaded")
           return false
@@ -96,6 +96,7 @@ class Rango
           # use Rack::File.new(Project.settings.media_root)
           # use Rack::File, Project.settings.media_root
           use Rack::ContentLength
+          use Rack::MethodOverride # _method: put etc
           use Rack::Reloader
 
           # TODO: MEDIA_PREFIX (rango, pupu, apache)
@@ -116,7 +117,7 @@ class Rango
     # @since 0.0.1
     def interactive
       require "irb"
-      require "irb/completion"
+      try_require "irb/completion" # some people can have ruby compliled without readline
       ARGV.clear # otherwise irb will read it
       IRB.start
     end
@@ -125,6 +126,10 @@ class Rango
     # @return [Boolean] If application is flat or not.
     def flat?
       @flat
+    end
+    
+    def debug?
+      true
     end
   end
 end

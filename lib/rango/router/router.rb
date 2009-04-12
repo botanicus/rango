@@ -45,6 +45,7 @@ class Rango
     def match(pattern, params = Hash.new, &block)
       if pattern.is_a?(String)
         escaped = Regexp::quote(pattern)
+        escaped.gsub!(%r[:([^/]+)], '(?<\1>[^/]+)')
         pattern = %r[^#{escaped}/?$]
       end
       route = Route.new
@@ -52,6 +53,60 @@ class Rango
       route.match_params = params
       @routes.push(route)
       return route
+    end
+    
+    # TODO: this methods doesn't check the methods, see strategies.rb
+    def get(pattern, params = Hash.new, &block)
+      params[:method] = "get"
+      match(pattern, params, &block)
+    end
+    
+    def post(pattern, params = Hash.new, &block)
+      params[:method] = "post"
+      match(pattern, params, &block)
+    end
+    
+    def put(pattern, params = Hash.new, &block)
+      params[:method] = "put"
+      match(pattern, params, &block)
+    end
+    
+    def delete(pattern, params = Hash.new, &block)
+      params[:method] = "delete"
+      match(pattern, params, &block)
+    end
+    
+    # resource :posts, admin_prefix: "/admin"
+    # GET    /produkt/maslo
+    # GET    /admin/produkt/new
+    # GET    /admin/produkt/edit/maslo
+    # PUT    /admin/produkt/maslo
+    # POST   /admin/produkt
+    # DELETE /admin/produkt/maslo
+    # class Posts < Rango::Controller
+    #   before :ensure_authenticated, except: ["get"]
+    #   def get(slug)
+    #     post = Post.get(slug)
+    #     render "posts/get", post: post
+    #   end
+    # 
+    #   def post(data)
+    #     post = Post.new(data)
+    #     if post.save
+    #       redirect "/posts"
+    #     else
+    #       self.new
+    #     end
+    #   end
+    # 
+    #   def put(slug)
+    #   end
+    # 
+    #   def delete(slug)
+    #   end
+    # end
+    def resource(pattern, params = Hash.new, &block)
+      # TODO
     end
 
     # @since 0.0.1

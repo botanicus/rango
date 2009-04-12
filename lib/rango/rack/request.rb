@@ -59,18 +59,62 @@ class Rango
       @method = env["REQUEST_METHOD"].downcase
       self.extend_session
     end
+    
+    def GET
+      super.deep_symbolize_keys.except(:_method)
+    end
+    
+    def POST
+      super.deep_symbolize_keys.except(:_method) if self.post?
+    end
+    
+    def PUT
+      if self.put?
+        if @env["rack.request.form_input"].eql? @env["rack.input"]
+          @env["rack.request.form_hash"]
+        elsif form_data?
+          @env["rack.request.form_input"] = @env["rack.input"]
+          unless @env["rack.request.form_hash"] =
+              Utils::Multipart.parse_multipart(env)
+            @env["rack.request.form_vars"] = @env["rack.input"].read
+            @env["rack.request.form_hash"] = Utils.parse_query(@env["rack.request.form_vars"])
+            @env["rack.input"].rewind if @env["rack.input"].respond_to?(:rewind)
+          end
+          @env["rack.request.form_hash"].deep_symbolize_keys.except(:_method)
+        else
+          {}
+        end
+      end
+    end
+    
+    def DELETE
+      {}.deep_symbolize_keys.except(:_method)
+    end
+    
+    def params
+      @params = Hash.new
+      [self.GET, self.POST, self.PUT, self.DELETE].each do |data|
+        @params.merge!(data) if data.respond_to?(:merge) # Hash, Mash and friends
+      end
+      @params.deep_symbolize_keys.except(:msg, :_method)
+    end
 
     def cookies
-      super.symbolize_keys
+      super.except("rack.session").symbolize_keys
     end
 
-    def params
-      super.symbolize_keys
+    def form
+      data = env["rack.request.form_hash"] || Hash.new
+      data.deep_symbolize_keys.except(:_method)
     end
-
+    
     def session
       Rango.logger.inspect(session: @env['rack.session'])
       @env['rack.session'] ||= {}
+    end
+    
+    def ajax?
+      env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest"
     end
 
     def extend_session
@@ -104,6 +148,14 @@ class Rango
       parts = host.split(".")
       index = parts.index(self.domain)
       parts[0..(index - 1)]
+    end
+    
+    def base_url
+      require "uri"
+      fragments = URI.split("http://localhost:2000/foo/bar?q=foo")
+      fragments = fragments[0..4]
+      5.times { fragments.push(nil) }
+      URI::HTTP.new(*fragments).to_s
     end
   end
 end

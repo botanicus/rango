@@ -1,5 +1,30 @@
+=== Rango 0.0.2 MVC Princess ===
+[FIX] content-length
+ERB, Erubis
+Extlib dependency (gemspec, remove some unnecessary stuff from core-ext)
+README
+extlib: release task pro releasnuti na rubyforge
+Rango.import zasadne s priponout, jinak problemy s eisdir etc
+router post/:slug
+API doc (also for classes)
+logger#debug vs logger#info; less logger debug messages
+cookies[:foo] instead of set_cookie
+named routes
+router include, with(page: 1) do ... end
+exceptions controller
+app generators
+method override, _method, match(foo, method: "post")
+example apps
+forms, modelforms
+
+rango: template strategies: napr. v jakem namespace vyhodnocovat, zda predavat kontexty jako v djangu ...
+Nejlepsi bude kdyz proste pujde z toho repa udelat gem (thor package:gem nebo tak neco) a nainstaluje se to jako gem. Kdybysme meli to, co rails, tak nemuzeme podporovat soucasne i gemy a kdyby to, co merb, tak musime vzdycky udelat balicek rucne, coz je opruz
+
+rango: dumpovani instancnich promennych pri exception
+Watch: django, ramaze, sinatra, halcyon, merb, rack, rack-contrib
+Rango: donate, planet, logo, zaregistrovat kde to jde( http://ostatic.com), real world usage, github rebase, rubyinside
+
 === Documentation ===
-Full README
 Doc for classes, not just for methods
 in README should be just basic informations, others should be in doc/rango or so
 yardoc:
@@ -21,7 +46,6 @@ extlib, look for rack middlewares
 generate all kinds of apps and test if server will start properly
 
 === Router ===
-redirect
 placeholders
 unnamed args
 404 & 500 errors
@@ -43,11 +67,13 @@ registering mime types
 escape @ in emails
 etag, last-modified (rack or rack-contrib)
 evil middleware
+middleware na odstraneni whitespace z html etc
+js/css minify
+rack::reloader
 
 === MVC ===
 "provides" API for handling mime-types as in merb?
 render & display: automatically find template
-redirect
 flash messages
 views helpers (error_messages_for etc)
 

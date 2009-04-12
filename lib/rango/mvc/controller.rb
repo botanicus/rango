@@ -6,6 +6,7 @@ class Rango
   class Controller
     include Rango::HttpExceptions
     include Rango::Helpers
+    include Rango::Templates::TemplateHelpers
     class << self
       # @since 0.0.2
       attribute :before_filters, Hash.new
@@ -25,24 +26,25 @@ class Rango
       # before :login
       # before :login, actions: [:send]
       # @since 0.0.2
-      def before(action, options = Hash.new)
-        self.before_filters[action] = options
+      def before(action = nil, options = Hash.new, &block)
+        self.before_filters[action || block] = options
       end
 
       # @since 0.0.2
-      def after(action, options = Hash.new)
-        self.after_filters[action] = options
+      def after(action = nil, options = Hash.new, &block)
+        self.after_filters[action || block] = options
       end
 
       # @since 0.0.2
-      def run(request, params, method, *args)
+      def run(request, options = Hash.new, method = "index")
         response = Rack::Response.new
-        controller = self.new(request, params)
+        controller = self.new(request, options.merge(request.params))
         controller.response = response
         # Rango.logger.inspect(before: ::Application.get_filters(:before), after: ::Application.get_filters(:after))
         # Rango.logger.inspect(before: get_filters(:before), after: get_filters(:after))
         controller.run_filters(:before, method)
         # If you don't care about arguments or if you prefer usage of params.
+        args = controller.params.map { |key, value| value }
         if controller.method(method).arity.eql?(0)
           Rango.logger.info("Calling method #{method} without arguments")
           value = controller.method(method).call
@@ -51,10 +53,22 @@ class Rango
           value = controller.method(method).call(*args)
         end
         controller.run_filters(:after, method)
-        response.body = value
+        response.body = proceed_value(value)
         response.status = controller.status if controller.status
         response.headers.merge!(controller.headers)
         return response.finish
+      end
+      
+      def proceed_value(value)
+        case value
+        when true, false then value.to_s
+        when nil then String.new
+        else value
+        end
+      end
+      
+      def controller?
+        true
       end
 
       # @since 0.0.2
@@ -73,6 +87,7 @@ class Rango
       @params  = params
       @cookies = request.cookies
       @session = request.session
+      Rango.logger.inspect(params: params, cookies: cookies, session: session)
     end
     attr_reader :session
 
@@ -90,8 +105,8 @@ class Rango
 
     # TODO: default option for template
     # @since 0.0.2
-    def render(template, options = Hash.new)
-      Rango::Templates::Template.new(template, self).render
+    def render(template, locals = Hash.new)
+      Rango::Templates::Template.new(template, self, locals).render
     end
 
     # TODO: default option for template
@@ -108,26 +123,40 @@ class Rango
 
     # The rails-style flash messages
     # @since 0.0.2
-    attribute :message, Hash.new
-
-    # TODO
-    # /foo/bar?msg[error]=Hello%20world%20bitch!
-    # require "uri"
-    # URI.escape("http://example.com/?a=\11\15")
-    # @since 0.0.2
     def message
-      self.params[:msg] || Hash.new
+      @message ||= (request.GET[:msg] || Hash.new)
     end
 
     # @since 0.0.2
     def redirect(url, options = Hash.new)
-      # TODO: encode options ito url
-      # for example ?msg[error]=foo
       self.status = 302
-      self.headers["Location"] = url
+
+      # for example ?msg[error]=foo
+      [:error, :success, :notice].each do |type|
+        if msg = (options[type] || message[type])
+          msg.tr!("čďěéíňóřšťúůýž", "cdeeinorstuuyz") # FIXME: encoding problem
+          url.concat("?msg[#{type}]=#{msg}")
+        end
+      end
+
+      require 'uri'
+      self.headers["Location"] = URI.escape(url)
       return String.new
     end
-
+    
+    def capture(&block)
+      raise "Rango::Controller#capture should be defined in your template engine adapter"
+    end
+    
+    # view:
+    # render "index"
+    # template:
+    # extends "base.html" if layout
+    # This is helper can works as render layout: false for AJAX requests when you probably would like to render just the page without layout
+    def layout
+      request.ajax?
+    end
+    
     # @since 0.0.2
     def run_filters(name, method)
       # Rango.logger.debug(self.class.instance_variables)
@@ -135,9 +164,12 @@ class Rango
       self.class.get_filters(name).each do |filter_method, options|
         begin
           unless options[:except] && options[:except].include?(method)
-            if self.respond_to?(filter_method)
+            if filter_method.is_a?(Symbol) && self.respond_to?(filter_method)
               Rango.logger.info("Calling filter #{filter_method} for controller #{self}")
               self.send(filter_method)
+            elsif filter_method.respond_to?(:call)
+              Rango.logger.info("Calling filter #{filter_method.inspect} for controller #{self}")
+              self.instance_eval(&filter_method)
             else
               Rango.logger.error("Filter #{filter_method} doesn't exists!")
             end

@@ -25,7 +25,11 @@
   </head>
   <body>
     <h1><span style="color:red">404</span> Page Not Found</h1>
+    <p>
+      Request path: <%= @path %>
+    </p>
 
+    <!-- TODO: router params plus request params -->
     <% unless @params.nil? %>
       <h2>Params</h2>
       <%= @params.inspect %>

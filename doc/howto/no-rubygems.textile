@@ -1,0 +1,1 @@
+ruby1.9 --disable-gems

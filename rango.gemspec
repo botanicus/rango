@@ -1,7 +1,8 @@
 # coding=utf-8
 
-rango_root = File.join(File.dirname(__FILE__))
-require File.join(rango_root, "lib", "rango")
+# Run thor package:gem or gem build rango.gemspec
+$:.insert(0, File.join(File.dirname(__FILE__), "lib"))
+require "rango"
 require "rubygems/specification"
 
 SPECIFICATION = Gem::Specification.new do |s|

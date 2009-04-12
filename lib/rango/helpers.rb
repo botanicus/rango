@@ -19,6 +19,6 @@ class Rango
 end
 
 Rango.import("helpers/assets")
-Rango.import("helpers/forms")
 Rango.import("helpers/syntax")
 Rango.import("helpers/general")
+Rango.import("helpers/merb-helpers")

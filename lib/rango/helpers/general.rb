@@ -1,4 +1,5 @@
 # coding=utf-8
+require "uri"
 
 class Rango
   module Helpers
@@ -10,7 +11,7 @@ class Rango
 
     # @since 0.0.2
     def link_to(name, url, options = Hash.new)
-      default = {href: url, title: name}
+      default = {href: URI.escape(url), title: name.to_s.gsub(/'/, '&apos;')}
       tag :a, name, default.merge(options)
     end
 

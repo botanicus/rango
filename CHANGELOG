@@ -2,5 +2,7 @@
 Just basics
 
 === Version 0.0.2 MVC Princess ===
-static middleware
+static files middleware
 MVC layer
+sessions, cookies
+integrated merb-auth

@@ -1,12 +1,12 @@
 h1. Why Rango?
 
-The problem of the big Ruby frameworks as Ruby on Rails or Merb is that they *are trying to solve everything*. They are solving threading, communication with webserver and similar things. Nor Rango. Rango is just web framework. It's up to you to configure your server cluster and get it working with it. It's much less confusing, because user exactly knows what
+The problem of the big Ruby frameworks as Ruby on Rails or Merb is that they *are trying to solve everything*. They are solving threading, communication with webserver and similar things. Not Rango. Rango is just web framework. It's up to you to configure your server cluster and get it working with it. It's much less confusing, because user exactly knows what's happening
 
-And not just that – while we care about just the web framework stuff, Rango is *really small* and has *very readable code*. Have you ever read Rails sources? Felt confused? I did. But not with Rango.
+And not just that – because we care about just the web framework stuff, Rango is *really small* and has *very readable code*. Have you ever read Rails sources? Felt confused? I did. But not with Rango.
 
-Rango redefined the meaning of word *customizable*. Merb told he is customizable, but was he? Could you include one router to another? Or route request directly to callable object? Or just ship your plugins with default templates? No problem in Rango.
+Rango redefined the meaning of word *customizable*. Merb said it is customizable, but was it? Could you include one router to another? Or route request directly to callable object? Or just ship your plugins with default templates? No problem in Rango.
 
-Rango also *performs very well*. It works just with Ruby 1.9 which is already pretty fast and Rango itself is really lightweight and nearly doesn't use magical methods as method_missing.
+Rango also *performs very well*. It works just with Ruby 1.9 which is already pretty fast and Rango itself is really lightweight and nearly doesn't use magical methods like method_missing.
 
 One of the greatest thing about Rango is that it comes with *"Pupu":http://github.com/botanicus/pupu integration*. Pupu is framework for writing assets plugins and there are already bundled many of useful javascript libraries and frameworks. You like MooTools, ya? Just run @thor pupu:install mootools@ and you're done!
 
@@ -57,3 +57,7 @@ rango -i
 </pre>
 
 h1. Init file @init.rb@
+
+h1. Community
+
+# @#rango@
