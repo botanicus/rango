@@ -2,3 +2,6 @@
 .yardoc
 .cache
 doc/head
+nbproject/
+*.itProject
+Thumb.db
