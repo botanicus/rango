@@ -36,6 +36,9 @@
 # http://rack.rubyforge.org/doc/
 # http://rack.rubyforge.org/doc/classes/Rack/Request.html
 class Rango
+  module Session
+  end
+
   class Request < Rack::Request
     # @since 0.0.1
     # @return [Hash] Original Rack environment.
