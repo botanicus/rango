@@ -23,6 +23,7 @@ SPECIFICATION = Gem::Specification.new do |s|
   s.add_dependency "rack"
   s.add_dependency "term-ansicolor"
   s.add_dependency "thor"
+  s.add_dependency "extlib"
   s.require_paths = ["lib"]
   s.required_ruby_version = Gem::Requirement.new(">= 1.9.1")
   s.rubyforge_project = "rango"
