@@ -2,7 +2,7 @@
 
 # Run thor package:gem or gem build rango.gemspec
 $:.insert(0, File.join(File.dirname(__FILE__), "lib"))
-require "rango"
+require "rango/version"
 require "rubygems/specification"
 
 SPECIFICATION = Gem::Specification.new do |s|

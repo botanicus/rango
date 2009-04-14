@@ -7,6 +7,7 @@ root = File.join(File.dirname(__FILE__), "rango")
 require File.join(root, "exceptions")
 require File.join(root, "loggers", "logger")
 require File.join(root, "ext", "core_ext")
+require File.join(root, "version")
 
 class Rango
   class << self
@@ -24,18 +25,6 @@ class Rango
       framework.root = root
       framework.path = Path.new(root)
       return framework
-    end
-
-    # @since 0.0.1
-    # @return [String] Rango version string in +major.minor.update+ format.
-    def version
-      "0.0.1"
-    end
-
-    # @since 0.0.1
-    # @return [String] Rango codename.
-    def codename
-      "Miracle Born"
     end
 
     # @since 0.0.1
