@@ -2,6 +2,9 @@
 
 # Run thor package:gem or gem build rango.gemspec
 $:.insert(0, File.join(File.dirname(__FILE__), "lib"))
+
+p File.exist?(File.join($:.first, "rango/version.rb"))
+
 require "rango/version"
 require "rubygems/specification"
 
