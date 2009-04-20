@@ -35,7 +35,7 @@ h2. Returned value
 Returned value must be ....
 
 <pre>
-# coding=utf-8
+# coding: utf-8
 
 Rango::Router.register do
   match("admin/").include('admin/urls.rb')

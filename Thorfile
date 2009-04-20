@@ -1,4 +1,4 @@
-# coding=utf-8
+# coding: utf-8
 
 # Warning: at the moment Thor works just for Ruby 1.8
 

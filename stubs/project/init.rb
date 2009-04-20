@@ -1,4 +1,4 @@
-# coding=utf-8
+# coding: utf-8
 
 # dependencies
 Rango.dependency "dm-core", github: "datamapper/dm-core"

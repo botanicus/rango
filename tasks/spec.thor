@@ -1,4 +1,4 @@
-# coding=utf-8
+# coding: utf-8
 
 class Spec < Thor
   desc "rango [path]", "Run Rango specs"

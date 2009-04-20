@@ -1,4 +1,4 @@
-# coding=utf-8
+# coding: utf-8
 
 # Run thor package:gem or gem build rango.gemspec
 $:.insert(0, File.join(File.dirname(__FILE__), "lib"))

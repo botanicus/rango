@@ -1,4 +1,4 @@
-# coding=utf-8
+# coding: utf-8
 
 class Yardoc < Thor
   desc "generate", "Generate Yardoc documentation for rango."

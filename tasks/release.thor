@@ -1,4 +1,4 @@
-# coding=utf-8
+# coding: utf-8
 
 rango_root = File.join(File.dirname(__FILE__), '..')
 require File.join(rango_root, "lib", "rango")

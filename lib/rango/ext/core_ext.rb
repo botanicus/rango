@@ -1,4 +1,4 @@
-# coding=utf-8
+# coding: utf-8
 
 # TODO: spec it
 require File.join(File.dirname(__FILE__), "path")

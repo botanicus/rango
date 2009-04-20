@@ -14,6 +14,8 @@ h1. Installation
 
 Rango requires Ruby 1.9, _Ruby 1.8 isn't supported_. While we use many of 1.9 features, there is no way how to play well with 1.8.
 
+*Note:* Rango expect
+
 Please note that for full unicode support you will need the latest Rack from "GitHub":http://github.com/chneukirchen/rack. You will have problems with Content-Length otherwise.
 
 If you are TextMate user, you can install Rango TextMate bundle from support directory.
@@ -42,7 +44,7 @@ h1. Usage
 
 <pre>
 # first of all we need to generate project (the whole site)
-rango starproject 101ideas.cz
+rango startproject 101ideas.cz
 cd 101ideas.cz
 
 # project can contains one or many applications

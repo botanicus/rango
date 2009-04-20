@@ -1,4 +1,4 @@
-# coding=utf-8
+# coding: utf-8
 
 try_require "term/ansicolor", "term-ansicolor"
 
