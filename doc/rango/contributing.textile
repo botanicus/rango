@@ -1,3 +1,0 @@
-h1. Contributing
-
-Please follow Rango documentation standard.

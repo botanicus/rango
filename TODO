@@ -1,3 +1,10 @@
+sepsat zavislosti (pro ty co instaluji pres setup.rb), zminit ruby1.9 program suffix, popsat gem build rango.gemspec ... maybe hook for setup.rb to install them?
+jeweller
+Encoding.default_internal = 'utf-8' # soubory at jsou v jakemkoliv kodovani se prevedou na utf-8 kdyz se budou cist
+[master] Change Merb::Controller to respond to #call and return a Rack Array. (wycats)http://rubyurl.com/BhoY
+see rack router
+utf-8 in flash messages
+
 === Rango 0.0.2 MVC Princess ===
 [FIX] content-length
 ERB, Erubis

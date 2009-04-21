@@ -1,7 +1,8 @@
 # coding: utf-8
 
 # dependencies
-Rango.dependency "dm-core", github: "datamapper/dm-core"
+# Rango.dependency "dm-core", github: "datamapper/dm-core"
+# Rango.dependency "pupu", github: "botanicus/pupu", as: "pupu/adapters/rango"
 Rango.dependency "haml", github: "nex3/haml"
 
 if Dir.exist?("gems")

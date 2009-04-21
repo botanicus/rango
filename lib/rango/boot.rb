@@ -38,7 +38,8 @@ else
   begin
     Project.import_first(["settings", "config/settings"])
   rescue LoadError
-    Rango.logger.fatal("Settings.rb wasn't found or it cause another LoadError.")
+    Rango.logger.fatal("settings.rb wasn't found or it cause another LoadError.")
+    exit
   end
 
   # TODO: move it somewhere
@@ -50,5 +51,10 @@ else
   Project.import_first(["settings_local", "config/settings_local"], soft: true, verbose: false)
 
   # urls.rb
-  Project.import(Project.settings.router)
+  begin
+    Project.import(Project.settings.router)
+  rescue LoadError
+    Rango.logger.fatal("urls.rb wasn't found or it cause another LoadError.")
+    exit
+  end
 end

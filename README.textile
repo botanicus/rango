@@ -1,65 +1,31 @@
-h1. Why Rango?
-
-The problem of the big Ruby frameworks as Ruby on Rails or Merb is that they *are trying to solve everything*. They are solving threading, communication with webserver and similar things. Not Rango. Rango is just web framework. It's up to you to configure your server cluster and get it working with it. It's much less confusing, because user exactly knows what's happening
-
-And not just that – because we care about just the web framework stuff, Rango is *really small* and has *very readable code*. Have you ever read Rails sources? Felt confused? I did. But not with Rango.
-
-Rango redefined the meaning of word *customizable*. Merb said it is customizable, but was it? Could you include one router to another? Or route request directly to callable object? Or just ship your plugins with default templates? No problem in Rango.
-
-Rango also *performs very well*. It works just with Ruby 1.9 which is already pretty fast and Rango itself is really lightweight and nearly doesn't use magical methods like method_missing.
-
-One of the greatest thing about Rango is that it comes with *"Pupu":http://github.com/botanicus/pupu integration*. Pupu is framework for writing assets plugins and there are already bundled many of useful javascript libraries and frameworks. You like MooTools, ya? Just run @thor pupu:install mootools@ and you're done!
-
 h1. Installation
 
-Rango requires Ruby 1.9, _Ruby 1.8 isn't supported_. While we use many of 1.9 features, there is no way how to play well with 1.8.
-
-*Note:* Rango expect
-
-Please note that for full unicode support you will need the latest Rack from "GitHub":http://github.com/chneukirchen/rack. You will have problems with Content-Length otherwise.
-
-If you are TextMate user, you can install Rango TextMate bundle from support directory.
-
-h2. RubyGems
-
-Download the sources and run @thor gem:install@ here. Althought we are using Ruby 1.9, thor at the moment doesn't work with 1.9, so you must run thor binary with Ruby 1.8.
-
-h2. System-wide installation
-
-First you must get the setup.rb command: @sudo gem install setup@. Then download the sources and run @setup.rb install@ here. If you will need to uninstall it later, just run @setup.rb uninstall@ again from sources directory, or manually delete rango and rango.rb from site_ruby and rango executable.
+@sudo gem install botanicus-rango@
 
 h1. Documentation
 
-Run @thor yardoc:generate@ in the sources directory and open doc/index.html in your browser. You will need to have "Yard":http://github.com/lsegal/yard installed.
-
-You can also check the "Rango examples project":http://github.com/botanicus/rango-examples
-
-h1. Terminology
-
-Rango is deeply inspirated by Django, so it adopt also it's terminology. It's very important to know, that Django differ between project and application. Project is the whole site, application is part of site. Application is basically plugin, but the plugin can have it's own URLS and templates. It may be blog, forum, or just API for generating feeds.
-
-You also may be confused by names of parts of MVC. View in Django is function which handle the request, not the HTML, which is called template. Django hasn't controller, it use just functions defined usually in views.py. Rango has controllers, because it provides functions as before filters or just enable you to namespace the views. So in Rango, controller is class which contains the views.
+# "Tutorial":http://rango-project.org/docs/tutorial
+# "API Docs":http://api.rango-project.org
+# "Examples":http://github.com/botanicus/rango-examples
 
 h1. Usage
 
 <pre>
-# first of all we need to generate project (the whole site)
+# First of all we need to generate project (the whole site)
 rango startproject 101ideas.cz
 cd 101ideas.cz
 
-# project can contains one or many applications
-# application can be blog, forum, static pages, admin
+# Project can contains one or many applications
+# Application can be blog, forum, static pages, admin
 rango startapp blog
 
-# and finally run webserver
+# And finally run webserver
 rackup config.ru
 
-# or live console if you like to inspect your code
+# Or live console if you like to inspect your code
 rango -i
 </pre>
 
-h1. Init file @init.rb@
-
 h1. Community
 
-# @#rango@
+# @#rango@ at @irc.freenode.net@

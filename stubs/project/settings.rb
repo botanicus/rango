@@ -5,8 +5,8 @@ Project.configure do
 end
 # read it: Project.settings.router
 
-Rango::ControllerStrategy.new.register
-Rango::CallableStrategy.new.register
+Rango::ControllerStrategy.register
+Rango::CallableStrategy.register
 
 # plugins configuration
 # Rango::Plugins::Mailer.configure do
