@@ -5,6 +5,7 @@ class Rango
     # @since 0.0.1
     def textile(text)
       require "redcloth"
+      RedCloth.new(text).to_html
     end
 
     # @since 0.0.1

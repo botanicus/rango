@@ -35,6 +35,9 @@
 # TODO: specs
 # http://rack.rubyforge.org/doc/
 # http://rack.rubyforge.org/doc/classes/Rack/Request.html
+
+require "rack"
+
 class Rango
   module Session
   end

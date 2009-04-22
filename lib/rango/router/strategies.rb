@@ -50,7 +50,7 @@ class Rango
       raise "Controller expected, but #{klass} seems not to be controller" unless klass.controller?
       # match(%r[^/$]).to("eshop/views.rb", "Static#show", template: "index")
       # params. vs options: params are /post/:slug, options template: "index"
-      klass.run(self.request, options.merge(params), method) # should returns Rack::Response
+      klass.run(self.request, options.merge(params), method) # should returns [status, headers, body] (See Rack::Response#finish)
     end
   end
 
@@ -59,16 +59,21 @@ class Rango
   class CallableStrategy < RouterStrategy
     # @since 0.0.1
     def match?
-      (self.args.length.eql?(1) &&
-      self.args.first.respond_to?(:call)) ||
-      block_given?
+      ((self.args.length.eql?(1) &&
+      self.args.first.respond_to?(:call))) ||
+      self.block
     end
 
     # @since 0.0.1
     def run
-      self.callable = self.args.first || self.block
+      callable = self.args.first || self.block
       args = self.params.map { |key, value| value }
-      self.callable.call(self.request, *args)
+      response = Rack::Response.new
+      response.instance_variable_set("@request", self.request)
+      response.instance_variable_set("@args", args)
+      response.instance_eval { write callable.call(@request, *@args) }
+      array = response.finish
+      return array
     end
   end
 end

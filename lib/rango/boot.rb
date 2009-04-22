@@ -28,7 +28,6 @@ class Rango
 end
 
 if Rango.flat?
-  # FIXME: this doesn't work at the moment
   Rango.logger.debug("Loading flat application")
 else
   # init.rb

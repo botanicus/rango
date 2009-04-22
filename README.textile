@@ -8,24 +8,6 @@ h1. Documentation
 # "API Docs":http://api.rango-project.org
 # "Examples":http://github.com/botanicus/rango-examples
 
-h1. Usage
-
-<pre>
-# First of all we need to generate project (the whole site)
-rango startproject 101ideas.cz
-cd 101ideas.cz
-
-# Project can contains one or many applications
-# Application can be blog, forum, static pages, admin
-rango startapp blog
-
-# And finally run webserver
-rackup config.ru
-
-# Or live console if you like to inspect your code
-rango -i
-</pre>
-
 h1. Community
 
 # @#rango@ at @irc.freenode.net@

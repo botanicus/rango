@@ -1,18 +1,10 @@
-sepsat zavislosti (pro ty co instaluji pres setup.rb), zminit ruby1.9 program suffix, popsat gem build rango.gemspec ... maybe hook for setup.rb to install them?
-jeweller
-Encoding.default_internal = 'utf-8' # soubory at jsou v jakemkoliv kodovani se prevedou na utf-8 kdyz se budou cist
-[master] Change Merb::Controller to respond to #call and return a Rack Array. (wycats)http://rubyurl.com/BhoY
+GH gem building
 see rack router
 utf-8 in flash messages
 
 === Rango 0.0.2 MVC Princess ===
-[FIX] content-length
 ERB, Erubis
-Extlib dependency (gemspec, remove some unnecessary stuff from core-ext)
-README
-extlib: release task pro releasnuti na rubyforge
 Rango.import zasadne s priponout, jinak problemy s eisdir etc
-router post/:slug
 API doc (also for classes)
 logger#debug vs logger#info; less logger debug messages
 cookies[:foo] instead of set_cookie
@@ -20,16 +12,17 @@ named routes
 router include, with(page: 1) do ... end
 exceptions controller
 app generators
-method override, _method, match(foo, method: "post")
 example apps
 forms, modelforms
+Windows compatibility (no cp -R etc)
+
+controller functionality from other router strategies, not just form controller (e.g. template rendering etc)
 
 rango: template strategies: napr. v jakem namespace vyhodnocovat, zda predavat kontexty jako v djangu ...
 Nejlepsi bude kdyz proste pujde z toho repa udelat gem (thor package:gem nebo tak neco) a nainstaluje se to jako gem. Kdybysme meli to, co rails, tak nemuzeme podporovat soucasne i gemy a kdyby to, co merb, tak musime vzdycky udelat balicek rucne, coz je opruz
 
 rango: dumpovani instancnich promennych pri exception
 Watch: django, ramaze, sinatra, halcyon, merb, rack, rack-contrib
-Rango: donate, planet, logo, zaregistrovat kde to jde( http://ostatic.com), real world usage, github rebase, rubyinside
 
 === Documentation ===
 Doc for classes, not just for methods
@@ -53,16 +46,14 @@ extlib, look for rack middlewares
 generate all kinds of apps and test if server will start properly
 
 === Router ===
-placeholders
 unnamed args
 404 & 500 errors
 match(domain: "somecooldomain.com", subdomain: /regexp/)
 implement include and defer_to
 router method default can take blok
-match("/admin/objednavky/nove/:page")
+match("/admin/objednavky/nove(/:page)")
 router resources? if so, then with translation
 rescue SkipRoute
-Rango.logger.debug("Skipping route #{exception.route}") # TODO: the route
 named routes
 
 === Templates ===
@@ -125,7 +116,7 @@ rcov (project & rango)
 forms? something like Django forms?
 etag, last modified middleware (rack-contrib)
 cache
-mailer (merb messenger-like notifications)
+mailer (merb messenger-like notifications) ... pony
 auth
 generic views
 contrib:
@@ -142,8 +133,6 @@ http://debu.gs/live-console
 profiling, benchmarking (bm against merb, rails, django, sinatra, ramaze)
 
 === Contrib ===
-syndication
 autoadmin
 comments
 exceptions notifications (=> email)
-http://rubyforge.org/projects/rango

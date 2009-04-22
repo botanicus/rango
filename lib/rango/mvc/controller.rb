@@ -134,7 +134,7 @@ class Rango
       # for example ?msg[error]=foo
       [:error, :success, :notice].each do |type|
         if msg = (options[type] || message[type])
-          msg.tr!("čďěéíňóřšťúůýž", "cdeeinorstuuyz") # FIXME: encoding problem
+          #msg.tr!("čďěéíňóřšťúůýž", "cdeeinorstuuyz") # FIXME: encoding problem
           url.concat("?msg[#{type}]=#{msg}")
         end
       end
@@ -155,6 +155,10 @@ class Rango
     # This is helper can works as render layout: false for AJAX requests when you probably would like to render just the page without layout
     def layout
       request.ajax?
+    end
+    
+    def call
+      # [master] Change Merb::Controller to respond to #call and return a Rack Array. (wycats)http://rubyurl.com/BhoY
     end
     
     # @since 0.0.2

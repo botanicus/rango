@@ -1,13 +1,15 @@
 # coding: utf-8
 
 require "ostruct"
-require "rack"
 
 root = File.join(File.dirname(__FILE__), "rango")
 require File.join(root, "exceptions")
 require File.join(root, "loggers", "logger")
 require File.join(root, "ext", "core_ext")
 require File.join(root, "version")
+
+# It should solve problems with encoding in URL (flash messages) and templates
+Encoding.default_internal = 'utf-8'
 
 class Rango
   class << self
@@ -79,23 +81,7 @@ class Rango
       begin
         # $DEBUG = Project.settings.debug # It looks terrible, but rack works with it
         Rango.import("rack/dispatcher")
-        Rack::Builder.new do
-          # serve static files
-          # http://rack.rubyforge.org/doc/classes/Rack/Static.html
-          # use Rack::File.new(Project.settings.media_root)
-          # use Rack::File, Project.settings.media_root
-          use Rack::ContentLength
-          use Rack::MethodOverride # _method: put etc
-          use Rack::Reloader
-
-          # TODO: MEDIA_PREFIX (rango, pupu, apache)
-
-          Rango.import("rack/middlewares/static.rb")
-          use Rango::Static
-          use Rack::Session::Cookie, path: '/'
-          #, key: 'rack.session', domain: 'foo.com', path: '/', expire_after: 2592000, secret: 'change_me'
-          run ::Rango::Dispatcher.new
-        end
+        Rack::Builder.new { run ::Rango::Dispatcher.new }
       rescue Exception => exception
         Rango.logger.exception(exception)
         return false

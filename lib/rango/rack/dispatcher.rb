@@ -1,5 +1,7 @@
 # coding: utf-8
 
+require "rack"
+
 class Rango::Dispatcher
   attr_reader :request
 
@@ -21,4 +23,24 @@ class Rango::Dispatcher
   #   end
   #   return ["500", headers, self.body]
   end
+end
+
+Rack::Builder.new do
+  use Rack::ContentLength
+  use Rack::MethodOverride # _method: put etc
+  # use Rack::Reloader
+
+  # TODO: MEDIA_PREFIX (rango, pupu, apache)
+  # serve static files
+  if Project.settings.media_prefix
+    # http://rack.rubyforge.org/doc/classes/Rack/Static.html
+    # use Rack::File.new(Project.settings.media_root)
+    # use Rack::File, Project.settings.media_root
+  else
+    Rango.import("rack/middlewares/static.rb")
+    use Rango::Static
+  end
+
+  use Rack::Session::Cookie, path: '/'
+  #, key: 'rack.session', domain: 'foo.com', path: '/', expire_after: 2592000, secret: 'change_me'
 end
