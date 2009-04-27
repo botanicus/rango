@@ -1,7 +1,7 @@
 # coding: utf-8
 
 # default value for attr
-class Class
+module AttributeMixin
   # @since 0.0.1
   # @example
   #   class Post
@@ -90,3 +90,6 @@ class Class
     end
   end
 end
+
+Class.send(:include, AttributeMixin)
+Module.send(:include, AttributeMixin)

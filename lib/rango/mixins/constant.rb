@@ -1,23 +1,26 @@
 # coding: utf-8
 
-Rango.import("settings")
-Rango.import("mixins/constant")
-
-class Project
-  class << self
+class Rango
+  module ConstantMixin
     include Rango::ImportMixin
-    include Rango::ConstantMixin
     # @since 0.0.1
-    # @return [String] String reprezentation of project root directory.
-    root = attribute :root, Dir.pwd
+    # @see Path
+    # @return [Path] Path reprezentation of project root directory.
+    def path
+      Path.new(self.root)
+    end
 
     # @since 0.0.1
-    # @return [Rango::Settings::Framework] Project settings.
-    attribute :settings, Rango::Settings::Framework.new
+    # @return [String] Name of the project. Taken from basename of project directory.
+    def name
+      path.basename
+    end
 
     # @since 0.0.1
-    # @return [Rango::Router] Project main router.
-    attribute :router
+    # @return [Rango::Logger] Logger for project related stuff.
+    def logger
+      @logger ||= Rango::Logger.new
+    end
 
     # @since 0.0.1
     # @example

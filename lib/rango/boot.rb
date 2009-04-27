@@ -5,8 +5,6 @@ Rango.import("project")
 Rango.import("router/router")
 Rango.import("rack/request")
 
-Rango.import("ext/time_dsl")
-
 Rango.import("helpers")
 Rango.import("bundling/dependency")
 
@@ -38,10 +36,10 @@ else
     Project.import_first(["settings", "config/settings"])
   rescue LoadError
     Rango.logger.fatal("settings.rb wasn't found or it cause another LoadError.")
-    exit
+    exit 1
   end
 
-  # TODO: move it somewhere
+  # setup ORM
   if orm = Project.settings.orm
     Rango.import("orm/adapters/#{orm}/setup")
   end
@@ -54,6 +52,6 @@ else
     Project.import(Project.settings.router)
   rescue LoadError
     Rango.logger.fatal("urls.rb wasn't found or it cause another LoadError.")
-    exit
+    exit 1
   end
 end

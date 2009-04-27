@@ -6,13 +6,9 @@ GH gem building
 see rack-router
 utf-8 in flash messages
 pupu integration
-Rango.import zasadne s priponou, jinak problemy s eisdir etc || neresit
-remove DM.setup => no orm support
 app generators
 Rango generators:
-~/.rango/generators/app/full
-~/.rango/generators/app/diff
-(or metadata-based)
+~/.rango/generators/app/full, ~/.rango/generators/app/diff (or metadata-based)
 better support for other strategies than just ControllerStrategy: rendering template etc
 Exceptions controller / more generic solution for other strategies
 logger#debug vs logger#info; less logger debug messages
@@ -28,9 +24,6 @@ rubyforge tasks
 rack::reloader
 router: unnamed args
 404 & 500 errors
-rango-project.org site
-example apps
-Windows compatibility (no cp -R etc, path)
 pupu:foo instead of pupu:tasks:foo
 raise Error404.new unless @post: predavat params. Kernel#caller maybe? or not_found method of controller?
 Error500 in browser just like in TM (txmt://, filter backtraces, show code etc) ... the code should be highlighted if uv is installed
@@ -51,6 +44,13 @@ yardoc:
   - array of string etc
 
 === Rango 0.0.3  ===
+rango-project.org site
+example apps
+Windows compatibility (no cp -R etc, path)
+render strategies:
+  - rails-like autorendering
+  - merb-like
+  - django-like explicit
 sync documentation with api.rango-project.org, route HEAD docs to /
 named routes
 match(domain: "somecooldomain.com", subdomain: /regexp/)

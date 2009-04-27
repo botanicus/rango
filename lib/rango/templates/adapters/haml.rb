@@ -12,11 +12,4 @@ class Rango
       end
     end
   end
-  
-  # TODO: refactor - maybe similar implementation as in merb-core
-  class Controller
-    def capture(&block)
-      capture_haml(&block)
-    end
-  end
 end

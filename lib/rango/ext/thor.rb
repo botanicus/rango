@@ -1,3 +1,5 @@
+# coding: utf-8
+
 class RangoThor < Thor
   # def initialize
   #   require "rango"
