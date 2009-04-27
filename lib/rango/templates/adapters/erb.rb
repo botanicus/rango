@@ -36,5 +36,10 @@ class Rango
       @_erb_buf = _old_buf
       ret
     end
+
+    # :api: private
+    def concat_erb(string, binding)
+      @_erb_buf << string
+    end
   end
 end
