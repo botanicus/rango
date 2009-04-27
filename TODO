@@ -1,10 +1,12 @@
 GH gem building
 see rack router
 utf-8 in flash messages
+pupu integration
+syncovat dokumentaci se serverem, vytvaret index (nebo spis symlink z HEAD)
 
 === Rango 0.0.2 MVC Princess ===
 ERB, Erubis
-Rango.import zasadne s priponout, jinak problemy s eisdir etc
+Rango.import zasadne s priponou, jinak problemy s eisdir etc
 API doc (also for classes)
 logger#debug vs logger#info; less logger debug messages
 cookies[:foo] instead of set_cookie
