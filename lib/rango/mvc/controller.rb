@@ -1,5 +1,6 @@
 # coding: utf-8
 
+require "uri"
 Rango.import("templates/template")
 
 class Rango
@@ -134,18 +135,44 @@ class Rango
       # for example ?msg[error]=foo
       [:error, :success, :notice].each do |type|
         if msg = (options[type] || message[type])
-          #msg.tr!("čďěéíňóřšťúůýž", "cdeeinorstuuyz") # FIXME: encoding problem
           url.concat("?msg[#{type}]=#{msg}")
         end
       end
-
-      require 'uri'
+      
       self.headers["Location"] = URI.escape(url)
       return String.new
     end
     
-    def capture(&block)
-      raise "Rango::Controller#capture should be defined in your template engine adapter"
+    # Calls the capture method for the selected template engine.
+    #
+    # ==== Parameters
+    # *args:: Arguments to pass to the block.
+    # &block:: The block to call.
+    #
+    # ==== Returns
+    # String:: The output of a template block or the return value of a non-template block converted to a string.
+    #
+    # :api: public
+    def capture(*args, &block)
+      ret = nil
+
+      captured = send("capture_#{@_engine}", *args) do |*args|
+        ret = yield *args
+      end
+
+      # return captured value only if it is not empty
+      captured.empty? ? ret.to_s : captured
+    end
+
+    # Calls the concatenate method for the selected template engine.
+    #
+    # ==== Parameters
+    # str<String>:: The string to concatenate to the buffer.
+    # binding<Binding>:: The binding to use for the buffer.
+    #
+    # :api: public
+    def concat(str, binding)
+      self.send("concat_#{@_engine}", str, binding)
     end
     
     # view:
