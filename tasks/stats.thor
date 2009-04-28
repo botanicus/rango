@@ -8,18 +8,14 @@ require_relative "../lib/rango/ext"
 class Stats < Thor
   self.default_task(:all)
 
+  def initialize
+    @altogether = 0
+  end
+
   desc "all", "Lines of code altogether"
   def all
-    altogether = 0
-    altogether += self.libs
-    puts
-    altogether += self.specs
-    puts
-    altogether += self.tasks
-    puts 
-    altogether += self.hooks
-    puts
-    self.altogether(altogether)
+    self.run(:libs, :specs, :tasks, :hooks)
+    self.altogether(@altogether)
   end
 
   desc "libs", "Lines of code in library"
@@ -53,7 +49,15 @@ class Stats < Thor
       end
     end
     self.altogether(altogether)
+    @altogether += altogether
     return altogether
+  end
+  
+  def run(*tasks)
+    tasks.each do |task|
+      self.send(task)
+      puts
+    end
   end
   
   def altogether(count)
