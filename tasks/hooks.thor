@@ -7,9 +7,7 @@ class Hooks < Thor
     if File.directory?(".git/hooks")
       abort "You must remove .git/hooks first"
     else
-      # FileUtils.cp_r("support/hooks", ".git/hooks")
-      root = File.join(File.dirname(__FILE__), "..")
-      %x[ln -sf "#{root}/support/hooks" "#{root}/.git/hooks"]
+      FileUtils.cp_r("support/hooks", ".git/hooks")
     end
   end
   
