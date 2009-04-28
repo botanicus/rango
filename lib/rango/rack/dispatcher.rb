@@ -30,12 +30,10 @@ Rack::Builder.new do
   use Rack::MethodOverride # _method: put etc
   # use Rack::Reloader
 
-  # TODO: MEDIA_PREFIX (rango, pupu, apache)
   # serve static files
   if Project.settings.media_prefix
     # http://rack.rubyforge.org/doc/classes/Rack/Static.html
-    # use Rack::File.new(Project.settings.media_root)
-    # use Rack::File, Project.settings.media_root
+    use Rack::File, Project.settings.media_root
   else
     Rango.import("rack/middlewares/static.rb")
     use Rango::Static

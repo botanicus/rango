@@ -8,7 +8,9 @@ class Rango
     class Haml < ::Rango::Templates::Adapter
       # @since 0.0.2
       def render(io, scope, locals = Hash.new)
-        ::Haml::Engine.new(io.read, filename: io.path).render(scope, locals)
+        options = Project.settings.haml.to_hash ### FIXME
+        options[:filename] = io.path
+        ::Haml::Engine.new(io.read, options).render(scope, locals)
       end
     end
   end

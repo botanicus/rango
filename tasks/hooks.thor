@@ -7,6 +7,7 @@ class Hooks < Thor
     if File.directory?(".git/hooks")
       abort "You must remove .git/hooks first"
     else
+      # do not symlink them, otherwise git will add samples
       FileUtils.cp_r("support/hooks", ".git/hooks")
     end
   end

@@ -1,8 +1,5 @@
 === Rango 0.0.2 MVC Princess ===
-Erubis: caching, Escape
-MEDIA_PREFIX, fix rango/static middleware, it seems to be broken
 cookies[:foo] instead of set_cookie
-Erubis (@vars, local variables, concat)
 GH gem building
 see rack-router
 utf-8 in flash messages
@@ -13,8 +10,6 @@ logger#debug vs logger#info; less logger debug messages
 rango: dumpovani instancnich promennych pri exception
 API doc (also for classes)
 router include, with(page: 1) do ... end, defer_to
-match("/admin/objednavky/nove(/:page)")
-escape everything in templates by default
 specs
 full pupu integration
 user app tasks

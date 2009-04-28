@@ -6,9 +6,27 @@ Rango.import("templates/adapter")
 class Rango
   module Templates
     class Erubis < ::Rango::Templates::Adapter
+      # TODO: context {foo: "bar"} => @foo instead of just foo
+      # http://www.kuwata-lab.com/erubis/users-guide.02.html#tut-context
+
+      # TODO: result vs. evaluate
+      # http://www.kuwata-lab.com/erubis/users-guide.02.html#tut-context
+      # http://www.kuwata-lab.com/erubis/users-guide.06.html#topics-context-vs-binding
+      
+      # TODO: maybe preprocessing
+      # http://www.kuwata-lab.com/erubis/users-guide.05.html#rails-preprocessing
+      # http://www.kuwata-lab.com/erubis/users-guide.06.html#topics-caching
+      
       # @since 0.0.2
+      # @see http://www.kuwata-lab.com/erubis/users-guide.02.html#tut-escape
       def render(io, context)
-        ::Erubis::Eruby.new(io.read).result(context, binding)
+        if Project.settings.autoescape
+          klass = ::Erubis::EscapedEruby
+        else
+          klass = ::Erubis::Eruby
+        end
+        pattern = Project.settings.erubis_pattern
+        klass.new(io.read).result(context, binding, pattern: pattern)
       end
     end
   end
@@ -29,7 +47,7 @@ class Rango
     #   <% end %>
     #
     # :api: private
-    def capture_erb(*args, &block)
+    def capture_erubis(*args, &block)
       _old_buf, @_erb_buf = @_erb_buf, ""
       block.call(*args)
       ret = @_erb_buf
