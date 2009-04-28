@@ -32,8 +32,7 @@ class Rango::Dispatcher
       # http://rack.rubyforge.org/doc/classes/Rack/Static.html
       Rango.logger.info("Media files are available on #{Project.settings.media_prefixes}")
       # use Rack::File, Project.settings.media_prefixes
-      puts "use Rack::Static, urls: #{Project.settings.media_prefixes.inspect}"
-      # use Rack::Static, urls: Project.settings.media_prefixes
+      use Rack::Static, urls: Project.settings.media_prefixes
 
       # use Rack::Static, :urls => ["/media"]
       # will serve all requests beginning with /media from the "media" folder
