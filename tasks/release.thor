@@ -40,7 +40,7 @@ class Release < Thor
     puts "Pushing sources to RubyForge ..."
     %x[git push rubyforge master]
     %x[git push --tags]
-    
+
     puts "Pushing packages to RubyForge ..."
     packages = %w( gem tgz zip ).collect{ |ext| "pkg/#{GEM_NAME}-#{GEM_VERSION}.#{ext}" }
     sh %{rubyforge login}

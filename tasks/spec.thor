@@ -30,7 +30,7 @@ class Spec < Thor
       end
     end
   end
-  
+
   def spec(*argv)
     ARGV.clear
     ARGV.push(*argv)
