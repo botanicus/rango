@@ -1,10 +1,11 @@
-# coding=utf-8
+# coding: utf-8
 
 class Rango
   module Helpers
     # @since 0.0.1
     def textile(text)
       require "redcloth"
+      RedCloth.new(text).to_html
     end
 
     # @since 0.0.1

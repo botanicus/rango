@@ -3,8 +3,9 @@ class Rango
     module PaginationMixin
       # @since 0.0.2
       def paginate(page = Page.current)
-        Project.settings.template_dirs.push(File.dirname(__FILE__)) # TODO: is it good solution?
-        partial "pagination", page: page
+        root = File.dirname(__FILE__)
+        template = File.join(root, "paginate")
+        partial template, page: page
       end
     end
   end

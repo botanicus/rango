@@ -1,11 +1,14 @@
-# coding=utf-8
+# coding: utf-8
 
+require "uri"
 Rango.import("templates/template")
+Rango.import("mixins/controller")
 
 class Rango
   class Controller
     include Rango::HttpExceptions
     include Rango::Helpers
+    include Rango::ControllerMixin
     include Rango::Templates::TemplateHelpers
     class << self
       # @since 0.0.2
@@ -13,14 +16,15 @@ class Rango
 
       # @since 0.0.2
       attribute :after_filters,  Hash.new
-
+      
       # @since 0.0.2
-      attribute :template_prefix, ""
+      attribute :autorendering, false
 
       def inherited(subclass)
         Rango.logger.debug("Inheritting filters from #{self.inspect} to #{subclass.inspect}")
         subclass.before_filters = self.before_filters
         subclass.after_filters = self.after_filters
+        subclass.autorendering = self.autorendering
       end
 
       # before :login
@@ -52,6 +56,7 @@ class Rango
           Rango.logger.info("Calling method #{method} with arguments #{args.inspect}")
           value = controller.method(method).call(*args)
         end
+        controller.autorender if self.autorendering
         controller.run_filters(:after, method)
         response.body = proceed_value(value)
         response.status = controller.status if controller.status
@@ -77,11 +82,6 @@ class Rango
       end
     end
 
-    # @since 0.0.1
-    # @return [Rango::Request]
-    # @see Rango::Request
-    attr_accessor :request, :params, :cookies, :response
-
     def initialize(request, params)
       @request = request
       @params  = params
@@ -91,70 +91,8 @@ class Rango
     end
     attr_reader :session
 
-    # @since 0.0.1
-    # @return [Hash] Hash with params from request. For example <code>{messages: {success: "You're logged in"}, post: {id: 2}}</code>
-    attr_accessor :params
-
-    attribute :status
-    attribute :headers, Hash.new
-
-    # @since 0.0.1
-    # @return [Rango::Logger] Logger for logging project related stuff.
-    # @see Rango::Logger
-    attribute :logger, Project.logger
-
-    # TODO: default option for template
-    # @since 0.0.2
-    def render(template, locals = Hash.new)
-      Rango::Templates::Template.new(template, self, locals).render
-    end
-
-    # TODO: default option for template
-    # @since 0.0.2
-    def display(object, template, options = Hash.new)
-      render(template)
-    rescue Error406
-      # TODO: provides API
-      format = Project.settings.mime_formats.find do |format|
-        object.respond_to?("to_#{format}")
-      end
-      format ? object.send("to_#{format}") : raise(Error406.new(self.params))
-    end
-
-    # The rails-style flash messages
-    # @since 0.0.2
-    def message
-      @message ||= (request.GET[:msg] || Hash.new)
-    end
-
-    # @since 0.0.2
-    def redirect(url, options = Hash.new)
-      self.status = 302
-
-      # for example ?msg[error]=foo
-      [:error, :success, :notice].each do |type|
-        if msg = (options[type] || message[type])
-          msg.tr!("čďěéíňóřšťúůýž", "cdeeinorstuuyz") # FIXME: encoding problem
-          url.concat("?msg[#{type}]=#{msg}")
-        end
-      end
-
-      require 'uri'
-      self.headers["Location"] = URI.escape(url)
-      return String.new
-    end
-    
-    def capture(&block)
-      raise "Rango::Controller#capture should be defined in your template engine adapter"
-    end
-    
-    # view:
-    # render "index"
-    # template:
-    # extends "base.html" if layout
-    # This is helper can works as render layout: false for AJAX requests when you probably would like to render just the page without layout
-    def layout
-      request.ajax?
+    def call
+      # [master] Change Merb::Controller to respond to #call and return a Rack Array. (wycats)http://rubyurl.com/BhoY
     end
     
     # @since 0.0.2
@@ -183,5 +121,6 @@ class Rango
   end
 end
 
-Rango.import("auth/core")
-Rango.import("auth/more")
+# DEPRECATED IMPORTS
+# Rango.import("auth/core")
+# Rango.import("auth/more")

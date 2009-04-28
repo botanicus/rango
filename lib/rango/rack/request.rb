@@ -1,4 +1,4 @@
-# coding=utf-8
+# coding: utf-8
 
 # Rack env keys (localhost, url /test):
 # SERVER_SOFTWARE: thin 1.0.0 codename That's What She Said
@@ -35,7 +35,13 @@
 # TODO: specs
 # http://rack.rubyforge.org/doc/
 # http://rack.rubyforge.org/doc/classes/Rack/Request.html
+
+require "rack"
+
 class Rango
+  module Session
+  end
+
   class Request < Rack::Request
     # @since 0.0.1
     # @return [Hash] Original Rack environment.

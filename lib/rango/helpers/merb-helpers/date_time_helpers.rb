@@ -189,4 +189,3 @@ end
 class Rango::Controller
   include Rango::Helpers::DateAndTime
 end
-

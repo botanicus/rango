@@ -1,6 +1,8 @@
+# coding: utf-8
+
 # version 1.0
-require File.join(File.dirname(__FILE__), '..', "spec_helper")
-require "rango-pagination/page"
+require File.join(File.dirname(__FILE__), '..', '..', '..', "spec_helper")
+require "rango/contrib/pagination/page"
 
 describe Page do
   before(:each) do

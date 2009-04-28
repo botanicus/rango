@@ -1,7 +1,0 @@
-h1. Writing plugins
-
-<pre>
-class Rango::Plugin::MyPlugin
-  include Rango::Settings
-end
-</pre>

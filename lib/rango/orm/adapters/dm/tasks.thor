@@ -1,4 +1,4 @@
-# coding=utf-8
+# coding: utf-8
 
 # TODO: db:automigrate etc
 # dm:automigrate must fail in production, but it will be overridable by --force option

@@ -1,31 +1,31 @@
 === Rango 0.0.2 MVC Princess ===
-[FIX] content-length
-ERB, Erubis
-Extlib dependency (gemspec, remove some unnecessary stuff from core-ext)
-README
-extlib: release task pro releasnuti na rubyforge
-Rango.import zasadne s priponout, jinak problemy s eisdir etc
-router post/:slug
-API doc (also for classes)
-logger#debug vs logger#info; less logger debug messages
 cookies[:foo] instead of set_cookie
-named routes
-router include, with(page: 1) do ... end
-exceptions controller
-app generators
-method override, _method, match(foo, method: "post")
-example apps
-forms, modelforms
-
-rango: template strategies: napr. v jakem namespace vyhodnocovat, zda predavat kontexty jako v djangu ...
-Nejlepsi bude kdyz proste pujde z toho repa udelat gem (thor package:gem nebo tak neco) a nainstaluje se to jako gem. Kdybysme meli to, co rails, tak nemuzeme podporovat soucasne i gemy a kdyby to, co merb, tak musime vzdycky udelat balicek rucne, coz je opruz
-
+GH gem building
+see rack-router
+utf-8 in flash messages
+pupu integration
+Rango generators:
+Exceptions controller / more generic solution for other strategies
+logger#debug vs logger#info; less logger debug messages
 rango: dumpovani instancnich promennych pri exception
-Watch: django, ramaze, sinatra, halcyon, merb, rack, rack-contrib
-Rango: donate, planet, logo, zaregistrovat kde to jde( http://ostatic.com), real world usage, github rebase, rubyinside
-
+API doc (also for classes)
+router include, with(page: 1) do ... end, defer_to
+specs
+full pupu integration
+user app tasks
+rubyforge tasks
+rack::reloader
+router: unnamed args
+404 & 500 errors
+pupu:foo instead of pupu:tasks:foo
+raise Error404.new unless @post: predavat params. Kernel#caller maybe? or not_found method of controller?
+Error500 in browser just like in TM (txmt://, filter backtraces, show code etc) ... the code should be highlighted if uv is installed
+raise NotFound unless @post => route to Exceptions or what?
+404, 500 HTML output (with backtraces/routes, at least some CSS)
+files uploading
+generic views
+moznost zapisovat nekryptovane cookies (kvuli cteni JSem)
 === Documentation ===
-Doc for classes, not just for methods
 in README should be just basic informations, others should be in doc/rango or so
 yardoc:
   - syntax off for shell commands
@@ -33,110 +33,62 @@ yardoc:
   - what is just optional argument
   - array of string etc
 
-=== Error handling and logging ===
-raise Error404.new unless @post: predavat params. Kernel#caller maybe? or not_found method of controller?
-Error500 in browser just like in TM (txmt://, filter backtraces, show code etc) ... the code should be highlighted if uv is installed
-raise NotFound unless @post => route to Exceptions or what?
-404, 500 HTML output (with backtraces/routes, at least some CSS)
-
-=== Dependencies ===
-extlib, look for rack middlewares
-
-=== Rango tests ===
-generate all kinds of apps and test if server will start properly
-
-=== Router ===
-placeholders
-unnamed args
-404 & 500 errors
-match(domain: "somecooldomain.com", subdomain: /regexp/)
-implement include and defer_to
-router method default can take blok
-match("/admin/objednavky/nove/:page")
-router resources? if so, then with translation
-rescue SkipRoute
-Rango.logger.debug("Skipping route #{exception.route}") # TODO: the route
+=== Rango 0.0.3  ===
+rack-cache
+STDLIB erb support maybe
+rango-project.org site
+example apps
+Windows compatibility (no cp -R etc, path)
+render strategies:
+  - rails-like autorendering
+  - merb-like
+  - django-like explicit
+sync documentation with api.rango-project.org, route HEAD docs to /
 named routes
-
-=== Templates ===
-escape everything
-
-=== Rack ===
-files uploading
-registering mime types
-escape @ in emails
-etag, last-modified (rack or rack-contrib)
-evil middleware
-middleware na odstraneni whitespace z html etc
-js/css minify
-rack::reloader
-
-=== MVC ===
-"provides" API for handling mime-types as in merb?
-render & display: automatically find template
-flash messages
-views helpers (error_messages_for etc)
-
-=== Bundling ===
-possibility how to run without rubygems (microgems?)
-pupu
-
-=== Adapters ===
-DataMapper
-Erb, Erubis, Markaby
-Thor 1.9 compatible, pupu:foo instead of pupu:tasks:foo
-
-=== Configuration ===
+match(domain: "somecooldomain.com", subdomain: /regexp/)
+exceptions notifications (=> email)
 logger: settings (where to log - file, STDERR, format)
-diff configuration (global vs. mine, anyone else vs. mine)
-
-=== Others ===
+m17n
+bundling: Nejlepsi bude kdyz proste pujde z toho repa udelat gem (thor package:gem nebo tak neco) a nainstaluje se to jako gem. Kdybysme meli to, co rails, tak nemuzeme podporovat soucasne i gemy a kdyby to, co merb, tak musime vzdycky udelat balicek rucne, coz je opruz
+forms, modelforms
+contrib/syndication
+autorender: metoda ktera si najde template a vyrenderuje ji
+render vs. display + "provides" API: has display sense for Rango?
 (logger) general, safe solution for filtering backtraces (maybe settings: filter_backtraces: true/false, filter_backtraces_pattern: regexp)
 parse backtrace (another color for path, another for line and method)
-Rango.template("404.html")
-init.rb in app: Blog.logger etc, not just Project.logger
-maybe relative paths for project files will be better
-m17n
 
-=== Tasks ===
-update task for all the thor classes (thor pupu:selfupdate)
-
-=== Project testing ===
-thor stats for projects
-spec will be app-level, but what about features? project level?
-spec: should have_xpath, have_selector, match etc
-thor spec:features
-thor spec:models
-thor spec:coverage (rcov)
-autotest, autospec
-factories
-cucumber adapter
-rspec adapter
-rcov (project & rango)
-
-=== Rango 0.7 ===
-forms? something like Django forms?
-etag, last modified middleware (rack-contrib)
-cache
-mailer (merb messenger-like notifications)
-auth
-generic views
-contrib:
-  - syndication
-  - flatpages
-
-=== Plugins ===
+=== Rango 0.0.4 ===
+diff configuration (global vs. mine, anyone else vs. mine)
+possibility how to run without rubygems (check setup.rb based installation)
+cache & cache support in static middleware
+router method default can take blok
+router resources? if so, then with translation
+rescue SkipRoute
 plugins can add new stubs (for controller etc)
 pupu generator
+update task for all the thor classes (thor pupu:selfupdate)
+Testing:
+  - thor stats for projects
+  - spec will be app-level, but what about features? project level?
+  - spec: should have_xpath, have_selector, match etc
+  - thor spec:features
+  - thor spec:models
+  - thor spec:coverage (rcov)
+  - autotest, autospec
+  - factories
+  - cucumber adapter
+  - rspec adapter
+  - rcov (project & rango)
+Rack:
+  - registering mime types
+  - escape @ in emails
+  - evil middleware
+  - middleware na odstraneni whitespace z html etc
+  - js/css minify
+  - etag, last-modified (rack or rack-contrib)
 
-=== Benchmarking & Logging & Live debuging ===
+=== Rango 0.0.5 ===
+autoadmin, comments, flatpages
 fireruby logger adapter
 http://debu.gs/live-console
 profiling, benchmarking (bm against merb, rails, django, sinatra, ramaze)
-
-=== Contrib ===
-syndication
-autoadmin
-comments
-exceptions notifications (=> email)
-http://rubyforge.org/projects/rango

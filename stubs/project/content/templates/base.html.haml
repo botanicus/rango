@@ -1,0 +1,29 @@
+!!! 1.0 Strict
+%html{html_attrs("en")}
+  %head
+    %title= block("title")
+    %meta{"http-equiv" => "content-type", content: "text/html; charset=utf-8"}
+    %meta{"http-equiv" => "content-language", content: "en-us"}
+    %meta{name: "description", content: block("description", "")}
+    %meta{name: "keywords", content: block("keywords", "")}
+    %meta{name: "author", content: "AUTHOR"}
+    / = pupu :blueprint, plugins: ["fancy-type"]
+    / = pupu :flash
+    / = pupu :autocompleter, type: "request"
+    / = pupu :mootools#, more: true
+    = javascripts *block("javascripts", Array.new)
+    = stylesheets *block("stylesheets", Array.new)
+    = block "head"
+  %body
+    .container
+      %h1 Title
+      %h2.alt subtitle
+      %hr
+      %div.span-16
+        %div.span-14.last= block "content"
+        %h3 Menu
+        %ul
+          %li= link_to "Why Rango?", "/why-rango"
+      %div.span-8
+      %hr
+        == &copy; #{copyright(2009)} AUTHOR, created by <a href="http://101ideas.cz">101Ideas.cz</a>, graphics by <a href="http://josefrichter.com">JosefRichter.com</a>.

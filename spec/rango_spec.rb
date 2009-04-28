@@ -16,13 +16,6 @@ describe Rango do
     Rango.logger.should be_kind_of(Rango::Logger)
   end
 
-  describe ".framework" do
-    it "should provides informations about framework root" do
-      Rango.framework.should respond_to(:root)
-      Rango.framework.root.should be_kind_of(String)
-    end
-  end
-
   describe ".import" do
     it "should import file from Rango if file exists" do
       pending "It returns false if file is already loaded. Of course, so fix API."

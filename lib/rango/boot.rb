@@ -1,11 +1,9 @@
-# coding=utf-8
+# coding: utf-8
 
 require "ostruct"
 Rango.import("project")
 Rango.import("router/router")
 Rango.import("rack/request")
-
-Rango.import("ext/time_dsl")
 
 Rango.import("helpers")
 Rango.import("bundling/dependency")
@@ -28,7 +26,6 @@ class Rango
 end
 
 if Rango.flat?
-  # FIXME: this doesn't work at the moment
   Rango.logger.debug("Loading flat application")
 else
   # init.rb
@@ -38,10 +35,11 @@ else
   begin
     Project.import_first(["settings", "config/settings"])
   rescue LoadError
-    Rango.logger.fatal("Settings.rb wasn't found or it cause another LoadError.")
+    Rango.logger.fatal("settings.rb wasn't found or it cause another LoadError.")
+    exit 1
   end
 
-  # TODO: move it somewhere
+  # setup ORM
   if orm = Project.settings.orm
     Rango.import("orm/adapters/#{orm}/setup")
   end
@@ -50,5 +48,10 @@ else
   Project.import_first(["settings_local", "config/settings_local"], soft: true, verbose: false)
 
   # urls.rb
-  Project.import(Project.settings.router)
+  begin
+    Project.import(Project.settings.router)
+  rescue LoadError
+    Rango.logger.fatal("urls.rb wasn't found or it cause another LoadError.")
+    exit 1
+  end
 end

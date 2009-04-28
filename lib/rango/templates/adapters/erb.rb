@@ -1,4 +1,4 @@
-# coding=utf-8
+# coding: utf-8
 
 require "erb"
 Rango.import("templates/adapter")
@@ -35,6 +35,11 @@ class Rango
       ret = @_erb_buf
       @_erb_buf = _old_buf
       ret
+    end
+
+    # :api: private
+    def concat_erb(string, binding)
+      @_erb_buf << string
     end
   end
 end

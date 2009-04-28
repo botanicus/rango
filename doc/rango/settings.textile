@@ -1,3 +1,0 @@
-h1. Configuration
-
-Main configuration is in file @settings.rb@

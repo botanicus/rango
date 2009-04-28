@@ -1,4 +1,4 @@
-# coding=utf-8
+# coding: utf-8
 
 # class ContactForm < Rango::Form
 #   property :subject, String

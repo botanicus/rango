@@ -19,7 +19,7 @@ class Rango
       if FILE_METHODS.include?(method)
         if file_exist?(path)
           return @file_server.call(env)
-        else
+          # else
           # cached_path = directory_exist?(path) ? "#{path}/index" : path
           # cached_path += ::ActionController::Base.page_cache_extension
           #
@@ -34,14 +34,14 @@ class Rango
     end
 
     private
-      def file_exist?(path)
-        full_path = File.join(@file_server.root, ::Rack::Utils.unescape(path))
-        File.file?(full_path) && File.readable?(full_path)
-      end
+    def file_exist?(path)
+      full_path = File.join(@file_server.root, ::Rack::Utils.unescape(path))
+      File.file?(full_path) && File.readable?(full_path)
+    end
 
-      def directory_exist?(path)
-        full_path = File.join(@file_server.root, ::Rack::Utils.unescape(path))
-        Dir.exist?(full_path) && File.readable?(full_path)
-      end
+    def directory_exist?(path)
+      full_path = File.join(@file_server.root, ::Rack::Utils.unescape(path))
+      Dir.exist?(full_path) && File.readable?(full_path)
+    end
   end
 end

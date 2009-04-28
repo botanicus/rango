@@ -1,22 +1,10 @@
 #!/usr/bin/env ruby1.9
-# coding=utf-8
+# coding: utf-8
 
 rango_root = File.join(File.dirname(__FILE__), '..')
-
-require "term/ansicolor"
-String.send(:include, Term::ANSIColor)
-
 $: << "#{rango_root}/lib"
 
-def create(stubs_dirs, type, name)
-  dir = stubs_dirs.find { |dir| File.exist?("#{dir}/#{type}") }
-  puts %(cp -R "#{dir}/#{type}" #{name})
-  if File.exist?(name)
-    abort "#{name} already exist, aborting."
-  end
-  %x(cp -R "#{dir}/#{type}" #{name})
-  puts "#{type.capitalize} #{name} have been created (used stub from #{dir})."
-end
+require "rango/ext/colored_string"
 
 def help(command, description, indentation = 40)
   indentation = indentation - command.length
@@ -24,25 +12,18 @@ def help(command, description, indentation = 40)
   STDERR.puts(command + spaces + description)
 end
 
-stubs_dirs = ["#{rango_root}/stubs", "#{ENV["HOME"]}/.rango/stubs"]
-
 case command = ARGV.first
-when "help", "--help", "-h", "-H", nil
-  STDERR.puts("=== Usage ===".cyan)
-  help "rango startproject mycoolproject", "Generate new site"
-  help "rango startapp mycoolapp", "Generate new application"
-  help "rango -i", "Start Rango console"
-  exit 1
-when "startproject"
-  create(stubs_dirs, "project", ARGV[1])
-when "startapp"
-  create(stubs_dirs, "app", ARGV[1])
-when "startflat"
-  create(stubs_dirs, "flat.rb", "#{ARGV[1]}.rb")
+when "create"
+  require "rango/cli/project"
+  Rango::Project.new(ARGV).create
 when "-i"
   require "rango"
   Rango.boot
   Rango.interactive
 else
-  puts "Unknown command: #{command}"
+  STDERR.puts("=== Usage ===".cyan)
+  help "rango create project mycoolproject", "Generate new site"
+  help "rango create app mycoolapp", "Generate new application"
+  help "rango -i", "Start Rango console"
+  exit 1
 end

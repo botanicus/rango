@@ -1,8 +1,53 @@
-# coding=utf-8
+# coding: utf-8
+
+require "rack"
 
 class Rango::Dispatcher
   attr_reader :request
+  def use(middleware, options = Hash.new)
+    @builder.use(middleware, options)
+  end
 
+  def initialize
+    @builder = Rack::Builder.new
+    use Rack::ContentLength
+    use Rack::MethodOverride # _method: put etc
+    self.cookies
+    self.static
+    self.reloader
+  end
+  
+  def cookies
+    use Rack::Session::Cookie, path: '/'
+    #, key: 'rack.session', domain: 'foo.com', path: '/', expire_after: 2592000, secret: 'change_me'
+  end
+  
+  def reloader
+    use Rack::Reloader
+  end
+  
+  def static
+    # serve static files
+    if Project.settings.media_prefixes and not Project.settings.media_prefixes.empty?
+      # http://rack.rubyforge.org/doc/classes/Rack/Static.html
+      Rango.logger.info("Media files are available on #{Project.settings.media_prefixes}")
+      # use Rack::File, Project.settings.media_prefixes
+      use Rack::Static, urls: Project.settings.media_prefixes
+
+      # use Rack::Static, :urls => ["/media"]
+      # will serve all requests beginning with /media from the "media" folder
+      # located in the current directory (ie media/*).
+
+      # use Rack::Static, :urls => ["/css", "/images"], :root => "public"
+      # will serve all requests beginning with /css or /images from the folder
+      # "public" in the current directory (ie public/css/* and public/images/*)
+    else
+      Rango.logger.info("Media files are routed directly to the /")
+      Rango.import("rack/middlewares/static.rb")
+      use Rango::Static
+    end
+  end
+  
   # @since 0.0.2
   def call(env)
     request = Rango::Request.new(env)

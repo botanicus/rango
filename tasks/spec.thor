@@ -1,10 +1,13 @@
-# coding=utf-8
+# coding: utf-8
 
 class Spec < Thor
+  def initialize
+    gem "rspec"
+    require "spec/autorun"
+  end
   desc "rango [path]", "Run Rango specs"
   def rango(path = "spec")
-    command = %[spec #{path} --options spec/spec.opts]
-    puts(command) ; exec(command)
+    spec(path, "--options", "spec/spec.opts")
   end
 
   desc "stubs", "Create stubs of all library files."
@@ -26,5 +29,11 @@ class Spec < Thor
         puts "File exists just in spec, not in lib: #{file}"
       end
     end
+  end
+
+  def spec(*argv)
+    ARGV.clear
+    ARGV.push(*argv)
+    ::Spec::Runner::CommandLine.run
   end
 end
