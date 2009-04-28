@@ -17,6 +17,8 @@ class Stats < Thor
     puts
     altogether += self.tasks
     puts 
+    altogether += self.hooks
+    puts
     self.altogether(altogether)
   end
 
@@ -33,6 +35,11 @@ class Stats < Thor
   desc "tasks", "Lines of code in tasks"
   def tasks
     self.count(Dir.glob("tasks/*.thor"))
+  end
+  
+  desc "hooks", "Lines of code in support/hooks"
+  def hooks
+    self.count(Dir.glob("support/hooks/*"))
   end
 
   protected
