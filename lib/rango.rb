@@ -4,11 +4,11 @@
 Encoding.default_internal = "utf-8"
 require_relative "rango/ext"
 require_relative "rango/mixins/import"
-require_relative "rango/mixins/constant"
+require_relative "rango/mixins/application"
 
 class Rango
   extend ImportMixin
-  extend ConstantMixin
+  extend ApplicationMixin
   
   def self.root
     File.join(File.dirname(__FILE__), "rango")

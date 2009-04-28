@@ -19,24 +19,6 @@ class Rango
     # @see Rango::Logger
     attribute :logger, Project.logger
 
-    # TODO: default option for template
-    # @since 0.0.2
-    def render(template, locals = Hash.new)
-      Rango::Templates::Template.new(template, self, locals).render
-    end
-
-    # TODO: default option for template
-    # @since 0.0.2
-    def display(object, template, options = Hash.new)
-      render(template)
-    rescue Error406
-      # TODO: provides API
-      format = Project.settings.mime_formats.find do |format|
-        object.respond_to?("to_#{format}")
-      end
-      format ? object.send("to_#{format}") : raise(Error406.new(self.params))
-    end
-
     # The rails-style flash messages
     # @since 0.0.2
     def message
@@ -97,6 +79,34 @@ class Rango
     # This is helper can works as render layout: false for AJAX requests when you probably would like to render just the page without layout
     def layout
       request.ajax?
+    end
+    
+    # RENDERING #
+    def template_location
+      # TODO
+    end
+
+    # TODO: default option for template
+    # @since 0.0.2
+    def render(template, locals = Hash.new)
+      Rango::Templates::Template.new(template, self, locals).render
+    end
+
+    # TODO: default option for template
+    # @since 0.0.2
+    def display(object, template, locals = Hash.new)
+      render(template)
+    rescue Error406
+      # TODO: provides API
+      format = Project.settings.mime_formats.find do |format|
+        object.respond_to?("to_#{format}")
+      end
+      format ? object.send("to_#{format}") : raise(Error406.new(self.params))
+    end
+
+    # 
+    def autorender(locals = Hash.new)
+      self.__render__(template_location, locals)
     end
   end
 end

@@ -24,11 +24,6 @@ module Kernel
   
   # TODO: try_require and try_require_gem (diff require 'readline' vs require 'term/ansicolor')
 
-  # @since 0.0.2
-  def try_dup
-    self.dup rescue self
-  end
-  
   # for quick inspection
   # @since 0.0.2
   def puts_and_return(*args)

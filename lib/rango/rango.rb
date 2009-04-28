@@ -72,5 +72,9 @@ class Rango
     def debug?
       true
     end
+    
+    # Rango.template("404.html")
+    def template(basename)
+    end
   end
 end

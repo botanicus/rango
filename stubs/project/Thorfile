@@ -1,7 +1,0 @@
-# coding: utf-8
-
-require "rango/tasks/bundle.thor"
-require "pupu/tasks/pupu.thor"
-require "rango/orm/adapters/dm/tasks.thor"
-
-# add your tasks to the tasks directory and give them ".thor" suffix

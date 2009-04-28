@@ -19,5 +19,13 @@ class Rango
     def link_item(name, url)
       tag :li, link_to(name, url)
     end
+    
+    # @since 0.0.2
+    def error_messages_for(model_instance)
+      tag :ul do
+        messages = model_instance.errors.full_messages
+        messages.map { |message| tag :li, message }
+      end
+    end
   end
 end

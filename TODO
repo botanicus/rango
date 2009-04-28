@@ -1,15 +1,13 @@
 === Rango 0.0.2 MVC Princess ===
+Erubis: caching, Escape
 MEDIA_PREFIX, fix rango/static middleware, it seems to be broken
 cookies[:foo] instead of set_cookie
-ERB, Erubis (@vars, local variables, concat)
+Erubis (@vars, local variables, concat)
 GH gem building
 see rack-router
 utf-8 in flash messages
 pupu integration
-app generators
 Rango generators:
-~/.rango/generators/app/full, ~/.rango/generators/app/diff (or metadata-based)
-better support for other strategies than just ControllerStrategy: rendering template etc
 Exceptions controller / more generic solution for other strategies
 logger#debug vs logger#info; less logger debug messages
 rango: dumpovani instancnich promennych pri exception
@@ -32,9 +30,6 @@ raise NotFound unless @post => route to Exceptions or what?
 files uploading
 generic views
 moznost zapisovat nekryptovane cookies (kvuli cteni JSem)
-error_messages_for
-AppMixin: Blog.logger, Blog.import etc (blog/init.rb)
-Rango.template("404.html")
 === Documentation ===
 in README should be just basic informations, others should be in doc/rango or so
 yardoc:
@@ -44,6 +39,7 @@ yardoc:
   - array of string etc
 
 === Rango 0.0.3  ===
+STDLIB erb support maybe
 rango-project.org site
 example apps
 Windows compatibility (no cp -R etc, path)

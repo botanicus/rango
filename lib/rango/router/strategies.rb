@@ -1,5 +1,7 @@
 # coding: utf-8
 
+Rango.import("mixins/controller")
+
 # TODO: documentation
 # TODO: specs
 class Rango
@@ -67,6 +69,7 @@ class Rango
     # @since 0.0.1
     def run
       callable = self.args.first || self.block
+      self.extends(callable)
       args = self.params.map { |key, value| value }
       response = Rack::Response.new
       response.instance_variable_set("@request", self.request)
@@ -74,6 +77,12 @@ class Rango
       response.instance_eval { write callable.call(@request, *@args) }
       array = response.finish
       return array
+    end
+    
+    def extends(callable)
+      class << callable
+        include Rango::ControllerMixin
+      end
     end
   end
 end

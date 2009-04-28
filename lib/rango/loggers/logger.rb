@@ -91,7 +91,7 @@ class Rango
         when "INFO"  then "#{datetime}: #{msg.colorize.cyan}\n"
         when "WARN"  then "#{datetime}: #{msg.colorize.yellow}\n"
         when "ERROR" then "#{datetime}: #{msg.colorize.red}\n"
-        when "FATAL" then "#{datetime}: #{msg.colorize.red.colorize.bold}\n"
+        when "FATAL" then "#{datetime}: #{msg.colorize.red.bold}\n"
         end
       end
     end

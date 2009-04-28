@@ -1,7 +1,7 @@
 # coding: utf-8
 
 # Run thor package:gem or gem build rango.gemspec
-$:.insert(0, File.join(File.dirname(__FILE__), "lib"))
+$:.unshift(File.join(File.dirname(__FILE__), "lib"))
 
 require "rango/version"
 require "rubygems/specification"
@@ -19,7 +19,6 @@ SPECIFICATION = Gem::Specification.new do |s|
   s.executables = Dir.glob("bin/*").map { |path| path.sub(%r[bin/], '') }
   s.default_executable = "rango"
   s.add_dependency "rack"
-  s.add_dependency "term-ansicolor"
   s.add_dependency "thor"
   s.add_dependency "extlib"
   s.require_paths = ["lib"]

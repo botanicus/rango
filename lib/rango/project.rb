@@ -1,12 +1,12 @@
 # coding: utf-8
 
 Rango.import("settings")
-Rango.import("mixins/constant")
+Rango.import("mixins/application")
 
 class Project
   class << self
     include Rango::ImportMixin
-    include Rango::ConstantMixin
+    include Rango::ApplicationMixin
     # @since 0.0.1
     # @return [String] String reprezentation of project root directory.
     root = attribute :root, Dir.pwd
