@@ -7,6 +7,7 @@ class Repair < Thor
     self.encoding
     self.shebang
     self.whitespace
+    self.eof
   end
 
   desc "encoding", "Add missing coding declaration"
@@ -49,6 +50,10 @@ class Repair < Thor
   desc "eof", "Add missing \\n to the end of files"
   def eof
     ruby_files do |file, lines, original|
+      unless original.last.match(/\n$/)
+        puts "Added missing \\n to the end of #{file}"
+        self.save(file, lines)
+      end
     end
   end
 

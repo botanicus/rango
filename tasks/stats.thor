@@ -10,11 +10,14 @@ class Stats < Thor
 
   desc "all", "Lines of code altogether"
   def all
-    self.libs
+    altogether = 0
+    altogether += self.libs
     puts
-    self.specs
+    altogether += self.specs
     puts
-    self.tasks
+    altogether += self.tasks
+    puts 
+    self.altogether(altogether)
   end
 
   desc "libs", "Lines of code in library"
@@ -42,6 +45,11 @@ class Stats < Thor
         altogether += count
       end
     end
-    puts "=> ".colorize.red.to_s + "#{altogether}".colorize.green.to_s + " lines of code".colorize.yellow.to_s
+    self.altogether(altogether)
+    return altogether
+  end
+  
+  def altogether(count)
+    puts "=> ".colorize.red.to_s + "#{count}".colorize.green.to_s + " lines of code".colorize.yellow.to_s
   end
 end
