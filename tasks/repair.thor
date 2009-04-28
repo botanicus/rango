@@ -11,7 +11,7 @@ class Repair < Thor
 
   desc "encoding", "Add missing coding declaration"
   def encoding
-    ruby_files do |file, lines|
+    ruby_files do |file, lines, original|
       unless lines[0].match(/^# coding: utf-8\s*$/)
         puts "Added missing coding declaration to #{file}"
         lines.insert(0, "# coding: utf-8\n\n")
@@ -37,12 +37,18 @@ class Repair < Thor
 
   desc "whitespace", "Remove extra whitespace"
   def whitespace
-    ruby_files do |file, original|
+    ruby_files do |file, lines, original|
       lines = original.map { |line| line.chomp(" ") }
       if original != lines
         puts "Removed extra whitespace from #{file}"
         self.save(file, lines)
       end
+    end
+  end
+  
+  desc "eof", "Add missing \\n to the end of files"
+  def eof
+    ruby_files do |file, lines, original|
     end
   end
 
@@ -56,9 +62,9 @@ class Repair < Thor
   def ruby_files(&block)
     root = File.dirname(__FILE__)
     Dir["#{root}/**/*.{rb,ru,thor}"].each do |file|
-      lines = File.readlines(file)
-      lines.each { |line| line.chomp! }
-      block.call(file, lines)
+      original = File.readlines(file)
+      lines = original.each { |line| line.chomp }
+      block.call(file, lines, original)
     end
   end
 end

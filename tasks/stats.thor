@@ -13,6 +13,8 @@ class Stats < Thor
     self.libs
     puts
     self.specs
+    puts
+    self.tasks
   end
 
   desc "libs", "Lines of code in library"
@@ -23,6 +25,11 @@ class Stats < Thor
   desc "specs", "Lines of code in specs"
   def specs
     self.count(Dir.glob("spec/**/*_spec.rb"))
+  end
+
+  desc "tasks", "Lines of code in tasks"
+  def tasks
+    self.count(Dir.glob("tasks/*.thor"))
   end
 
   protected
