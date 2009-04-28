@@ -50,7 +50,7 @@ class Rango
 
       # @since 0.0.1
       def render
-        content = Rango.framework.path.join("../../templates/errors/#{self.status}.html.erb").read
+        content = Rango.path.join("../../templates/errors/#{self.status}.html.erb").read
         ERB.new(content).result(binding)
       end
 

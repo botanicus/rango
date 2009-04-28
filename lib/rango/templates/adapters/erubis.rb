@@ -20,7 +20,9 @@ class Rango
       # @since 0.0.2
       # @see http://www.kuwata-lab.com/erubis/users-guide.02.html#tut-escape
       def render(io, context)
-        if Project.settings.autoescape
+        if Project.settings.erubis.custom_class
+          klass = Project.settings.erubis.custom_class
+        elsif Project.settings.autoescape
           klass = ::Erubis::EscapedEruby
         else
           klass = ::Erubis::Eruby

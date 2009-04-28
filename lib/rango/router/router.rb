@@ -45,7 +45,7 @@ class Rango
     def match(pattern, params = Hash.new, &block)
       if pattern.is_a?(String)
         # match("/admin/objednavky/nove(/:page)")
-        escaped.gsub!(/\((.+)\)/, '(\1)?')
+        pattern.gsub!(/\((.+)\)/, '(\1)?')
         escaped = Regexp::quote(pattern)
         escaped.gsub!(%r[:([^/]+)], '(?<\1>[^/]+)')
         pattern = %r[^#{escaped}/?$]

@@ -34,6 +34,7 @@ yardoc:
   - array of string etc
 
 === Rango 0.0.3  ===
+rack-cache
 STDLIB erb support maybe
 rango-project.org site
 example apps

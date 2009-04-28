@@ -19,7 +19,7 @@ class Rango
 
     # @since 0.0.1
     # @example
-    #   Rango.framework.root
+    #   Rango.root
     #   # => /usr/lib/ruby/lib/ruby/site_ruby/1.8/rango
     # @return [Rango::Logger] Logger for logging framework-related stuff. For logging project-relating stuff please use Project.logger.
     # @see Project::logger
