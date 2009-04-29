@@ -3,9 +3,9 @@ require File.join(Dir.pwd, "lib", "rango")
 
 describe Rango do
   it "should have version and codename" do
-    Rango.codename.should be_kind_of(String)
-    Rango.version.should be_kind_of(String)
-    Rango.version.should match(/^\d+\.\d+\.\d+$/)
+    Rango::CODENAME.should be_kind_of(String)
+    Rango::VERSION.should be_kind_of(String)
+    Rango::VERSION.should match(/^\d+\.\d+\.\d+$/)
   end
 
   it "should not be flat by default" do

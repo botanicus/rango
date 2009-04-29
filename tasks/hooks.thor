@@ -8,6 +8,7 @@ class Hooks < Thor
       abort "You must remove .git/hooks first"
     else
       # do not symlink them, otherwise git will add samples
+      # FIXME: permissions
       FileUtils.cp_r("support/hooks", ".git/hooks")
     end
   end

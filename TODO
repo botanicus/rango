@@ -1,5 +1,4 @@
 === Rango 0.0.2 MVC Princess ===
-static file serving
 cookies[:foo] instead of set_cookie
 moznost zapisovat nekryptovane cookies (kvuli cteni JSem)
 GH gem building
@@ -10,6 +9,8 @@ Rango generators
 full pupu integration
 rubyforge tasks
 pupu:foo instead of pupu:tasks:foo
+Exceptions controller maybe?
+bin/rango
 
 === Rango 0.0.3 Calm Turtle ===
 => Refactoring, integration, specs, API docs

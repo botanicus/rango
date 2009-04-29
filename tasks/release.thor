@@ -20,19 +20,19 @@ class Release < Thor
   def doc
     puts "Freezing documentation ..."
     Yardoc.new.generate
-    freezed_dir = "doc/#{Rango.version}"
+    freezed_dir = "doc/#{Rango::VERSION}"
     %x[cp -R doc/head #{freezed_dir}]
     %x[git add #{freezed_dir}]
-    %x[git commit #{freezed_dir} -m "Documentation for version #{Rango.version} freezed."]
+    %x[git commit #{freezed_dir} -m "Documentation for version #{Rango::VERSION} freezed."]
     puts "Documentation freezed to #{freezed_dir}"
   end
 
   desc "tag", "Create Git tag for this version and push it to GitHub."
   def tag
-    puts "Creating new git tag #{Rango.version} with description #{Rango.codename} and pushing it online ..."
-    %x[git tag -a -m 'Version #{Rango.version} "#{Rango.codename}"' #{Rango.version}]
+    puts "Creating new git tag #{Rango::VERSION} with description #{Rango::CODENAME} and pushing it online ..."
+    %x[git tag -a -m 'Version #{Rango::VERSION} "#{Rango::CODENAME}"' #{Rango::VERSION}]
     %x[git push --tags]
-    puts "Tag #{Rango.version} was created and pushed to GitHub."
+    puts "Tag #{Rango::VERSION} was created and pushed to GitHub."
   end
 
   desc "rubyforge", "Push sources to RubyForge."

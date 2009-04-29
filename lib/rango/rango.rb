@@ -2,7 +2,6 @@
 
 Rango.import("exceptions")
 Rango.import("loggers/logger")
-Rango.import("version")
 
 class Rango
   class << self

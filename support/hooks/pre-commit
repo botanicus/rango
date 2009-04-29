@@ -1,3 +1,4 @@
 #!/bin/bash
 
 thor repair:all
+exec thor gemspec:validate
