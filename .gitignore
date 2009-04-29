@@ -2,6 +2,7 @@
 .yardoc
 .cache
 doc/head
+pkg/
 nbproject/
 *.itProject
 Thumb.db
