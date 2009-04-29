@@ -18,11 +18,11 @@ class Gem < Thor
   desc "install", "Package and install the gem."
   def install
     self.package
-    puts %x[sudo gem install #{Dir["pkg/*.gem"].last}]
+    puts %x[gem install #{Dir["pkg/*.gem"].last}]
   end
 
   desc "uninstall", "Uninstall the gem."
   def uninstall
-    puts %x[sudo gem uninstall rango -a -x]
+    puts %x[gem uninstall rango -a -x]
   end
 end
