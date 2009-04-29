@@ -12,9 +12,9 @@ end
 class Rango
   VERSION  = "0.0.2"
   CODENAME = "MVC Princess"
-  SPECIFICATION = Gem::Specification.new do |s|
+  SPECIFICATION = ::Gem::Specification.new do |s|
     s.name = "rango"
-    # s.version = Rango.version
+    # s.version = Rango::VERSION
     s.version = Rango::VERSION
     s.authors = ["Jakub Šťastný aka Botanicus"]
     s.homepage = "http://github.com/botanicus/rango"
@@ -29,7 +29,7 @@ class Rango
     s.add_dependency "thor"
     s.add_dependency "extlib"
     s.require_paths = ["lib"]
-    s.required_ruby_version = Gem::Requirement.new(">= 1.9.1")
+    s.required_ruby_version = ::Gem::Requirement.new(">= 1.9.1")
     s.rubyforge_project = "rango"
   end
 end

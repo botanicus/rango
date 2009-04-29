@@ -26,3 +26,23 @@ class Gem < Thor
     puts %x[gem uninstall rango -a -x]
   end
 end
+
+class Gemspec < Thor
+  desc "validate", "Validate gemspec"
+  def validate
+    require "rubygems/specification"
+    data = File.read("rango.gemspec")
+    spec = nil
+
+    if data !~ %r{!ruby/object:Gem::Specification}
+      Thread.new { spec = eval("$SAFE = 3\n#{data}") }.join
+    else
+      spec = YAML.load(data)
+    end
+
+    spec.validate
+
+    puts spec
+    puts "OK"
+  end
+end
