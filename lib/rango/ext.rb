@@ -1,5 +1,6 @@
 # coding: utf-8
 
+require_relative "ext/class"
 require_relative "ext/attribute"
 require_relative "ext/core_ext"
 require_relative "ext/kernel"

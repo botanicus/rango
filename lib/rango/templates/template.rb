@@ -29,7 +29,7 @@ class Rango
         file = File.new(path)
         value = self.engine.render(file, context, self.locals)
         STDOUT.puts
-        Rango.logger.debug("Rendering template #{self.template}")
+        Rango.logger.info("Rendering template #{self.template}")
         # Rango.logger.inspect(self.blocks)
         if self.supertemplate
           Rango.logger.debug("Extends call: #{self.supertemplate}")

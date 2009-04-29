@@ -26,13 +26,14 @@ class Rango
 end
 
 if Rango.flat?
-  Rango.logger.debug("Loading flat application")
+  Rango.logger.info("Loading flat application")
 else
   # init.rb
   Project.import_first(["init", "config/init"], soft: true, verbose: false)
 
   # settings.rb
   begin
+    Project.logger.info("Reading settings")
     Project.import_first(["settings", "config/settings"])
   rescue LoadError
     Rango.logger.fatal("settings.rb wasn't found or it cause another LoadError.")

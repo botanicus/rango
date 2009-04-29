@@ -86,12 +86,13 @@ class Rango
       self.formatter = lambda do |severity, datetime, progname, msg|
         # logger.debug(object_to_inspect)
         msg = msg.inspect unless msg.is_a?(String)
+        datetime = datetime.strftime("[%H:%M:%S]")
         case severity
-        when "DEBUG" then "#{datetime}: #{msg.colorize.green}\n"
-        when "INFO"  then "#{datetime}: #{msg.colorize.cyan}\n"
-        when "WARN"  then "#{datetime}: #{msg.colorize.yellow}\n"
-        when "ERROR" then "#{datetime}: #{msg.colorize.red}\n"
-        when "FATAL" then "#{datetime}: #{msg.colorize.red.bold}\n"
+        when "DEBUG" then "#{datetime} #{msg.colorize.yellow}\n"
+        when "INFO"  then "#{datetime} #{msg.colorize.green}\n"
+        when "WARN"  then "#{datetime} #{msg.colorize.yellow}\n"
+        when "ERROR" then "#{datetime} #{msg.colorize.red}\n"
+        when "FATAL" then "#{datetime} #{msg.colorize.red.bold}\n"
         end
       end
     end

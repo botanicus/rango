@@ -47,7 +47,8 @@ class Rango
       begin
         # $DEBUG = Project.settings.debug # It looks terrible, but rack works with it
         Rango.import("rack/dispatcher")
-        Rack::Builder.new { run ::Rango::Dispatcher.new }
+        # Rack::Builder.new { use Rack::Static, urls: ["/media"]; run ::Rango::Dispatcher.new }
+        return Rango::Dispatcher.app
       rescue Exception => exception
         Rango.logger.exception(exception)
         return false
