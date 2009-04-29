@@ -17,7 +17,7 @@ class Rango
     def self.register
       # TODO: different strategies for each router
       Rango::Router.strategies.push(self)
-      Rango.logger.debug("Strategy #{self} have been registered")
+      Rango.logger.info("Strategy #{self} have been registered")
     end
 
     # @since 0.0.2

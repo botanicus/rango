@@ -10,7 +10,7 @@ class Rango
       # @return [Hash] Hash of settings attributes.
       # TODO: maybe it should returns Rango::Settings?
       def merge(another)
-        self.__hattributes__.merge(another.__hattributes__)
+        self.hattributes.merge(another.hattributes)
       end
 
       # @since 0.0.1
@@ -20,19 +20,32 @@ class Rango
       # @return [Hash] Hash of settings attributes.
       # TODO: maybe it should returns Rango::Settings?
       def merge!(another)
-        self.__hattributes__.merge!(another.__hattributes__)
+        self.hattributes.merge!(another.hattributes)
       end
 
       # @since 0.0.1
       # @example
       # @return [String] All settings attributes in inspect format.
       def inspect
-        self.__hattributes__.inspect
+        self.hattributes.inspect
       end
 
       # @since 0.0.1
       def to_hash
-        self.__hattributes__.reject { |key, value| value.nil? }
+        self.hattributes.reject { |key, value| value.nil? }
+      end
+      
+      # @since 0.0.2
+      def settings_module(name)
+        if self.hattributes[name]
+          return self.hattributes[name]
+        else
+          Rango.import("settings/#{name}")
+          const_name = name.to_s.camel_case
+          constant = Rango::Settings.const_get(const_name)
+          instance = constant.new
+          self.hattributes[name] = instance
+        end
       end
 
       # @since 0.0.1
@@ -45,110 +58,12 @@ class Rango
       def method_missing(name, *args, &block)
         if name.to_s.match(/^([\w\d]+)=$/) && args.length.eql?(1)# && not block_given?
           Rango.logger.warn("Unknown setting item: #$1")
+        else
+          super(name, *args, &block)
         end
       end
     end
-
-    class Framework < Settings
-      # @since 0.0.1
-      # @return [Boolean] explanation
-      hattribute :debug, true
-
-      # @since 0.0.1
-      # @return [Boolean] Path to your router. Default +urls.rb+.
-      hattribute :router, "urls.rb"
-
-      # @since 0.0.1
-      # @return [String] Path to your +media+ directory.
-      hattribute :media_root, ["media"]
-      
-      # @since 0.0.2
-      # @return [String] rango-project.org/media/javascripts/mootools-core.js
-      hattribute :media_prefixes, ["/media"]
-
-      # @since 0.0.1
-      # @return [Array[String]] Array with paths where Rango will trying to find templates.
-      hattribute :template_dirs, ["templates"]
-
-      # @since 0.0.1
-      # @return [String] Name of your database or path to the database if you are using SQLite3.
-      hattribute :database_name, lambda { "#{Rango.environment}.db" }
-
-      # @since 0.0.1
-      # @return [String] Database adapter.
-      hattribute :database_adapter, "sqlite3"
-
-      # @since 0.0.1
-      # @return [String] explanation
-      # hattribute :logger_strategy, "fireruby"
-
-      # @since 0.0.1
-      # @return [Boolean] ORM. Can be datamapper or nil.
-      hattribute :orm
-
-      # @since 0.0.1
-      # @return [Boolean] Template engine. Can be haml, erb, erubis or nil (so just plain html will be returned).
-      hattribute :template_engine, "haml"
-
-      # @since 0.0.1
-      # @return [Boolean] Testing engine. Can be rspec or nil.
-      hattribute :testing_engine
-
-      # @since 0.0.1
-      # @return [Boolean] Features engine. Can be cucumber or nil.
-      hattribute :features_engine
-
-      # @since 0.0.2
-      hattribute :mime_formats, Array.new
-
-      # @since 0.0.2
-      hattribute :autoescape, true
-
-      # @since 0.0.2
-      # Project.settings.haml.format
-      hattribute :erubis, lambda { Rango::Settings::Erubis.new }
-
-      # @since 0.0.2
-      # Project.settings.erubis.pattern
-      hattribute :haml, lambda { Rango::Settings::Haml.new }
-    end
-
-    class Erubis
-      # @since 0.0.2
-      hattribute :pattern, "<% %>" # can be string or regexp
-
-      # @since 0.0.2
-      hattribute :custom_class # use your own class instead of Erubis::Eruby. Don't forget that you must include (TODO: what) for autoescaping
-    end
-
-    class Haml
-      # @since 0.0.2
-      # Determines the output format. The default is :xhtml. Other options are :html4 and :html5, which are identical to :xhtml except there are no self-closing tags, XML prolog is ignored and correct DOCTYPEs are generated. 
-      hattribute :format, :xhtml
-
-      # @since 0.0.2
-      # Sets whether or not to escape HTML-sensitive characters in script. If this is true, = behaves like &=; otherwise, it behaves like !=. Note that if this is set, != should be used for yielding to subtemplates and rendering partials. Defaults to false. 
-      hattribute :escape_html, lambda { Project.settings.autoescape }
-
-      # @since 0.0.2
-      # Whether or not attribute hashes and Ruby scripts designated by =  or ~ should be evaluated. If this is true, said scripts are rendered as empty strings. Defaults to false. 
-      hattribute :suppress_eval, false
-
-      # @since 0.0.2
-      # The character that should wrap element attributes. This defaults to ' (an apostrophe). Characters of this type within the attributes will be escaped (e.g. by replacing them with &apos;) if the character is an apostrophe or a quotation mark.
-      hattribute :attr_wrapper, '"'
-
-      # @since 0.0.2
-      # A list of tag names that should be automatically self-closed if they have no content. Defaults to ['meta', 'img', 'link', 'br', 'hr', 'input', 'area', 'param', 'col', 'base']. 
-      hattribute :autoclose, %w[meta img link br hr input area param col base]
-
-      # @since 0.0.2
-      # A list of tag names that should automatically have their newlines preserved using the Haml::Helpers#preserve  helper. This means that any content given on the same line as the tag will be preserved. For example
-      # %textarea= "Foo\nBar"
-      # compiles to: 
-      # <textarea>Foo&&#x000A;Bar</textarea>
-      # Defaults to ['textarea', 'pre']. 
-      hattribute :preserve, %w[textarea pre]
-    end
   end
 end
+
+Rango.import("settings/framework")

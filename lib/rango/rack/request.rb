@@ -115,7 +115,7 @@ class Rango
     end
     
     def session
-      Rango.logger.inspect(session: @env['rack.session'])
+      # Rango.logger.inspect(session: @env['rack.session'])
       @env['rack.session'] ||= {}
     end
     

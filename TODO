@@ -1,30 +1,31 @@
 === Rango 0.0.2 MVC Princess ===
+static file serving
 cookies[:foo] instead of set_cookie
+moznost zapisovat nekryptovane cookies (kvuli cteni JSem)
 GH gem building
-see rack-router
 utf-8 in flash messages
-pupu integration
-Rango generators:
-Exceptions controller / more generic solution for other strategies
-logger#debug vs logger#info; less logger debug messages
-rango: dumpovani instancnich promennych pri exception
-API doc (also for classes)
-router include, with(page: 1) do ... end, defer_to
-specs
+generic views
+tasks must works in generated app
+Rango generators
 full pupu integration
-user app tasks
 rubyforge tasks
+pupu:foo instead of pupu:tasks:foo
+
+=== Rango 0.0.3 Calm Turtle ===
+=> Refactoring, integration, specs, API docs
+=> Any new features except Exceptions controller
+see rack-router
+Exceptions controller / more generic solution for other strategies
+rango: dumpovani instancnich promennych pri exception
 rack::reloader
 router: unnamed args
 404 & 500 errors
-pupu:foo instead of pupu:tasks:foo
 raise Error404.new unless @post: predavat params. Kernel#caller maybe? or not_found method of controller?
 Error500 in browser just like in TM (txmt://, filter backtraces, show code etc) ... the code should be highlighted if uv is installed
 raise NotFound unless @post => route to Exceptions or what?
 404, 500 HTML output (with backtraces/routes, at least some CSS)
-files uploading
-generic views
-moznost zapisovat nekryptovane cookies (kvuli cteni JSem)
+install.rb (see term/ansicolor)
+
 === Documentation ===
 in README should be just basic informations, others should be in doc/rango or so
 yardoc:
@@ -33,8 +34,10 @@ yardoc:
   - what is just optional argument
   - array of string etc
 
-=== Rango 0.0.3  ===
+=== Rango 0.0.4  ===
 rack-cache
+files uploading
+router include, with(page: 1) do ... end, defer_to
 STDLIB erb support maybe
 rango-project.org site
 example apps

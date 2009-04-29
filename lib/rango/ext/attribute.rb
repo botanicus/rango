@@ -1,5 +1,7 @@
 # coding: utf-8
 
+require "extlib"
+
 # default value for attr
 module AttributeMixin
   # @since 0.0.1
@@ -48,33 +50,65 @@ module AttributeMixin
   # @param [Object, @optional] default_value Default value of the variable.
   # @return [name] Returns given default value or if default value.
   # @see #attribute
+  def default_hattribute_names
+    # this can't be hash because in case the value will be lambda, we can't call it,
+    # because lambda is evaluated in scope of instance
+    @default_hattribute_names ||= Array.new
+  end
+
   def hattribute(name, default_value = nil)
-    # define reader method
-    define_method(name) do
-      properties = instance_variable_get("@__hattributes__") || Hash.new
-      if properties[name].nil?
-        # instance_variable_set("@#{name}", default_value)
-        # lazy loading
-        default_value = default_value.call if default_value.is_a?(Proc)
-        properties[name] = default_value.try_dup
+    self.default_hattribute_names.push(name)
+
+    define_method(:hattributes) do
+      @__hattributes__ ||= Hash.new
+      # this is importat for initialization @__hattributes__
+      self.class.default_hattribute_names.each do |hattribute|
+        self.send(hattribute)
       end
-      # instance_variable_get("@#{name}")
-      properties[name]
+      return @__hattributes__
+    end
+
+    # define reader method
+    if default_value.is_a?(Proc)
+      define_method(name) do
+        properties = instance_variable_get("@__hattributes__") || Hash.new
+        if properties[name].nil?
+          # instance_variable_set("@#{name}", default_value)
+          # lazy loading
+          properties[name] = self.instance_eval(&default_value)
+        end
+        # instance_variable_get("@#{name}")
+        properties[name]
+      end
+    else
+      define_method(name) do
+        properties = instance_variable_get("@__hattributes__") || Hash.new
+        # properties = @__hattributes__
+        if properties[name].nil?
+          # instance_variable_set("@#{name}", default_value)
+          # lazy loading
+          properties[name] = default_value.try_dup
+        end
+        # instance_variable_get("@#{name}")
+        properties[name]
+      end
     end
 
     # define writer method
     define_method("#{name}=") do |value|
-      # each object will have __hattributes__ method
-      unless self.respond_to?(:__hattributes__)
-        self.class.attribute :__hattributes__, Hash.new
-      end
       instance_variable_set("@__hattributes__", Hash.new) unless instance_variable_get("@__hattributes__")
       instance_variable_get("@__hattributes__")[name] = value
     end
 
     return default_value
   end
-
+  
+  # class << self.class
+  #   def hattributes
+  #     raise "Y"
+  #   end
+  # end
+  
   # class Post
   #   questionable :updated, true
   # end
@@ -93,3 +127,11 @@ end
 
 Class.send(:include, AttributeMixin)
 Module.send(:include, AttributeMixin)
+
+# class Test
+#   hattribute :bar, -> { "value" }
+# end
+# 
+# t = Test.new
+# p t.bar
+# p t.hattributes

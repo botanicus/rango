@@ -53,7 +53,7 @@ class Rango
     def capture(*args, &block)
       ret = nil
 
-      captured = send("capture_#{@_engine}", *args) do |*args|
+      captured = send("capture_#{Project.settings.template_engine}", *args) do |*args|
         ret = yield *args
       end
 
@@ -69,7 +69,7 @@ class Rango
     #
     # :api: public
     def concat(str, binding)
-      self.send("concat_#{@_engine}", str, binding)
+      self.send("concat_#{Project.settings.template_engine}", str, binding)
     end
 
     # view:

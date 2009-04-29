@@ -16,7 +16,9 @@ class Rango
       path        = env['PATH_INFO'].chomp('/')
       method      = env['REQUEST_METHOD']
 
-      if FILE_METHODS.include?(method)
+      prefix = Project.settings.class Pupuprefix.chomp("/")
+      prefix_regexp = Regexp.new(%r[^#{prefix}/])
+      if path.match(prefix_regexp) && FILE_METHODS.include?(method)
         if file_exist?(path)
           return @file_server.call(env)
           # else

@@ -34,8 +34,7 @@ class Path
   # @since 0.0.1
   def url
     path = @absolute.dup
-    media = File.join(Project.root, Project.settings.media_root.first)
-    path[media] = String.new ###### HACK
+    path[Project.root] = String.new
     path
   end
 
