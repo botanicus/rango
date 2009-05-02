@@ -23,10 +23,10 @@ class Rango
     s.cert_chain = nil
     s.email = ["knava.bestvinensis", "gmail.com"].join("@")
     s.files = Dir.glob("**/*") - Dir.glob("pkg/*")
-    s.executables = Dir.glob("bin/*").map { |path| path.sub(%r[bin/], '') }
+    s.executables = ["rango"]
     s.default_executable = "rango"
     s.add_dependency "rack"
-    s.add_dependency "thor"
+    # s.add_dependency "thor"
     s.add_dependency "extlib"
     s.require_paths = ["lib"]
     s.required_ruby_version = ::Gem::Requirement.new(">= 1.9.1")
