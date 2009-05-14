@@ -36,8 +36,6 @@
 # http://rack.rubyforge.org/doc/
 # http://rack.rubyforge.org/doc/classes/Rack/Request.html
 
-require "rack"
-
 class Rango
   module Session
   end
@@ -64,6 +62,7 @@ class Rango
       @path.chomp!("/") if @path.length > 1 # so let the / just if the path is only /
       @method = env["REQUEST_METHOD"].downcase
       self.extend_session
+      p self.message.map { |key, value| value.encoding } ####
     end
     
     def GET
@@ -123,6 +122,7 @@ class Rango
       env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest"
     end
 
+    # TODO: use extend method
     def extend_session
       class << session
         include Rango::Session

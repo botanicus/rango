@@ -1,5 +1,8 @@
 # coding: utf-8
 
+# TODO: refactor similar as attr_accessor_with_default from active support
+# see http://noobkit.com/show/ruby/rails/rails-stable/activesupport/module/attr_accessor_with_default.html
+
 require "extlib"
 
 # default value for attr

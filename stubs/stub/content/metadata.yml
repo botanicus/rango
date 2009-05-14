@@ -1,5 +1,2 @@
 # Options: full|diff
 :type: full
-
-# {{ foo }} sequences will be evaluated as Ruby code
-:processing: true

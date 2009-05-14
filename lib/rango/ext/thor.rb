@@ -1,25 +1,32 @@
 # coding: utf-8
 
-class RangoThor < Thor
-  # def initialize
-  #   require "rango"
-  #   Rango.boot
-  # end
+require "thor"
 
-  # @since 0.0.2
-  desc "automigrate", "Automigrate the database. It will destroy all the data!"
-  def automigrate
-    DataMapper.auto_migrate!
-  end
+# Hooks
+# Rango::Tasks.hook do
+#   Dir["models/*.rb"].each(&method(:require))
+# end
+class Rango
+  class Tasks < Thor
+    class << self
+      attr_accessor :hooks
+      def hook(&block)
+        @hooks ||= Array.new
+        @hooks.push(block)
+      end
 
-  # @since 0.0.2
-  desc "autoupgrade", "Autoupgrade the database structure. Data should stay untouched."
-  def autoupgrade
-    DataMapper.auto_upgrade!
-  end
+      def inherited(subclass)
+        subclass.hooks = self.hooks
+      end
+    end
 
-  # @since 0.0.2
-  desc "migrate", "Run migrations."
-  def migrate
+    def boot(*args)
+      require "rango"
+      Rango.boot(*args)
+      p self.class.hooks
+      self.class.hooks.each(&:call)
+    rescue Exception => exception
+      Rango.logger.exception(exception)
+    end
   end
 end

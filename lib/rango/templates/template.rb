@@ -65,15 +65,23 @@ class Rango
 
       # @since 0.0.2
       def find(template)
-        Project.settings.template_dirs.each do |directory|
-          path = File.join(directory, template)
-          if File.exist?(path)
-            return path
-          elsif first = Dir["#{path}.*"].first
-            return first
+        if template.match(/^\//)
+          if File.exist?(template)
+            return template
+          elsif template = Dir["#{template}.*"].first
+            return template
           end
+        else
+          Project.settings.template_dirs.each do |directory|
+            path = File.join(directory, template)
+            if File.exist?(path)
+              return path
+            elsif first = Dir["#{path}.*"].first
+              return first
+            end
+          end
+          return nil
         end
-        return nil
       end
     end
 

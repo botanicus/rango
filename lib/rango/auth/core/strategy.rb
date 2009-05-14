@@ -1,7 +1,11 @@
 class Rango
   class Authentication
     cattr_reader   :strategies, :default_strategy_order, :registered_strategies
-    @@strategies, @@default_strategy_order, @@registered_strategies = [], [], {}
+    # when this file is loaded by Kernel#load, this will clean its strategies
+    # @@strategies, @@default_strategy_order, @@registered_strategies = [], [], {}
+    @@strategies ||= Array.new
+    @@default_strategy_order ||= Array.new
+    @@registered_strategies  ||= Hash.new
 
     # Use this to set the default order of strategies
     # if you need to in your application.  You don't need to use all avaiable strategies

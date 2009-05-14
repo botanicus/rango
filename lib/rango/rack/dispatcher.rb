@@ -1,11 +1,12 @@
 # coding: utf-8
 
-require "rack"
+require_relative "middlewares/encoding"
 
 class Rango::Dispatcher
   class << self
     def app
       Rack::Builder.new do
+        use Rango::Middlewares::Encoding
         use Rack::ContentLength
         use Rack::MethodOverride # _method: put etc
 

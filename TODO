@@ -1,7 +1,16 @@
+see "multi" gem
+look@AS!
+maybe alias_method_chain for situations where we need to have not just test method, but also test_without_foo etc => versioning of methods
+other useful features from AS/module:
+  - attr_internal
+  - delegate
+  - included_in_classes
+  - local_constants
+  - parent
+  - parents
+
 === Rango 0.0.2 MVC Princess ===
 cookies[:foo] instead of set_cookie
-moznost zapisovat nekryptovane cookies (kvuli cteni JSem)
-GH gem building
 utf-8 in flash messages
 generic views
 tasks must works in generated app
@@ -11,10 +20,12 @@ rubyforge tasks
 pupu:foo instead of pupu:tasks:foo
 Exceptions controller maybe?
 bin/rango
+bundling should be just optional
 
 === Rango 0.0.3 Calm Turtle ===
 => Refactoring, integration, specs, API docs
 => Any new features except Exceptions controller
+JRuby support
 see rack-router
 Exceptions controller / more generic solution for other strategies
 rango: dumpovani instancnich promennych pri exception
@@ -35,7 +46,8 @@ yardoc:
   - what is just optional argument
   - array of string etc
 
-=== Rango 0.0.4  ===
+=== Rango 0.0.4 ===
+moznost zapisovat nekryptovane cookies (kvuli cteni JSem)
 rack-cache
 files uploading
 router include, with(page: 1) do ... end, defer_to
@@ -48,13 +60,21 @@ render strategies:
   - merb-like
   - django-like explicit
 sync documentation with api.rango-project.org, route HEAD docs to /
-named routes
+named routes http://docs.djangoproject.com/en/dev/topics/http/urls/#naming-url-patterns
 match(domain: "somecooldomain.com", subdomain: /regexp/)
 exceptions notifications (=> email)
 logger: settings (where to log - file, STDERR, format)
 m17n
 bundling: Nejlepsi bude kdyz proste pujde z toho repa udelat gem (thor package:gem nebo tak neco) a nainstaluje se to jako gem. Kdybysme meli to, co rails, tak nemuzeme podporovat soucasne i gemy a kdyby to, co merb, tak musime vzdycky udelat balicek rucne, coz je opruz
 forms, modelforms
+http://docs.djangoproject.com/en/dev/topics/forms/
+http://docs.djangoproject.com/en/dev/topics/forms/modelforms/
+http://docs.djangoproject.com/en/dev/topics/forms/formsets/
+http://docs.djangoproject.com/en/dev/ref/forms/api/#ref-forms-api-bound-unbound
+http://docs.djangoproject.com/en/dev/topics/forms/modelforms/#topics-forms-modelforms
+http://docs.djangoproject.com/en/dev/ref/forms/fields/#ref-forms-fields
+
+http://docs.djangoproject.com/en/dev/ref/contrib/webdesign/#ref-contrib-webdesign
 contrib/syndication
 autorender: metoda ktera si najde template a vyrenderuje ji
 render vs. display + "provides" API: has display sense for Rango?
@@ -96,3 +116,6 @@ autoadmin, comments, flatpages
 fireruby logger adapter
 http://debu.gs/live-console
 profiling, benchmarking (bm against merb, rails, django, sinatra, ramaze)
+
+=== Maybe ===
+Time zones: probably not, user can use tzinfo gem

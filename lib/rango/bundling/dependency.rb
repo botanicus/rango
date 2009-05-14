@@ -1,6 +1,8 @@
 # coding: utf-8
 
-Rango.import("bundling/strategies")
+Rango.import("bundling/strategy")
+Rango.import("bundling/strategies/gem")
+Rango.import("bundling/strategies/git")
 
 class Rango
   class << self
@@ -8,7 +10,6 @@ class Rango
     # @return [String] Returns current environment name. Possibilities are +development+ or +production+.
     attribute :environment, "development"
 
-    attribute :dependencies, Hash.new
     # @examples
     #   Rango.dependency("dm-core", github: "datamapper/dm-core")
     #   Rango.dependency("dm-core", "1.0.2", svn: "datamapper/dm-core")
@@ -27,26 +28,29 @@ class Rango
     # @param [Hash] options Available options: <tt>soft: boolean</tt>, <tt>github: user/repo</tt>, <tt>git: repo</tt>, <tt>svn: repo</tt>, <tt>gem: gemname</tt>.
     # @raise [LoadError] Unless soft importing is enable, it will raise LoadError if the file wasn't found
     # @return [Boolean] Returns true if importing succeed or false if not.
+
+    # TODO: soft option support
     def dependency(library, options = Hash.new, &block)
-      self.bundle(library, options)
-      if options[:as]
-        require options[:as]
+      dependency = self.bundle(library, options)
+      if dependency.nil?
+        #
       else
-        require library
+        dependency.load
+        block.call if block_given?
       end
-      block.call if block_given?
     end
 
     # @since 0.0.1
     # options[:version]
+    # options[:soft] If true, bundle dependency just if isn't bundled yet.
     # you may need to bundle software which you do not use at the moment. For example on development machine you are using SQLite3, but on server you are using MySQL, so you will need to bundle do_mysql as well.
-    def bundle(library, options = Hash.new)
-      self.dependencies[library] = {options: options}
-    end
-
-    def bundle!
-      self.dependencies.each do |library, options|
-        #
+    def bundle(name, options = Hash.new)
+      dependency = Rango::Bundling::Strategy.find(name, options)
+      if dependency.nil?
+        Rango.logger.error("No dependency strategy matched for #{name} with #{options}")
+        return nil
+      else
+        dependency.register
       end
     end
   end

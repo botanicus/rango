@@ -1,6 +1,13 @@
 # coding: utf-8
 
 module Kernel
+  # @since 0.0.2
+  def metaclass
+    class << self
+      self
+    end
+  end
+  
   # @since 0.0.1
   # @example
   #   try_require "term/ansicolor", "term-ansicolor"
@@ -20,6 +27,11 @@ module Kernel
         return false
       end
     end
+  end
+  
+  def command(command)
+    puts command
+    puts %x[#{command}]
   end
   
   def quiet(&block)

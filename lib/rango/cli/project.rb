@@ -31,7 +31,7 @@ require "erubis"
 # iterovat pres kolekce => to uz vyzaduje templatovaci engine
 
 class Rango
-  def Project
+  class Project
     def self.rango_root
       File.join(File.dirname(__FILE__), "..", "..", "..")
     end
