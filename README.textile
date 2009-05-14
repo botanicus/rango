@@ -10,5 +10,5 @@ h1. Documentation
 
 h1. Community
 
-# @#rango@ at @irc.freenode.net@
+# "Jabber MUC":rango@conf.netlab.cz
 # "Twitter":https://twitter.com/RangoProject

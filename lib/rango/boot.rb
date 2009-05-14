@@ -1,12 +1,18 @@
 # coding: utf-8
 
 require "ostruct"
+Rango.import("bundling/dependency")
+
+# dependencies
+Rango.bundle "rango"
+Rango.dependency "rack"
+Rango.dependency "extlib"
+
+# imports
 Rango.import("project")
 Rango.import("router/router")
 Rango.import("rack/request")
-
 Rango.import("helpers")
-Rango.import("bundling/dependency")
 
 Rango::HttpExceptions::HttpError.send(:include, Rango::Helpers)
 
@@ -42,7 +48,9 @@ else
 
   # setup ORM
   if orm = Project.settings.orm
-    Rango.import("orm/adapters/#{orm}/setup")
+    unless Rango.import("orm/adapters/#{orm}/setup", soft: true, verbose: false)
+      Project.logger.error("ORM #{orm} isn't supported. You will need to setup your database connection manually.")
+    end
   end
 
   # settings_local.rb

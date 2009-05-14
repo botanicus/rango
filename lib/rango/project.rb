@@ -29,5 +29,9 @@ class Project
     def configure(&block)
       self.settings.instance_eval(&block)
     end
+    
+    def bundled?
+      @bundled ||= File.directory?(File.join(Project.root, "gems"))
+    end
   end
 end

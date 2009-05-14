@@ -1,0 +1,10 @@
+# coding: utf-8
+
+Rango.import("mvc/controller")
+
+<% controllers.each do |controller| %>
+class <%= controller %> < Rango::Controller
+  # TODO
+end
+
+<% end %>

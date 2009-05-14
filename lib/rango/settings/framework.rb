@@ -56,6 +56,12 @@ class Rango
 
       # @since 0.0.2
       hattribute :autoescape, true
+      
+      # @since 0.0.2
+      hattribute :gems_directory, lambda { File.join(Project.root, "gems") }
+      
+      # @since 0.0.2
+      hattribute :sources_directory, lambda { File.join(Project.root, "sources") }
 
       # @since 0.0.2
       # Project.settings.erubis.pattern

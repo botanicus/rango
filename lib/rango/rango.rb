@@ -5,15 +5,13 @@ Rango.import("loggers/logger")
 
 class Rango
   class << self
-    attribute :flat, false
-
     # @since 0.0.2
     # @example
     #   Rango.path
     #   # => /usr/lib/ruby/lib/ruby/site_ruby/1.8/rango
     # @return [Path] Rango root path
     def path
-      Path.new(self.root)
+      @path ||= Path.new(self.root)
     end
 
     # @since 0.0.1
@@ -23,7 +21,7 @@ class Rango
     # @return [Rango::Logger] Logger for logging framework-related stuff. For logging project-relating stuff please use Project.logger.
     # @see Project::logger
     def logger
-      Rango::Logger.new
+      @logger ||= Rango::Logger.new
     end
 
     # @since 0.0.1
@@ -32,26 +30,27 @@ class Rango
     # @param [Hash] options You can specify flat: true for sinatra-like flat application.
     # @return [Boolean] Returns true if boot succeed or false if not. If ARGV includes "-i", IRB interactive session will start.
     def boot(options = Hash.new)
-      begin
-        Rango.flat = true if options[:flat]
+      Rango.flat = true if options[:flat]
+      if options[:force]
+        Rango.import!("boot")
+      else
         Rango.import("boot")
-      rescue Exception => exception
-        Rango.logger.exception(exception)
-        return false
       end
+    end
+    
+    # @since 0.0.2
+    def reboot(options = Hash.new)
+      self.boot(options.merge(force: true))
     end
 
     # @since 0.0.2
     def app
-      begin
-        # $DEBUG = Project.settings.debug # It looks terrible, but rack works with it
-        Rango.import("rack/dispatcher")
-        # Rack::Builder.new { use Rack::Static, urls: ["/media"]; run ::Rango::Dispatcher.new }
-        return Rango::Dispatcher.app
-      rescue Exception => exception
-        Rango.logger.exception(exception)
-        return false
-      end
+      # $DEBUG = Project.settings.debug # It looks terrible, but rack works with it
+      Rango.import("rack/dispatcher")
+      return Rango::Dispatcher.app
+    rescue Exception => exception
+      Rango.logger.exception(exception)
+      return false
     end
 
     # Start IRB interactive session
@@ -65,13 +64,8 @@ class Rango
 
     # @since 0.0.1
     # @return [Boolean] If application is flat or not.
-    def flat?
-      @flat
-    end
-    
-    def debug?
-      true
-    end
+    questionable :flat, false
+    questionable :debug, true
     
     # Rango.template("404.html")
     def template(basename)

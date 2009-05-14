@@ -8,17 +8,17 @@ require_relative "attribute"
 class ColoredString
   ATTRIBUTES = {
     clear: 0,
-    reset: 0,     # synonym for :clear
+    reset: 0,         # synonym for :clear
     bold: 1,
     dark: 2,
-    italic: 3,     # not widely implemented
+    italic: 3,        # not widely implemented
     underline: 4, 
-    underscore: 4,     # synonym for :underline
+    underscore: 4,    # synonym for :underline
     blink: 5, 
-    rapid_blink: 6,     # not widely implemented
-    negative: 7,     # no reverse because of String#reverse
+    rapid_blink: 6,   # not widely implemented
+    negative: 7,      # no reverse because of String#reverse
     concealed: 8, 
-    strikethrough: 9,     # not widely implemented
+    strikethrough: 9, # not widely implemented
     black: 30, 
     red: 31, 
     green: 32, 
@@ -47,6 +47,12 @@ class ColoredString
     # this for example:
     #  Term::ANSIColor::coloring = STDOUT.isatty
     questionable :coloring, true
+    
+    # <red.bold>Title</red.bold>
+    # - u, i/em, b/strong
+    def template(string)
+      return string # TODO
+    end
   end
   
   attr_accessor :colors

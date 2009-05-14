@@ -2,7 +2,7 @@
 # coding: utf-8
 
 rango_root = File.join(File.dirname(__FILE__), '..')
-$: << "#{rango_root}/lib"
+$:.unshift("#{rango_root}/lib")
 
 require "rango/ext/colored_string"
 
@@ -14,14 +14,15 @@ end
 
 case command = ARGV.first
 when "create"
-  require "rango/cli/project"
-  Rango::Project.new(ARGV).create
+  require "rango/cli/generators"
+  Rango::Generator.new(ARGV)
 when "-i"
   require "rango"
   Rango.boot
   Rango.interactive
 else
-  STDERR.puts("=== Usage ===".cyan)
+  # STDERR.puts(ColoredString.template("=== <green.bold>Usage</green.bold> ==="))
+  STDERR.puts("=== Usage ===")
   help "rango create project mycoolproject", "Generate new site"
   help "rango create app mycoolapp", "Generate new application"
   help "rango -i", "Start Rango console"

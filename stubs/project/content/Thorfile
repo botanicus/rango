@@ -1,7 +1,12 @@
 # coding: utf-8
 
-require "rango/tasks/bundle.thor"
-require "pupu/tasks/pupu.thor"
-require "rango/orm/adapters/dm/tasks.thor"
+# Init hooks
+# Rango::Tasks.hook do
+#   Dir["models/*.rb"].each(&method(:require))
+# end
+
+load "rango/tasks/bundle.thor"
+load "pupu/tasks/pupu.thor"
+load "rango/orm/adapters/datamapper/tasks.thor"
 
 # add your tasks to the tasks directory and give them ".thor" suffix
