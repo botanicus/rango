@@ -62,7 +62,6 @@ class Rango
       @path.chomp!("/") if @path.length > 1 # so let the / just if the path is only /
       @method = env["REQUEST_METHOD"].downcase
       self.extend_session
-      p self.message.map { |key, value| value.encoding } ####
     end
     
     def GET
