@@ -1,8 +1,5 @@
 # coding: utf-8
 
-require "ostruct"
-Rango.import("bundling/dependency")
-
 # dependencies
 Rango.bundle "rango"
 Rango.dependency "rack"
