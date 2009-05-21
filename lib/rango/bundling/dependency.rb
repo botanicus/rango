@@ -31,11 +31,19 @@ class Rango
 
     # TODO: soft option support
     def dependency(library, options = Hash.new, &block)
-      dependency = self.bundle(library, options)
+      dependency = self.bundle(library, options.except(:optional))
       if dependency.nil?
         #
       else
-        dependency.load
+        if options[:optional]
+          begin
+            dependency.load
+          rescue LoadError
+            Rango.logger.warn("Dependency #{library} isn't available.")
+          end
+        else
+          dependency.load
+        end
         block.call if block_given?
       end
     end

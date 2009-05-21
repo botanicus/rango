@@ -34,7 +34,7 @@ class Rango
       def to_hash
         self.hattributes.reject { |key, value| value.nil? }
       end
-      
+
       # @since 0.0.2
       def settings_module(name)
         if self.hattributes[name]
@@ -58,6 +58,24 @@ class Rango
       def method_missing(name, *args, &block)
         if name.to_s.match(/^([\w\d]+)=$/) && args.length.eql?(1)# && not block_given?
           Rango.logger.warn("Unknown setting item: #$1")
+        else
+          super(name, *args, &block)
+        end
+      end
+    end
+    
+    class Anonymous < Settings
+      # @since 0.0.2
+      # @example
+      #   Project.configure do
+      #     self.foobar = "something"
+      #   end
+      #   # => Set the property without warning
+      # @param [type] name explanation
+      def method_missing(name, *args, &block)
+        if name.to_s.match(/^([\w\d]+)=$/) && args.length.eql?(1)# && not block_given?
+          self.class.hattribute $1.to_sym
+          self.send(name, *args, &block)
         else
           super(name, *args, &block)
         end

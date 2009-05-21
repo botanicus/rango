@@ -5,35 +5,35 @@
 - unless page.max.eql?(1)
   - if page.previous
     /= link_to "<< Předchozí", "?page=#{page.previous.number}"
-    = link_to "<< Předchozí", Page.route(request, page, page.previous.number)
+    != link_to "<< Předchozí", Page.route(request, page, page.previous.number)
   - if page.max <= 11
     - (1..page.max).each do |pagenum|
       - if page.number.eql?(pagenum)
         = pagenum
       - else
         /= link_to pagenum, "?page=#{pagenum}"
-        = link_to pagenum, Page.route(request, page, pagenum)
+        != link_to pagenum, Page.route(request, page, pagenum)
   - elsif page.number <= 6
     - (1..11).each do |pagenum|
       - if page.number.eql?(pagenum)
         = pagenum
       - else
         /= link_to pagenum, "?page=#{pagenum}"
-        = link_to pagenum, Page.route(request, page, pagenum)
+        != link_to pagenum, Page.route(request, page, pagenum)
   - elsif page.number >= (page.max - 6)
     - ((page.max - 11)..(page.max)).each do |pagenum|
       - if page.number.eql?(pagenum)
         = pagenum
       - else
         /= link_to pagenum, "?page=#{pagenum}"
-        = link_to pagenum, Page.route(request, page, pagenum)
+        != link_to pagenum, Page.route(request, page, pagenum)
   - else
     - ((page.number - 5)..(page.number + 5)).each do |pagenum|
       - if page.number.eql?(pagenum)
         = pagenum
       - else
         /= link_to pagenum, "?page=#{pagenum}"
-        = link_to pagenum, Page.route(request, page, pagenum)
+        != link_to pagenum, Page.route(request, page, pagenum)
   - if page.next
     /= link_to "Další >>", "?page=#{page.next.number}"
-    = link_to "Další >>", Page.route(request, page, page.next.number)
+    != link_to "Další >>", Page.route(request, page, page.next.number)

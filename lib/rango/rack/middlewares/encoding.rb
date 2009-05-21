@@ -4,8 +4,9 @@
 class Rango
   module Middlewares
     class Encoding
-      def initialize(app)
+      def initialize(app, encoding = ::Encoding.default_external)
         @app = app
+        @encoding = encoding
       end
 
       def call(env)
@@ -17,7 +18,7 @@ class Rango
       
       protected
       def try_force_encoding(object)
-        object.respond_to?(:force_encoding) ? object.dup.force_encoding('utf-8') : object
+        object.respond_to?(:force_encoding) ? object.dup.force_encoding(@encoding) : object
       end
     end
   end

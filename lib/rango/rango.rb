@@ -2,6 +2,7 @@
 
 Rango.import("exceptions")
 Rango.import("loggers/logger")
+Rango.import("bundling/dependency")
 
 class Rango
   class << self

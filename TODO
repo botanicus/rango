@@ -1,3 +1,4 @@
+haml: each %form should have its args merged with method: POST
 see "multi" gem
 look@AS!
 maybe alias_method_chain for situations where we need to have not just test method, but also test_without_foo etc => versioning of methods

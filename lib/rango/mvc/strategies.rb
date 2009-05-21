@@ -2,6 +2,5 @@
 
 class Rango
   module RenderMixin
-
   end
-  
+end
