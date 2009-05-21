@@ -21,6 +21,16 @@ class Rango
     end
     
     # @since 0.0.2
+    # mail_to "joe@example.com"
+    # => "<a href='mailto:joe@example.com'>joe@example.com</a>"
+    # mail_to "joe@example.com", "Title"
+    # => "<a href='mailto:joe@example.com'>Title</a>"
+    def mail_to(mail, text = mail)
+      mail.gsub!("@" "&#x40;")
+      tag :a, text, href: "mailto:#{mail}"
+    end
+    
+    # @since 0.0.2
     def error_messages_for(model_instance)
       tag :ul do
         messages = model_instance.errors.full_messages

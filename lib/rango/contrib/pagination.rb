@@ -4,7 +4,7 @@ Rango.dependency("dm-aggregates")
 Rango.import("contrib/pagination/page")
 Rango.import("contrib/pagination/strategies")
 Rango.import("contrib/pagination/helpers")
-Rango.import("contrib/pagination/adapters/#{Project.settings.orm || "dm"}")
+Rango.import("contrib/pagination/adapters/#{Project.settings.orm || "datamapper"}")
 
 Rango.import("mvc/controller") # TODO: it should not works just with controller
 Rango::Controller.send(:include, Rango::Pagination::PaginationMixin)

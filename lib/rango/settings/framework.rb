@@ -26,6 +26,10 @@ class Rango
       # @since 0.0.1
       # @return [String] Name of your database or path to the database if you are using SQLite3.
       hattribute :database_name, lambda { "#{Rango.environment}.db" }
+      
+      # @since 0.0.2
+      # @return [String] Array of emails.
+      hattribute :admins, Array.new
 
       # @since 0.0.1
       # @return [String] Database adapter.

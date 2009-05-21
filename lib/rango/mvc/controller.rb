@@ -1,6 +1,5 @@
 # coding: utf-8
 
-require "uri"
 Rango.import("templates/template")
 Rango.import("mixins/controller")
 
@@ -50,10 +49,10 @@ class Rango
         # If you don't care about arguments or if you prefer usage of params.
         args = controller.params.map { |key, value| value }
         if controller.method(method).arity.eql?(0)
-          Rango.logger.info("Calling method #{method} without arguments")
+          Rango.logger.info("Calling method #{self.class}##{method} without arguments")
           value = controller.method(method).call
         else
-          Rango.logger.info("Calling method #{method} with arguments #{args.inspect}")
+          Rango.logger.info("Calling method #{self.class}##{method} with arguments #{args.inspect}")
           value = controller.method(method).call(*args)
         end
         controller.autorender if self.autorendering
