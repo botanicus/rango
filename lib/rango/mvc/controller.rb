@@ -38,8 +38,12 @@ class Rango
         self.after_filters[action || block] = options
       end
 
-      # @since 0.0.2
-      def run(request, options = Hash.new, method = "index")
+      # [master] Change Merb::Controller to respond to #call and return a Rack Array. (wycats)http://rubyurl.com/BhoY
+      # @experimental
+      def call(env)
+        method = env["rango.action"]
+        request = Rango::Request.new(env)
+        options = env["rango.options"]
         response = Rack::Response.new
         controller = self.new(request, options.merge(request.params))
         controller.response = response
@@ -62,7 +66,13 @@ class Rango
         response.headers.merge!(controller.headers)
         return response.finish
       end
-      
+
+      # @experimental
+      def route_to(env, action)
+        env["rango.controller"] = self.name
+        env["rango.action"] =  action
+      end
+
       def proceed_value(value)
         case value
         when true, false then value.to_s
@@ -90,10 +100,11 @@ class Rango
     end
     attr_reader :session
 
-    def call
-      # [master] Change Merb::Controller to respond to #call and return a Rack Array. (wycats)http://rubyurl.com/BhoY
+    # @experimental
+    def route_to(action)
+      self.class.route_to(request.env, action)
     end
-    
+
     # @since 0.0.2
     def run_filters(name, method)
       # Rango.logger.debug(self.class.instance_variables)
