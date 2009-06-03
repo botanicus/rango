@@ -47,9 +47,10 @@ class Rango
         response = Rack::Response.new
         controller = self.new(request, options.merge(request.params))
         controller.response = response
+        Rango.logger.info("#{self.name}.call(env) with method #{method}")
         # Rango.logger.inspect(before: ::Application.get_filters(:before), after: ::Application.get_filters(:after))
         # Rango.logger.inspect(before: get_filters(:before), after: get_filters(:after))
-        controller.run_filters(:before, method)
+        controller.run_filters(:before, method.to_sym)
         # If you don't care about arguments or if you prefer usage of params.
         args = controller.params.map { |key, value| value }
         if controller.method(method).arity.eql?(0)
