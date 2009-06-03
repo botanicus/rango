@@ -3,7 +3,6 @@
 require "rango"
 
 Rango.boot
-run Rango.app
 
 # warden authentication
 # wiki.github.com/hassox/warden/setup
@@ -20,3 +19,16 @@ end
 # See also wiki.github.com/hassox/warden/callbacks
 Warden::Manager.serialize_into_session { |user| user.id }
 Warden::Manager.serialize_from_session { |key| User.get(id) }
+
+# Go to login
+Warden::Manager.before_failure do |env, opts|
+  Login.route_to env, "login"
+end
+
+Warden::Strategies.add(:password) do
+  def authenticate!
+    User.new # TODO
+  end
+end
+
+run Rango.app
