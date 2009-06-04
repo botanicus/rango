@@ -18,6 +18,11 @@ class Rango
         rescue TypeError
           raise TypeError, "You must set the Dispatcher.router_adapter first. For example Dispatcher.router_adapter = Rango::Router::RackRouter"
         end
+        
+        def route_to(env, app)
+          Rango.logger.inspect("Routing request to #{app.inspect}")
+          app.call(env)
+        end
       end
     end
   end

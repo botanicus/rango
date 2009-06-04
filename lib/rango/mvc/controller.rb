@@ -9,6 +9,9 @@ class Rango
     include Rango::Helpers
     include Rango::ControllerMixin
     include Rango::Templates::TemplateHelpers
+
+    extend Rango::Router::Dispatcher
+
     class << self
       # @since 0.0.2
       attribute :before_filters, Hash.new
@@ -39,11 +42,12 @@ class Rango
       end
 
       # [master] Change Merb::Controller to respond to #call and return a Rack Array. (wycats)http://rubyurl.com/BhoY
-      # @experimental
+      # @since 0.0.2
       def call(env)
-        method = env["rango.action"]
+        self.set_rack_env(env)
         request = Rango::Request.new(env)
-        options = env["rango.options"]
+        options = env["rango.router.params"]
+        method = options[:action] || :index
         response = Rack::Response.new
         controller = self.new(request, options.merge(request.params))
         controller.response = response
@@ -54,10 +58,10 @@ class Rango
         # If you don't care about arguments or if you prefer usage of params.
         args = controller.params.map { |key, value| value }
         if controller.method(method).arity.eql?(0)
-          Rango.logger.info("Calling method #{self.class}##{method} without arguments")
+          Rango.logger.info("Calling method #{self.name}##{method} without arguments")
           value = controller.method(method).call
         else
-          Rango.logger.info("Calling method #{self.class}##{method} with arguments #{args.inspect}")
+          Rango.logger.info("Calling method #{self.name}##{method} with arguments #{args.inspect}")
           value = controller.method(method).call(*args)
         end
         controller.autorender if self.autorendering
@@ -69,9 +73,12 @@ class Rango
       end
 
       # @experimental
-      def route_to(env, action)
-        env["rango.controller"] = self.name
-        env["rango.action"] =  action
+      def route_to(env, action, params = Hash.new)
+        env["rango.controller"] = self
+        env["rango.controller.action"] = action
+        env["rango.router.params"] = params
+        env["rango.action"] = action
+        Rango::Router::Dispatcher.route_to(env, self)
       end
 
       def proceed_value(value)
@@ -101,9 +108,8 @@ class Rango
     end
     attr_reader :session
 
-    # @experimental
-    def route_to(action)
-      self.class.route_to(request.env, action)
+    def route_to(action, params = Hash.new)
+      self.class.route_to(request.env, action, params)
     end
 
     # @since 0.0.2
@@ -131,7 +137,3 @@ class Rango
     end
   end
 end
-
-# DEPRECATED IMPORTS
-# Rango.import("auth/core")
-# Rango.import("auth/more")
