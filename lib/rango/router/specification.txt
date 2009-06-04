@@ -1,0 +1,16 @@
+=== Introduction ===
+Rango doesn't have its own router, so you can use what you like or write your own. The only thing you need to do is set few variables in rack env.
+
+=== Rack env ===
+env["rango.router.params"]
+env["rango.router.app"]
+
+=== Strategies variables ===
+You can define what variables you like, the only rule there is that you must stay in namespace of your strategy.
+
+env["rango.controller.name"]
+env["rango.controller.action"]
+
+=== Available routers ===
+Rack::URLMap
+rack-router
