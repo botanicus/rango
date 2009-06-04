@@ -2,6 +2,7 @@
 
 require_relative "../lib/rango"
 load "#{File.dirname(__FILE__)}/yardoc.thor"
+load "#{File.dirname(__FILE__)}/../rango.gemspec"
 
 class Release < Thor
   desc "all", "Run all the tasks related with releasing new version."
@@ -64,8 +65,8 @@ class Release < Thor
   
   desc "twitter", "Send message to Twitter"
   def twitter(password)
-    puts "Message have been sent to Twitter"
     message = "Rango #{Rango::VERSION} have been just released! Install via RubyGems from RubyForge or GitHub!"
-    %x[curl --basic --user RangoProject:#{password} --data status="#{message}" ]
+    %x[curl --basic --user RangoProject:#{password} --data status="#{message}" http://twitter.com/statuses/update.xml]
+    puts "Message have been sent to Twitter"
   end
 end
