@@ -19,7 +19,7 @@ class Rango
       def match?
         self.options.key?(:gem)
       end
-      
+
       def install(path = @name)
         %x[gem install #{path} -i #{gems_directory}]
       end
@@ -36,13 +36,13 @@ class Rango
         self.install path
       end
     end
-    
+
     class GithubGem < GemStrategy
       def initialize(name, options)
         gem = options[:github_gem]
         super(name, options.merge(gem: gem))
       end
-      
+
       def install(path = @name)
         %x[gem install #{path}  -i #{gems_directory} -s http://gems.github.com]
       end

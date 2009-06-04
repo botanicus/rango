@@ -1,7 +1,7 @@
 class TagHelper < Rango::Controller
   def tag_with_content
     @content = "Astral Projection ~ Dancing Galaxy"
-    
+
     render
   end
 
@@ -11,7 +11,7 @@ class TagHelper < Rango::Controller
 
   def nested_tags
     @content = "Astral Projection ~ In the Mix"
-    
+
     render
   end
 

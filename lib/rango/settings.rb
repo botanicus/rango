@@ -63,7 +63,7 @@ class Rango
         end
       end
     end
-    
+
     class Anonymous < Settings
       # @since 0.0.2
       # @example

@@ -10,7 +10,7 @@
 #
 #   r.match("/books/:book_id/:action").
 #     to(:controller => "books")
-#   
+#
 # Or, use placeholders in the "to" results for more complicated routing, e.g.:
 #
 #   r.match("/admin/:module/:controller/:action/:id").
@@ -32,7 +32,7 @@ Rango::Router.prepare do |r|
   # routes, you may want to comment/remove this line to prevent
   # clients from calling your create or destroy actions with a GET
   r.default_routes
-  
+
   # Change this for your home page to be available at /
   # r.match('/').to(:controller => 'whatever', :action =>'index')
 end

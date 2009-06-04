@@ -32,7 +32,7 @@ class Rango
       else
       end
     end
-    
+
     protected
     def proceed_file(file)
       if file.split(".").last == "rbt" # proceed and copy output

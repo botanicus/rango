@@ -16,7 +16,7 @@ require_relative "rango/mixins/application"
 class Rango
   extend ImportMixin
   extend ApplicationMixin
-  
+
   def self.root
     File.join(File.dirname(__FILE__), "rango")
   end

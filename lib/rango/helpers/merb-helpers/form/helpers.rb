@@ -97,9 +97,9 @@ module Rango::Helpers::Form
       current_form_context.form(attrs, &block)
     end
   end
-  
+
   # Creates a scope around a specific resource object like form_for, but doesnt create the form tags themselves.
-  # This makes fields_for suitable for specifying additional resource objects in the same form. 
+  # This makes fields_for suitable for specifying additional resource objects in the same form.
   #
   # ==== Examples
   #   <%= form_for @person do %>
@@ -220,7 +220,7 @@ module Rango::Helpers::Form
   # String:: HTML
   #
   # ==== Example
-  #   <%= label "Full Name", :for => "name" %> 
+  #   <%= label "Full Name", :for => "name" %>
   #   => <label for="name">Full Name</label>
   def label(*args)
     current_form_context.label(*args)
@@ -375,7 +375,7 @@ module Rango::Helpers::Form
   def button(contents, attrs = {})
     current_form_context.button(contents, attrs)
   end
-  
+
   # Generates a HTML delete button.
   #
   # If an object is passed as first parameter, Rango will try to use the resource url for the object
@@ -435,8 +435,8 @@ module Rango::Helpers::Form
   #   <%= error_messages_for @person, lambda{|error| "<li class='aieeee'>#{error.join(' ')}"} %>
   #   <%= error_messages_for @person, nil, 'bad_mojo' %>
   def error_messages_for(obj = nil, opts = {})
-    current_form_context.error_messages_for(obj, opts[:error_class] || "error", 
-      opts[:build_li] || "<li>%s</li>", 
+    current_form_context.error_messages_for(obj, opts[:error_class] || "error",
+      opts[:build_li] || "<li>%s</li>",
       opts[:header] || "<h2>Form submission failed because of %s problem%s</h2>",
       opts.key?(:before) ? opts[:before] : true)
   end

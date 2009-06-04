@@ -38,7 +38,7 @@ class Rango
         Rango.import("boot")
       end
     end
-    
+
     # @since 0.0.2
     def reboot(options = Hash.new)
       self.boot(options.merge(force: true))
@@ -67,7 +67,7 @@ class Rango
     # @return [Boolean] If application is flat or not.
     questionable :flat, false
     questionable :debug, true
-    
+
     # Rango.template("404.html")
     def template(basename)
     end

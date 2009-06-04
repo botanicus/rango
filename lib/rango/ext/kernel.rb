@@ -7,7 +7,7 @@ module Kernel
       self
     end
   end
-  
+
   # @since 0.0.1
   # @example
   #   try_require "term/ansicolor", "term-ansicolor"
@@ -28,12 +28,12 @@ module Kernel
       end
     end
   end
-  
+
   def command(command)
     puts command
     puts %x[#{command}]
   end
-  
+
   def quiet(&block)
     old_stdout = STDOUT.dup
     STDOUT.reopen("/dev/null")
@@ -41,7 +41,7 @@ module Kernel
     STDOUT.reopen(old_stdout)
     return returned
   end
-  
+
   def quiet!(&block)
     old_stderr = STDERR.dup
     STDERR.reopen("/dev/null", "a")
@@ -49,8 +49,8 @@ module Kernel
     STDERR.reopen(old_stderr)
     return returned
   end
-  
-  
+
+
   # TODO: try_require and try_require_gem (diff require 'readline' vs require 'term/ansicolor')
 
   # for quick inspection

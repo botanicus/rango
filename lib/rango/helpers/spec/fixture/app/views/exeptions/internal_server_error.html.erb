@@ -24,8 +24,8 @@
 				color:#00BF10;
 			}
 			h1 sup.error_300 {
-				/* pretty sure you cant 'see' status 300 
-				errors but if you could I think they 
+				/* pretty sure you cant 'see' status 300
+				errors but if you could I think they
 				would be blue */
 				color:#1B2099;
 			}
@@ -177,7 +177,7 @@
 						</td>
 						<td class="line">
 							<a href="txmt://open?url=file://<%=file = (line.match(/^([^:]+)/)[1] rescue 'unknown')%>&amp;line=<%= lineno = line.match(/:([0-9]+):/)[1] rescue '?' %>"><%=lineno%></a>&nbsp;
-						</td> 
+						</td>
 					</tr>
 					<tr class="source">
 						<td class="collapse">

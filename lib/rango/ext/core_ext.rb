@@ -34,7 +34,7 @@ class Hash
   def deep_symbolize_keys!
     self.replace(self.deep_symbolize_keys)
   end
-  
+
   # Returns the value of self for each argument and deletes those entries.
   #
   # ==== Parameters

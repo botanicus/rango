@@ -26,7 +26,7 @@ class Rango
       # @since 0.0.1
       # @return [String] Name of your database or path to the database if you are using SQLite3.
       hattribute :database_name, lambda { "#{Rango.environment}.db" }
-      
+
       # @since 0.0.2
       # @return [String] Array of emails.
       hattribute :admins, Array.new
@@ -60,10 +60,10 @@ class Rango
 
       # @since 0.0.2
       hattribute :autoescape, true
-      
+
       # @since 0.0.2
       hattribute :gems_directory, lambda { File.join(Project.root, "gems") }
-      
+
       # @since 0.0.2
       hattribute :sources_directory, lambda { File.join(Project.root, "sources") }
 

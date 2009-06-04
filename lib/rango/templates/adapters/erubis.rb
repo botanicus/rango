@@ -12,11 +12,11 @@ class Rango
       # TODO: result vs. evaluate
       # http://www.kuwata-lab.com/erubis/users-guide.02.html#tut-context
       # http://www.kuwata-lab.com/erubis/users-guide.06.html#topics-context-vs-binding
-      
+
       # TODO: maybe preprocessing
       # http://www.kuwata-lab.com/erubis/users-guide.05.html#rails-preprocessing
       # http://www.kuwata-lab.com/erubis/users-guide.06.html#topics-caching
-      
+
       # @since 0.0.2
       # @see http://www.kuwata-lab.com/erubis/users-guide.02.html#tut-escape
       def render(io, context)
@@ -32,7 +32,7 @@ class Rango
       end
     end
   end
-  
+
   class Controller
     # ==== Parameters
     # *args:: Arguments to pass to the block.
@@ -43,9 +43,9 @@ class Rango
     #
     # ==== Examples
     # Capture being used in a .html.erb page:
-    # 
+    #
     #   <% @foo = capture do %>
-    #     <p>Some Foo content!</p> 
+    #     <p>Some Foo content!</p>
     #   <% end %>
     #
     # :api: private

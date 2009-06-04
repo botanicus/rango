@@ -12,7 +12,7 @@ class Rango
       end
     end
   end
-  
+
   class Controller
     # ==== Parameters
     # *args:: Arguments to pass to the block.
@@ -23,9 +23,9 @@ class Rango
     #
     # ==== Examples
     # Capture being used in a .html.erb page:
-    # 
+    #
     #   <% @foo = capture do %>
-    #     <p>Some Foo content!</p> 
+    #     <p>Some Foo content!</p>
     #   <% end %>
     #
     # :api: private

@@ -5,10 +5,10 @@
 # our try returns nil if the method doesn't exist
 
 class Object
-  # Invokes the method identified by the symbol +method+, passing it any arguments 
+  # Invokes the method identified by the symbol +method+, passing it any arguments
   # and/or the block specified, just like the regular Ruby <tt>Object#send</tt> does.
   #
-  # *Unlike* that method however, a +NoMethodError+ exception will *not* be raised 
+  # *Unlike* that method however, a +NoMethodError+ exception will *not* be raised
   # and +nil+ will be returned instead, if the receiving object is a +nil+ object or NilClass.
   #
   # ==== Examples

@@ -4,7 +4,7 @@ class Hash
   def to_url_attrs
     self.map { |key, value| "#{key}=#{value}" }.join("&")
   end
-  
+
   def to_native
     self.each do |key, value|
       value = case value

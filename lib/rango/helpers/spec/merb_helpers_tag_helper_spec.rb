@@ -8,7 +8,7 @@ require File.dirname(__FILE__) + '/spec_helper'
 
 describe Rango::Helpers::Tag do
   include Rango::Helpers::Tag
-  
+
   describe "#tag" do
     it 'generates <div>content</div> from tag :div, "content"' do
       response = request "/tag_helper/tag_with_content"
@@ -30,7 +30,7 @@ describe Rango::Helpers::Tag do
       response.should have_selector("div.psy")
       response.should have_selector("div#bands")
       response.should have_selector("div[invalid_attr='at least in html']")
-    end    
+    end
 
     it 'handles nesting of tags/blocks' do
       response = request "/tag_helper/nested_tags"

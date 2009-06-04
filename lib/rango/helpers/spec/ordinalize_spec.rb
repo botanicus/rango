@@ -3,16 +3,16 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
 describe "#strftime_ordinalized" do
-  
+
   before(:all) do
     @date = Date.parse('2008-5-3')
     @time = Time.parse('2008-5-3 14:00')
   end
-  
+
   it "should ordinalize a date even without a locale passed" do
     @date.strftime_ordinalized('%b %d, %Y').should == "May 3rd, 2008"
   end
-  
+
 end
 
 describe "to_ordinalized_s" do

@@ -18,11 +18,11 @@ class Rango
         :initial_format => '%b %d',
         :year_format    => ', %Y'
       }
-      
+
       def self.time_class
         @@time_class
       end
-      
+
       # ==== Parameters
       # format<Symbol>:: time format to use
       # locale<String, Symbol>:: An optional value which can be used by localization plugins
@@ -32,7 +32,7 @@ class Rango
       def self.time_output(format, locale=nil)
         @@time_output[format]
       end
-      
+
       # Gives you a relative date in an attractive format
       #
       # ==== Parameters
@@ -61,7 +61,7 @@ class Rango
           time.strftime_ordinalized(fmt, locale)
         end
       end
-      
+
       # Gives you a relative date span in an attractive format
       #
       # ==== Parameters
@@ -91,7 +91,7 @@ class Rango
           arr.to_s
         end
       end
-      
+
       # Gives you a relative date span in an attractive format
       #
       # ==== Parameters
@@ -113,9 +113,9 @@ class Rango
         elsif times.first.to_date == times.last.to_date
             same_half = (times.first.hour/12 == times.last.hour/12)
             "#{prettier_time(times.first, !same_half)} - #{prettier_time(times.last)} #{relative_date(times.first)}"
-      
+
         else
-          first = times.first; last = times.last; now = DateAndTime.time_class.now        
+          first = times.first; last = times.last; now = DateAndTime.time_class.now
           arr = [prettier_time(first)]
           arr << ' '
           arr << first.strftime_ordinalized('%b %d')
@@ -129,7 +129,7 @@ class Rango
           arr.to_s
         end
       end
-      
+
       # Condenses time... very similar to time_ago_in_words in ActionPack
       #
       # ==== Parameters
@@ -153,7 +153,7 @@ class Rango
         to_time = to_time.to_time if to_time.respond_to?(:to_time)
         distance_in_minutes = (((to_time - from_time).abs)/60).round
         distance_in_seconds = ((to_time - from_time).abs).round
-      
+
         case distance_in_minutes
           when 0..1
             return (distance_in_minutes == 0) ? 'less than a minute' : '1 minute' unless include_seconds
@@ -165,7 +165,7 @@ class Rango
               when 40..59 then 'less than a minute'
               else             '1 minute'
             end
-      
+
           when 2..44           then "#{distance_in_minutes} minutes"
           when 45..89          then 'about 1 hour'
           when 90..1439        then "about #{(distance_in_minutes.to_f / 60.0).round} hours"
@@ -178,7 +178,7 @@ class Rango
         end
       end
       alias :time_ago_in_words :time_lost_in_words
-      
+
       def prettier_time(time, ampm=true, locale=nil)
         time.strftime("%I:%M#{" %p" if ampm}").sub(/^0/, '')
       end

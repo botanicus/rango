@@ -27,7 +27,7 @@ class Rango::Dispatcher
           Rango.import("rack/middlewares/static.rb")
           use Rango::Static
         end
-      
+
         # cookies
         use Rack::Session::Cookie, path: '/'
         #, key: 'rack.session', domain: 'foo.com', path: '/', expire_after: 2592000, secret: 'change_me'
@@ -37,9 +37,9 @@ class Rango::Dispatcher
       end
     end
   end
-  
+
   attr_reader :request
-  
+
   # @since 0.0.2
   def call(env)
     request = Rango::Request.new(env)
