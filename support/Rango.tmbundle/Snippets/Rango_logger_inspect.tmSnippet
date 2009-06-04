@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>match(%r[^${1:route}/$]).to($2)</string>
+	<string>Rango.logger.inspect($1)</string>
 	<key>name</key>
-	<string>match</string>
+	<string>Rango.logger.inspect</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>
-	<string>match</string>
+	<string>rli</string>
 	<key>uuid</key>
-	<string>4F8F9055-7EFB-4ACF-AF0C-527F251E731D</string>
+	<string>CF645CE5-F255-48C6-AEB0-1F9F5542CD49</string>
 </dict>
 </plist>

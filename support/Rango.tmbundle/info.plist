@@ -2,24 +2,36 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>name</key>
-  <string>Rango</string>
-  <key>ordering</key>
-  <array>
-    <string>4F8F9055-7EFB-4ACF-AF0C-527F251E731D</string>
-    <string>A80040DD-2567-4FBB-8C4F-BF9168BB91C9</string>
-    <string>BA3BE8B8-17C6-4BF8-8187-2400F9AB23C0</string>
-    <string>154FF789-DA73-4C56-BF40-F6CE31FC973F</string>
-    <string>9F520D4D-5564-4E68-ADAE-5803803DA262</string>
-    <string>3F6B5A3C-4738-4654-9E73-2F53D2EEF32C</string>
-    <string>D1987F0F-F268-4105-AC4D-5A83EA2DE92A</string>
-    <string>7A5B5DF8-4B24-4850-B15A-777F7F11E447</string>
-    <string>417492C4-53BA-44CF-84DE-9C2EEAA97E06</string>
-    <string>ED6249C5-EEBD-4ACB-B6E3-93A399BB05A5</string>
-    <string>3A4EC7EA-FD5B-4611-BE8F-95D52E22981E</string>
-    <string>0D072F06-953B-48A8-B9A0-D7DA1E8EE9F5</string>
-  </array>
-  <key>uuid</key>
-  <string>77CFA541-7A79-4D0F-BD05-84F9D38379D7</string>
+	<key>name</key>
+	<string>Rango</string>
+	<key>ordering</key>
+	<array>
+		<string>4F8F9055-7EFB-4ACF-AF0C-527F251E731D</string>
+		<string>FDC09B06-5ED5-4CB0-9E72-108B37C5034A</string>
+		<string>A80040DD-2567-4FBB-8C4F-BF9168BB91C9</string>
+		<string>BA3BE8B8-17C6-4BF8-8187-2400F9AB23C0</string>
+		<string>154FF789-DA73-4C56-BF40-F6CE31FC973F</string>
+		<string>9F520D4D-5564-4E68-ADAE-5803803DA262</string>
+		<string>3F6B5A3C-4738-4654-9E73-2F53D2EEF32C</string>
+		<string>D1987F0F-F268-4105-AC4D-5A83EA2DE92A</string>
+		<string>E3FF4B4A-1C97-448B-92B2-10C23D01000C</string>
+		<string>CF645CE5-F255-48C6-AEB0-1F9F5542CD49</string>
+		<string>B05F3379-269D-4442-B3BA-D9529E97BD1B</string>
+		<string>DCB38E76-6A52-4F96-B5BA-5CCF4324E520</string>
+		<string>8C10F6A7-3979-4ECC-B51F-3042FBF652D9</string>
+		<string>7A5B5DF8-4B24-4850-B15A-777F7F11E447</string>
+		<string>417492C4-53BA-44CF-84DE-9C2EEAA97E06</string>
+		<string>ED6249C5-EEBD-4ACB-B6E3-93A399BB05A5</string>
+		<string>3A4EC7EA-FD5B-4611-BE8F-95D52E22981E</string>
+		<string>0D072F06-953B-48A8-B9A0-D7DA1E8EE9F5</string>
+		<string>B7648967-1B83-44DC-83F5-9199C3866FBD</string>
+		<string>9AF99E21-A247-4C78-93CA-B09CC9BECC4B</string>
+		<string>F1CE9386-334C-421C-B903-30751109F90C</string>
+		<string>40CC6851-7E95-4075-A983-785D0CA30411</string>
+		<string>5FD47CED-0BF2-4456-B7A5-79F05A6256ED</string>
+		<string>2F2CEEFB-2B05-4759-99A2-1AA564D0EDE3</string>
+	</array>
+	<key>uuid</key>
+	<string>77CFA541-7A79-4D0F-BD05-84F9D38379D7</string>
 </dict>
 </plist>
