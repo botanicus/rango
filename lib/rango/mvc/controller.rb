@@ -9,6 +9,9 @@ class Rango
     include Rango::Helpers
     include Rango::ControllerMixin
     include Rango::Templates::TemplateHelpers
+
+    extend Rango::Router::Dispatcher
+
     class << self
       # @since 0.0.2
       attribute :before_filters, Hash.new
@@ -38,21 +41,27 @@ class Rango
         self.after_filters[action || block] = options
       end
 
+      # [master] Change Merb::Controller to respond to #call and return a Rack Array. (wycats)http://rubyurl.com/BhoY
       # @since 0.0.2
-      def run(request, options = Hash.new, method = "index")
+      def call(env)
+        self.set_rack_env(env)
+        request = Rango::Request.new(env)
+        options = env["rango.router.params"]
+        method = options[:action] || :index
         response = Rack::Response.new
         controller = self.new(request, options.merge(request.params))
         controller.response = response
+        Rango.logger.info("#{self.name}.call(env) with method #{method}")
         # Rango.logger.inspect(before: ::Application.get_filters(:before), after: ::Application.get_filters(:after))
         # Rango.logger.inspect(before: get_filters(:before), after: get_filters(:after))
-        controller.run_filters(:before, method)
+        controller.run_filters(:before, method.to_sym)
         # If you don't care about arguments or if you prefer usage of params.
         args = controller.params.map { |key, value| value }
         if controller.method(method).arity.eql?(0)
-          Rango.logger.info("Calling method #{self.class}##{method} without arguments")
+          Rango.logger.info("Calling method #{self.name}##{method} without arguments")
           value = controller.method(method).call
         else
-          Rango.logger.info("Calling method #{self.class}##{method} with arguments #{args.inspect}")
+          Rango.logger.info("Calling method #{self.name}##{method} with arguments #{args.inspect}")
           value = controller.method(method).call(*args)
         end
         controller.autorender if self.autorendering
@@ -62,7 +71,16 @@ class Rango
         response.headers.merge!(controller.headers)
         return response.finish
       end
-      
+
+      # @experimental
+      def route_to(env, action, params = Hash.new)
+        env["rango.controller"] = self
+        env["rango.controller.action"] = action
+        env["rango.router.params"] = params
+        env["rango.action"] = action
+        Rango::Router::Dispatcher.route_to(env, self)
+      end
+
       def proceed_value(value)
         case value
         when true, false then value.to_s
@@ -90,10 +108,10 @@ class Rango
     end
     attr_reader :session
 
-    def call
-      # [master] Change Merb::Controller to respond to #call and return a Rack Array. (wycats)http://rubyurl.com/BhoY
+    def route_to(action, params = Hash.new)
+      self.class.route_to(request.env, action, params)
     end
-    
+
     # @since 0.0.2
     def run_filters(name, method)
       # Rango.logger.debug(self.class.instance_variables)
@@ -119,7 +137,3 @@ class Rango
     end
   end
 end
-
-# DEPRECATED IMPORTS
-# Rango.import("auth/core")
-# Rango.import("auth/more")

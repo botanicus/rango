@@ -7,7 +7,6 @@ Rango.dependency "extlib"
 
 # imports
 Rango.import("project")
-Rango.import("router/router")
 Rango.import("rack/request")
 Rango.import("helpers")
 
@@ -52,12 +51,4 @@ else
 
   # settings_local.rb
   Project.import_first(["settings_local", "config/settings_local"], soft: true, verbose: false)
-
-  # urls.rb
-  begin
-    Project.import(Project.settings.router)
-  rescue LoadError
-    Rango.logger.fatal("urls.rb wasn't found or it cause another LoadError.")
-    exit 1
-  end
 end

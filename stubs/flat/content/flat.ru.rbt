@@ -9,12 +9,11 @@ Project.configure do
   # TODO
 end
 
-Rango::CallableStrategy.register
+# router
+Rango.import("router/adapters/basic")
 
-Rango::Router.register do
-  match("/").to do |request|
-    "<h1>Rango is just Awesome!</h1>"
-  end
+map("/") do
+  run app { "<h1>Rango is just Awesome!</h1>" }
 end
 
 run Rango.app
