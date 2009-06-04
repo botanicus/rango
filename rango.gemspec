@@ -10,8 +10,8 @@ rescue SecurityError
 end
 
 class Rango
-  VERSION  = "0.0.2"
-  CODENAME = "MVC Princess"
+  VERSION  = "0.0.3"
+  CODENAME = "Smart Kangaroo"
   SPECIFICATION = ::Gem::Specification.new do |s|
     s.name = "rango"
     # s.version = Rango::VERSION
