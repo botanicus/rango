@@ -65,7 +65,6 @@ class Release < Thor
   desc "twitter", "Send message to Twitter"
   def twitter(password)
     puts "Message have been sent to Twitter"
-    require "twitter"
     message = "Rango #{Rango::VERSION} have been just released! Install via RubyGems from RubyForge or GitHub!"
     %x[curl --basic --user RangoProject:#{password} --data status="#{message}" ]
   end
