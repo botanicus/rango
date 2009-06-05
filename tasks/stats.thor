@@ -32,7 +32,7 @@ class Stats < Thor
   def tasks
     self.count(Dir.glob("tasks/*.thor"))
   end
-  
+
   desc "hooks", "Lines of code in support/hooks"
   def hooks
     self.count(Dir.glob("support/hooks/*"))
@@ -52,14 +52,14 @@ class Stats < Thor
     @altogether += altogether
     return altogether
   end
-  
+
   def run(*tasks)
     tasks.each do |task|
       self.send(task)
       puts
     end
   end
-  
+
   def altogether(count)
     puts "=> ".colorize.red.to_s + "#{count}".colorize.green.to_s + " lines of code".colorize.yellow.to_s
   end

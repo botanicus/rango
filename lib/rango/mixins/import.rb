@@ -74,13 +74,13 @@ class Rango
       file = self.find_absolute(path)
       Kernel.load(file)
     end
-    
+
     def find(file)
       ["#{file}.rb", file].find do |file|
         File.exist?(file)
       end
     end
-    
+
     def find_absolute(file)
       file = File.join(self.root, file) unless file.match(%r[^/])
       self.find(file)

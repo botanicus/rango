@@ -1,19 +1,20 @@
 # coding: utf-8
 
-rango_root = File.join(File.dirname(__FILE__), '..')
-require File.join(rango_root, "lib", "rango")
+require_relative "../lib/rango"
+load "#{File.dirname(__FILE__)}/yardoc.thor"
+load "#{File.dirname(__FILE__)}/../rango.gemspec"
 
 class Release < Thor
   desc "all", "Run all the tasks related with releasing new version."
-  def all
+  def all(password)
     print "Have you updated version and codename in lib/rango.rb? [y/N] "
     exit unless STDIN.readline.chomp.downcase.eql?("y")
     self.doc
     self.tmbundle
     Gem.new.package
-    self.gems
     self.tag
     self.rubyforge
+    self.twitter(password)
   end
 
   desc "doc", "Freeze documentation."
@@ -25,6 +26,8 @@ class Release < Thor
     %x[git add #{freezed_dir}]
     %x[git commit #{freezed_dir} -m "Documentation for version #{Rango::VERSION} freezed."]
     puts "Documentation freezed to #{freezed_dir}"
+  rescue
+    puts "Documentation generation failed."
   end
 
   desc "tag", "Create Git tag for this version and push it to GitHub."
@@ -37,22 +40,17 @@ class Release < Thor
 
   desc "rubyforge", "Push sources to RubyForge."
   def rubyforge
-    puts "Pushing sources to RubyForge ..."
-    %x[git push rubyforge master]
-    %x[git push --tags]
+    # ATM RubyForge seems to not work correctly with SSH keys
+    # puts "Pushing sources to RubyForge ..."
+    # %x[git push rubyforge master]
+    # %x[git push --tags]
 
     puts "Pushing packages to RubyForge ..."
-    packages = %w( gem tgz zip ).collect{ |ext| "pkg/#{GEM_NAME}-#{GEM_VERSION}.#{ext}" }
-    sh %{rubyforge login}
-    sh %{rubyforge add_release #{RUBY_FORGE_PROJECT} #{GEM_NAME} #{GEM_VERSION} #{packages.join(' ')}}
-    sh %{rubyforge add_file #{RUBY_FORGE_PROJECT} #{GEM_NAME} #{GEM_VERSION} #{packages.join(' ')}}
-  end
-
-  desc "gems", "Propagate the gems to the RubyForge."
-  def gems
-    # TODO
-    puts "Propagating gems to the RubyForge ..."
-    puts "Task for propagating gems to RubyForge isn't written yet. Please do so."
+    %x[rubyforge login]
+    file = Dir["pkg/*.gem"].last
+    # args: rubyforge_project gem_name gem_version gem_file
+    # sh %x[rubyforge add_release rango rango #{Rango::VERSION} #{file}]
+    # sh %x[rubyforge add_file rango rango #{Rango::VERSION} #{file}]
   end
 
   desc "tmbundle", "Upgrade the TextMate bundle."
@@ -63,5 +61,12 @@ class Release < Thor
     %x[cp -R "#{ENV["HOME"]}/Library/Application\ Support/TextMate/Bundles/#{bundle}" support/]
     %x[git add support/#{bundle}]
     %x[git commit support/Rango.tmbundle -m "Updated Rango TextMate bundle."]
+  end
+  
+  desc "twitter", "Send message to Twitter"
+  def twitter(password)
+    message = "Rango #{Rango::VERSION} have been just released! Install via RubyGems from RubyForge or GitHub!"
+    %x[curl --basic --user RangoProject:#{password} --data status="#{message}" http://twitter.com/statuses/update.xml]
+    puts "Message have been sent to Twitter"
   end
 end

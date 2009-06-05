@@ -32,29 +32,29 @@ end
 
 def reload_merb_helpers
   unload_merb_helpers
-  load(MERB_HELPERS_ROOT + "/lib/merb-helpers.rb") 
+  load(MERB_HELPERS_ROOT + "/lib/merb-helpers.rb")
   Rango::Helpers.load
 end
 
 class FakeErrors
-  
+
   def initialize(model)
     @model = model
   end
-  
+
   def on(name)
     name.to_s.include?("bad")
   end
-  
+
 end
 
 class FakeColumn
   attr_accessor :name, :type
-  
+
   def initialize(name, type)
     @name, @type = name, type
   end
-  
+
 end
 
 
@@ -79,28 +79,28 @@ class Rango
         def initialize(expected)
           @expected = expected
         end
-        
+
         def matches?(target)
           target.log.rewind
           @text = target.log.read
           @text =~ (String === @expected ? /#{Regexp.escape @expected}/ : @expected)
         end
-        
+
         def failure_message
           "expected to find `#{@expected}' in the log but got:\n" <<
           @text.map {|s| "  #{s}" }.join
         end
-        
+
         def negative_failure_message
           "exected not to find `#{@expected}' in the log but got:\n" <<
           @text.map {|s| "  #{s}" }.join
         end
-        
+
         def description
           "include #{@text} in the log"
         end
       end
-      
+
       class BeKindOf
         def initialize(expected) # + args
           @expected = expected
@@ -127,7 +127,7 @@ class Rango
       def be_kind_of(expected) # + args
         BeKindOf.new(expected)
       end
-      
+
       def include_log(expected)
         IncludeLog.new(expected)
       end

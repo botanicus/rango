@@ -32,7 +32,7 @@ module Rango::Helpers::Form::Builder
           name = control_name(method)
           update_bound_controls(method, attrs, "#{kind}")
           unbound_#{kind}_field({
-            :name => name, 
+            :name => name,
             :value => control_value(method)
           }.merge(attrs))
         end
@@ -205,9 +205,9 @@ module Rango::Helpers::Form::Builder
     def update_unbound_radio_button(attrs)
       attrs[:checked] = "checked" if attrs.delete(:checked)
     end
-    
-    # Accepts a collection (hash, array, enumerable, your type) and returns a string of option tags. 
-    # Given a collection where the elements respond to first and last (such as a two-element array), 
+
+    # Accepts a collection (hash, array, enumerable, your type) and returns a string of option tags.
+    # Given a collection where the elements respond to first and last (such as a two-element array),
     # the "lasts" serve as option values and the "firsts" as option text. Hashes are turned into
     # this form automatically, so the keys become "firsts" and values become lasts. If selected is
     # specified, the matching "last" or element will get the selected option-tag. Selected may also
@@ -235,7 +235,7 @@ module Rango::Helpers::Form::Builder
       b = blank || prompt ? tag(:option, prompt || "", :value => "") : ""
 
       # yank out the options attrs
-      collection, selected, text_method, value_method = 
+      collection, selected, text_method, value_method =
         attrs.extract!(:collection, :selected, :text_method, :value_method)
 
       # if the collection is a Hash, optgroups are a-coming
@@ -255,7 +255,7 @@ module Rango::Helpers::Form::Builder
 
         text  = item.is_a?(String) ? item : item.send(text_meth)
         value = item.is_a?(String) ? item : item.send(value_meth)
-        
+
         # unless Rango.disabled?(:merb_helper_escaping)
         #   text  = Rango::Parse.escape_xml(text)
         #   value = Rango::Parse.escape_xml(value)
@@ -283,7 +283,7 @@ module Rango::Helpers::Form::Builder
     def control_name(method)
       @obj ? "#{@name}[#{method}]" : method
     end
-    
+
     def control_value(method)
       value = @obj ? @obj.send(method) : @origin.params[method]
       # if Rango.disabled?(:merb_helper_escaping)
@@ -312,7 +312,7 @@ module Rango::Helpers::Form::Builder
         ""
       end
     end
-    
+
     %w(text password file).each do |kind|
       self.class_eval <<-RUBY, __FILE__, __LINE__ + 1
         def unbound_#{kind}_field(attrs = {})
@@ -320,7 +320,7 @@ module Rango::Helpers::Form::Builder
         end
       RUBY
     end
-    
+
     def unbound_label(attrs = {})
       if attrs[:id]
         label_attrs = {:for => attrs[:id]}

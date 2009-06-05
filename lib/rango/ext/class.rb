@@ -5,12 +5,12 @@
 #   install_hook do |instance|
 #     p instance
 #   end
-#   
+#
 #   def initialize
 #     p self
 #   end
 # end
-# 
+#
 # Test.new
 
 class Rango
@@ -28,7 +28,7 @@ class Rango
     def install_hook(&block)
       self.hooks.push(block)
     end
-  end  
+  end
 end
 
 # from merb-core
@@ -36,7 +36,7 @@ class Rango
   module Chainable
     # Allows the definition of methods on a class that will be available via
     # super.
-    # 
+    #
     # ==== Examples
     #     class Foo
     #       extend Rango::Chainable
@@ -52,7 +52,7 @@ class Rango
     #         super + " Merb!"
     #       end
     #     end
-    # 
+    #
     # # Example with mixin:
     # module TestMixin
     #   extend Rango::Chainable
@@ -62,21 +62,21 @@ class Rango
     #     end
     #   end
     # end
-    # 
+    #
     # class Test
     #   include TestMixin
     #   def test
     #     "hello " + super
     #   end
     # end
-    # 
+    #
     # puts Test.new.test
-    # 
+    #
     #
     # Foo.new.hello #=> "hello Merb!"
-    # 
+    #
     # ==== Parameters
-    # &block:: 
+    # &block::
     #   a block containing method definitions that should be
     #   marked as chainable
     #

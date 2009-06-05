@@ -63,15 +63,15 @@ class Rango
       @method = env["REQUEST_METHOD"].downcase
       self.extend_session
     end
-    
+
     def GET
       super.deep_symbolize_keys.except(:_method)
     end
-    
+
     def POST
       super.deep_symbolize_keys.except(:_method) if self.post?
     end
-    
+
     def PUT
       if self.put?
         if @env["rack.request.form_input"].eql? @env["rack.input"]
@@ -90,11 +90,11 @@ class Rango
         end
       end
     end
-    
+
     def DELETE
       {}.deep_symbolize_keys.except(:_method)
     end
-    
+
     def params
       @params = Hash.new
       [self.GET, self.POST, self.PUT, self.DELETE].each do |data|
@@ -111,12 +111,12 @@ class Rango
       data = env["rack.request.form_hash"] || Hash.new
       data.deep_symbolize_keys.except(:_method)
     end
-    
+
     def session
       # Rango.logger.inspect(session: @env['rack.session'])
       @env['rack.session'] ||= {}
     end
-    
+
     def ajax?
       env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest"
     end
@@ -154,7 +154,7 @@ class Rango
       index = parts.index(self.domain)
       parts[0..(index - 1)]
     end
-    
+
     def base_url
       require "uri"
       fragments = URI.split("http://localhost:2000/foo/bar?q=foo")

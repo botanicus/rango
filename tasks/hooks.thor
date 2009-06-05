@@ -12,7 +12,7 @@ class Hooks < Thor
       FileUtils.cp_r("support/hooks", ".git/hooks")
     end
   end
-  
+
   desc "install [*hooks]", "Install given git hook"
   def install(*names)
     names.each do |name|

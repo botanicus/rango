@@ -15,7 +15,7 @@ class Rango
         end
         return @app.call(env)
       end
-      
+
       protected
       def try_force_encoding(object)
         object.respond_to?(:force_encoding) ? object.dup.force_encoding(@encoding) : object

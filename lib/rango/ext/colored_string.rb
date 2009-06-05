@@ -12,49 +12,49 @@ class ColoredString
     bold: 1,
     dark: 2,
     italic: 3,        # not widely implemented
-    underline: 4, 
+    underline: 4,
     underscore: 4,    # synonym for :underline
-    blink: 5, 
+    blink: 5,
     rapid_blink: 6,   # not widely implemented
     negative: 7,      # no reverse because of String#reverse
-    concealed: 8, 
+    concealed: 8,
     strikethrough: 9, # not widely implemented
-    black: 30, 
-    red: 31, 
-    green: 32, 
-    yellow: 33, 
-    blue: 34, 
-    magenta: 35, 
-    cyan: 36, 
-    white: 37, 
-    on_black: 40, 
-    on_red: 41, 
-    on_green: 42, 
-    on_yellow: 43, 
-    on_blue: 44, 
-    on_magenta: 45, 
-    on_cyan: 46, 
-    on_white: 47, 
+    black: 30,
+    red: 31,
+    green: 32,
+    yellow: 33,
+    blue: 34,
+    magenta: 35,
+    cyan: 36,
+    white: 37,
+    on_black: 40,
+    on_red: 41,
+    on_green: 42,
+    on_yellow: 43,
+    on_blue: 44,
+    on_magenta: 45,
+    on_cyan: 46,
+    on_white: 47,
   }
 
   class << self
     # ColoredString.coloring?
     # Returns true, if the coloring function of this module
     # is switched on, false otherwise.
-    # 
+    #
     # ColoredString.coloring = boolean
     # Turns the coloring on or off globally, so you can easily do
     # this for example:
     #  Term::ANSIColor::coloring = STDOUT.isatty
     questionable :coloring, true
-    
+
     # <red.bold>Title</red.bold>
     # - u, i/em, b/strong
     def template(string)
       return string # TODO
     end
   end
-  
+
   attr_accessor :colors
   def initialize(string = "")
     @string = string
@@ -67,7 +67,7 @@ class ColoredString
       self
     end
   end
-  
+
   def to_s
     if ! @colors.empty? && self.class.coloring?
       sequences = ""
@@ -80,15 +80,15 @@ class ColoredString
       @string
     end
   end
-  
+
   def inspect
     "#<ColoredString:#@string>"
   end
-  
+
   def raw
     @string
   end
-  
+
   def method_missing(method, *args, &block)
     returned = @string.send(method, *args, &block)
     # Bang methods like upcase!

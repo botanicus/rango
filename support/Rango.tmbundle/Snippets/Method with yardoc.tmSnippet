@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string># @since ${1:0.0.1}
+# @example
+#   $2
+# @param [${3:type}] ${4:name} ${5:explanation}
+# @return [${6:type}] ${7:explanation}</string>
+	<key>name</key>
+	<string>Method with yardoc</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>doc</string>
+	<key>uuid</key>
+	<string>B7648967-1B83-44DC-83F5-9199C3866FBD</string>
+</dict>
+</plist>

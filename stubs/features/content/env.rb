@@ -8,7 +8,7 @@ require "rango/support/cucumber/helpers/datamapper"
 # Uncomment if you want transactional fixtures
 # Rango::Test::World::Base.use_transactional_fixtures
 
-# Quick fix for post features running Rspec error, see 
+# Quick fix for post features running Rspec error, see
 # http://gist.github.com/37930
 def Spec.run? ; true; end
 

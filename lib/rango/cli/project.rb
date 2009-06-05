@@ -56,7 +56,7 @@ class Rango
         abort "#{name} already exist, aborting."
       end
     end
-    
+
     def create
       if self.config.type == "diff"
       elsif self.config.type == "full"
@@ -66,11 +66,11 @@ class Rango
       end
       load "init.rb"
     end
-    
+
     def validations
       ["diff", "full"].include?(self.config.type)
     end
-    
+
     # Metadata options
     # :type: full|diff
     # :file: flat.ru
@@ -78,7 +78,7 @@ class Rango
       metadata_file = File.join(@stubs_dir, "metadata.yml")
       YAML::load_file(metadata_file)
     end
-    
+
     def config
       defaults = {processing: true, type: "full"}
       OpenStruct.new(defaults.merge(self.metadata))

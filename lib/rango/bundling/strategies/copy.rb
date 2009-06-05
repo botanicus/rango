@@ -17,7 +17,7 @@ class Rango
       def run
       end
     end
-    
+
     class SymlinkStrategy < Strategy
       # @since 0.0.2
       def setup

@@ -81,7 +81,7 @@ class Rango
     def layout
       request.ajax?
     end
-    
+
     # RENDERING #
     def template_location
       # TODO
@@ -105,7 +105,7 @@ class Rango
       format ? object.send("to_#{format}") : raise(Error406.new(self.params))
     end
 
-    # 
+    #
     def autorender(locals = Hash.new)
       self.__render__(template_location, locals)
     end

@@ -18,7 +18,7 @@ class Rango
 
       # @since 0.0.2
       attribute :after_filters,  Hash.new
-      
+
       # @since 0.0.2
       attribute :autorendering, false
 
@@ -88,7 +88,7 @@ class Rango
         else value
         end
       end
-      
+
       def controller?
         true
       end

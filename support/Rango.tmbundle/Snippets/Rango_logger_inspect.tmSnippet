@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>Rango.logger.inspect($1)</string>
+	<key>name</key>
+	<string>Rango.logger.inspect</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>rli</string>
+	<key>uuid</key>
+	<string>CF645CE5-F255-48C6-AEB0-1F9F5542CD49</string>
+</dict>
+</plist>

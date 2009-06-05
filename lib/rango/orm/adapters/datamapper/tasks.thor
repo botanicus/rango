@@ -31,7 +31,7 @@ class Db < Rango::Tasks
   desc "migrate", "Run migrations."
   def migrate
   end
-  
+
   desc "report", "Report count of objects in database"
   def report
     Rango::ORM::DataMapper.models.each do |model_class|

@@ -2,60 +2,60 @@
 
 class Numeric
   module Transformer
-    
+
     # known formats to use with the app
     # users can add their own formats by using Numeric::Transformer.add_format(:format_name => {})
-    
+
     @formats ={
       :us => {
-        :number => {      
-          :precision => 3, 
-          :delimiter => ',', 
+        :number => {
+          :precision => 3,
+          :delimiter => ',',
           :separator => '.'
         },
-        :currency => { 
+        :currency => {
           :unit => '$',
           :format => '%u%n',
-          :precision => 2 
+          :precision => 2
         }
       },
       :uk => {
-        :number => {      
-        :precision => 3, 
-        :delimiter => ',', 
+        :number => {
+        :precision => 3,
+        :delimiter => ',',
         :separator => '.'
         },
-        :currency => { 
+        :currency => {
           :unit => '&pound;',
           :format => '%u%n',
-          :precision => 2 
+          :precision => 2
         }
       },
       :au => {
-        :number => {      
-        :precision => 3, 
-        :delimiter => ',', 
+        :number => {
+        :precision => 3,
+        :delimiter => ',',
         :separator => '.'
         },
-        :currency => { 
+        :currency => {
           :unit => '$;',
           :format => '%u%n',
-          :precision => 2 
+          :precision => 2
         }
       },
       :fr => {
-        :number => {      
-        :precision => 3, 
-        :delimiter => ' ', 
+        :number => {
+        :precision => 3,
+        :delimiter => ' ',
         :separator => ','
         },
-        :currency => { 
+        :currency => {
           :unit => '€',
           :format => '%n%u',
-          :precision => 2 
+          :precision => 2
         }
       },
-      :ru => { 
+      :ru => {
           :number => {
              :precision => 2,
              :delimiter => ' ',
@@ -68,17 +68,17 @@ class Numeric
              }
            }
     }
-    
+
     # accessor for @formats
     #---
     # @private
     def self.formats
       @formats
     end
-    
+
     @default_format = @formats[:us]
-    
-    
+
+
     # Accessor for the default format in use
     #
     #---
@@ -86,8 +86,8 @@ class Numeric
     def self.default_format
       @default_format
     end
-    
-    
+
+
     # Changes the default format to use when transforming a +Numeric+ instance
     #
     # ==== Parameters
@@ -101,8 +101,8 @@ class Numeric
     def self.change_default_format(format_code)
       @default_format = (formats[format_code] || default_format)
     end
-    
-    
+
+
     # Adds a new format to the existing transforming formats
     #
     # ==== Parameters
@@ -118,7 +118,7 @@ class Numeric
       formats[format]
     end
 
-    
+
     # Formats a +number+ with grouped thousands using +delimiter+ (e.g., 12,324). You can
     # pass another format to format the number differently.
     #
@@ -143,7 +143,7 @@ class Numeric
     #---
     # @private
     def self.with_delimiter(number, format_name = nil, options = {})
-      
+
       format = (formats[format_name] || default_format)[:number].merge(options)
 
       begin
@@ -154,7 +154,7 @@ class Numeric
         number
       end
     end
-    
+
     # Formats a +number+ with a level of <tt>:precision</tt> (e.g., 112.32 has a precision of 2).
     # You can pass another format to use and even overwrite the format's options.
     #
@@ -189,9 +189,9 @@ class Numeric
         number
       end
     end
-    
-    
-    # Formats a +number+ into a currency string (e.g., $13.65). You can specify a format to use 
+
+
+    # Formats a +number+ into a currency string (e.g., $13.65). You can specify a format to use
     # and even overwrite some of the format options.
     #
     # ==== Parameters
@@ -203,8 +203,8 @@ class Numeric
     # String:: a string representing the number converted in currency
     #
     # ==== Options
-    # :precision - Sets the level of precision 
-    # :unit - Sets the denomination of the currency 
+    # :precision - Sets the level of precision
+    # :unit - Sets the denomination of the currency
     # :format - Sets the format of the output string (defaults to "%u%n"). The field types are:
     #
     # %u The currency unit
@@ -220,18 +220,18 @@ class Numeric
     #---
     # @private
     def self.to_currency(number, format_name = nil, options = {})
-      
+
       format = (formats[format_name] || default_format)[:currency].merge(options)
 
       begin
-        format[:format].gsub(/%n/, with_precision(number, 
+        format[:format].gsub(/%n/, with_precision(number,
                                       format_name, :precision  => format[:precision]) ).gsub(/%u/, format[:unit])
       rescue
         number
       end
     end
-    
-    
+
+
     # Formats a +number+ into a two digit string. Basically it prepends an integer to a 2 digits string.
     #
     # ==== Parameters
@@ -269,7 +269,7 @@ class Numeric
     end
 
   end #of Numeric::Transformer
- 
+
   # Formats with with grouped thousands using +delimiter+ (e.g., 12,324). You can
   # pass another format to format the number differently.
   #
@@ -296,7 +296,7 @@ class Numeric
   def with_delimiter(format_name = nil, options = {})
     Transformer.with_delimiter(self, format_name, options)
   end
-  
+
   # Formats with a level of <tt>:precision</tt> (e.g., 112.32 has a precision of 2).
   # You can pass another format to use and even overwrite the format's options.
   #
@@ -323,8 +323,8 @@ class Numeric
   def with_precision(format_name = nil, options = {})
     Transformer.with_precision(self, format_name, options)
   end
-  
-  # Formats into a currency string (e.g., $13.65). You can specify a format to use 
+
+  # Formats into a currency string (e.g., $13.65). You can specify a format to use
   # and even overwrite some of the format options.
   #
   # ==== Parameters
@@ -335,8 +335,8 @@ class Numeric
   # String:: a string representing the number converted in currency
   #
   # ==== Options
-  # :precision - Sets the level of precision 
-  # :unit - Sets the denomination of the currency 
+  # :precision - Sets the level of precision
+  # :unit - Sets the denomination of the currency
   # :format - Sets the format of the output string (defaults to "%u%n"). The field types are:
   #
   # %u The currency unit

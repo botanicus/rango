@@ -46,7 +46,7 @@ class Repair < Thor
       end
     end
   end
-  
+
   desc "eof", "Add missing \\n to the end of files"
   def eof
     ruby_files do |file, lines, original|

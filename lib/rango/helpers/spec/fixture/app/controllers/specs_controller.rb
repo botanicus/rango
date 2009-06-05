@@ -1,6 +1,6 @@
 # Helpers are tested going through the full stack.
 # to keep things isolated each helper has its own controller subclass
-# if you are working on a new helper, please consider creating 
+# if you are working on a new helper, please consider creating
 # a new spec controller subclass
 #
 # Remember that your helper spec views

@@ -105,13 +105,13 @@ module AttributeMixin
 
     return default_value
   end
-  
+
   # class << self.class
   #   def hattributes
   #     raise "Y"
   #   end
   # end
-  
+
   # class Post
   #   questionable :updated, true
   # end
@@ -134,7 +134,7 @@ Module.send(:include, AttributeMixin)
 # class Test
 #   hattribute :bar, -> { "value" }
 # end
-# 
+#
 # t = Test.new
 # p t.bar
 # p t.hattributes

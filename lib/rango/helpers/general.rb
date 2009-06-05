@@ -19,7 +19,7 @@ class Rango
     def link_item(name, url)
       tag :li, link_to(name, url)
     end
-    
+
     # @since 0.0.2
     # mail_to "joe@example.com"
     # => "<a href='mailto:joe@example.com'>joe@example.com</a>"
@@ -29,7 +29,7 @@ class Rango
       mail.gsub!("@" "&#x40;")
       tag :a, text, href: "mailto:#{mail}"
     end
-    
+
     # @since 0.0.2
     def error_messages_for(model_instance)
       tag :ul do
