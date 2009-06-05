@@ -5,7 +5,7 @@ h1. Installation
 h1. Documentation
 
 # "Tutorial":http://rango-project.org/docs/tutorial
-# "API Docs":http://api.rango-project.org
+# "API Docs":http://rdoc.info/projects/botanicus/rango
 # "Examples":http://github.com/botanicus/rango-examples
 
 h1. Rango Development
