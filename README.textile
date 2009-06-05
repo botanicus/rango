@@ -14,5 +14,5 @@ h1. Rango Development
 
 h1. Community
 
-# "Jabber MUC":rango@conf.netlab.cz
+# "Jabber MUC":xmpp://rango@conf.netlab.cz
 # "Twitter":https://twitter.com/RangoProject
