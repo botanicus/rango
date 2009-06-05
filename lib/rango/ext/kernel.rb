@@ -29,10 +29,16 @@ module Kernel
     end
   end
 
+  # @since 0.0.3
+  def acquire(glob)
+    Dir[glob].all? { |file| require(file) }
+  end
+
   def command(command)
     puts command
     puts %x[#{command}]
   end
+  alias_method :sh, :command
 
   def quiet(&block)
     old_stdout = STDOUT.dup
