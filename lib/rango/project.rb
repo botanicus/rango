@@ -22,7 +22,7 @@ class Project
     attribute :router
 
     def bundled?
-      @bundled ||= File.directory?(File.join(Project.root, "gems"))
+      @bundled ||= Dir.exist?(File.join(Project.root, "gems"))
     end
   end
 end
