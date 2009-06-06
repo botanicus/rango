@@ -1,6 +1,6 @@
 # coding: utf-8
 
-<% models.each do |model| %>
+<% @models.each do |model| %>
 class <%= model %>
   include DataMapper::Resource
   property :title, String

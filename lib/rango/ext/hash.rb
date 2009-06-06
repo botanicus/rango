@@ -5,6 +5,14 @@ class Hash
     self.map { |key, value| "#{key}=#{value}" }.join("&")
   end
 
+  def reverse_merge(another)
+    another.merge(self)
+  end
+
+  def reverse_merge!(another)
+    self.replace(self.reverse_merge(another))
+  end
+
   def to_native
     self.each do |key, value|
       value = case value

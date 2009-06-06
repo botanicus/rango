@@ -1,6 +1,6 @@
 # coding: utf-8
 
-class <%= application %>
+class <%= @application %>
   extend Rango::ImportMixin
   extend Rango::ApplicationMixin
 end

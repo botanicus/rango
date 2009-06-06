@@ -1,27 +1,21 @@
 #!/usr/bin/env ruby1.9
 # coding: utf-8
 
-rango_root = File.join(File.dirname(__FILE__), '..')
-$:.unshift("#{rango_root}/lib")
-
-require "rango/ext/colored_string"
-
 def help(command, description, indentation = 40)
   indentation = indentation - command.length
   spaces = " " * indentation
   STDERR.puts(command + spaces + description)
 end
 
-case command = ARGV.first
+case command = ARGV.shift
 when "create"
-  require "rango/cli/generators"
-  Rango::Generator.new(ARGV)
+  require_relative "../lib/rango/cli/generator"
+  Rango::CLI::Generator.new(*ARGV).create
 when "-i"
   require "rango"
   Rango.boot
   Rango.interactive
 else
-  # STDERR.puts(ColoredString.template("=== <green.bold>Usage</green.bold> ==="))
   STDERR.puts("=== Usage ===")
   help "rango create project mycoolproject", "Generate new site"
   help "rango create app mycoolapp", "Generate new application"
