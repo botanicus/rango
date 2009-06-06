@@ -23,7 +23,7 @@ class Rango
 
       attr_accessor :context
       def initialize(content_dir, context = Hash.new)
-        @content_dir, @context = content_dir, context
+        @content_dir, @context = content_dir, context.reverse_merge(name: File.basename(Dir.pwd))
       end
 
       def create
@@ -60,21 +60,25 @@ class Rango
         FileUtils.mkdir_p(File.dirname(file))
         if template.end_with?(".rbt")
           if File.exist?(file)
-            Rango.logger.debug("[TEMPLATE] #{file} from #{template}")
+            Rango.logger.debug("[RETEMPLATE] #{file} (from #{template})")
           else
-            Rango.logger.debug("[RETEMPLATE] #{file} from #{template}")
+            Rango.logger.debug("[TEMPLATE] #{file} (from #{template})")
           end
           File.open(file, "w") do |file|
             eruby = Erubis::Eruby.new(File.read(template))
-            output = eruby.evaluate(@context)
+            begin
+              output = eruby.evaluate(@context)
+            rescue Exception => exception
+              Rango.logger.error("Exception occured in template #{template}: #{exception.message}")
+            end
             file.print(output)
           end
         else # just copy
           if File.exist?(file)
-            Rango.logger.debug("[RECOPY] #{file} from #{template}")
+            Rango.logger.debug("[RECOPY] #{file} (from #{template})")
             FileUtils.cp_f(template, file)
           else
-            Rango.logger.debug("[COPY] #{file} from #{template}")
+            Rango.logger.debug("[COPY] #{file} (from #{template})")
             FileUtils.cp(template, file)
           end
         end
