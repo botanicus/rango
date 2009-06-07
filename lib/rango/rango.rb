@@ -3,6 +3,7 @@
 Rango.import("exceptions")
 Rango.import("loggers/logger")
 Rango.import("bundling/dependency")
+Rango.import("rack/middlewares/basic")
 
 class Rango
   class << self
@@ -42,16 +43,6 @@ class Rango
     # @since 0.0.2
     def reboot(options = Hash.new)
       self.boot(options.merge(force: true))
-    end
-
-    # @since 0.0.2
-    def app
-      # $DEBUG = Project.settings.debug # It looks terrible, but rack works with it
-      Rango.import("rack/dispatcher")
-      return Rango::Dispatcher.app
-    rescue Exception => exception
-      Rango.logger.exception(exception)
-      return false
     end
 
     # Start IRB interactive session

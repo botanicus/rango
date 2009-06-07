@@ -4,6 +4,8 @@ require "rango"
 
 Rango.boot
 
+use Rango::Basic
+
 # warden authentication
 # wiki.github.com/hassox/warden/setup
 require "warden"
@@ -30,5 +32,3 @@ Warden::Strategies.add(:password) do
     User.new # TODO
   end
 end
-
-run Rango.app
