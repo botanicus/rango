@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 require File.join(Dir.pwd, "spec", "spec_helper")
 

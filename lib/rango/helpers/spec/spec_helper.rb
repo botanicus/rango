@@ -12,6 +12,7 @@ require "webrat"
 # full stack specs are required
 # use the app in spec/fixture to test helpers
 
+
 default_options = {
   :environment => 'test',
   :adapter     => 'runner',

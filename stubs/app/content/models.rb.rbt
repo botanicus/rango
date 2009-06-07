@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 <% @models.each do |model| %>
 class <%= model %>

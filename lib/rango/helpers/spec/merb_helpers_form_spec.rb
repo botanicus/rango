@@ -1367,4 +1367,5 @@ describe "escaping values" do
     r = @c.render :radio_button
     r.should =~ /&amp;&quot;&lt;&gt;/
   end
+
 end

@@ -128,6 +128,10 @@ describe "Numeric helpers" do
         result = @controller.render :minutes_to_hours
         result.should == "05:15"
       end
+
     end
+
    end
+
+
 end

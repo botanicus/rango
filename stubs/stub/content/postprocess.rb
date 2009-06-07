@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 # This hook will run after templater ends
 # ARGV[0] => the stubs directory location

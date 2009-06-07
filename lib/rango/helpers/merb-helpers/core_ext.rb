@@ -2,7 +2,6 @@
 
 require "date"
 require File.dirname(__FILE__) + '/date_time_formatting'
-
 class Date
   include DateAndTimeFormatting
 

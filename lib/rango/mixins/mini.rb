@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 Rango.import("mixins/controller")
 
@@ -25,5 +25,3 @@ class Rango
     end
   end
 end
-
-Rack::Builder.send(:include, Rango::Mini)

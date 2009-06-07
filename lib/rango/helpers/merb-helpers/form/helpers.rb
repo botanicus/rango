@@ -3,6 +3,7 @@
 # Form helpers provide a number of methods to simplify the creation of HTML forms.
 # They can work directly with models (bound) or standalone (unbound).
 module Rango::Helpers::Form
+
   def _singleton_form_context
     self._default_builder = Rango::Helpers::Form::Builder::ResourcefulFormWithErrors unless self._default_builder
     @_singleton_form_context ||=
@@ -446,4 +447,5 @@ module Rango::Helpers::Form
   def bound?(*args)
     args.first.is_a?(Symbol)
   end
+
 end

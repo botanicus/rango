@@ -80,4 +80,5 @@ describe "loading configuration" do
     defined?(Rango::Helpers::Form).should_not be_nil
     defined?(Rango::Helpers::DateAndTime).should_not be_nil
   end
+
 end
