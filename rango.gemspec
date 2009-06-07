@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 # Run thor package:gem or gem build rango.gemspec
 $:.unshift(File.join(File.dirname(__FILE__), "lib"))
@@ -10,9 +10,9 @@ rescue SecurityError
 end
 
 class Rango
-  VERSION  = "0.0.3"
-  CODENAME = "Smart Kangaroo"
-  SPECIFICATION = ::Gem::Specification.new do |s|
+  VERSION  ||= "0.0.3"
+  CODENAME ||= "Smart Kangaroo"
+  SPECIFICATION ||= ::Gem::Specification.new do |s|
     s.name = "rango"
     # s.version = Rango::VERSION
     s.version = Rango::VERSION

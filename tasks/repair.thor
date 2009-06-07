@@ -13,7 +13,7 @@ class Repair < Thor
   desc "encoding", "Add missing coding declaration"
   def encoding
     ruby_files do |file, lines, original|
-      unless lines[0].match(/^# coding: utf-8\s*$/)
+      if lines.length > 1 && ! lines.first.match(/^# encoding: utf-8\s*$/)
         puts "Added missing coding declaration to #{file}"
         lines.insert(0, "# encoding: utf-8\n\n")
         self.save(file, lines)
@@ -23,8 +23,7 @@ class Repair < Thor
 
   desc "shebang", "Add missing shebang and do it executable if it isn't"
   def shebang
-    root = File.join(File.dirname(__FILE__), "..")
-    Dir["#{root}/bin/*"].each do |file|
+    Dir["#{self.root}/bin/*"].each do |file|
       lines = File.readlines(file)
       # is executable but hasn't shebang
       if File.executable?(file) && ! lines[0].match(/^#!/)
@@ -50,7 +49,7 @@ class Repair < Thor
   desc "eof", "Add missing \\n to the end of files"
   def eof
     ruby_files do |file, lines, original|
-      unless original.last.match(/\n$/)
+      unless original.last && original.last.match(/\n$/)
         puts "Added missing \\n to the end of #{file}"
         self.save(file, lines)
       end
@@ -58,6 +57,10 @@ class Repair < Thor
   end
 
   protected
+  def root
+    File.expand_path(File.join(File.dirname(__FILE__), ".."))
+  end
+
   def save(file, lines)
     File.open(file, "w") do |file|
       file.puts(lines)
@@ -65,11 +68,12 @@ class Repair < Thor
   end
 
   def ruby_files(&block)
-    root = File.dirname(__FILE__)
-    Dir["#{root}/**/*.{rb,ru,thor}"].each do |file|
-      original = File.readlines(file)
-      lines = original.each { |line| line.chomp }
-      block.call(file, lines, original)
+    Dir["#{self.root}/**/*.{rb,ru,thor}"].each do |file|
+      unless File.directory?(file) # merb.thor etc
+        original = File.readlines(file)
+        lines = original.each { |line| line.chomp }
+        block.call(file, lines, original)
+      end
     end
   end
 end
