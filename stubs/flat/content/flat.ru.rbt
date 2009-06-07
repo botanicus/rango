@@ -3,7 +3,10 @@
 # rackup -p 4000 -s thin flat.ru
 require "rango"
 
-Rango.boot(flat: true)
+Rango.boot
+Rango.import("mixins/mini")
+
+use Rango::Basic
 
 Project.configure do
   # TODO
@@ -15,5 +18,3 @@ Rango.import("router/adapters/basic")
 map("/") do
   run app { "<h1>Rango is just Awesome!</h1>" }
 end
-
-run Rango.app
