@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class FakeModel2 < FakeModel
   def id
     1

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class FakeDMModel
   def self.properties
     [FakeColumn.new(:baz, TrueClass),

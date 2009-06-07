@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 # Rango.dependency "dm-core"
 # Rango.dependency "term-ansicolor", as: "term/ansicolor"

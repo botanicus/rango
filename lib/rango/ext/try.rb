@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 # stolen from rails (but our definition isn't compatible)
 # rails defines try as __send__ for each objects exclude nil - nil#try returns nil

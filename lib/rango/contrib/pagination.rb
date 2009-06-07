@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require "pathname" # TODO: it should be done in dm-aggregates
 Rango.dependency("dm-aggregates")
 

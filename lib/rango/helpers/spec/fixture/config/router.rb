@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # Rango::Router is the request routing mapper for the merb framework.
 #
 # You can route a specific URL to a controller / action pair:

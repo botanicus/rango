@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 require File.dirname(__FILE__) + '/spec_helper'
 
@@ -1367,5 +1367,4 @@ describe "escaping values" do
     r = @c.render :radio_button
     r.should =~ /&amp;&quot;&lt;&gt;/
   end
-
 end

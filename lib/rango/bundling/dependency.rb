@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 Rango.import("bundling/strategy")
 Rango.import("bundling/strategies/gem")

@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 # TODO: run it as git hook before commit
 class Repair < Thor

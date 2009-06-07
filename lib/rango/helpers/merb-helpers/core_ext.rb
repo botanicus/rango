@@ -1,7 +1,8 @@
-# coding: utf-8
+# encoding: utf-8
 
 require "date"
 require File.dirname(__FILE__) + '/date_time_formatting'
+
 class Date
   include DateAndTimeFormatting
 

@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 # Include this module to strategy superclass
 class Rango

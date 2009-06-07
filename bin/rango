@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby1.9
-# coding: utf-8
+# encoding: utf-8
 
 def help(command, description, indentation = 40)
   indentation = indentation - command.length

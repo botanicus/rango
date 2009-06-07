@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 Rango.dependency "dm-core", gem: true
 require_relative "support"

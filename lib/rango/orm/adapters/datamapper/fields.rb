@@ -1,3 +1,3 @@
-# coding: utf-8
+# encoding: utf-8
 
 # TODO: slugfield, file, image etc

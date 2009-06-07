@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 require File.dirname(__FILE__) + '/spec_helper'
 
@@ -128,10 +128,6 @@ describe "Numeric helpers" do
         result = @controller.render :minutes_to_hours
         result.should == "05:15"
       end
-
     end
-
    end
-
-
 end

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # Make the app's "gems" directory a place where gems are loaded from
 Gem.clear_paths
 Gem.path.unshift(Rango.root / "gems")

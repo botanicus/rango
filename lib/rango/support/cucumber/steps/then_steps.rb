@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 # HTTP 200
 Then "it should respond successfuly" do

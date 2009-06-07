@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # Helpers are tested going through the full stack.
 # to keep things isolated each helper has its own controller subclass
 # if you are working on a new helper, please consider creating

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # use PathPrefix Middleware if :path_prefix is set in Rango::Config
 if prefix = ::Rango::Config[:path_prefix]
   use Rango::Rack::PathPrefix, prefix

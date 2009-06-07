@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 class String
   # @since 0.0.1

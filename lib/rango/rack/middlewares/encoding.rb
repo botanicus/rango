@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 # rack seems to have problems with encoding, so this middleware enforce UTF-8 for all the strings in rack env
 class Rango

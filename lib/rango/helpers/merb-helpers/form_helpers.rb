@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 load File.dirname(__FILE__) / "form" / "helpers.rb"
 load File.dirname(__FILE__) / "form" / "builder.rb"

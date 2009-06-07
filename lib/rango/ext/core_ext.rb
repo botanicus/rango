@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 # TODO: spec it
 class Hash

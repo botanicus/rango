@@ -1,5 +1,6 @@
-class Foo < Application
+# encoding: utf-8
 
+class Foo < Application
   def index
     "index"
   end
@@ -19,5 +20,4 @@ class Foo < Application
   def raise_not_acceptable
     raise NotAcceptable
   end
-
 end

@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 require_relative "../lib/rango"
 load "#{File.dirname(__FILE__)}/yardoc.thor"

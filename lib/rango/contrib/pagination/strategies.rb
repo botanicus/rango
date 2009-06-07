@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 Rango.import("contrib/pagination/page")
 
 class Rango

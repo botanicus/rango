@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 Rango.logger.info("Loaded TEST Environment...")
 Rango::Config.use { |c|
   c[:exception_details] = true

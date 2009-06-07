@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class Page
   class << self
     # @since 0.0.2

@@ -1,5 +1,6 @@
-class Exceptions < Rango::Controller
+# encoding: utf-8
 
+class Exceptions < Rango::Controller
   attr_reader :handler
 
   # handle NotFound exceptions (404)
@@ -21,5 +22,4 @@ class Exceptions < Rango::Controller
     @handler = :client_error
     render "Handled by: client_error"
   end
-
 end

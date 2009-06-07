@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class TagHelper < Rango::Controller
   def tag_with_content
     @content = "Astral Projection ~ Dancing Galaxy"

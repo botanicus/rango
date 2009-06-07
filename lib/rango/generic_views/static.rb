@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 class Rango::GenericViews < Rango::Controller
   def static(template)

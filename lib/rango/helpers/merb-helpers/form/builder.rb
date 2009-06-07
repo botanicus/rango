@@ -1,10 +1,9 @@
-# coding: utf-8
+# encoding: utf-8
 
 load File.dirname(__FILE__) / ".." / "tag_helpers.rb"
 Rango.import("templates/template")
 
 module Rango::Helpers::Form::Builder
-
   class Base
     include Rango::Helpers::Tag
     include Rango::Templates::TemplateHelpers
@@ -443,5 +442,4 @@ module Rango::Helpers::Form::Builder
     include Errorifier
     include Resourceful
   end
-
 end

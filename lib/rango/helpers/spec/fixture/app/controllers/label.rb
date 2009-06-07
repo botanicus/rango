@@ -1,3 +1,4 @@
-class LabelSpecs < SpecController
+# encoding: utf-8
 
+class LabelSpecs < SpecController
 end

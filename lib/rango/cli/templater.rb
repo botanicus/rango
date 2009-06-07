@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 # I know, I know, we have Rubigen, Templater and others,
 # but Rango needs something really simple, so user can

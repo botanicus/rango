@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # doesn't require spec helper, we do not need to init rango environment
 require File.join(Dir.pwd, "lib", "rango")
 

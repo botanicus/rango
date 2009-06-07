@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 # Provides a a simple way of calling time units and to see the elapsed time between 2 moments
 # ==== Examples

@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 Rango.import("templates/template")
 Rango.import("mixins/controller")

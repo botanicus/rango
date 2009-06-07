@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # stolen from rails
 require 'rack/utils'
 

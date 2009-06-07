@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 module Rango::Helpers::Text
   # Allows you to cycle through elements in an array

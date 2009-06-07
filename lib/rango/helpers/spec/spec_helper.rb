@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 require "rubygems"
 require "spec"
@@ -11,7 +11,6 @@ require "webrat"
 # for more info on how to test helpers
 # full stack specs are required
 # use the app in spec/fixture to test helpers
-
 
 default_options = {
   :environment => 'test',

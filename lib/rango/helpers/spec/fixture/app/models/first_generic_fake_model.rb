@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class FakeModel
 
   attr_accessor :vin, :make, :model

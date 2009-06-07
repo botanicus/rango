@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 # TODO: it can be in rack-contrib
 # &#x40;

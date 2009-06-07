@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 # Rack::URLMap is very easy router included directly in rack distribution
 # You can't use stuff like "posts/:id" there, so env["rango.router.params"]

@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 # Rack env keys (localhost, url /test):
 # SERVER_SOFTWARE: thin 1.0.0 codename That's What She Said

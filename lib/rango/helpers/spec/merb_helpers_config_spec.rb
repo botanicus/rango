@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 require File.dirname(__FILE__) + '/spec_helper'
 FIXTURES_DIR = File.dirname(__FILE__) + '/fixtures'
@@ -80,5 +80,4 @@ describe "loading configuration" do
     defined?(Rango::Helpers::Form).should_not be_nil
     defined?(Rango::Helpers::DateAndTime).should_not be_nil
   end
-
 end

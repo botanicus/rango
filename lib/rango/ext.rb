@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 require_relative "ext/class"
 require_relative "ext/attribute"
