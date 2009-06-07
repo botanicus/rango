@@ -1,19 +1,18 @@
 h1. Installation
 
-# From RubyForge: @sudo gem install rango@
-# From GitHub: @sudo gem install botanicus-rango -s http://gems.github.com@
+* From RubyForge: @sudo gem install rango@
+* From GitHub: @sudo gem install botanicus-rango -s http://gems.github.com@
 
 h1. Documentation
 
-# "Tutorial":http://rango-project.org/docs/tutorial
-# "API Docs":http://rdoc.info/projects/botanicus/rango
-# "Examples":http://github.com/botanicus/rango-examples
-
-h1. Rango Development
-
-# "Roadmap":http://bit.ly/1xIq67
+* "Wiki":http://wiki.github.com/botanicus/rango
+* "Tutorial":http://wiki.github.com/botanicus/rango/tutorial
+* "API Docs":http://rdoc.info/projects/botanicus/rango
+* "Examples":http://github.com/botanicus/rango-examples
+* "Rango Development":http://wiki.github.com/botanicus/rango/rango-development
+* "Bug reporting":http://github.com/botanicus/rango/issues
 
 h1. Community
 
-# "Jabber MUC":xmpp://rango@conf.netlab.cz
-# "Twitter":https://twitter.com/RangoProject
+* "Jabber MUC":xmpp://rango@conf.netlab.cz
+* "Twitter":https://twitter.com/RangoProject

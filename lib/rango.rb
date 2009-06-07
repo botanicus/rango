@@ -2,6 +2,7 @@
 
 require "ostruct"
 require "uri"
+require "path"
 
 rango_lib = File.dirname(__FILE__)
 unless $:.include?(rango_lib) || $:.include?(File.expand_path(rango_lib))
@@ -14,6 +15,7 @@ Encoding.default_internal = "utf-8"
 require_relative "rango/ext"
 require_relative "rango/mixins/import"
 require_relative "rango/mixins/application"
+load File.dirname(__FILE__) + "/../rango.gemspec"
 
 # FIXME
 # require_relative "../rango.gemspec" # VERSION, CODENAME and SPECIFICATION
