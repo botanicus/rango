@@ -49,7 +49,7 @@ class Repair < Thor
   desc "eof", "Add missing \\n to the end of files"
   def eof
     ruby_files do |file, lines, original|
-      unless original.last && original.last.match(/\n$/)
+      if original.last && ! original.last.match(/\n$/)
         puts "Added missing \\n to the end of #{file}"
         self.save(file, lines)
       end
