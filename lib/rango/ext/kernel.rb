@@ -56,7 +56,6 @@ module Kernel
     return returned
   end
 
-
   # TODO: try_require and try_require_gem (diff require 'readline' vs require 'term/ansicolor')
 
   # for quick inspection
@@ -70,11 +69,5 @@ module Kernel
   def p_and_return(*args)
     p(*args)
     return *args
-  end
-end
-
-class Class
-  def controller?
-    false
   end
 end

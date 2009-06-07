@@ -1,11 +1,9 @@
 # encoding: utf-8
 
-Rango.import("templates/template")
 Rango.import("mixins/controller")
 
 class Rango
   class Controller
-    include Rango::HttpExceptions
     include Rango::Helpers
     include Rango::ControllerMixin
     include Rango::Templates::TemplateHelpers
@@ -87,10 +85,6 @@ class Rango
         when nil then String.new
         else value
         end
-      end
-
-      def controller?
-        true
       end
 
       # @since 0.0.2
