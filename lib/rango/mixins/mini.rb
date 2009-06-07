@@ -25,3 +25,5 @@ class Rango
     end
   end
 end
+
+Rack::Builder.send(:include, Rango::Mini)
