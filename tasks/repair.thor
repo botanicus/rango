@@ -15,7 +15,7 @@ class Repair < Thor
     ruby_files do |file, lines, original|
       unless lines[0].match(/^# coding: utf-8\s*$/)
         puts "Added missing coding declaration to #{file}"
-        lines.insert(0, "# coding: utf-8\n\n")
+        lines.insert(0, "# encoding: utf-8\n\n")
         self.save(file, lines)
       end
     end

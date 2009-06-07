@@ -49,8 +49,8 @@ class Release < Thor
     %x[rubyforge login]
     file = Dir["pkg/*.gem"].last
     # args: rubyforge_project gem_name gem_version gem_file
-    # sh %x[rubyforge add_release rango rango #{Rango::VERSION} #{file}]
-    # sh %x[rubyforge add_file rango rango #{Rango::VERSION} #{file}]
+    %x[rubyforge add_release 8080 rango #{Rango::VERSION} #{file}]
+    %x[rubyforge add_file 8080 rango #{Rango::VERSION} #{file}]
   end
 
   desc "tmbundle", "Upgrade the TextMate bundle."

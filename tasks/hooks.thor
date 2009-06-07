@@ -4,7 +4,7 @@ class Hooks < Thor
   # TODO: force option
   desc "all", "Install all git hooks"
   def all
-    if File.directory?(".git/hooks")
+    if Dir.exist?(".git/hooks")
       abort "You must remove .git/hooks first"
     else
       # do not symlink them, otherwise git will add samples
