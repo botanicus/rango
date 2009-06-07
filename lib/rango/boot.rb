@@ -27,28 +27,24 @@ class Rango
   end
 end
 
-if Rango.flat?
-  Rango.logger.info("Loading flat application")
-else
-  # init.rb
-  Project.import_first(["init", "config/init"], soft: true, verbose: false)
+# init.rb
+Project.import_first(["init", "config/init"], soft: true, verbose: false)
 
-  # settings.rb
-  begin
-    Project.logger.info("Reading settings")
-    Project.import_first(["settings", "config/settings"])
-  rescue LoadError
-    Rango.logger.fatal("settings.rb wasn't found or it cause another LoadError.")
-    exit 1
-  end
-
-  # setup ORM
-  if orm = Project.settings.orm
-    unless Rango.import("orm/adapters/#{orm}/setup", soft: true, verbose: false)
-      Project.logger.error("ORM #{orm} isn't supported. You will need to setup your database connection manually.")
-    end
-  end
-
-  # settings_local.rb
-  Project.import_first(["settings_local", "config/settings_local"], soft: true, verbose: false)
+# settings.rb
+begin
+  Project.logger.info("Reading settings")
+  Project.import_first(["settings", "config/settings"], soft: true)
+rescue LoadError
+  Rango.logger.fatal("settings.rb wasn't found or it cause another LoadError.")
+  exit 1
 end
+
+# setup ORM
+if orm = Project.settings.orm
+  unless Rango.import("orm/adapters/#{orm}/setup", soft: true, verbose: false)
+    Project.logger.error("ORM #{orm} isn't supported. You will need to setup your database connection manually.")
+  end
+end
+
+# settings_local.rb
+Project.import_first(["settings_local", "config/settings_local"], soft: true, verbose: false)
