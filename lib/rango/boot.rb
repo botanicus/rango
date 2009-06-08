@@ -9,6 +9,7 @@ Rango.dependency "extlib"
 Rango.import("project")
 Rango.import("rack/request")
 Rango.import("helpers")
+Rango.import("router/adapters/basic")
 
 Rango::HttpExceptions::HttpError.send(:include, Rango::Helpers)
 
