@@ -9,10 +9,15 @@ rescue SecurityError
   # http://gems.github.com
 end
 
+# in Ruby 1.9 you can use CONSTANT ||= "foo",
+# but at GitHub they are using 1.8 and it fails with ||=
+
+# when I'm using Ruby 1.8 and VERSION = "foo" unless defined?(VERSION),
+# it will use RUBY_VERSION as VERSION and create gem rango-1.8.6.gem
 class Rango
-  VERSION  ||= "0.0.3"
-  CODENAME ||= "Smart Kangaroo"
-  SPECIFICATION ||= ::Gem::Specification.new do |s|
+  VERSION  = "0.0.3"
+  CODENAME = "Smart Kangaroo"
+  SPECIFICATION = ::Gem::Specification.new do |s|
     s.name = "rango"
     # s.version = Rango::VERSION
     s.version = Rango::VERSION
