@@ -6,6 +6,7 @@ Rango.import("mixins/mini")
 class Rango
   module GenericViews
     include Rango::Mini
+    extend  Rango::Mini
 
     @@generic ||= Array.new
     # GenericViews.add(:hello) do |request, reponse|
@@ -14,14 +15,18 @@ class Rango
     def self.add(name, &block)
       @@generic.push(name)
       define_method(name, &block)
+      self.metaclass.send(:define_method, :"__#{name}__", &block)
       self.metaclass.send(:define_method, name) do
-        extend Rango::Mini
-        app(&block)
+        app do |*args|
+          self.send(:"__#{name}__", *args)
+        end
       end
     end
   end
 end
 
 Rango::GenericViews.add(:static) do |request, response|
-  render request.path_info
+  template = "#{request.script_name[1..-1]}.html"
+  Rango.logger.debug("Rendering '#{template}'")
+  render template
 end
