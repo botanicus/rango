@@ -2,7 +2,7 @@
 
 require File.join(Dir.pwd, "spec", "spec_helper")
 
-Rango.import("mvc/controller")
+Rango.import("controller")
 
 describe Rango::Controller do
   before(:each) do
