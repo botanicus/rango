@@ -10,6 +10,7 @@ class Rango
       end
 
       def call(env)
+        Rack::Lint.new(@app).call(env)
         Rango::Middlewares::Encoding.new(@app).call(env)
         Rack::MethodOverride.new(@app).call(env) # _method: put etc
 
