@@ -15,6 +15,7 @@ class Rango
       @app.call(env)
 
       Rack::ContentLength.new(@app).call(env)
+      Rack::Head.new(@app).call(env)
 
       # serve static files
       if Project.settings.media_prefix
