@@ -1,3 +1,4 @@
+#!/usr/bin/env rackup -s thin -p 4000
 # encoding: utf-8
 
 require "rango"
