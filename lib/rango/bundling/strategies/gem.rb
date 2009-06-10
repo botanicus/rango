@@ -4,7 +4,7 @@
 # Rango.dependency "term-ansicolor", as: "term/ansicolor"
 # Rango.dependency "pupu", github_gem: "botanicus-pupu", as: "pupu/adapters/rango"
 # Rango.dependency "dm-validations", gem: "dm-more"
-class Rango
+module Rango
   module Bundling
     class GemStrategy < Strategy
       # @since 0.0.2

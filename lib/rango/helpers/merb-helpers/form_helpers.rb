@@ -12,7 +12,7 @@ class Rango::Controller
 end
 
 # Rango::BootLoader.after_app_loads do
-#   class Rango::Controller
+#   module Rango::Controller
 #     self._default_builder =
 #       Object.full_const_get(Rango::Plugins.config[:helpers][:default_builder]) rescue Rango::Helpers::Form::Builder::ResourcefulFormWithErrors
 #   end

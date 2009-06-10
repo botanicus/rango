@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Rango
+module Rango
   module Pagination
     module PaginationMixin
       # @since 0.0.2

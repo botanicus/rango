@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Rango
+module Rango
   module Helpers
     # tag :a, href: "/contact" { anchor }
     # tag :a, "contact", href: "/contact"

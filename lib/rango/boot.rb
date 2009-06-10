@@ -20,7 +20,7 @@ Rango::HttpExceptions::HttpError.send(:include, Rango::Helpers)
 # 4) settings
 
 # project
-class Rango
+module Rango
   class << self
     # @since 0.0.1
     # @return [String] Returns current environment name. Possibilities are +development+ or +production+.

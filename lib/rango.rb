@@ -20,7 +20,7 @@ load File.dirname(__FILE__) + "/../rango.gemspec"
 # FIXME
 # require_relative "../rango.gemspec" # VERSION, CODENAME and SPECIFICATION
 
-class Rango
+module Rango
   extend ImportMixin
   extend ApplicationMixin
 

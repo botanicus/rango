@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 # for early development only
-class Rango
+module Rango
   module Bundling
     class CopyStrategy < Strategy
       # @since 0.0.2

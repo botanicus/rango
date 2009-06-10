@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Rango
+module Rango
   module Helpers
     # Provides a number of methods for displaying and dealing with dates and times
     #

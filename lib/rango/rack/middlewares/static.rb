@@ -3,7 +3,7 @@
 # stolen from rails
 require 'rack/utils'
 
-class Rango
+module Rango
   module Middlewares
     class Static
       FILE_METHODS = %w(GET HEAD).freeze

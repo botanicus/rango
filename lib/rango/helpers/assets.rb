@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Rango
+module Rango
   module Helpers
     # stolen from pupu (but it's OK, it's my code)
     # @since 0.0.2

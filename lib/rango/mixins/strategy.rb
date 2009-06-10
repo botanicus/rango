@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 # Include this module to strategy superclass
-class Rango
+module Rango
   module StrategyMixin
     class << self
       attribute :strategies, Array.new

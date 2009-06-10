@@ -2,7 +2,7 @@
 
 Rango.import("mixins/mini")
 
-class Rango
+module Rango
   module GenericViews
     include Rango::Mini
     def static

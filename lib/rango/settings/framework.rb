@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Rango
+module Rango
   module Settings
     class Framework < Settings
       # @since 0.0.1

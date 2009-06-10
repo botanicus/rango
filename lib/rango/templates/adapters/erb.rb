@@ -3,7 +3,7 @@
 require "erb"
 Rango.import("templates/adapter")
 
-class Rango
+module Rango
   module Templates
     class Erb < ::Rango::Templates::Adapter
       # @since 0.0.2

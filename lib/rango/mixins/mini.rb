@@ -9,7 +9,7 @@ Rango.import("mixins/controller")
 #   render "index"
 # end
 # }
-class Rango
+module Rango
   module Mini
     include Rango::ControllerMixin
     def app(&block)

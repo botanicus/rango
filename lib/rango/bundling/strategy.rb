@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Rango
+module Rango
   module Bundling
     class << self
       attribute :strategies, Array.new

@@ -2,7 +2,7 @@
 
 require_relative "encoding"
 
-class Rango
+module Rango
   module Middlewares
     class Basic
       def initialize(app)

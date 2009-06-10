@@ -32,7 +32,7 @@ require_relative "templater"
 # xxx/bar
 # => rango generate bigproject blog --models=post,tag --controllers=posts,tags
 
-class Rango
+module Rango
   module CLI
     class Generator
       def self.rango_root

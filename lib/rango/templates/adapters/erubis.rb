@@ -3,7 +3,7 @@
 require "erubis"
 Rango.import("templates/adapter")
 
-class Rango
+module Rango
   module Templates
     class Erubis < ::Rango::Templates::Adapter
       # TODO: context {foo: "bar"} => @foo instead of just foo

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Rango
+module Rango
   module Settings
     class Erubis < Settings
       # @since 0.0.2

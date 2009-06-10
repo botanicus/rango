@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Rango
+module Rango
   module Helpers
     # @since 0.0.1
     def textile(text)

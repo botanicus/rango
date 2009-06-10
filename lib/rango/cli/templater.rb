@@ -12,7 +12,7 @@ require "find"
 # @since 0.0.3
 # @example
 #   Rango::CLI::Templater.create("my_generator_dir", user: "botanicus", constant: -> { |argv| argv.first.camel_case })
-class Rango
+module Rango
   module CLI
     class Templater
       def self.create(*args)

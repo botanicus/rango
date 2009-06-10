@@ -1,7 +1,7 @@
 # encoding: utf-8
 Rango.import("contrib/pagination/page")
 
-class Rango
+module Rango
   module Pagination
     class Strategy
       # @since 0.0.2

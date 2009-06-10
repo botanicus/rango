@@ -3,7 +3,7 @@
 # TODO: qattribute :partial, true
 # => define #partial?
 
-class Rango
+module Rango
   module Templates
     class Template
       # template -> supertemplate is the same relationship as class -> superclass

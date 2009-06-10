@@ -36,7 +36,7 @@
 # http://rack.rubyforge.org/doc/
 # http://rack.rubyforge.org/doc/classes/Rack/Request.html
 
-class Rango
+module Rango
   module Session
   end
 

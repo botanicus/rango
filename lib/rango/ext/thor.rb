@@ -7,7 +7,7 @@ require "extlib"
 # Rango::Tasks.hook do
 #   Dir["models/*.rb"].each(&method(:require))
 # end
-class Rango
+module Rango
   class Tasks < Thor
     cattr_accessor :hooks
     @@hooks ||= Array.new

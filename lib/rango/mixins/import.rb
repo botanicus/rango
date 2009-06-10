@@ -2,7 +2,7 @@
 
 # boot: after rango.rb
 
-class Rango
+module Rango
   # This mixin will be included also to project or your custom app main namespace
   module ImportMixin
     # class Project

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Rango
+module Rango
   module ApplicationMixin
     include Rango::ImportMixin
     # @since 0.0.1

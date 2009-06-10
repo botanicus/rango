@@ -5,7 +5,7 @@ Rango.import("loggers/logger")
 Rango.import("bundling/dependency")
 Rango.import("rack/middlewares/basic")
 
-class Rango
+module Rango
   class << self
     # @since 0.0.1
     # @return [String] Returns current environment name. Possibilities are +development+ or +production+.

@@ -4,7 +4,7 @@
 # TODO: specs
 require "logger"
 
-class Rango
+module Rango
   class Logger < ::Logger
     # @since 0.0.1
     def initialize(output = STDERR)

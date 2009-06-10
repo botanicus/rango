@@ -6,7 +6,7 @@
 
 Rango.import("router/dispatcher")
 
-class Rango
+module Rango
   class Router
     module Basic
       def set_rack_env(env)

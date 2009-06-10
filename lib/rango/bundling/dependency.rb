@@ -4,7 +4,7 @@ Rango.import("bundling/strategy")
 Rango.import("bundling/strategies/gem")
 Rango.import("bundling/strategies/git")
 
-class Rango
+module Rango
   class << self
     # @examples
     #   Rango.dependency("dm-core", github: "datamapper/dm-core")

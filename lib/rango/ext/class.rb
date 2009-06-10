@@ -13,7 +13,7 @@
 #
 # Test.new
 
-class Rango
+module Rango
   module Hookable
     def new(*args)
       instance = super(*args)
@@ -32,7 +32,7 @@ class Rango
 end
 
 # from merb-core
-class Rango
+module Rango
   module Chainable
     # Allows the definition of methods on a class that will be available via
     # super.

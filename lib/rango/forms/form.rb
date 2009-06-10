@@ -7,7 +7,7 @@
 # end
 
 # @future 0.0.3 It's just a prototype now
-class Rango
+module Rango
   class Form
     attribute :media
 

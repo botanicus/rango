@@ -14,7 +14,7 @@ end
 
 # when I'm using Ruby 1.8 and VERSION = "foo" unless defined?(VERSION),
 # it will use RUBY_VERSION as VERSION and create gem rango-1.8.6.gem
-class Rango
+module Rango
   VERSION  = "0.0.3"
   CODENAME = "Smart Kangaroo"
   SPECIFICATION = ::Gem::Specification.new do |s|

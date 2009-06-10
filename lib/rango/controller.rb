@@ -2,7 +2,7 @@
 
 Rango.import("mixins/controller")
 
-class Rango
+module Rango
   class Controller
     include Rango::Helpers
     include Rango::ControllerMixin

@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 # NOTE: we need to
-class Rango
+module Rango
   module Bundling
     # 1) clone git repo
     # 2) run gem build, rake gem, rake package

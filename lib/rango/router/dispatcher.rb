@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Rango
+module Rango
   class Router
     module Dispatcher
       class << self

@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 # rack seems to have problems with encoding, so this middleware enforce UTF-8 for all the strings in rack env
-class Rango
+module Rango
   module Middlewares
     class Encoding
       def initialize(app, encoding = ::Encoding.default_external)

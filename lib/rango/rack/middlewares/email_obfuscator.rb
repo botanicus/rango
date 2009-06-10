@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 # TODO: it can be in rack-contrib
-class Rango
+module Rango
   module Middlewares
     class EmailObfuscator
       def initialize(app)

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Rango
+module Rango
   module Mocks
     def mock_env(params = Hash.new)
       {

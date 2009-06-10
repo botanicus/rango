@@ -31,7 +31,7 @@ class SkipRoute < StandardError
 end
 
 # superclass of all the controller exceptions
-class Rango
+module Rango
   module HttpExceptions
     class HttpError < StandardError
       # @since 0.0.1
@@ -116,7 +116,7 @@ end
 
 # stolen from merb
 
-class Rango
+module Rango
   module HttpExceptions
     STATUS_CODES = {}
     class Base < StandardError #:doc:

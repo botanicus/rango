@@ -3,7 +3,7 @@
 require "rack/router"
 Rango.import("router/dispatcher")
 
-class Rango
+module Rango
   class Router
     module RackRouter
       def set_rack_env(env)

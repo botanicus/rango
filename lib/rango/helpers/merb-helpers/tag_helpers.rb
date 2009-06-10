@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Rango
+module Rango
   module Helpers
     module Tag
       # Creates a generic HTML tag. You can invoke it a variety of ways.

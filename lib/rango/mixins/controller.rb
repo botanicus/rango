@@ -3,7 +3,7 @@
 Rango.import("templates/template")
 
 # This mixin should be included to the all objects which are supposed to return response for Rack, so not just ControllerStrategy, but also CallableStrategy
-class Rango
+module Rango
   module ControllerMixin
     include Rango::HttpExceptions
     # @since 0.0.1

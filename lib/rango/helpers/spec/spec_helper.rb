@@ -72,7 +72,7 @@ end
 #
 #   "expected File but got Tempfile"
 
-class Rango
+module Rango
   module Test
     module RspecMatchers
       class IncludeLog

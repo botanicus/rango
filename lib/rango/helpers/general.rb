@@ -2,7 +2,7 @@
 
 require "uri"
 
-class Rango
+module Rango
   module Helpers
     # @since 0.0.1
     def copyright(from)
