@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require "thor"
+require "extlib"
 
 # Hooks
 # Rango::Tasks.hook do
@@ -8,22 +9,20 @@ require "thor"
 # end
 class Rango
   class Tasks < Thor
-    class << self
-      attr_accessor :hooks
-      def hook(&block)
-        @hooks ||= Array.new
-        @hooks.push(block)
-      end
+    cattr_accessor :hooks
+    @@hooks ||= Array.new
 
-      def inherited(subclass)
-        subclass.hooks = self.hooks
-      end
+    def self.hook(&block)
+      @@hooks.push(block)
+    end
+
+    def self.inherited(subclass)
+      subclass.hooks = self.hooks
     end
 
     def boot(*args)
       require "rango"
       Rango.boot(*args)
-      p self.class.hooks
       self.class.hooks.each(&:call)
     rescue Exception => exception
       Rango.logger.exception(exception)
