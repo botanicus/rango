@@ -6,10 +6,6 @@ Rango.import("bundling/strategies/git")
 
 class Rango
   class << self
-    # @since 0.0.1
-    # @return [String] Returns current environment name. Possibilities are +development+ or +production+.
-    attribute :environment, "development"
-
     # @examples
     #   Rango.dependency("dm-core", github: "datamapper/dm-core")
     #   Rango.dependency("dm-core", "1.0.2", svn: "datamapper/dm-core")
