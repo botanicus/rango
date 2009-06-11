@@ -9,7 +9,9 @@ end
 
 case command = ARGV.shift
 when "create"
-  require_relative "../lib/rango/cli/generator"
+  # we can't use require_relative because it can be symlinked to
+  # /usr/bin or just be located in different place than we expect
+  require "rango/cli/generator"
   Rango::CLI::Generator.new(*ARGV).create
 when "-i"
   require "rango"
