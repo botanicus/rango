@@ -4,7 +4,8 @@
 # but Rango needs something really simple, so user can
 # start work immediately and can't study bloated docs
 
-require "erubis"
+require_gem_or_exit "erubis"
+
 require "fileutils"
 require "tempfile"
 require "find"

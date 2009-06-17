@@ -5,7 +5,6 @@ require "rango" # logger
 require "yaml"
 require "ostruct"
 require "fileutils"
-try_require_gem "erubis"
 
 require_relative "templater"
 

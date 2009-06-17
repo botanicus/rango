@@ -14,25 +14,37 @@ module Kernel
   # @param [String] library Library to require.
   # @param [String, @optional] gemname Name of gem which contains required library. Will be used for displaying message.
   # @return [Boolean] True if require was successful, false otherwise.
-  def try_require_gem(library, gemname = library)
-    begin
-      require library
-    rescue LoadError
-      message = "Gem #{gemname} isn't installed. Run sudo gem install #{gemname}."
-      if defined?(Rango.logger)
-        Rango.logger.warn(message)
-        return false
-      else
-        puts(message)
-        return false
-      end
-    end
+  def try_require_gem(library, gemname = library, options = Hash.new)
+    gemname, options = library, gemname if gemname.is_a?(Hash) && options.empty?
+    try_require_gem!(library, gemname, options)
+  rescue LoadError
+    return false
+  end
+
+  # @since 0.0.3
+  def try_require_gem!(library, gemname = library, options = Hash.new)
+    gemname, options = library, gemname if gemname.is_a?(Hash) && options.empty?
+    require library
+  rescue LoadError => exception
+    message  = "Gem #{gemname} isn't installed. Run sudo gem install #{gemname}."
+    logger   = Rango.logger.method(options[:level] || :error)
+    callable = defined?(Rango.logger) ? logger : method(:puts)
+    callable.call(message)
+    raise exception
+  end
+
+  # @since 0.0.3
+  def require_gem_or_exit(library, gemname = library, options = Hash.new)
+    gemname, options = library, gemname if gemname.is_a?(Hash) && options.empty?
+    try_require_gem!(library, gemname, options)
+  rescue LoadError
+    exit 1
   end
 
   # @since 0.0.3
   def try_require(library)
     require "library"
-  rescue
+  rescue LoadError
     return false
   end
 
