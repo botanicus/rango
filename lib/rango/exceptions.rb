@@ -5,8 +5,7 @@ require "extlib"
 
 # TODO: documentation
 # TODO: specs
-class SettingsNotFound < StandardError
-end
+SettingsNotFound = Class.new(StandardError)
 
 class TemplateNotFound < StandardError
   # @since 0.0.2
@@ -19,16 +18,13 @@ class TemplateNotFound < StandardError
 end
 
 # @since 0.0.1
-class AnyStrategyMatched < StandardError
-end
+AnyStrategyMatched = Class.new(StandardError)
 
 # @since 0.0.2
-class SkipFilter < StandardError
-end
+SkipFilter = Class.new(StandardError)
 
 # @since 0.0.2
-class SkipRoute < StandardError
-end
+SkipRoute = Class.new(StandardError)
 
 # superclass of all the controller exceptions
 module Rango
