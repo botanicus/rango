@@ -1,10 +1,11 @@
 # encoding: utf-8
 
+require "rango" # logger
+
 require "yaml"
 require "ostruct"
 require "fileutils"
-require "rango" # logger
-require "erubis"
+try_require_gem "erubis"
 
 require_relative "templater"
 

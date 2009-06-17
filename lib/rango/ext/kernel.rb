@@ -10,11 +10,11 @@ module Kernel
 
   # @since 0.0.1
   # @example
-  #   try_require "term/ansicolor", "term-ansicolor"
+  #   try_require_gem "term/ansicolor", "term-ansicolor"
   # @param [String] library Library to require.
   # @param [String, @optional] gemname Name of gem which contains required library. Will be used for displaying message.
   # @return [Boolean] True if require was successful, false otherwise.
-  def try_require(library, gemname = library)
+  def try_require_gem(library, gemname = library)
     begin
       require library
     rescue LoadError
@@ -27,6 +27,13 @@ module Kernel
         return false
       end
     end
+  end
+
+  # @since 0.0.3
+  def try_require(library)
+    require "library"
+  rescue
+    return false
   end
 
   # @since 0.0.3
@@ -55,8 +62,6 @@ module Kernel
     STDERR.reopen(old_stderr)
     return returned
   end
-
-  # TODO: try_require and try_require_gem (diff require 'readline' vs require 'term/ansicolor')
 
   # for quick inspection
   # @since 0.0.2
