@@ -1,5 +1,28 @@
 # encoding: utf-8
 
-specroot = File.dirname(__FILE__)
-require File.join(specroot, "..", "lib", "rango")
-require File.join(specroot, "factories.rb")
+SPEC_ROOT = File.dirname(__FILE__)
+require File.join(SPEC_ROOT, "..", "lib", "rango")
+require File.join(SPEC_ROOT, "factories.rb")
+
+class RecursiveOpenStruct < OpenStruct
+  def initialize(attributes = Hash.new)
+    attributes.each do |key, value|
+      if value.is_a?(Hash)
+        attributes[key] = OpenStruct.new(value)
+      end
+    end
+    super(attributes)
+  end
+end
+
+module Spec
+  module Matchers
+    def match(expected)
+      Matcher.new :match, expected do |expected|
+        match do |actual|
+          actual.match(expected)
+        end
+      end
+    end
+  end
+end
