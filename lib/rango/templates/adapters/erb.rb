@@ -1,19 +1,37 @@
 # encoding: utf-8
 
+# This adapter is intended just for little applications which we like to have without external applications or for testing. For normal application it's much better to use Erubis, which is much faster and has more useful features.
+
+# Does NOT support:
+#   - caching
+#   - autoescaping
+#   - contexts
+
 require "erb"
 Rango.import("templates/adapter")
 
 module Rango
   module Templates
-    class Erb < ::Rango::Templates::Adapter
+    class ErbAdapter < Adapter
+      # @since 0.0.3
+      def initialize
+        not_implemented("cache files") if Project.settings.template.caching
+        not_implemented("autoescape")  if Project.settings.template.autoescaping
+      end
+
       # @since 0.0.2
       def render(io, context)
-        ::ERB.new(io.read).result(context.binding)
+        ERB.new(io.read).result(context.binding)
+      end
+
+      private
+      def not_implemented(feature)
+        raise NotImplementedError, "ErbAdapter don't know how to #{feature}"
       end
     end
   end
 
-  class Controller
+  module ControllerMixin
     # ==== Parameters
     # *args:: Arguments to pass to the block.
     # &block:: The template block to call.
