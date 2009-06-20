@@ -8,7 +8,12 @@
 require "erubis"
 Rango.import("templates/adapter")
 
-# TODO: fast a escaped dohromady
+module Erubis
+  class FastEscapedEruby < FastEruby
+    include EscapeEnhancer
+  end
+end
+
 module Rango
   module Templates
     class ErubisAdapter < Adapter
@@ -17,7 +22,7 @@ module Rango
         if Project.settings.erubis.custom_class
           klass = Project.settings.erubis.custom_class
         elsif Project.settings.template.autoescape
-          klass = Erubis::EscapedEruby
+          klass = Erubis::FastEscapedEruby
         else
           klass = Erubis::FastEruby
         end
