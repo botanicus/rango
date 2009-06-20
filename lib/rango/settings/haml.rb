@@ -5,7 +5,7 @@ module Rango
     class Haml < Settings
       # @since 0.0.2
       # Determines the output format. The default is :xhtml. Other options are :html4 and :html5, which are identical to :xhtml except there are no self-closing tags, XML prolog is ignored and correct DOCTYPEs are generated.
-      hattribute :format, :xhtml
+      hattribute :format, :xhtml # TODO: take from Project.settings.template.format
 
       # @since 0.0.2
       # Sets whether or not to escape HTML-sensitive characters in script. If this is true, = behaves like &=; otherwise, it behaves like !=. Note that if this is set, != should be used for yielding to subtemplates and rendering partials. Defaults to false.
