@@ -1,0 +1,11 @@
+<ul>
+  <% 1.upto(3) do |step| %>
+    <% @code = capture_erubis do %>
+      <li><%= step %></li>
+    <% end %>
+  <% end %>
+</ul>
+
+<pre>
+<%= @code %>
+</pre>
