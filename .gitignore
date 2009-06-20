@@ -5,4 +5,5 @@ doc/head
 pkg/
 nbproject/
 *.itProject
+*.cache
 Thumb.db

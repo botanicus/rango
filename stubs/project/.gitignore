@@ -3,3 +3,4 @@
 .*.swp
 .*.swo
 settings_local.rb
+*.cache
