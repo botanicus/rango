@@ -12,8 +12,4 @@ describe Rango do
       Rango.environment.should eql("development")
     end
   end
-
-  describe ".dependency" do
-    # TODO
-  end
 end
