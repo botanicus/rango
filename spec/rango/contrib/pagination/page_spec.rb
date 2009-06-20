@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 # version 1.0
-require File.join(File.dirname(__FILE__), '..', '..', '..', "spec_helper")
+require_relative "../../../spec_helper"
 require "rango/contrib/pagination/page"
 
 describe Page do

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-require File.join(Dir.pwd, "spec", "spec_helper")
+require_relative "../spec_helper"
 
 describe Rango::Controller do
   it "should respond to request" do
