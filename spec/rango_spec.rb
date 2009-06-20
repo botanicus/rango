@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-# don't require spec helper, we do not need to init rango environment
-require File.join(Dir.pwd, "lib", "rango")
+require_relative "../spec_helper"
 
 describe Rango do
   it "should have version and codename" do
