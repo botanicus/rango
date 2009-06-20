@@ -38,5 +38,15 @@ module Rango
         messages.map { |message| tag :li, message }
       end
     end
+
+    def truncate(text, *args)
+      options = args.extract_options!
+      unless args.empty?
+        options[:size]     = args[0] || 75
+        options[:omission] = args[1] || "..."
+      end
+      options.reverse_merge!(:size => 75, :omission => "...")
+      text.scan(/(\S+)(\s+)/)[0..options[:size]].flatten.join << options[:omission] if text
+    end
   end
 end
