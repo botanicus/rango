@@ -1,60 +1,60 @@
 # encoding: utf-8
 
+# Features:
+#   - autoescaping
+#   - caching
+#   - preprocessing (not yet, see ticket #68)
+
 require "erubis"
 Rango.import("templates/adapter")
 
+# TODO: fast a escaped dohromady
 module Rango
   module Templates
-    class Erubis < ::Rango::Templates::Adapter
-      # TODO: context {foo: "bar"} => @foo instead of just foo
-      # http://www.kuwata-lab.com/erubis/users-guide.02.html#tut-context
-
-      # TODO: result vs. evaluate
-      # http://www.kuwata-lab.com/erubis/users-guide.02.html#tut-context
-      # http://www.kuwata-lab.com/erubis/users-guide.06.html#topics-context-vs-binding
-
-      # TODO: maybe preprocessing
-      # http://www.kuwata-lab.com/erubis/users-guide.05.html#rails-preprocessing
-      # http://www.kuwata-lab.com/erubis/users-guide.06.html#topics-caching
-
+    class ErubisAdapter < Adapter
       # @since 0.0.2
-      # @see http://www.kuwata-lab.com/erubis/users-guide.02.html#tut-escape
-      def render(io, context)
+      def render(io, context = Hash.new)
         if Project.settings.erubis.custom_class
           klass = Project.settings.erubis.custom_class
-        elsif Project.settings.autoescape
-          klass = ::Erubis::EscapedEruby
+        elsif Project.settings.template.autoescape
+          klass = Erubis::EscapedEruby
         else
-          klass = ::Erubis::Eruby
+          klass = Erubis::FastEruby
         end
-        pattern = Project.settings.erubis_pattern
-        klass.new(io.read).result(context, binding, pattern: pattern)
+        pattern = Project.settings.erubis.pattern
+        # Erubis::Engine.load_file is good for caching
+        # http://www.kuwata-lab.com/erubis/users-guide.06.html#topics-caching
+        if Project.settings.template.caching
+          begin
+            template = klass.load_file(io.path, pattern: pattern, filename: io.path)
+          rescue NoMethodError
+            Rango.logger.error("Class #{klass} must respond to load_file method if you like to use caching")
+          end
+        else
+          template = klass.new(io.read, pattern: pattern, filename: io.path)
+        end
+        template.extend(CaptureErubis)
+        return template.result(context)
       end
     end
   end
 
-  class Controller
-    # ==== Parameters
-    # *args:: Arguments to pass to the block.
-    # &block:: The template block to call.
-    #
-    # ==== Returns
-    # String:: The output of the block.
-    #
-    # ==== Examples
-    # Capture being used in a .html.erb page:
-    #
+  module CaptureErubis
+    # @example Capture being used in a .html.erb page:
     #   <% @foo = capture do %>
     #     <p>Some Foo content!</p>
     #   <% end %>
     #
-    # :api: private
+    # @params [*args]  Arguments to pass to the block.
+    # @params [&block] The template block to call.
+    # @return [String] The output of the block.
+    # @api private
     def capture_erubis(*args, &block)
       _old_buf, @_erb_buf = @_erb_buf, ""
       block.call(*args)
-      ret = @_erb_buf
-      @_erb_buf = _old_buf
-      ret
+      @_erb_buf.dup.tap do |buf|
+        @_erb_buf = _old_buf
+      end
     end
   end
 end
