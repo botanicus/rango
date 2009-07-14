@@ -26,4 +26,27 @@ class Hash
     end
     return self
   end
+
+  # Simplier syntax for code such as params[:post] && params[:post][:title]
+  # 
+  # @author Jakub Stastny aka Botanicus
+  # @param [Object] First argument is the key of the hash, the second one the key of the inner hash selected by the first key etc.
+  # @return [Object, nil] The value of the most inner hash if found or nil.
+  # @raise [ArgumentError] If you don't specify keys.
+  # 
+  # @example
+  #   {a: {b: 1}}.get(:a, :b)     # => 1
+  #   {a: {b: 1}}.get(:a, :b, :c) # => nil
+  #   {a: {b: 1}}.get(:a, :c)     # => nil
+  def get(*keys)
+    raise ArgumentError, "You must specify at least one key" if keys.empty?
+    keys.inject(self) do |object, key|
+      # Hash#fetch works similar as Hash#[], but [] method is
+      # defined for too many objects, also strings and even numbers
+      object.respond_to?(:fetch) ? object.fetch(key) : (return nil)
+    end
+  # Hash#fetch raise IndexError if key doesn't exist
+  rescue IndexError
+    return nil
+  end
 end
