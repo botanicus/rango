@@ -43,7 +43,7 @@ describe Rango::Templates::ErubisAdapter do
     end
 
     it "should Project.settings.erubis.pattern" do
-      pending "Probably Erubis problem" do
+      pending "Probably Erubis problem [issue #69]" do
         Project.settings.erubis.pattern = "[$ $]"
         file = edit_template { |content| content.gsub("<%", "[$").gsub("<%", "[$") }
         body = @engine.render(file)
