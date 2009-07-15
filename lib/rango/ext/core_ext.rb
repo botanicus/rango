@@ -8,11 +8,10 @@ class Hash
   end
 
   def symbolize_keys
-    output = Hash.new
-    self.each do |key, value|
-      output[key.to_sym] = value
+    self.inject(Hash.new) do |result, array|
+      result[array.first.to_sym] = array.last
+      result
     end
-    return output
   end
 
   def symbolize_keys!
@@ -20,15 +19,15 @@ class Hash
   end
 
   def deep_symbolize_keys
-    output = Hash.new
-    self.each do |key, value|
-      if value.is_a?(Hash)
-        output[key.to_sym] = value.symbolize_keys
+    self.inject(Hash.new) do |result, array|
+      key, value = array.first, array.last
+      if value.respond_to?(:symbolize_keys)
+        result[key.to_sym] = value.symbolize_keys
       else
-        output[key.to_sym] = value
+        result[key.to_sym] = value
       end
+      result
     end
-    return output
   end
 
   def deep_symbolize_keys!
