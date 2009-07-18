@@ -5,6 +5,7 @@ class Spec < Thor
     gem "rspec"
     require "spec/autorun"
   end
+
   desc "rango [path]", "Run Rango specs"
   def rango(path = "spec")
     spec(path, "--options", "spec/spec.opts")
