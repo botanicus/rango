@@ -26,7 +26,7 @@ module Kernel
     gemname, options = library, gemname if gemname.is_a?(Hash) && options.empty?
     require library
   rescue LoadError => exception
-    message  = "Gem #{gemname} isn't installed. Run sudo gem install #{gemname}."
+    message  = "Gem #{gemname} isn't installed. Run sudo gem install #{gemname}. (#{exception.inspect})"
     logger   = Rango.logger.method(options[:level] || :error)
     callable = defined?(Rango.logger) ? logger : method(:puts)
     callable.call(message)
