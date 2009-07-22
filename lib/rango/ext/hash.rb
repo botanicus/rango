@@ -13,6 +13,7 @@ class Hash
     self.replace(self.reverse_merge(another))
   end
 
+  # @deprecated
   def to_native
     self.each do |key, value|
       value = case value
@@ -36,17 +37,23 @@ class Hash
   # 
   # @example
   #   {a: {b: 1}}.get(:a, :b)     # => 1
-  #   {a: {b: 1}}.get(:a, :b, :c) # => nil
+  #   {a: {b: 1}}.get(:a, :b, :c) # => IndexError
   #   {a: {b: 1}}.get(:a, :c)     # => nil
   def get(*keys)
     raise ArgumentError, "You must specify at least one key" if keys.empty?
     keys.inject(self) do |object, key|
       # Hash#fetch works similar as Hash#[], but [] method is
       # defined for too many objects, also strings and even numbers
-      object.respond_to?(:fetch) ? object.fetch(key) : (return nil)
+      if object.respond_to?(:fetch)
+        begin
+          object.fetch(key)
+        # Hash#fetch raise IndexError if key doesn't exist
+        rescue IndexError
+          return nil
+        end
+      else
+        raise IndexError, "Object #{object.inspect} isn't hash-like collection"
+      end
     end
-  # Hash#fetch raise IndexError if key doesn't exist
-  rescue IndexError
-    return nil
   end
 end
