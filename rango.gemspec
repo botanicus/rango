@@ -15,8 +15,8 @@ end
 # when I'm using Ruby 1.8 and VERSION = "foo" unless defined?(VERSION),
 # it will use RUBY_VERSION as VERSION and create gem rango-1.8.6.gem
 module Rango
-  VERSION  = "0.0.3" unless defined?(VERSION)
-  CODENAME = "Smart Kangaroo" unless defined?(CODENAME)
+  VERSION  = "0.0.3" unless defined?(Rango::VERSION)
+  CODENAME = "Smart Kangaroo" unless defined?(Rango::CODENAME)
   SPECIFICATION = ::Gem::Specification.new do |s|
     s.name = "rango"
     # s.version = Rango::VERSION
@@ -37,5 +37,5 @@ module Rango
     s.require_paths = ["lib"]
     s.required_ruby_version = ::Gem::Requirement.new(">= 1.9.1")
     s.rubyforge_project = "rango"
-  end unless defined?(SPECIFICATION)
+  end unless defined?(Rango::SPECIFICATION)
 end
