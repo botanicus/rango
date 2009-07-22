@@ -19,7 +19,7 @@ class File
     self.write(:print, "w", file, *chunks)
   end
 
-  # File.write :printf, "~/.bashrc", "%d %04x", 123, 123
+  # File.write :printf, "w", "~/.bashrc", "%d %04x", 123, 123
   def self.write(method, mode, file, *args)
     self.expand_path(file).tap do |path|
       self.open(path, mode) { |file| file.send(method, *args) }
