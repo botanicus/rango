@@ -10,6 +10,7 @@ describe File do
 
   after(:each) do
     FileUtils.rm(File.expand_path(@path), force: true)
+    FileUtils.rm(File.expand_path("#{@path}.rw"), force: true)
   end
 
   describe ".puts" do
