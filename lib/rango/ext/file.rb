@@ -9,14 +9,10 @@ class File
     self.write(:print, file, *chunks)
   end
 
-  # File.printf "~/.bashrc", source, "%d %04x", 123, 123
-  def self.print(file, format, *chunks)
-    self.write(:printf, file, format, *chunks)
-  end
-
-  # File.write :printf, "~/.bashrc", source, "%d %04x", 123, 123
+  # File.write :printf, "~/.bashrc", "%d %04x", 123, 123
   def self.write(method, file, *args)
-    file = File.expand_path(file)
-    self.open(file, "w") { |file| file.send(method, *args) }
+    self.expand_path(file).tap do |path|
+      self.open(path, "w") { |file| file.send(method, *args) }
+    end
   end
 end
