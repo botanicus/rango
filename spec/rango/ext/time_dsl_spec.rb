@@ -2,7 +2,7 @@
 
 # Author: Martin Hrdlička
 
-require File.dirname(__FILE__) + '/../../spec_helper'
+require_relative "../../spec_helper"
 Rango.import("ext/time_dsl")
 
 SECOND      = 1
