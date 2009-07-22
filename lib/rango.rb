@@ -27,6 +27,11 @@ module Rango
   def self.root
     File.join(File.dirname(__FILE__), "rango")
   end
+
+  # realoder
+  # Rango.import("reloader")
+  # cattr_reader :reloader
+  # @@reloader = Rango::Reloader.new
 end
 
 Rango.import("rango")
