@@ -2,6 +2,7 @@
 
 require_relative "../../../lib/rango/ext/file"
 
+# TODO: don't test everything in $HOME
 describe File do
   before(:each) do
     @token = rand(360 ** 50).to_s(36)

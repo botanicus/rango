@@ -2,16 +2,15 @@
 
 # Author: Martin Hrdlička
 
-require_relative "../../spec_helper"
-Rango.import("ext/time_dsl")
+require_relative "../../../lib/rango/ext/time_dsl"
 
-SECOND      = 1
-MINUTE      = 60  * SECOND
-HOUR        = 60  * MINUTE
-DAY         = 24  * HOUR
-WEEK        = 7   * DAY
-MONTH       = 30  * DAY
-YEAR        = 365 * DAY + 6 * HOUR
+SECOND = 1
+MINUTE = 60  * SECOND
+HOUR   = 60  * MINUTE
+DAY    = 24  * HOUR
+WEEK   = 7   * DAY
+MONTH  = 30  * DAY
+YEAR   = 365 * DAY + 6 * HOUR
 
 describe TimeDSL do
   it "should return correct count of seconds for 1.second" do
@@ -73,6 +72,11 @@ describe TimeDSL do
   it "should return correct since time for any time" do
     actual_time = ::Time.now
     1.day.since(actual_time).should eql actual_time + DAY
+  end
+
+  it "should return correct time from now for any time" do
+    actual_time = ::Time.now
+    1.day.from_now(actual_time).should eql actual_time + DAY
   end
 
   it "should return correct time ago time for any time" do
