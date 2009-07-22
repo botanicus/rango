@@ -1,11 +1,7 @@
-# encoding: utf-8
-
 #!/usr/bin/env rackup -s thin -p 4000
 # encoding: utf-8
 
-require "rango"
-
-Rango.boot
+require_relative "init"
 
 use Rango::Basic
 
