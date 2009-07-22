@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class File
   # File.append "~/.bashrc", source
   def self.append(file, *chunks)
