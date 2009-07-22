@@ -3,7 +3,7 @@
 # stolen from merb-helpers
 
 # Provides a a simple way of calling time units and to see the elapsed time between 2 moments
-# ==== Examples
+# @example
 #   142.minutes => returns a value in seconds
 #   7.days => returns a value in seconds
 #   1.week => returns a value in seconds
@@ -11,7 +11,6 @@
 #   1.year.since(time) => returns a date
 #   5.months.since(2.weeks.from_now) => returns a date
 module TimeDSL
-
   def second
     self * 1
   end
