@@ -48,11 +48,6 @@ module Kernel
     return false
   end
 
-  # @since 0.0.3
-  def acquire(glob)
-    Dir[glob].all? { |file| require(file) }
-  end
-
   def command(command)
     puts command
     puts %x[#{command}]
