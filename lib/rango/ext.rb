@@ -1,6 +1,20 @@
 # encoding: utf-8
 
 module Kernel
+  # Require all files matching given glob relative to $:
+  #
+  # @author Botanicus
+  # @since 0.0.3
+  # @param [String] library Glob of files to require
+  # @param [Hash] params Optional parameters.
+  # @option params [String, Array<String>] :exclude File or list of files or globs relative to base directory
+  # @raise [LoadError] If base directory doesn't exist
+  # @raise [ArgumentError] If first argument isn't a glob
+  # @return [Array<String>] List of successfully loaded files
+  # @examples
+  #   acquire "lib/*"
+  #   acquire "lib/**/*", exclude: "**/*_spec.rb"
+  #   acquire "lib/**/*", exclude: ["**/*_spec.rb", "lib/init.rb"]
   def acquire(glob, params = Hash.new)
     base, glob = get_base_and_glob(glob)
     $:.compact.find do |path|
@@ -10,6 +24,20 @@ module Kernel
     raise LoadError, "Directory #{base} doesn't exist in $:"
   end
 
+  # Require all files matching given glob relative to current file
+  #
+  # @author Botanicus
+  # @since 0.0.3
+  # @param [String] library Glob of files to require
+  # @param [Hash] params Optional parameters.
+  # @option params [String, Array<String>] :exclude File or list of files or globs relative to base directory
+  # @raise [LoadError] If base directory doesn't exist
+  # @raise [ArgumentError] If first argument isn't a glob
+  # @return [Array<String>] List of successfully loaded files
+  # @examples
+  #   acquire "lib/*"
+  #   acquire "lib/**/*", exclude: "**/*_spec.rb"
+  #   acquire "lib/**/*", exclude: ["**/*_spec.rb", "lib/init.rb"]
   def acquire_relative(glob, params = Hash.new)
     base, glob = get_base_and_glob(glob)
     path = File.dirname(caller[0].split(":").first)
