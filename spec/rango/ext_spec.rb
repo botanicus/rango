@@ -49,10 +49,17 @@ describe Kernel do
       end
     end
 
-    it "should require all files responding to given glob" do
+    it "should use .rb as default extension if any extension specified" do
       acquire "acqs/**/*"
-      loaded.should include("lib.rb")
-      loaded.should include("dir/lib.rb")
+      loaded.should     include("lib.rb")
+      loaded.should     include("dir/lib.rb")
+      loaded.should_not include("tasks.thor")
+    end
+
+    it "should load even files with another extension than just .rb" do
+      acquire "acqs/**/*.thor"
+      loaded.should     include("tasks.thor")
+      loaded.should_not include("lib.rb")
     end
 
     it "should ignore dotfiles" do
@@ -124,10 +131,17 @@ describe Kernel do
       end
     end
 
-    it "should require all files responding to given glob" do
+    it "should use .rb as default extension if any extension specified" do
       acquire_relative "../stubs/acqs/**/*"
-      loaded.should include("lib.rb")
-      loaded.should include("dir/lib.rb")
+      loaded.should     include("lib.rb")
+      loaded.should     include("dir/lib.rb")
+      loaded.should_not include("tasks.thor")
+    end
+
+    it "should load even files with another extension than just .rb" do
+      acquire_relative "../stubs/acqs/**/*.thor"
+      loaded.should     include("tasks.thor")
+      loaded.should_not include("lib.rb")
     end
 
     it "should ignore dotfiles" do

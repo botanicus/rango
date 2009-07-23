@@ -19,9 +19,15 @@ module Kernel
     base, glob = get_base_and_glob(glob)
     $:.compact.find do |path|
       fullpath = File.expand_path(File.join(path, base))
-      return __acquire__(fullpath, glob, params) if File.directory?(fullpath)
+      if File.directory?(fullpath)
+        return __acquire__(fullpath, glob, params.merge(soft: true))
+      end
     end
     raise LoadError, "Directory #{base} doesn't exist in $:"
+  end
+
+  def acquire!(glob, params = Hash.new)
+    self.acquire(glob, params.merge(soft: false))
   end
 
   # Require all files matching given glob relative to current file
@@ -43,7 +49,11 @@ module Kernel
     path = File.dirname(caller[0].split(":").first)
     full = File.expand_path(File.join(path, base))
     raise LoadError, "Directory #{base} doesn't exist in #{path}" unless File.directory?(full)
-    return __acquire__(full, glob, params)
+    return __acquire__(full, glob, params.merge(soft: true))
+  end
+
+  def acquire_relative!(glob, params = Hash.new)
+    self.acquire_relative(glob, params.merge(soft: false))
   end
 
   private
@@ -58,7 +68,9 @@ module Kernel
     excludes = excludes.flatten.compact
     files.select do |path|
       if File.file?(path) && !excludes.include?(path)
-        require path
+        soft_not_loaded = params[:soft] && ! $LOADED_FEATURES.include?(path)
+        load(path) if soft_not_loaded || ! params[:soft]
+        $LOADED_FEATURES.push(path) if soft_not_loaded
       end
     end
   end
