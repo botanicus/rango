@@ -1,0 +1,13 @@
+h1. About
+
+These small applications are examples of usage Rango web framework
+
+h1. Content
+
+h2. Flat applications
+
+In this directory you can find different low-level Rango applications. This type of applications is proper for writing small webservices. If you need something bigger, real web application, take a look at the Twitter application.
+
+h2. Twitter
+
+This is simple, but working example of web application created in Rango. It has warden-powered authentication, AJAX, MVC ...

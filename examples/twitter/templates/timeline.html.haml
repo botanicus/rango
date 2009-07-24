@@ -1,0 +1,10 @@
+- extends "base.html"
+
+- block "head" do
+  / TODO: something timeline-specific
+  %script{:src => "/mootools/core.js"}
+
+= block "content" do
+  %h1 Posts
+  - @posts.each do |post|
+    = post.title
