@@ -38,6 +38,22 @@ class Stats < Thor
     self.count(Dir.glob("support/hooks/*"))
   end
 
+  desc "examples", "Lines of code in examples"
+  def examples
+    self.count(Dir.glob("examples/*.rb"))
+  end
+
+  desc "benchmarks", "Lines of code in benchmarks"
+  def benchmarks
+    self.count(Dir.glob("benchmarks/bm/*.rb"))
+  end
+
+  desc "features", "Lines of code in Cucumber features"
+  def features
+    self.count(Dir.glob("features/*.feature"))
+    self.count(Dir.glob("features/*_step.rb"))
+  end
+
   protected
   def count(files)
     altogether = 0
