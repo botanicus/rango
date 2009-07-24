@@ -14,8 +14,8 @@ class Stats < Thor
 
   desc "all", "Lines of code altogether"
   def all
-    self.run(:libs, :specs, :tasks, :hooks)
-    self.altogether(@altogether)
+    tasks = [:libs, :specs, :features, :benchmarks, :tasks, :hooks]
+    self.run(*tasks); self.altogether(@altogether)
   end
 
   desc "libs", "Lines of code in library"
