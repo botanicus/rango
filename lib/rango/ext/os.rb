@@ -25,5 +25,3 @@ class OS < BlankSlate
     ENV["UID"].is?(0)
   end
 end
-
-OS = OS.new
