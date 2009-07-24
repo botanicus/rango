@@ -1,6 +1,8 @@
 # encoding: utf-8
 
-class OS < BasicObject
+require "blankslate"
+
+class OS < BlankSlate
   def initialize(env = ENV)
     keys(env).each do |key|
       if key.match(/(PATH|LIB)$/)
