@@ -12,8 +12,8 @@
 # [classes] an html file for each class or module encountered.
 #           These classes are not grouped by file: if a file
 #           contains four classes, we'll generate an html
-#           file for the file itself, and four html files 
-#           for the individual classes. 
+#           file for the file itself, and four html files
+#           for the individual classes.
 #
 # Method descriptions appear in whatever entity (file, class,
 # or module) that contains them.
@@ -51,10 +51,10 @@ module Generators
 
     ##
     # Build a hash of all items that can be cross-referenced.
-    # This is used when we output required and included names: 
+    # This is used when we output required and included names:
     # if the names appear in this hash, we can generate
     # an html cross reference to the appropriate description.
-    # We also use this when parsing comment blocks: any decorated 
+    # We also use this when parsing comment blocks: any decorated
     # words matching an entry in this list are hyperlinked.
 
     class AllReferences
@@ -173,7 +173,7 @@ module Generators
         def handle_special_TIDYLINK(special)
             text = special.text
             #      unless text =~ /(\S+)\[(.*?)\]/
-            unless text =~ /\{(.*?)\}\[(.*?)\]/ or text =~ /(\S+)\[(.*?)\]/ 
+            unless text =~ /\{(.*?)\}\[(.*?)\]/ or text =~ /(\S+)\[(.*?)\]/
                 return text
             end
             label = $1
@@ -205,7 +205,7 @@ module Generators
                 @markup.add_special(/(
                 \b([A-Z]\w*(::\w+)*[.\#]\w+)  #    A::B.meth
                 | \b([A-Z]\w+(::\w+)*)       #    A::B..
-                | \#\w+[!?=]?                #    #meth_name 
+                | \#\w+[!?=]?                #    #meth_name
                 | \b\w+([_\/\.]+\w+)+[!?=]?  #    meth_name
                 )/x, :CROSSREF)
 
@@ -240,7 +240,7 @@ module Generators
 
 
         def style_url(path, css_name=nil)
-            css_name ||= CSS_NAME      
+            css_name ||= CSS_NAME
         end
 
         # Build a webcvs URL with the given 'url' argument. URLs with a '%s' in them
@@ -262,7 +262,7 @@ module Generators
     # A Context is built by the parser to represent a container: contexts
     # hold classes, modules, methods, require lists and include lists.
     # ClassModule and TopLevel are the context objects we process here
-    # 
+    #
     class ContextUser
 
         include MarkUp
@@ -362,12 +362,12 @@ module Generators
         def potentially_referenced_list(array)
             res = []
             array.each do |i|
-                ref = AllReferences[i.name] 
+                ref = AllReferences[i.name]
                 #         if !ref
                 #           container = @context.parent
                 #           while !ref && container
                 #             name = container.name + "::" + i.name
-                #             ref = AllReferences[name] 
+                #             ref = AllReferences[name]
                 #             container = container.parent
                 #           end
                 #         end
@@ -402,12 +402,12 @@ module Generators
 
             methods = @methods.sort
             for singleton in [true, false]
-                for vis in [ :public, :protected, :private ] 
+                for vis in [ :public, :protected, :private ]
                     res = []
                     methods.each do |m|
                         if m.section == section and
-                            m.document_self and 
-                            m.visibility == vis and 
+                            m.document_self and
+                            m.visibility == vis and
                             m.singleton == singleton
                             row = {}
                             if m.call_seq
@@ -430,7 +430,7 @@ module Generators
                                         'name' => other.name,
                                         'href' => other.viewer.path,
                                         'aref'  => other.viewer.aref
-                                    } 
+                                    }
                                 end
                             end
                             unless alias_names.empty?
@@ -450,7 +450,7 @@ module Generators
                             res << row
                         end
                     end
-                    if res.size > 0 
+                    if res.size > 0
                         outer << {
                             "type"    => vis.to_s.capitalize,
                             "category"    => singleton ? "Class" : "Instance",
@@ -463,7 +463,7 @@ module Generators
         end
 
         # Build the structured list of classes and modules contained
-        # in this context. 
+        # in this context.
 
         def build_class_list(level, from, section, infile=nil)
             res = ""
@@ -473,7 +473,7 @@ module Generators
                 next unless mod.section == section
                 next if infile && !mod.defined_in?(infile)
                 if mod.document_self
-                    res << 
+                    res <<
                     prefix <<
                     "Module " <<
                     href(mod.viewer.path, "link", mod.full_name) <<
@@ -487,7 +487,7 @@ module Generators
                 next if infile && !cls.defined_in?(infile)
                 if cls.document_self
                     res      <<
-                    prefix << 
+                    prefix <<
                     "Class " <<
                      href(cls.viewer.path, "link", cls.full_name) <<
                     "<br />\n" <<
@@ -589,7 +589,7 @@ module Generators
                 a.pop
                 a.join("::")
             else
-                "" 
+                ""
             end
         end
 
@@ -672,8 +672,8 @@ module Generators
                 next unless att.section == section
                 if att.visibility == :public || att.visibility == :protected || @options.show_all
                     entry = {
-                        "name"   => CGI.escapeHTML(att.name), 
-                        "rw"     => att.rw, 
+                        "name"   => CGI.escapeHTML(att.name),
+                        "rw"     => att.rw,
                         "a_desc" => markup(att.comment, true)
                     }
                     unless att.visibility == :public || att.visibility == :protected
@@ -805,7 +805,7 @@ module Generators
 
         def full_file_source
             ret_str = ""
-            File.open(@source_file_path, 'r') do |f| 
+            File.open(@source_file_path, 'r') do |f|
                 while(!f.eof?) do
                     ret_str += f.readline()
                 end
@@ -1090,7 +1090,7 @@ module Generators
         end
 
         # we rely on the fact that the first line of a source code
-        # listing has 
+        # listing has
         #    # File xxxxx, line dddd
 
         def add_line_numbers(src)
@@ -1101,7 +1101,7 @@ module Generators
                 real_fmt = "%#{size}d: "
                 fmt = " " * (size+2)
                 src.gsub!(/^/) do
-                    res = sprintf(fmt, first) 
+                    res = sprintf(fmt, first)
                     first += 1
                     fmt = real_fmt
                     res
@@ -1160,7 +1160,7 @@ module Generators
         ##
         # Build the initial indices and output objects
         # based on an array of TopLevel objects containing
-        # the extracted information. 
+        # the extracted information.
 
         def generate(toplevels)
             @toplevels  = toplevels
@@ -1203,20 +1203,20 @@ module Generators
                 template.write_html_on(f, values)
             end
         end
-        
+
         def write_javascript
             #Argh... I couldn't figure out how to copy these from the template dir so they were copied into
             # the template file "ajax.rb" and processed similarlly to the style sheets. Not exactly a good thing to do with
             # external library code. Not very DRY.
-                
+
             File.open("api_grease.js", "w") do |f|
                 f << RDoc::Page::API_GREASE_JS
             end
-            
+
             File.open("prototype.js", "w") do |f|
                 f << RDoc::Page::PROTOTYPE_JS
             end
-            
+
         rescue LoadError
             $stderr.puts "Could not find AJAX template"
             exit 99
@@ -1228,7 +1228,7 @@ module Generators
 
         def gen_sub_directories
             File.makedirs(FILE_DIR, CLASS_DIR)
-        rescue 
+        rescue
             $stderr.puts $!.message
             exit 1
         end
@@ -1289,8 +1289,8 @@ module Generators
         end
 
         def gen_file_index
-            gen_an_index(@files, 'Files', 
-            RDoc::Page::FILE_INDEX, 
+            gen_an_index(@files, 'Files',
+            RDoc::Page::FILE_INDEX,
             "fr_file_index.html")
         end
 
@@ -1301,7 +1301,7 @@ module Generators
         end
 
         def gen_method_index
-            gen_an_index(HtmlMethod.all_methods, 'Methods', 
+            gen_an_index(HtmlMethod.all_methods, 'Methods',
             RDoc::Page::METHOD_INDEX,
             "fr_method_index.html")
         end
@@ -1347,7 +1347,7 @@ module Generators
                     'charset'      => @options.charset,
                     'content'      => File.read('files/README.html')
                 }
-            
+
                 values['inline_source'] = true
                 template.write_html_on(f, values)
             end

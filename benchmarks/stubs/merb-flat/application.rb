@@ -13,5 +13,5 @@ class MerbFlat < Merb::Controller
   def foo
     render
   end
-  
+
 end

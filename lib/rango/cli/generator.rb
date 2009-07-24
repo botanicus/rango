@@ -65,7 +65,7 @@ module Rango
         dirs.map! { |dir| "#{dir}/#{@type}" }
         dirs.find { |dir| Dir.exist?(dir) }
       end
-      
+
       def content_dir
         "#{@stubs_dir}/content"
       end
@@ -76,7 +76,7 @@ module Rango
           self.proceed
         end
       end
-      
+
       def proceed
         Rango.logger.info("Creating #{@type} #{@name} from stubs in #{@stubs_dir}")
         FileUtils.mkdir_p(@name)

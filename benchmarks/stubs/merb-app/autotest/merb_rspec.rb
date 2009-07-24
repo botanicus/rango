@@ -5,18 +5,18 @@ require 'autotest'
 
 class RspecCommandError < StandardError; end
 
-# This class maps your application's structure so Autotest can understand what 
+# This class maps your application's structure so Autotest can understand what
 # specs to run when files change.
 #
-# Fixtures are _not_ covered by this class. If you change a fixture file, you 
-# will have to run your spec suite manually, or, better yet, provide your own 
+# Fixtures are _not_ covered by this class. If you change a fixture file, you
+# will have to run your spec suite manually, or, better yet, provide your own
 # Autotest map explaining how your fixtures are set up.
 class Autotest::MerbRspec < Autotest
   def initialize
     super
 
     # Ignore any happenings in these directories
-    add_exception %r%^\./(?:doc|log|public|tmp|\.git|\.hg|\.svn|framework|gems|schema|\.DS_Store|autotest|bin|.*\.sqlite3|.*\.thor)% 
+    add_exception %r%^\./(?:doc|log|public|tmp|\.git|\.hg|\.svn|framework|gems|schema|\.DS_Store|autotest|bin|.*\.sqlite3|.*\.thor)%
     # Ignore SCM directories and custom Autotest mappings
     %w[.svn .hg .git .autotest].each { |exception| add_exception(exception) }
 
@@ -77,7 +77,7 @@ class Autotest::MerbRspec < Autotest
 
     # If any of the major files governing the environment are altered, run
     # everything
-    add_mapping %r%^config/(init|rack|environments/test).*\.rb|database\.yml% do 
+    add_mapping %r%^config/(init|rack|environments/test).*\.rb|database\.yml% do
       all_specs
     end
   end

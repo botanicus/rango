@@ -14,7 +14,7 @@ module TemplateHelpers
   def template_path(basename)
     File.join(STUBS_ROOT, basename)
   end
-  
+
   def template(basename)
     File.new(template_path(basename))
   end
@@ -24,7 +24,7 @@ module TemplateHelpers
     file.puts(block.call(@template.read))
     file.open
   end
-  
+
   def clean_cache
     Dir["#{STUBS_ROOT}/*.cache"].each do |file|
       FileUtils.rm(file)

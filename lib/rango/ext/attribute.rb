@@ -7,6 +7,18 @@ require "extlib"
 
 # default value for attr
 module AttributeMixin
+  # class Array
+  #   private_alias :join
+  #   def join(char)
+  #     puts "New join!"
+  #     __join__(char)
+  #   end
+  # end
+  def private_alias(method)
+    alias_method "__#{method}__", method
+    private "__#{method}__"
+  end
+
   # @since 0.0.1
   # @example
   #   class Post

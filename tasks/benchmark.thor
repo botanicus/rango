@@ -10,7 +10,7 @@ class Benchmark < Thor
   def initialize
     require "rbench"
   end
-  
+
   desc "all", "Run all benchmarks"
   def all
     Dir["#{Dir.pwd}/benchmarks/bm/*.rb"].each do |benchmark|

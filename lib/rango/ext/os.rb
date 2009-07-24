@@ -1,9 +1,8 @@
 # encoding: utf-8
 
 class OS < BasicObject
-  class << self
-    KEYS = ENV.keys.select { |key, value| key.match(/^[A-Z][A-Z_]*$/) }
-    KEYS.each do |key|
+  def initialize(env = ENV)
+    keys(env).each do |key|
       if key.match(/(PATH|LIB)$/)
         # OS.path
         # => ["/bin", "/usr/bin", "/sbin", "/usr/sbin"]
@@ -15,4 +14,14 @@ class OS < BasicObject
       end
     end
   end
+
+  def keys(env = ENV)
+    @@keys ||= env.keys.select { |key, value| key.match(/^[A-Z][A-Z_]*$/) }
+  end
+
+  def root?
+    ENV["UID"].is?(0)
+  end
 end
+
+OS = OS.new

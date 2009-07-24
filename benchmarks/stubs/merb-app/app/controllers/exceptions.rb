@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class Exceptions < Merb::Controller
-  
+
   # handle NotFound exceptions (404)
   def not_found
     render :format => :html

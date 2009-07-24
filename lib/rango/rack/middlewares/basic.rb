@@ -41,7 +41,7 @@ module Rango
         Rack::Session::Cookie.new(@app, path: '/').call(env)
         #, key: 'rack.session', domain: 'foo.com', path: '/', expire_after: 2592000, secret: 'change_me'
       end
-    
+
     end
   end
 end

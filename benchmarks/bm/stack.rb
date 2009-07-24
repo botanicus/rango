@@ -11,9 +11,9 @@ RBench.run(100) do
   column :sinatra, title: "Sinatra"
   column :merb,    title: "Merb"
   column :rails,   title: "Rails"
-  
+
   report "Basic request/response processing" do
   end
-  
+
   summary "All requests"
 end

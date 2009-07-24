@@ -99,14 +99,14 @@ class Hash
   end
 
   # Simplier syntax for code such as params[:post] && params[:post][:title]
-  # 
+  #
   # @author Jakub Stastny aka Botanicus
   # @since 0.0.3
   # @param [Object] First argument is the key of the hash, the second one the key of the inner hash selected by the first key etc.
   # @return [Object, nil] The value of the most inner hash if found or nil.
   # @raise [ArgumentError] If you don't specify keys.
   # @raise [IndexError] If you work with final result as with hash, so basically you are trying to call fetch method on string or whatever.
-  # 
+  #
   # @example
   #   {a: {b: 1}}.get(:a, :b)     # => 1
   #   {a: {b: 1}}.get(:a, :b, :c) # => IndexError

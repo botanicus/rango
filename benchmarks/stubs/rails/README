@@ -1,7 +1,7 @@
 == Welcome to Rails
 
-Rails is a web-application framework that includes everything needed to create 
-database-backed web applications according to the Model-View-Control pattern. 
+Rails is a web-application framework that includes everything needed to create
+database-backed web applications according to the Model-View-Control pattern.
 
 This pattern splits the view (also called the presentation) into "dumb" templates
 that are primarily responsible for inserting pre-built data in between HTML tags.
@@ -57,14 +57,14 @@ Options +FollowSymLinks +ExecCGI
 
 # If you don't want Rails to look in certain directories,
 # use the following rewrite rules so that Apache won't rewrite certain requests
-# 
+#
 # Example:
 #   RewriteCond %{REQUEST_URI} ^/notrails.*
 #   RewriteRule .* - [L]
 
 # Redirect all requests not available on the filesystem to Rails
 # By default the cgi dispatcher is used which is very slow
-# 
+#
 # For better performance replace the dispatcher with the fastcgi one
 #
 # Example:
@@ -85,7 +85,7 @@ RewriteRule ^(.*)$ dispatch.cgi [QSA,L]
 
 # In case Rails experiences terminal errors
 # Instead of displaying this message you can supply a file here which will be rendered instead
-# 
+#
 # Example:
 #   ErrorDocument 500 /500.html
 
@@ -132,7 +132,7 @@ and also on programming in general.
 
 Debugger support is available through the debugger command when you start your Mongrel or
 Webrick server with --debugger. This means that you can break out of execution at any point
-in the code, investigate and change the model, AND then resume execution! 
+in the code, investigate and change the model, AND then resume execution!
 You need to install ruby-debug to run the server in debugging mode. With gems, use 'gem install ruby-debug'
 Example:
 

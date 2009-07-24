@@ -162,14 +162,14 @@ function loadDefaults(){
 }
 
 function resizeDivs(){
-	var inner_height = 700; 
+	var inner_height = 700;
 	if (window.innerHeight){
 		inner_height = window.innerHeight; //all browsers except IE use this to determine the space available inside a window. Thank you Microsoft!!
 	}else{
 		if(document.documentElement.clientHeight > 0){ //IE uses this in 'strict' mode
 		inner_height = document.documentElement.clientHeight;
 		}else{
-			inner_height = document.body.clientHeight; //IE uses this in 'quirks' mode 
+			inner_height = document.body.clientHeight; //IE uses this in 'quirks' mode
 		}
 	}
 	$('rdocContent').style.height = (inner_height - 92) + "px";//Thankfully all browsers can agree on how to set the height of a div
@@ -480,7 +480,7 @@ function scrollToName(searcher_name){
 			scrollListToAnchor(a_array[found_index].id);//scroll to the item
 			setListActiveAnchor(a_array[found_index].id);//highlight the item
 		}
-	}else{ //since searcher name is blank 
+	}else{ //since searcher name is blank
 		//scrollListToIndex(a_array, 0);//scroll to the item
 		//setListActiveItem(a_array, 0);//highlight the item
 	}
@@ -620,7 +620,7 @@ function jsHref(url){
 //	return (direction)
 //}
 
-////returns the index of the element 
+////returns the index of the element
 //function binSearcher(regexp_pattern, list, start_index, stop_index){
 //	//divide the list in half
 //	var split_point = 0;

@@ -62,7 +62,7 @@ class Release < Thor
     %x[git add support/#{bundle}]
     %x[git commit support/Rango.tmbundle -m "Updated Rango TextMate bundle."]
   end
-  
+
   desc "twitter", "Send message to Twitter"
   def twitter(password)
     message = "Rango #{Rango::VERSION} have been just released! Install via RubyGems from RubyForge or GitHub!"

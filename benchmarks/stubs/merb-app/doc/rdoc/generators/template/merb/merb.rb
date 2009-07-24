@@ -230,7 +230,7 @@ HTML
 
 
 #### This is not used but kept for historical purposes
-########################## Source code ########################## 
+########################## Source code ##########################
 # Separate page onlye
 
 SRC_PAGE = <<HTML
@@ -296,7 +296,7 @@ INDEX = <<HTML
  	<meta name="author" content="created by Brian Chamberlain. You can contact me using 'blchamberlain' on the gmail." />
 	<meta name="keywords" content="merb, ruby, purple, monkey, dishwasher" />
 	<title>Merb | %title% API Documentation</title>
-	<link rel="stylesheet" href="http://merbivore.com/documentation/stylesheet.css" type="text/css" media="screen" />    
+	<link rel="stylesheet" href="http://merbivore.com/documentation/stylesheet.css" type="text/css" media="screen" />
 	<script type="text/javascript" src="http://merbivore.com/documentation/prototype.js" ></script>
 	<script type="text/javascript" src="http://merbivore.com/documentation/api_grease.js" ></script>
 </head>
@@ -326,7 +326,7 @@ INDEX = <<HTML
 <div id="floater">
 <strong>Documentation for %title% </strong><a href="#" onmouseover="$('tips').show();" onmouseout="$('tips').hide();">usage tips</a>
 <div id="tips" style="position:absolute;width:350px;top:15px;right:20px;padding:5px;border:1px solid #333;background-color:#fafafa;display:none;">
-	<p><strong>Some tips</strong> 
+	<p><strong>Some tips</strong>
 		<ul>
 			<li> Up/Down keys move through the search list</li>
 			<li> Return/enter key loads selected item</li>

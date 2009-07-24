@@ -4,14 +4,18 @@ require_relative "../../../lib/rango/ext/os"
 
 describe OS do
   describe "basic variables" do
+    before(:each) do
+      @os = OS.new(home: "/Users/botanicus", path: "/bin:/sbin")
+    end
+
     it "should be shortcut for ENV['variable']" do
-      OS.home.should eql(ENV["HOME"])
+      @os.home.should eql("/Users/botanicus")
     end
   end
 
   describe "variables ending with PATH or LIB" do
     it "should returns array of paths" do
-      OS.path.should eql(ENV["PATH"].split(":"))
+      @os.path.should eql(["/bin", "/sbin"])
     end
   end
 end

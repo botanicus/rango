@@ -81,13 +81,13 @@ describe Rango::Templates::ErubisAdapter do
     end
 
     describe "caching" do
-      after(:each) { clean_cache }    
+      after(:each) { clean_cache }
       it "should cache templates if Project.settings.template.caching is true" do
         Project.settings.template.caching = true
         @engine.render(@template)
         File.exist?("#{@template.path}.cache").should be_true
       end
-      
+
       it "should not cache templates if Project.settings.template.caching is false" do
         Project.settings.template.caching = false
         @engine.render(@template)

@@ -225,7 +225,7 @@ a:hover, h1 a:hover, h2 a:hover, .sectiontitle a:hover, #listScroller a:hover{
 	background-color: #22D716;
 	color: black ;
 	border: 1px solid #ccc;
-	padding: 0px 1px 1px 1px; 
+	padding: 0px 1px 1px 1px;
 }
 
 #listScroller small{
@@ -286,7 +286,7 @@ a:hover, h1 a:hover, h2 a:hover, .sectiontitle a:hover, #listScroller a:hover{
   font-size: 28px;
   margin: 20px 0px;
   border-bottom: 2px solid #CCCCCC;
-  
+
 /*  margin-top: 1em;
   margin-bottom: 1em;
   padding: 0.5em;
@@ -380,7 +380,7 @@ h2.title, .method .title {
   color: #7AAD00;
   font-size: 22px;
   margin: 10px 0px;
-  
+
 /*  font-size: large;
   border-bottom: 1px dashed black;
   margin: 0.3em;
