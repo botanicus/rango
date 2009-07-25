@@ -12,16 +12,19 @@ class String
     self.gsub(/\b./) { $&.upcase }
   end
 
+  # Transform self to +ColoredString+
   # @since 0.0.1
   # @example
   #   "message".colorize.red.bold
   # @param [type] name explanation
-  # @return [String] Return duplication of self. In it's metaclass is included +Term::ANSIColor+.
+  # @return [String] Transfrom self to +ColoredString+
   def colorize
+    require_relative "colored_string"
     ColoredString.new(self)
   end
 
-  # rack
+  # For Rack
   # @since 0.0.2
+  # @todo Is it still required?
   alias_method :each, :each_line
 end

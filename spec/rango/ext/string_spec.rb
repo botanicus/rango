@@ -14,4 +14,10 @@ describe String do
       end
     end
   end
+
+  describe "#colorize" do
+    it "should returns colorized string" do
+      "whatever".colorize.should be_kind_of(ColoredString)
+    end
+  end
 end
