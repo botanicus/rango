@@ -34,7 +34,7 @@ end
 # can bypass loading of init.rb and ORM setup.
 # This is useful mostly for one file applications
 unless Rango.flat?
-  time = timer { Project.import("init.rb") }
+  time = Time.timer { Project.import("init.rb") }
   Rango.logger.debug("Loading init.rb ... #{time}")
 end
 
