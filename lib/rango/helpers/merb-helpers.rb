@@ -1,14 +1,11 @@
 # encoding: utf-8
 
 module Rango
-
   module Helpers
-
     @@helpers_dir   = File.dirname(__FILE__) / 'merb-helpers'
     @@helpers_files = Dir["#{@@helpers_dir}/*_helpers.rb"].collect {|h| h.match(/\/(\w+)\.rb/)[1]}
 
     def self.load
-      require @@helpers_dir + '/time_dsl'
       require @@helpers_dir + '/core_ext'
       require @@helpers_dir + '/core_ext/numeric'
 
@@ -32,9 +29,7 @@ module Rango
     def self.load_helpers(helpers = @@helpers_files)
       helpers.each {|helper| Kernel.load(File.join(@@helpers_dir, "#{helper}.rb") )} # using load here allows specs to work
     end
-
   end
-
 end
 
 Rango::Helpers.load
