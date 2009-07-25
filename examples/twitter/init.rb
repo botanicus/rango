@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-require "rubygems"
-
 # dependencies
 Rango.dependency "dm-core", :github => "datamapper/dm-core"
 Rango.dependency "dm-validations", :github => "datamapper/dm-validations"
