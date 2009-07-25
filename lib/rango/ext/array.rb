@@ -1,13 +1,14 @@
 # encoding: utf-8
 
 class Array
-  # Returns the _only_ element in the array.
+  # Returns the _only_ element in the array or raise
+  # +IndexError+ if array hasn't exactly one element.
   #
   # @author Botanicus
   # @from Extensions
   # @since 0.0.3
   # @raise [IndexError] If array hasn't exactly one element
-  # @return [Object] First item of the array
+  # @return [Object] First (and only) item of the array
   # @examples
   #   [5].only        # => 5
   #   [1, 2, 3].only  # => IndexError
