@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 class Array
+  # Returns random item from the array
+  #
   # @author Botanicus
   # @since 0.0.2
   # @return [Object] Random item from array
@@ -11,6 +13,8 @@ class Array
 end
 
 class Range
+  # Returns random item from the array
+  #
   # @author Botanicus
   # @since 0.0.2
   # @return [Object] Random item from range
