@@ -10,7 +10,7 @@ module Kernel
 
   # os.home
   def os
-    @os ||= OS.new
+    @os ||= OS.parse
   end
 
   # @since 0.0.1
