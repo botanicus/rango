@@ -40,7 +40,7 @@ module Rango
       end
 
       def self.stubs_dirs
-        ["#{ENV["HOME"]}/.rango/stubs", "#{self.rango_root}/stubs"]
+        ["#{os.home}/.rango/stubs", "#{self.rango_root}/stubs"]
       end
 
       def self.list
