@@ -1,0 +1,5 @@
+- static file serving
+- forms
+- HTTP requests (POST/PUT ...)
+- rango boot successfuly
+- rango use settings
