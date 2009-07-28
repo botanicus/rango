@@ -11,7 +11,7 @@ module Kernel
   # @raise [LoadError] If base directory doesn't exist
   # @raise [ArgumentError] If first argument isn't a glob
   # @return [Array<String>] List of successfully loaded files
-  # @examples
+  # @example
   #   acquire "lib/*"
   #   acquire "lib/**/*", exclude: "**/*_spec.rb"
   #   acquire "lib/**/*", exclude: ["**/*_spec.rb", "lib/init.rb"]
@@ -40,7 +40,7 @@ module Kernel
   # @raise [LoadError] If base directory doesn't exist
   # @raise [ArgumentError] If first argument isn't a glob
   # @return [Array<String>] List of successfully loaded files
-  # @examples
+  # @example
   #   acquire "lib/*"
   #   acquire "lib/**/*", exclude: "**/*_spec.rb"
   #   acquire "lib/**/*", exclude: ["**/*_spec.rb", "lib/init.rb"]

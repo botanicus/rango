@@ -6,7 +6,7 @@ Rango.import("bundling/strategies/git")
 
 module Rango
   class << self
-    # @examples
+    # @example
     #   Rango.dependency("dm-core", github: "datamapper/dm-core")
     #   Rango.dependency("dm-core", "1.0.2", svn: "datamapper/dm-core")
     #   Rango.dependency("dm-core", "1.0.2", gem: "datamapper/dm-core")

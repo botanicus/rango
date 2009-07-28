@@ -6,7 +6,7 @@ class Time
   # @author Botanicus
   # @since 0.0.3
   # @return [Float] How long it takes to run the block in seconds
-  # @examples
+  # @example
   #   Time.timer { sleep 2 } # => 2.030802
   def self.timer(&block)
     start = Time.now.tap { block.call }

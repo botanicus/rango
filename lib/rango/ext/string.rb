@@ -6,7 +6,7 @@ class String
   # @author Botanicus
   # @since 0.0.3
   # @return [String] Titlecased string
-  # @examples
+  # @example
   #   "hello world!".titlecase # => "Hello World!"
   def titlecase
     self.gsub(/\b./) { $&.upcase }

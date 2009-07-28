@@ -13,7 +13,7 @@ class Object
   # @param [Symbol] Method which will be called on object if object respond to this method
   # @param [Object, optional] Arguments for +method+ argument
   # @yield [block, optional] Block for +method+ argument
-  # @examples
+  # @example
   #   @post.try(:name) # instead @post && @post.name
   #   eBook.try(:find, 1)
   #   @post.try(:collect) { |p| p.name }
@@ -39,7 +39,7 @@ class Object
   # @yield [block] Block which will be used as body of the method
   # @return [Object] First (and only) item of the array
   # @see <tt>Module#define_singleton_method</tt> for define method on singleton class
-  # @examples
+  # @example
   #   class Experiment
   #     def method_generator
   #       define_instance_method(:new_method) do |arg|

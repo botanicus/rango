@@ -18,7 +18,7 @@ module Enumerable
   # @raise [LoadError] If base directory doesn't exist
   # @raise [ArgumentError] If first argument isn't a glob
   # @return [Array<String>] List of successfully loaded files
-  # @examples
+  # @example
   #   [].none?                      # => true
   #   [nil].none?                   # => true
   #   [5,8,9].none?                 # => false

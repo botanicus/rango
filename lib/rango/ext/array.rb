@@ -9,7 +9,7 @@ class Array
   # @since 0.0.3
   # @raise [IndexError] If array hasn't exactly one element
   # @return [Object] First (and only) item of the array
-  # @examples
+  # @example
   #   [5].only        # => 5
   #   [1, 2, 3].only  # => IndexError
   #   [].only         # => IndexError
