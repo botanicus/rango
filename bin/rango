@@ -18,6 +18,7 @@ when "-i"
   Rango.boot
   Rango.interactive
 else
+  # TODO: Generators.each { |generator| puts generator.help }
   STDERR.puts("=== Usage ===")
   help "rango create project mycoolproject", "Generate new site"
   help "rango create app mycoolapp", "Generate new application"
