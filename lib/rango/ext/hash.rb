@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 class Hash
+  # Return duplication of self with all keys non-recursively converted to symbols
+  #
   # @author Botanicus
   # @since 0.0.2
   # @return [Hash] A hash with all keys transformed into symbols
@@ -11,6 +13,8 @@ class Hash
     end
   end
 
+  # Replace keys in self by coresponding symbols
+  #
   # @author Botanicus
   # @since 0.0.2
   # @return [Hash] A hash with all keys transformed into symbols
@@ -18,6 +22,8 @@ class Hash
     self.replace(self.symbolize_keys)
   end
 
+  # Return duplication of self with all keys recursively converted to symbols
+  #
   # @author Botanicus
   # @since 0.0.2
   # @return [Hash] A hash with all keys transformed into symbols even in inner hashes
@@ -33,6 +39,8 @@ class Hash
     end
   end
 
+  # Recursively replace keys in self by coresponding symbols
+  #
   # @author Botanicus
   # @since 0.0.2
   # @return [Hash] A hash with all keys transformed into symbols even in inner hashes
@@ -47,6 +55,10 @@ class Hash
   # @param [*args] the keys whose values should be extracted and deleted.
   # @return [Array<Object>] The values of the provided arguments in corresponding order.
   # @api public
+  # @example
+  #   hash = {one: 1, two: 2, three: 3}
+  #   hash.extract!(:one, :two) # => [1, 2]
+  #   hash                      # => {:three => 3}
   def extract!(*args)
     args.map do |arg|
       self.delete(arg)
@@ -56,6 +68,8 @@ class Hash
   # @author Botanicus
   # @since 0.0.2
   # @return [String] A string formatted for HTML attributes
+  # @example
+  #   {class: "inner", id: "post-#{@post.id}"}.to_html_attrs # => "class='inner' id='post-1'"
   def to_html_attrs
     self.map { |key, value| "#{key}='#{value}'" }.join(" ")
   end
@@ -63,6 +77,8 @@ class Hash
   # @author Botanicus
   # @since 0.0.2
   # @return [String] A string formatted for URL
+  # @example
+  #   {action: "rate", rating: 2}.to_url_attrs # => "action=rate&rating=2"
   def to_url_attrs
     self.map { |key, value| "#{key}=#{value}" }.join("&")
   end
