@@ -22,14 +22,24 @@ describe OS do
   end
 
   describe "basic variables" do
+    before(:each) do
+      @os = OS.new(@os.env.merge(empty: "", digit: "123"))
+    end
+
     it "should be shortcut for ENV['variable']" do
       @os.home.should eql("/Users/botanicus")
     end
-  end
 
-  describe "variables ending with PATH or LIB" do
-    it "should returns array of paths" do
+    it "should returns array of paths if key ends with PATH or LIB" do
       @os.path.should eql(["/bin", "/sbin"])
+    end
+
+    it "should convert empty string to nil" do
+      @os.empty.should be_nil
+    end
+
+    it "should convert string '123' to integer 123" do
+      @os.digit.should eql(123)
     end
   end
 
