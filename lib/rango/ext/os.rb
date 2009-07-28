@@ -3,6 +3,15 @@
 require "blankslate"
 
 class OS < BlankSlate
+  # Takes ENV or another hash-like object and convert it into OS instance
+  #
+  # @author Botanicus
+  # @since 0.0.3
+  # @param [ENV, Hash] ENV or another hash-like object
+  # @return [OS] Instance of OS
+  # @example
+  #   OS.parse
+  #   OS.parse("HOME" => "/Users/botanicus")
   def self.parse(original_env = ENV)
     input  = original_env.select { |key, value| key.match(/^[a-zA-Z][a-zA-Z_]*$/) }
     result = Hash.new
@@ -20,6 +29,10 @@ class OS < BlankSlate
         define_singleton_method(key) do
           @env[key].split(":").sort
         end
+      elsif @env[key].match(/^\d+$/)
+        define_singleton_method(key) { @env[key].to_i }
+      elsif @env[key].empty?
+        define_singleton_method(key) { nil }
       else
         # OS.home
         # => "/Users/botanicus"
@@ -37,6 +50,14 @@ class OS < BlankSlate
     end
   end
 
+  # Get value for given key or nil
+  #
+  # @author Botanicus
+  # @since 0.0.3
+  # @param [Symbol] Key
+  # @return [OS] Instance of OS
+  # @example
+  #   os[:home]
   def [](key)
     self.send(key) if self.keys.include?(key.to_sym)
   end
