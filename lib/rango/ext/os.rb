@@ -27,7 +27,7 @@ class OS < BlankSlate
         # OS.path
         # => ["/bin", "/usr/bin", "/sbin", "/usr/sbin"]
         define_singleton_method(key) do
-          @env[key].split(":").sort
+          @env[key].split(":").uniq.sort
         end
       elsif @env[key].match(/^\d+$/)
         define_singleton_method(key) { @env[key].to_i }
