@@ -1,7 +1,7 @@
 # encoding: utf-8
 
-load File.dirname(__FILE__) / "form" / "helpers.rb"
-load File.dirname(__FILE__) / "form" / "builder.rb"
+require_relative "form/helpers"
+require_relative "form/builder"
 
 module Rango::Helpers
   include Rango::Helpers::Form
