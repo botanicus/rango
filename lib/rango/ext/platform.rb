@@ -7,19 +7,19 @@ module Rango
       def eql?(platform)
         !! RUBY_PLATFORM.match(/#{platform}/i)
       end
-    
+
       def windows?
-        eql?("win32")
+        eql?("mswin|mingw")
       end
-    
+
       def linux?
         eql?("linux")
       end
-    
+
       def macosx?
         eql?("universal-darwin")
       end
-    
+
       def unix?
         linux? or macosx?
       end
