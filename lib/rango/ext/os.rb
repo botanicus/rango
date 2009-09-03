@@ -1,8 +1,6 @@
 # encoding: utf-8
 
-require "blankslate"
-
-class OS < BlankSlate
+class OS
   # Takes ENV or another hash-like object and convert it into OS instance
   #
   # @author Botanicus
