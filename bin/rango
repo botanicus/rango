@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby1.9
 # encoding: utf-8
 
+base   = File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__
+libdir = File.expand_path(File.join(File.dirname(base), "..", "lib"))
+$:.unshift(libdir) unless $:.include?(libdir)
+
 def help(command, description, indentation = 40)
   indentation = indentation - command.length
   spaces = " " * indentation
