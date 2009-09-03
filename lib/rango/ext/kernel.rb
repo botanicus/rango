@@ -57,7 +57,8 @@ module Kernel
     puts command
     puts %x[#{command}]
   end
-  alias_method :sh, :command
+  alias_method :sh,  :command
+  alias_method :run, :command
 
   def quiet(&block)
     old_stdout = STDOUT.dup
