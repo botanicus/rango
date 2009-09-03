@@ -9,7 +9,7 @@ module Rango
       end
 
       def windows?
-        eql?("mswin|mingw")
+        eql?("win32")
       end
 
       def linux?
