@@ -1,10 +1,12 @@
 # encoding: utf-8
 
-require_relative "../lib/rango"
-load "#{File.dirname(__FILE__)}/yardoc.thor"
-load "#{File.dirname(__FILE__)}/../rango.gemspec"
-
 class Release < Thor
+  def initialize
+    require_relative "../lib/rango"
+    load "#{File.dirname(__FILE__)}/yardoc.thor"
+    load "#{File.dirname(__FILE__)}/../rango.gemspec"
+  end
+
   desc "all", "Run all the tasks related with releasing new version."
   def all(password)
     print "Have you updated version and codename in lib/rango.rb? [y/N] "

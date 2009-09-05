@@ -1,10 +1,5 @@
 # encoding: utf-8
 
-# encoding: utf-8
-
-require_relative "../lib/rango"
-require_relative "../lib/rango/ext"
-
 # http://github.com/somebee/rbench/tree/master
 class Benchmark < Thor
   def initialize
