@@ -14,5 +14,4 @@ h1. Documentation
 
 h1. Community
 
-* "Jabber MUC":xmpp://rango@conf.netlab.cz
 * "Twitter":https://twitter.com/RangoProject
