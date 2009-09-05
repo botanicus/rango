@@ -33,17 +33,13 @@ end
 # require gems etc. However if you really want to, you
 # can bypass loading of init.rb and ORM setup.
 # This is useful mostly for one file applications
-unless Rango.flat?
-  time = Time.timer { Project.import("init.rb") }
-  Rango.logger.debug("Loading init.rb ... #{time}")
-end
 
 # Ruby Enterprise Edition doesn't support Ruby 1.9 yet, but when it will, we will ready
 if GC.respond_to?(:copy_on_write_friendly=)
   GC.copy_on_write_friendly = true
 end
 
-Rango.reloader.setup_signals
+# Rango.reloader.setup_signals
 
 module Rango
   class BootLoader
