@@ -33,13 +33,11 @@ module Rango
 
     # @since 0.0.1
     # @example
-    #   Rango.boot(flat: true) # do not require anything
     #   Rango.boot # require init.rb
     #   Rango.boot { require_relative "config/init.rb" } # custom boot
     # @param [Hash] options You can specify flat: true for sinatra-like flat application.
     # @return [Boolean] Returns true if boot succeed or false if not. If ARGV includes "-i", IRB interactive session will start.
     def boot(options = Hash.new, &block)
-      Rango.flat = true if options[:flat]
       Rango.import!("boot")
       block.call if block_given?
       self.bootloaders.each do |bootloader|
