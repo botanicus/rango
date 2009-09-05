@@ -11,8 +11,6 @@ Rango.import("rack/request")
 Rango.import("helpers")
 Rango.import("router/adapters/basic")
 
-Rango::HttpExceptions::HttpError.send(:include, Rango::Helpers)
-
 # === Boot sequence:
 # 1) logger
 # 2) Project
