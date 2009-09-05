@@ -1,14 +1,13 @@
 # encoding: utf-8
 
 Rango.import("mixins/controller")
+Rango.import("helpers")
 
 module Rango
   class Controller
     include Rango::Helpers
     include Rango::ControllerMixin
     include Rango::Templates::TemplateHelpers
-
-    extend Rango::Router::Dispatcher
 
     class << self
       # @since 0.0.2
@@ -21,9 +20,11 @@ module Rango
       attribute :autorendering, false
 
       def inherited(subclass)
-        Rango.logger.debug("Inheritting filters from #{self.inspect} to #{subclass.inspect}")
-        subclass.before_filters = self.before_filters
-        subclass.after_filters = self.after_filters
+        unless subclass.before_filters.empty? && subclass.after_filters.empty?
+          Rango.logger.debug("Inheritting filters from #{self.inspect} to #{subclass.inspect} (before: #{subclass.before_filters.inspect}, after: #{subclass.after_filters.inspect})")
+          subclass.before_filters = self.before_filters
+          subclass.after_filters = self.after_filters
+        end
         subclass.autorendering = self.autorendering
       end
 
@@ -42,9 +43,9 @@ module Rango
       # [master] Change Merb::Controller to respond to #call and return a Rack Array. (wycats)http://rubyurl.com/BhoY
       # @since 0.0.2
       def call(env)
-        self.set_rack_env(env)
+        Rango::Router.new.set_rack_env(env) # See rango/router/adapters/*
         request = Rango::Request.new(env)
-        options = env["rango.router.params"]
+        options = env["rango.router.params"] || raise("rango.router.params property has to be setup at least to empty hash")
         method = options[:action] || :index
         response = Rack::Response.new
         controller = self.new(request, options.merge(request.params))
@@ -68,6 +69,20 @@ module Rango
         response.status = controller.status if controller.status
         response.headers.merge!(controller.headers)
         return response.finish
+      rescue HttpError => exception
+        rescue_http_error(exception)
+      end
+
+      # redefine this method for your controller if you want to provide custom error pages
+      # returns response array for rack
+      # if you need to change just body of error message, define render_http_error method
+      # @api plugin
+      def rescue_http_error(exception)
+        if self.respond_to?(:render_http_error)
+          message = self.render_http_error(exception)
+          exception.message = message unless message.nil?
+        end
+        exception.to_response
       end
 
       # @experimental
@@ -77,6 +92,14 @@ module Rango
         env["rango.router.params"] = params
         env["rango.action"] = action
         Rango::Router::Dispatcher.route_to(env, self)
+      end
+
+      # for routers
+      def self.dispatcher(action)
+        lambda do |env|
+          env["rango.controller.action"] = action
+          return self.call(env)
+        end
       end
 
       def proceed_value(value)
