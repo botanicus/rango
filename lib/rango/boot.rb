@@ -9,7 +9,7 @@ Rango.dependency "extlib"
 Rango.import("project")
 Rango.import("rack/request")
 Rango.import("helpers")
-Rango.import("router/adapters/basic")
+Rango.import("router")
 
 # === Boot sequence:
 # 1) logger

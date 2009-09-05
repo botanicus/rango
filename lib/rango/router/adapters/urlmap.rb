@@ -4,8 +4,6 @@
 # You can't use stuff like "posts/:id" there, so env["rango.router.params"]
 # allways will be just empty hash
 
-require_relative "../dispatcher"
-
 Rango::Router.implement(:urlmap) do |env|
   env["rango.router.params"] = Hash.new
   env["rango.router.app"] = self
