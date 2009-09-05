@@ -73,18 +73,6 @@ module Rango
         rescue_http_error(exception)
       end
 
-      # redefine this method for your controller if you want to provide custom error pages
-      # returns response array for rack
-      # if you need to change just body of error message, define render_http_error method
-      # @api plugin
-      def rescue_http_error(exception)
-        if self.respond_to?(:render_http_error)
-          message = self.render_http_error(exception)
-          exception.message = message unless message.nil?
-        end
-        exception.to_response
-      end
-
       # @experimental
       def route_to(env, action, params = Hash.new)
         env["rango.controller"] = self
@@ -95,7 +83,7 @@ module Rango
       end
 
       # for routers
-      def self.dispatcher(action)
+      def dispatcher(action)
         lambda do |env|
           env["rango.controller.action"] = action
           return self.call(env)
@@ -127,6 +115,18 @@ module Rango
 
     def route_to(action, params = Hash.new)
       self.class.route_to(request.env, action, params)
+    end
+
+    # redefine this method for your controller if you want to provide custom error pages
+    # returns response array for rack
+    # if you need to change just body of error message, define render_http_error method
+    # @api plugin
+    def rescue_http_error(exception)
+      if self.respond_to?(:render_http_error)
+        message = self.render_http_error(exception)
+        exception.message = message unless message.nil?
+      end
+      exception.to_response
     end
 
     # @since 0.0.2
