@@ -63,7 +63,7 @@ module Rango
     def interactive
       require "irb"
       try_require "irb/completion" # some people can have ruby compliled without readline
-      ARGV.clear # otherwise irb will read it
+      ARGV.delete("-i") # otherwise irb will read it
       IRB.start
     end
 
