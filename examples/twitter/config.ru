@@ -1,3 +1,4 @@
+#!/usr/bin/env rackup -p 4000 -s thin
 # encoding: utf-8
 
 require "rango"
@@ -6,7 +7,7 @@ Rango.boot
 use Rango::Middlewares::Basic
 
 # rack-router
-Rango.import("router/adapters/rack-router")
+Rango::Router.use(:rack_router)
 
 use Rack::Router do |router|
   # with(to: Twitter) do

@@ -1,10 +1,11 @@
+#!/usr/bin/env rackup -p 4000 -s thin
 # encoding: utf-8
 
-# rackup -p 4000 -s thin basic.ru
 require "rango"
+require "rango/mixins/mini"
 
 Rango.boot
-Rango.import("mixins/mini")
+Rango::Router.use(:urlmap)
 
 # 1) Basic Rack way how to return response
 map("/about/version/1") do
@@ -13,7 +14,6 @@ map("/about/version/1") do
   # so you can also do use Rango::Middlewares::Basic
   # use Rack::ContentLength
   # use Rack::ContentType
-  Rango.import("rack/middlewares/basic")
   use Rango::Middlewares::Basic
   run lambda { |env| [200, Hash.new, "Rango version: #{Rango::VERSION}"] }
 end

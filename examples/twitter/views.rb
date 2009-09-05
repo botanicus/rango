@@ -1,7 +1,7 @@
 # encoding: utf-8
 
-Rango.import("controller")
-Project.import("models")
+require "rango/controller"
+require_relative "models"
 
 class Twitter < Rango::Controller
   # before :authenticate, except: [:login, :logout]

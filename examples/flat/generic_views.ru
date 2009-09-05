@@ -1,17 +1,14 @@
+#!/usr/bin/env rackup -p 4000 -s thin
 # encoding: utf-8
 
-# rackup -p 4000 -s thin generic_views.ru
 require "rango"
+require "rango/mixins/mini"
+require "rango/generic_views"
 
 Rango.boot
-Rango.import("mixins/mini")
-
-# generic views
-Rango.import("generic_views")
 
 # rack-router
-Rango.import("router/adapters/rack-router")
-
+Rango::Router.use(:rack_router)
 use Rango::Middlewares::Basic
 
 use Rack::Router do |router|

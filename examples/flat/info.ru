@@ -1,10 +1,10 @@
+#!/usr/bin/env rackup -p 4000 -s thin
 # encoding: utf-8
 
-# rackup -p 4000 -s thin info.ru
 require "rango"
+require "rango/mixins/mini"
 
 Rango.boot
-Rango.import("mixins/mini")
 
 use Rango::Middlewares::Basic
 

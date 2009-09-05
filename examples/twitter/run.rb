@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #!/usr/bin/env ruby1.9
 # encoding: utf-8
 
