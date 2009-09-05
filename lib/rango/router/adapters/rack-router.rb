@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 require "rack/router"
-Rango.import("router/dispatcher")
+require_relative "../dispatcher"
 
 Rango::Router.implement(:rack_router) do |env|
   env["rango.router.params"] = env["rack_router.params"]
