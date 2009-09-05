@@ -20,7 +20,7 @@ module Rango
   class HttpError < StandardError
     CONTENT_TYPE ||= "text/plain"
 
-    attr_reader :content_type, :headers
+    attr_accessor :content_type, :headers
     def initialize(*args)
       @headers = Hash.new
       super(*args)
@@ -33,22 +33,22 @@ module Rango
     # @returns [String]
     # @example NotFound.new.to_snakecase # "not_found"
     def to_snakecase
-      self.class.name.snake_case
+      self.class.name.split("::").last.snake_case
     end
 
     def status() self.class::STATUS end
     def content_type
-      @content_type ||= self.class::CONTENT_TYPE
+      @content_type || self.class::CONTENT_TYPE
     end
 
     def to_response
-      headers = {"Content-Type" => self.content_type}.merge(self.headers)
-      [self.status, self.headers, [self.message]]
+      headers = self.headers.reverse_merge("Content-Type" => self.content_type)
+      [self.status, headers, [self.message]]
     end
 
     def self.const_missing(name)
       if [:STATUS, :CONTENT_TYPE].include?(name)
-        raise "Every descent of HTTPError class has to have defined constant #{name}."
+        raise NameError, "Every descendant of HttpError class has to have defined constant #{name}."
       else
         super(name)
       end
