@@ -58,6 +58,8 @@ module Rango
     end
   end
 
+  # http://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+
   # informational
   class Informational               < Rango::HttpError; end
   class Continue                    < Rango::Informational; STATUS ||= 100; end
