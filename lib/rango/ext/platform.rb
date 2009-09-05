@@ -3,25 +3,24 @@
 module Rango
   class Platform
     class << self
-      alias_method :equal?, :eql?
-      def eql?(platform)
+      def match?(platform)
         !! RUBY_PLATFORM.match(/#{platform}/i)
       end
 
       def windows?
-        eql?("win32")
+        self.match?("mswin|mingw")
       end
 
       def linux?
-        eql?("linux")
+        self.match?("linux")
       end
 
       def macosx?
-        eql?("universal-darwin")
+        self.match?("-darwin")
       end
 
       def unix?
-        linux? or macosx?
+        self.linux? or self.macosx?
       end
     end
   end
