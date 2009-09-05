@@ -5,7 +5,7 @@ require "fileutils"
 require_relative "../../../spec_helper"
 
 # stubs
-Project = OpenStruct.new(settings: Hash.new)
+#Project = OpenStruct.new(settings: Hash.new)
 
 # helpers
 module TemplateHelpers
