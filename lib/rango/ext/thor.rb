@@ -2,6 +2,7 @@
 
 require "thor"
 require "extlib"
+require_relative "../ext"
 
 # Hooks
 # Rango::Tasks.hook do
