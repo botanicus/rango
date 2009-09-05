@@ -5,12 +5,7 @@ Rango doesn't have its own router, so you can use what you like or write your ow
 env["rango.router.params"]
 env["rango.router.app"]
 
-=== Strategies variables ===
-You can define what variables you like, the only rule there is that you must stay in namespace of your strategy.
-
-env["rango.controller.name"]
-env["rango.controller.action"]
-
 === Available routers ===
 Rack::URLMap
 rack-router
+Usher
