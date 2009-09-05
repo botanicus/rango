@@ -2,6 +2,18 @@
 
 module Rango
   class Router
+    @@routers = Hash.new unless defined?(@@routers)
+    def self.implement(router, &block)
+      @@routers[router] = block
+    end
+
+    def self.use(router)
+      raise ArgumentError unless @@routers.include?(router)
+      Rango.logger.debug("Using router #{router}")
+      define_method(:set_rack_env, @@routers[router])
+      @@router = router
+    end
+
     module Dispatcher
       class << self
         attr_accessor :router_adapter
