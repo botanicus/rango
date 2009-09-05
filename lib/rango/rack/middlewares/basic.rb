@@ -10,14 +10,14 @@ module Rango
       end
 
       def call(env)
-        Rack::Lint.new(@app).call(env)
-        Rango::Middlewares::Encoding.new(@app).call(env)
-        Rack::MethodOverride.new(@app).call(env) # _method: put etc
+        Rango.logger.debug(Rango::Middlewares::Encoding.new(@app).call(env))
+        Rango.logger.debug(Rack::MethodOverride.new(@app).call(env)) # _method: put etc
 
-        @app.call(env)
+        Rango.logger.debug("Calling app #{@app.inspect}: #{@app.call(env).inspect}")
 
-        Rack::ContentLength.new(@app).call(env)
-        Rack::Head.new(@app).call(env)
+        Rango.logger.debug(Rack::ContentType.new(@app).call(env))
+        Rango.logger.debug(Rack::ContentLength.new(@app).call(env))
+        Rango.logger.debug(Rack::Head.new(@app).call(env))
 
         # serve static files
         if Project.settings.media_prefix
@@ -30,18 +30,17 @@ module Rango
           # "public" in the current directory (ie public/css/* and public/images/*)
           Rango.logger.info("Media files are available on #{Project.settings.media_prefix}")
           options = {urls: [Project.settings.media_prefix]}
-          Rack::Static.new(@app, options).call(env)
+          Rango.logger.debug(Rack::Static.new(@app, options).call(env))
         else
           Rango.logger.info("Media files are routed directly to the /")
           Rango.import("rack/middlewares/static.rb")
-          Rango::Static.new(@app).call(env)
+          Rango.logger.debug(Rango::Static.new(@app).call(env))
         end
 
         # cookies
-        Rack::Session::Cookie.new(@app, path: '/').call(env)
+        Rango.logger.debug(Rack::Session::Cookie.new(@app, path: '/').call(env))
         #, key: 'rack.session', domain: 'foo.com', path: '/', expire_after: 2592000, secret: 'change_me'
       end
-
     end
   end
 end
