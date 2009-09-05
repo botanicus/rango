@@ -4,6 +4,7 @@ Rango.import("exceptions")
 Rango.import("loggers/logger")
 Rango.import("bundling/dependency")
 Rango.import("rack/middlewares/basic")
+Rango.import("project")
 
 module Rango
   class << self
@@ -41,11 +42,20 @@ module Rango
       Rango.flat = true if options[:flat]
       Rango.import!("boot")
       block.call if block_given?
+      self.bootloaders.each do |bootloader|
+        logger.debug "Calling bootloader #{bootloader.inspect}"
+        bootloader.call
+      end
     end
 
     # @since 0.0.2
     def reboot(options = Hash.new)
       self.boot(options.merge(force: true))
+    end
+
+    attribute :bootloaders, Array.new
+    def after_boot(&block)
+      self.bootloaders.push(block)
     end
 
     # Start IRB interactive session
