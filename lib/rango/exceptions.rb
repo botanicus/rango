@@ -1,10 +1,5 @@
 # encoding: utf-8
 
-require "erb"
-require "extlib"
-
-# TODO: documentation
-# TODO: specs
 SettingsNotFound = Class.new(StandardError)
 
 class TemplateNotFound < StandardError
@@ -23,243 +18,102 @@ AnyStrategyMatched = Class.new(StandardError)
 # @since 0.0.2
 SkipFilter = Class.new(StandardError)
 
-# @since 0.0.2
-SkipRoute = Class.new(StandardError)
-
 # superclass of all the controller exceptions
 module Rango
-  module HttpExceptions
-    class HttpError < StandardError
-      # @since 0.0.1
-      attr_accessor :status, :params
+  class HttpError < StandardError
+    CONTENT_TYPE ||= "text/plain"
 
-      # @since 0.0.1
-      def initialize(status, params = nil)
-        self.status = status
-        self.params = params
-      end
-
-      # @since 0.0.1
-      def headers
-        {'Content-Type' => 'text/html'}
-      end
-
-      # @since 0.0.1
-      def render
-        content = Rango.path.join("../../templates/errors/#{self.status}.html.erb").read
-        ERB.new(content).result(binding)
-      end
-
-      # @since 0.0.1
-      def call(env)
-        return [self.status, self.headers, self.body]
-      end
+    attr_reader :content_type, :headers
+    def initialize(*args)
+      @headers = Hash.new
+      super(*args)
     end
 
-    class Error404 < HttpError
-      # @since 0.0.1
-      attr_accessor :params
-
-      # @since 0.0.1
-      def initialize(params = nil)
-        super("404")
-      end
-
-      # @since 0.0.1
-      def body
-        @routes = Project.router.routes
-        @router = Project.settings.router
-        @path   = "TODO" # or maybe rack env ... THIS SHOULD BE IMPLEMENTED AS RACK MIDDLEWARE
-        self.render
-      end
+    def inspect
+      self.to_response.inspect
     end
 
-    class Error406 < HttpError
-      # @since 0.0.1
-      attr_accessor :params
-
-      # @since 0.0.1
-      def initialize(params)
-        super("406")
-      end
-
-      # @since 0.0.1
-      def body
-        self.render
-      end
+    # @returns [String]
+    # @example NotFound.new.to_snakecase # "not_found"
+    def to_snakecase
+      self.class.name.snake_case
     end
 
-    class Error500 < HttpError
-      # @since 0.0.1
-      attr_accessor :exception, :params
+    def status() self.class::STATUS end
+    def content_type
+      @content_type ||= self.class::CONTENT_TYPE
+    end
 
-      # @since 0.0.1
-      def initialize(exception, params)
-        super("500")
-        self.exception = exception
-        self.params = params
-      end
+    def to_response
+      headers = {"Content-Type" => self.content_type}.merge(self.headers)
+      [self.status, self.headers, [self.message]]
+    end
 
-      # @since 0.0.1
-      def body
-        self.render
-        # ["<h1>#{exception.message}</h2>", '@exception.bactrace.join("<br />")']
+    def self.const_missing(name)
+      if [:STATUS, :CONTENT_TYPE].include?(name)
+        raise "Every descent of HTTPError class has to have defined constant #{name}."
+      else
+        super(name)
       end
     end
   end
-end
 
+  # informational
+  class Informational               < Rango::HttpError; end
+  class Continue                    < Rango::Informational; STATUS ||= 100; end
+  class SwitchingProtocols          < Rango::Informational; STATUS ||= 101; end
 
-# stolen from merb
+  # successful
+  class Successful                  < Rango::HttpError; end
+  class OK                          < Rango::Successful; STATUS ||= 200; end
+  class Created                     < Rango::Successful; STATUS ||= 201; end
+  class Accepted                    < Rango::Successful; STATUS ||= 202; end
+  class NonAuthoritativeInformation < Rango::Successful; STATUS ||= 203; end
+  class NoContent                   < Rango::Successful; STATUS ||= 204; end
+  class ResetContent                < Rango::Successful; STATUS ||= 205; end
+  class PartialContent              < Rango::Successful; STATUS ||= 206; end
 
-module Rango
-  module HttpExceptions
-    STATUS_CODES = {}
-    class Base < StandardError #:doc:
+  # redirection
+  class Redirection                 < Rango::HttpError; end
+  class MultipleChoices             < Rango::Redirection; STATUS ||= 300; end
+  class MovedPermanently            < Rango::Redirection; STATUS ||= 301; end
+  class MovedTemporarily            < Rango::Redirection; STATUS ||= 302; end
+  class SeeOther                    < Rango::Redirection; STATUS ||= 303; end
+  class NotModified                 < Rango::Redirection; STATUS ||= 304; end
+  class UseProxy                    < Rango::Redirection; STATUS ||= 305; end
+  class TemporaryRedirect           < Rango::Redirection; STATUS ||= 307; end
 
-      # === Returns
-      # Integer:: The status-code of the error.
-      #
-      # @overridable
-      # :api: plugin
-      def status; self.class.status; end
-      alias :to_i :status
+  # client error
+  class ClientError                 < Rango::HttpError; end
+  class BadRequest                  < Rango::ClientError; STATUS ||= 400; end
+  class MultiPartParseError         < Rango::BadRequest; end
+  class Unauthorized                < Rango::ClientError; STATUS ||= 401; end
+  class PaymentRequired             < Rango::ClientError; STATUS ||= 402; end
+  class Forbidden                   < Rango::ClientError; STATUS ||= 403; end
+  class NotFound                    < Rango::ClientError; STATUS ||= 404; end
+  class ActionNotFound              < Rango::NotFound; end
+  class TemplateNotFound            < Rango::NotFound; end
+  class LayoutNotFound              < Rango::NotFound; end
+  class MethodNotAllowed            < Rango::ClientError; STATUS ||= 405; end
+  class NotAcceptable               < Rango::ClientError; STATUS ||= 406; end
+  class ProxyAuthenticationRequired < Rango::ClientError; STATUS ||= 407; end
+  class RequestTimeout              < Rango::ClientError; STATUS ||= 408; end
+  class Conflict                    < Rango::ClientError; STATUS ||= 409; end
+  class Gone                        < Rango::ClientError; STATUS ||= 410; end
+  class LengthRequired              < Rango::ClientError; STATUS ||= 411; end
+  class PreconditionFailed          < Rango::ClientError; STATUS ||= 412; end
+  class RequestEntityTooLarge       < Rango::ClientError; STATUS ||= 413; end
+  class RequestURITooLarge          < Rango::ClientError; STATUS ||= 414; end
+  class UnsupportedMediaType        < Rango::ClientError; STATUS ||= 415; end
+  class RequestRangeNotSatisfiable  < Rango::ClientError; STATUS ||= 416; end
+  class ExpectationFailed           < Rango::ClientError; STATUS ||= 417; end
 
-      class << self
-
-        # Get the actual status-code for an Exception class.
-        #
-        # As usual, this can come from a constant upwards in
-        # the inheritance chain.
-        #
-        # ==== Returns
-        # Fixnum:: The status code of this exception.
-        #
-        # :api: public
-        def status
-          const_get(:STATUS) rescue 0
-        end
-        alias :to_i :status
-
-        # Set the actual status-code for an Exception class.
-        #
-        # If possible, set the STATUS constant, and update
-        # any previously registered (inherited) status-code.
-        #
-        # ==== Parameters
-        # num<~to_i>:: The status code
-        #
-        # ==== Returns
-        # (Integer, nil):: The status set on this exception, or nil if a status was already set.
-        #
-        # :api: private
-        def status=(num)
-          unless self.status?
-            register_status_code(self, num)
-            self.const_set(:STATUS, num.to_i)
-          end
-        end
-
-        # See if a status-code has been defined (on self explicitly).
-        #
-        # ==== Returns
-        # Boolean:: Whether a status code has been set
-        #
-        # :api: private
-        def status?
-          self.const_defined?(:STATUS)
-        end
-
-        # Registers any subclasses with status codes for easy lookup by
-        # set_status in Merb::Controller.
-        #
-        # Inheritance ensures this method gets inherited by any subclasses, so
-        # it goes all the way down the chain of inheritance.
-        #
-        # ==== Parameters
-        #
-        # subclass<Merb::ControllerExceptions::Base>::
-        #   The Exception class that is inheriting from Merb::ControllerExceptions::Base
-        #
-        # :api: public
-        def inherited(subclass)
-          # don't set the constant yet - any class methods will be called after self.inherited
-          # unless self.status = ... is set explicitly, the status code will be inherited
-          register_status_code(subclass, self.status) if self.status?
-        end
-
-        private
-
-        # Register the status-code for an Exception class.
-        #
-        # ==== Parameters
-        # num<~to_i>:: The status code
-        #
-        # :api: privaate
-        def register_status_code(klass, code)
-          name = self.to_s.split('::').last.snake_case
-          STATUS_CODES[name.to_sym] = code.to_i
-        end
-      end
-    end
-
-    # informational
-    class Informational               < Rango::HttpExceptions::Base; end
-    class Continue                    < Rango::HttpExceptions::Informational; self.status = 100; end
-    class SwitchingProtocols          < Rango::HttpExceptions::Informational; self.status = 101; end
-
-    # successful
-    class Successful                  < Rango::HttpExceptions::Base; end
-    class OK                          < Rango::HttpExceptions::Successful; self.status = 200; end
-    class Created                     < Rango::HttpExceptions::Successful; self.status = 201; end
-    class Accepted                    < Rango::HttpExceptions::Successful; self.status = 202; end
-    class NonAuthoritativeInformation < Rango::HttpExceptions::Successful; self.status = 203; end
-    class NoContent                   < Rango::HttpExceptions::Successful; self.status = 204; end
-    class ResetContent                < Rango::HttpExceptions::Successful; self.status = 205; end
-    class PartialContent              < Rango::HttpExceptions::Successful; self.status = 206; end
-
-    # redirection
-    class Redirection                 < Rango::HttpExceptions::Base; end
-    class MultipleChoices             < Rango::HttpExceptions::Redirection; self.status = 300; end
-    class MovedPermanently            < Rango::HttpExceptions::Redirection; self.status = 301; end
-    class MovedTemporarily            < Rango::HttpExceptions::Redirection; self.status = 302; end
-    class SeeOther                    < Rango::HttpExceptions::Redirection; self.status = 303; end
-    class NotModified                 < Rango::HttpExceptions::Redirection; self.status = 304; end
-    class UseProxy                    < Rango::HttpExceptions::Redirection; self.status = 305; end
-    class TemporaryRedirect           < Rango::HttpExceptions::Redirection; self.status = 307; end
-
-    # client error
-    class ClientError                 < Rango::HttpExceptions::Base; end
-    class BadRequest                  < Rango::HttpExceptions::ClientError; self.status = 400; end
-    class MultiPartParseError         < Rango::HttpExceptions::BadRequest; end
-    class Unauthorized                < Rango::HttpExceptions::ClientError; self.status = 401; end
-    class PaymentRequired             < Rango::HttpExceptions::ClientError; self.status = 402; end
-    class Forbidden                   < Rango::HttpExceptions::ClientError; self.status = 403; end
-    class NotFound                    < Rango::HttpExceptions::ClientError; self.status = 404; end
-    class ActionNotFound              < Rango::HttpExceptions::NotFound; end
-    class TemplateNotFound            < Rango::HttpExceptions::NotFound; end
-    class LayoutNotFound              < Rango::HttpExceptions::NotFound; end
-    class MethodNotAllowed            < Rango::HttpExceptions::ClientError; self.status = 405; end
-    class NotAcceptable               < Rango::HttpExceptions::ClientError; self.status = 406; end
-    class ProxyAuthenticationRequired < Rango::HttpExceptions::ClientError; self.status = 407; end
-    class RequestTimeout              < Rango::HttpExceptions::ClientError; self.status = 408; end
-    class Conflict                    < Rango::HttpExceptions::ClientError; self.status = 409; end
-    class Gone                        < Rango::HttpExceptions::ClientError; self.status = 410; end
-    class LengthRequired              < Rango::HttpExceptions::ClientError; self.status = 411; end
-    class PreconditionFailed          < Rango::HttpExceptions::ClientError; self.status = 412; end
-    class RequestEntityTooLarge       < Rango::HttpExceptions::ClientError; self.status = 413; end
-    class RequestURITooLarge          < Rango::HttpExceptions::ClientError; self.status = 414; end
-    class UnsupportedMediaType        < Rango::HttpExceptions::ClientError; self.status = 415; end
-    class RequestRangeNotSatisfiable  < Rango::HttpExceptions::ClientError; self.status = 416; end
-    class ExpectationFailed           < Rango::HttpExceptions::ClientError; self.status = 417; end
-
-    # server error
-    class ServerError                 < Rango::HttpExceptions::Base; end
-    class InternalServerError         < Rango::HttpExceptions::ServerError; self.status = 500; end
-    class NotImplemented              < Rango::HttpExceptions::ServerError; self.status = 501; end
-    class BadGateway                  < Rango::HttpExceptions::ServerError; self.status = 502; end
-    class ServiceUnavailable          < Rango::HttpExceptions::ServerError; self.status = 503; end
-    class GatewayTimeout              < Rango::HttpExceptions::ServerError; self.status = 504; end
-    class HTTPVersionNotSupported     < Rango::HttpExceptions::ServerError; self.status = 505; end
-  end
+  # server error
+  class ServerError                 < Rango::HttpError; end
+  class InternalServerError         < Rango::ServerError; STATUS ||= 500; end
+  class NotImplemented              < Rango::ServerError; STATUS ||= 501; end
+  class BadGateway                  < Rango::ServerError; STATUS ||= 502; end
+  class ServiceUnavailable          < Rango::ServerError; STATUS ||= 503; end
+  class GatewayTimeout              < Rango::ServerError; STATUS ||= 504; end
+  class HTTPVersionNotSupported     < Rango::ServerError; STATUS ||= 505; end
 end
