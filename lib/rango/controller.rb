@@ -134,21 +134,16 @@ module Rango
       # Rango.logger.debug(self.class.instance_variables)
       # Rango.logger.inspect(name: name, method: method)
       self.class.get_filters(name).each do |filter_method, options|
-        begin
-          unless options[:except] && options[:except].include?(method)
-            if filter_method.is_a?(Symbol) && self.respond_to?(filter_method)
-              Rango.logger.info("Calling filter #{filter_method} for controller #{self}")
-              self.send(filter_method)
-            elsif filter_method.respond_to?(:call)
-              Rango.logger.info("Calling filter #{filter_method.inspect} for controller #{self}")
-              self.instance_eval(&filter_method)
-            else
-              Rango.logger.error("Filter #{filter_method} doesn't exists!")
-            end
+        unless options[:except] && options[:except].include?(method)
+          if filter_method.is_a?(Symbol) && self.respond_to?(filter_method)
+            Rango.logger.info("Calling filter #{filter_method} for controller #{self}")
+            self.send(filter_method)
+          elsif filter_method.respond_to?(:call)
+            Rango.logger.info("Calling filter #{filter_method.inspect} for controller #{self}")
+            self.instance_eval(&filter_method)
+          else
+            Rango.logger.error("Filter #{filter_method} doesn't exists!")
           end
-        rescue SkipFilter
-          Rango.logger.info("Skipping #{name} filter")
-          next
         end
       end
     end

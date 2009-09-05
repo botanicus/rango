@@ -15,9 +15,6 @@ end
 # @since 0.0.1
 AnyStrategyMatched = Class.new(StandardError)
 
-# @since 0.0.2
-SkipFilter = Class.new(StandardError)
-
 # superclass of all the controller exceptions
 module Rango
   class HttpError < StandardError
