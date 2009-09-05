@@ -5,7 +5,6 @@ class Repair < Thor
   desc "all", "Repair encoding, shebang and whitespace"
   def all
     self.encoding
-    self.shebang
     self.whitespace
     self.eof
   end
@@ -17,20 +16,6 @@ class Repair < Thor
         puts "Added missing coding declaration to #{file}"
         lines.insert(0, "# encoding: utf-8\n\n")
         self.save(file, lines)
-      end
-    end
-  end
-
-  desc "shebang", "Add missing shebang and do it executable if it isn't"
-  def shebang
-    Dir["#{self.root}/bin/*"].each do |file|
-      lines = File.readlines(file)
-      # is executable but hasn't shebang
-      if File.executable?(file) && ! lines[0].match(/^#!/)
-        # TODO
-      # isn't executable and has shebang
-      elsif ! File.executable?(file)
-        system("chmod +x '#{file}'")
       end
     end
   end
