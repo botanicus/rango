@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-require File.dirname(__FILE__) + '/spec_helper'
+require_relative "../../../spec_helper"
 
 describe "Numeric helpers" do
 

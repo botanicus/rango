@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-require File.dirname(__FILE__) + '/spec_helper'
+require_relative "../../../spec_helper"
 FIXTURES_DIR = File.dirname(__FILE__) + '/fixtures'
 MERB_HELPERS_ROOT = File.dirname(__FILE__) + "/.."
 

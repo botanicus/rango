@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 SPEC_ROOT = File.dirname(__FILE__)
+require "spec" # so you can run ruby spec/rango/whatever_spec.rb
 require File.join(SPEC_ROOT, "..", "lib", "rango")
 require File.join(SPEC_ROOT, "factories.rb")
 

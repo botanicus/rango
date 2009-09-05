@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-require File.dirname(__FILE__) + '/spec_helper'
+require_relative "../../../spec_helper"
 
 # Quick rundown of how these specs work
 # please read before hacking on this plugin
@@ -40,12 +40,11 @@ require File.dirname(__FILE__) + '/spec_helper'
 #
 
 
-Rango::Plugins.config[:helpers] = {
-  :default_builder => Rango::Helpers::Form::Builder::FormWithErrors
-}
+# Rango::Plugins.config[:helpers] = {
+#   :default_builder => Rango::Helpers::Form::Builder::FormWithErrors
+# }
 
 describe "error_messages_for" do
-
   before :each do
     @c = Application.new({})
     @dm_obj = Object.new

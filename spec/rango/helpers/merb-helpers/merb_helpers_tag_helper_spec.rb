@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-require File.dirname(__FILE__) + '/spec_helper'
+require_relative "../../../spec_helper"
 
 # Rango::Router.prepare do
 #   default_routes

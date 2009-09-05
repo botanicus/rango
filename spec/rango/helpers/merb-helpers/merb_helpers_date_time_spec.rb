@@ -1,5 +1,5 @@
 # encoding: utf-8
-require File.dirname(__FILE__) + '/spec_helper'
+require_relative "../../../spec_helper"
 
 describe "relative_date" do
   include Rango::Helpers::DateAndTime
