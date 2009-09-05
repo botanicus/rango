@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby1.9
 # encoding: utf-8
 
 require "rango"
