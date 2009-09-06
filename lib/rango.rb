@@ -17,7 +17,7 @@ require_relative "rango/mixins/import"
 require_relative "rango/mixins/application"
 
 module Rango
-  VERSION  ||= "0.0.4"
+  VERSION ||= "0.0.5"
   extend ImportMixin
   extend ApplicationMixin
 
