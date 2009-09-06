@@ -1,0 +1,601 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="style.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="syntax_highlight.css" type="text/css" charset="utf-8" />
+
+    <script src="jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="app.js" type="text/javascript" charset="utf-8"></script>
+    <title>Module: TimeDSL</title>
+  </head>
+  <body>
+    <div id="content">
+      <div class="section module TimeDSL">
+  <h1 class="title">Module: TimeDSL</h1>
+  <div class="section constants">
+  
+</div>  <div class="section visibilitygroup public">
+    <h1>Public Visibility</h1>
+      <div class="section methodsummary instance public">
+    <h1>Public Instance Method Summary</h1>
+<table class="summary">
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#ago-instance_method" title="#ago">#ago</a></span><span class='args'>(time = ::Time.now)</span>
+        <span class='block'></span>
+        
+          <span class='alias'>#until</span>
+        
+      </th>
+      <td class="docstring">
+        <p>
+Reads best without arguments: 10.
+</p>
+
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#day-instance_method" title="#day">#day</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+          <span class='alias'>#days</span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#hour-instance_method" title="#hour">#hour</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+          <span class='alias'>#hours</span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#minute-instance_method" title="#minute">#minute</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+          <span class='alias'>#minutes</span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#month-instance_method" title="#month">#month</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+          <span class='alias'>#months</span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#second-instance_method" title="#second">#second</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+          <span class='alias'>#seconds</span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#since-instance_method" title="#since">#since</a></span><span class='args'>(time = ::Time.now)</span>
+        <span class='block'></span>
+        
+          <span class='alias'>#from_now</span>
+        
+      </th>
+      <td class="docstring">
+        <p>
+Reads best with argument: 10.
+</p>
+
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#week-instance_method" title="#week">#week</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+          <span class='alias'>#weeks</span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#year-instance_method" title="#year">#year</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+          <span class='alias'>#years</span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+</table>
+  </div>
+<div class="section methoddetails instance public">
+  <h1>Public Instance Method Details</h1>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>ago</h3>
+</div><div id="ago-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>ago</span><span class='args'>(time = ::Time.now)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+<p class="aliases">
+  <span class="aka">Also known as:</span>
+  
+    <tt id="until-instance_method">until</tt>
+  
+</p>
+</div><div class="section docstring">
+  <p>
+Reads best without arguments: 10.minutes.ago
+</p>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+50
+51
+52</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/time_dsl.rb', line 50</span>
+
+<span class='def def kw'>def</span> <span class='ago identifier id'>ago</span><span class='lparen token'>(</span><span class='time identifier id'>time</span> <span class='assign token'>=</span> <span class='colon3 op'>::</span><span class='Time constant id'>Time</span><span class='dot token'>.</span><span class='now identifier id'>now</span><span class='rparen token'>)</span>
+  <span class='time identifier id'>time</span> <span class='minus op'>-</span> <span class='self self kw'>self</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>day</h3>
+</div><div id="day-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>day</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+<p class="aliases">
+  <span class="aka">Also known as:</span>
+  
+    <tt id="days-instance_method">days</tt>
+  
+</p>
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+29
+30
+31</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/time_dsl.rb', line 29</span>
+
+<span class='def def kw'>def</span> <span class='day identifier id'>day</span>
+  <span class='self self kw'>self</span> <span class='mult op'>*</span> <span class='integer val'>86400</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>hour</h3>
+</div><div id="hour-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>hour</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+<p class="aliases">
+  <span class="aka">Also known as:</span>
+  
+    <tt id="hours-instance_method">hours</tt>
+  
+</p>
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+24
+25
+26</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/time_dsl.rb', line 24</span>
+
+<span class='def def kw'>def</span> <span class='hour identifier id'>hour</span>
+  <span class='self self kw'>self</span> <span class='mult op'>*</span> <span class='integer val'>3600</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>minute</h3>
+</div><div id="minute-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>minute</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+<p class="aliases">
+  <span class="aka">Also known as:</span>
+  
+    <tt id="minutes-instance_method">minutes</tt>
+  
+</p>
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+19
+20
+21</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/time_dsl.rb', line 19</span>
+
+<span class='def def kw'>def</span> <span class='minute identifier id'>minute</span>
+  <span class='self self kw'>self</span> <span class='mult op'>*</span> <span class='integer val'>60</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>month</h3>
+</div><div id="month-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>month</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+<p class="aliases">
+  <span class="aka">Also known as:</span>
+  
+    <tt id="months-instance_method">months</tt>
+  
+</p>
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+39
+40
+41</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/time_dsl.rb', line 39</span>
+
+<span class='def def kw'>def</span> <span class='month identifier id'>month</span>
+  <span class='self self kw'>self</span> <span class='mult op'>*</span> <span class='integer val'>2592000</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>second</h3>
+</div><div id="second-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>second</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+<p class="aliases">
+  <span class="aka">Also known as:</span>
+  
+    <tt id="seconds-instance_method">seconds</tt>
+  
+</p>
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+14
+15
+16</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/time_dsl.rb', line 14</span>
+
+<span class='def def kw'>def</span> <span class='second identifier id'>second</span>
+  <span class='self self kw'>self</span> <span class='mult op'>*</span> <span class='integer val'>1</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>since</h3>
+</div><div id="since-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>since</span><span class='args'>(time = ::Time.now)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+<p class="aliases">
+  <span class="aka">Also known as:</span>
+  
+    <tt id="from_now-instance_method">from_now</tt>
+  
+</p>
+</div><div class="section docstring">
+  <p>
+Reads best with argument: 10.minutes.since(time)
+</p>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+56
+57
+58</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/time_dsl.rb', line 56</span>
+
+<span class='def def kw'>def</span> <span class='since identifier id'>since</span><span class='lparen token'>(</span><span class='time identifier id'>time</span> <span class='assign token'>=</span> <span class='colon3 op'>::</span><span class='Time constant id'>Time</span><span class='dot token'>.</span><span class='now identifier id'>now</span><span class='rparen token'>)</span>
+  <span class='time identifier id'>time</span> <span class='plus op'>+</span> <span class='self self kw'>self</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>week</h3>
+</div><div id="week-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>week</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+<p class="aliases">
+  <span class="aka">Also known as:</span>
+  
+    <tt id="weeks-instance_method">weeks</tt>
+  
+</p>
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+34
+35
+36</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/time_dsl.rb', line 34</span>
+
+<span class='def def kw'>def</span> <span class='week identifier id'>week</span>
+  <span class='self self kw'>self</span> <span class='mult op'>*</span> <span class='integer val'>604800</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>year</h3>
+</div><div id="year-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>year</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+<p class="aliases">
+  <span class="aka">Also known as:</span>
+  
+    <tt id="years-instance_method">years</tt>
+  
+</p>
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+44
+45
+46</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/time_dsl.rb', line 44</span>
+
+<span class='def def kw'>def</span> <span class='year identifier id'>year</span>
+  <span class='self self kw'>self</span> <span class='mult op'>*</span> <span class='integer val'>31471200</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+</div>
+  </div>
+
+</div>
+    </div>
+  </body>
+</html>

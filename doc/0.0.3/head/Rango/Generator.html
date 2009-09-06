@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="../style.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="../syntax_highlight.css" type="text/css" charset="utf-8" />
+
+    <script src="../jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../app.js" type="text/javascript" charset="utf-8"></script>
+    <title>Class: Rango::Generator</title>
+  </head>
+  <body>
+    <div id="content">
+      <div class="section class Rango_Generator">
+  <h1 class="title">Class: Rango::Generator</h1>
+  <div class="section inheritance">
+  <ul>
+  <li><a href="../Object.html" title="Object">Object</a></li><ul><li>Rango::Generator</li>
+  </ul></ul>
+</div><div class="section constants">
+  
+</div><div class="section constructor">
+<h1>Constructor Summary</h1>
+  <div id="initialize-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>initialize</span><span class='args'>(argv)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+5
+6
+7
+8
+9
+10
+11
+12
+13</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/cli/generator.rb', line 5</span>
+
+<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='argv identifier id'>argv</span><span class='rparen token'>)</span>
+  <span class='type identifier id'>type</span> <span class='assign token'>=</span> <span class='argv identifier id'>argv</span><span class='dot token'>.</span><span class='shift identifier id'>shift</span>
+  <span class='Rango constant id'>Rango</span><span class='dot token'>.</span><span class='import identifier id'>import</span><span class='lparen token'>(</span><span class='dstring node'>&quot;cli/#{type}&quot;</span><span class='rparen token'>)</span>
+  <span class='constant identifier id'>constant</span> <span class='assign token'>=</span> <span class='Rango constant id'>Rango</span><span class='dot token'>.</span><span class='const_get identifier id'>const_get</span><span class='lparen token'>(</span><span class='type identifier id'>type</span><span class='dot token'>.</span><span class='camel_case identifier id'>camel_case</span><span class='rparen token'>)</span>
+  <span class='constant identifier id'>constant</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='argv identifier id'>argv</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='create identifier id'>create</span>
+<span class='rescue rescue kw'>rescue</span> <span class='ArgumentError constant id'>ArgumentError</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='exception identifier id'>exception</span>
+  <span class='raise identifier id'>raise</span> <span class='exception identifier id'>exception</span>
+  <span class='comment val'># TODO: message</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+</div>  <div class="section visibilitygroup public">
+    <h1>Public Visibility</h1>
+      <div class="section methodsummary instance public">
+    <div class="inherited">
+  
+  <div>
+    <h1>Public Instance Methods Inherited from <a href="../Object.html" title="Object">Object</a></h1>
+    <p><span class='name'><a href="../Object.html#try-instance_method" title="try">try</a></span></p>
+  </div>
+  
+</div>
+<div class="clear"></div>
+  </div>
+
+  </div>
+
+</div>
+    </div>
+  </body>
+</html>
