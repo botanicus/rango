@@ -1,0 +1,755 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="../style.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="../syntax_highlight.css" type="text/css" charset="utf-8" />
+
+    <script src="../jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../app.js" type="text/javascript" charset="utf-8"></script>
+    <title>Module: Rango::ImportMixin</title>
+  </head>
+  <body>
+    <div id="content">
+      <div class="section module Rango_ImportMixin">
+  <h1 class="title">Module: Rango::ImportMixin</h1>
+  <div class="section docstring">
+  <p>
+This mixin will be included also to project or your custom app main
+namespace
+</p>
+
+</div><div class="section constants">
+  
+</div>  <div class="section visibilitygroup public">
+    <h1>Public Visibility</h1>
+      <div class="section methodsummary class public">
+    <h1>Public Class Method Summary</h1>
+<table class="summary">
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#extended-class_method" title="extended">extended</a></span><span class='args'>(base)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        <p>
+class Project
+</p>
+<pre class="code">
+  <span class='extend identifier id'>extend</span> <span class='Rango constant id'>Rango</span><span class='colon2 op'>::</span><span class='ImportMixin constant id'>ImportMixin</span>
+</pre>
+<p>
+end.
+</p>
+
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#included-class_method" title="included">included</a></span><span class='args'>(base)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        <p>
+class Project
+</p>
+<pre class="code">
+  <span class='class class kw'>class</span> <span class='lshft op'>&lt;&lt;</span> <span class='self self kw'>self</span>
+    <span class='extend identifier id'>extend</span> <span class='Rango constant id'>Rango</span><span class='colon2 op'>::</span><span class='ImportMixin constant id'>ImportMixin</span>
+  <span class='end end kw'>end</span>
+</pre>
+<p>
+end.
+</p>
+
+        
+      </td>
+    </tr>
+  
+</table>
+  </div>
+  <div class="section methodsummary instance public">
+    <h1>Public Instance Method Summary</h1>
+<table class="summary">
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#find-instance_method" title="#find">#find</a></span><span class='args'>(file)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#find_absolute-instance_method" title="#find_absolute">#find_absolute</a></span><span class='args'>(file)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#import-instance_method" title="#import">#import</a></span><span class='args'>(path, options = Hash.new)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+          <p class='returns'>
+            Returns: 
+              <span class='return_types'>
+                 <tt>Boolean</tt>
+              </span>
+          </p>
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#import%21-instance_method" title="#import!">#import!</a></span><span class='args'>(path)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+          <p class='returns'>
+            Returns: 
+              <span class='return_types'>
+                 <tt>Boolean</tt>
+              </span>
+          </p>
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#import_first-instance_method" title="#import_first">#import_first</a></span><span class='args'>(paths, options = Hash.new)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+</table>
+  </div>
+<div class="section methoddetails class public">
+  <h1>Public Class Method Details</h1>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>extended</h3>
+</div><div id="extended-class_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>extended</span><span class='args'>(base)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section docstring">
+  <p>
+class Project
+</p>
+<pre class="code">
+  <span class='extend identifier id'>extend</span> <span class='Rango constant id'>Rango</span><span class='colon2 op'>::</span><span class='ImportMixin constant id'>ImportMixin</span>
+</pre>
+<p>
+end
+</p>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/mixins/import.rb', line 11</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='extended identifier id'>extended</span><span class='lparen token'>(</span><span class='base identifier id'>base</span><span class='rparen token'>)</span>
+  <span class='unless unless kw'>unless</span> <span class='base identifier id'>base</span><span class='dot token'>.</span><span class='respond_to? fid id'>respond_to?</span><span class='lparen token'>(</span><span class='colon op'>:</span><span class='root identifier id'>root</span><span class='rparen token'>)</span>
+    <span class='class class kw'>class</span> <span class='lshft op'>&lt;&lt;</span> <span class='base identifier id'>base</span>
+      <span class='def def kw'>def</span> <span class='root identifier id'>root</span>
+        <span class='File constant id'>File</span><span class='dot token'>.</span><span class='dirname identifier id'>dirname</span><span class='lparen token'>(</span><span class='caller identifier id'>caller</span><span class='lbrack token'>[</span><span class='integer val'>1</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='string val'>&quot;:&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='first identifier id'>first</span><span class='rparen token'>)</span>
+      <span class='end end kw'>end</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>included</h3>
+</div><div id="included-class_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>included</span><span class='args'>(base)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section docstring">
+  <p>
+class Project
+</p>
+<pre class="code">
+  <span class='class class kw'>class</span> <span class='lshft op'>&lt;&lt;</span> <span class='self self kw'>self</span>
+    <span class='extend identifier id'>extend</span> <span class='Rango constant id'>Rango</span><span class='colon2 op'>::</span><span class='ImportMixin constant id'>ImportMixin</span>
+  <span class='end end kw'>end</span>
+</pre>
+<p>
+end
+</p>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+26
+27
+28
+29
+30
+31
+32
+33
+34</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/mixins/import.rb', line 26</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='included identifier id'>included</span><span class='lparen token'>(</span><span class='base identifier id'>base</span><span class='rparen token'>)</span>
+  <span class='unless unless kw'>unless</span> <span class='base identifier id'>base</span><span class='dot token'>.</span><span class='respond_to? fid id'>respond_to?</span><span class='lparen token'>(</span><span class='colon op'>:</span><span class='root identifier id'>root</span><span class='rparen token'>)</span>
+    <span class='base identifier id'>base</span><span class='dot token'>.</span><span class='class_eval identifier id'>class_eval</span> <span class='do do kw'>do</span>
+      <span class='def def kw'>def</span> <span class='root identifier id'>root</span>
+        <span class='File constant id'>File</span><span class='dot token'>.</span><span class='dirname identifier id'>dirname</span><span class='lparen token'>(</span><span class='caller identifier id'>caller</span><span class='dot token'>.</span><span class='last identifier id'>last</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='string val'>&quot;:&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='first identifier id'>first</span><span class='rparen token'>)</span>
+      <span class='end end kw'>end</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+</div><div class="section methoddetails instance public">
+  <h1>Public Instance Method Details</h1>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>find</h3>
+</div><div id="find-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>find</span><span class='args'>(file)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+78
+79
+80
+81
+82</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/mixins/import.rb', line 78</span>
+
+<span class='def def kw'>def</span> <span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='file identifier id'>file</span><span class='rparen token'>)</span>
+  <span class='lbrack token'>[</span><span class='dstring node'>&quot;#{file}.rb&quot;</span><span class='comma token'>,</span> <span class='file identifier id'>file</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='find identifier id'>find</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='file identifier id'>file</span><span class='bitor op'>|</span>
+    <span class='File constant id'>File</span><span class='dot token'>.</span><span class='exist? fid id'>exist?</span><span class='lparen token'>(</span><span class='file identifier id'>file</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>find_absolute</h3>
+</div><div id="find_absolute-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>find_absolute</span><span class='args'>(file)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+84
+85
+86
+87</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/mixins/import.rb', line 84</span>
+
+<span class='def def kw'>def</span> <span class='find_absolute identifier id'>find_absolute</span><span class='lparen token'>(</span><span class='file identifier id'>file</span><span class='rparen token'>)</span>
+  <span class='file identifier id'>file</span> <span class='assign token'>=</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='root identifier id'>root</span><span class='comma token'>,</span> <span class='file identifier id'>file</span><span class='rparen token'>)</span> <span class='unless unless_mod kw'>unless</span> <span class='file identifier id'>file</span><span class='dot token'>.</span><span class='match identifier id'>match</span><span class='lparen token'>(</span><span class='regexp val'>%r[^/]</span><span class='rparen token'>)</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='file identifier id'>file</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>import</h3>
+</div><div id="import-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'><tt>Boolean</tt></span>
+    <span class='name'>import</span><span class='args'>(path, options = Hash.new)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+    
+      <dt>
+        <span class='type'>[<tt><a href="../String.html" title="String">String</a></tt>]</span>
+        <span class='name'>path</span>
+        
+      </dt>
+      <dd>
+        <span class='desc'><p>
+Path to file which will be loaded using <tt>Kernel#load</tt> if
+<tt>Project.settings.debug</tt> is true or <tt>Kernel#require</tt> if not.
+</p>
+</span>
+      </dd>
+    
+  
+    
+      <dt>
+        <span class='type'>[<tt>Hash[soft: Boolean(default true)]</tt>, <tt>@optional</tt>]</span>
+        <span class='name'>options</span>
+        
+          <em class="default">(defaults to: <tt>Hash.new</tt>)</em>
+        
+      </dt>
+      <dd>
+        <span class='desc'></span>
+      </dd>
+    
+  
+  </dl>
+</div><div class="return">
+  <h3>Returns:</h3>
+  <dl>
+  
+    <dt>
+      
+        <span class='type'>[<tt>Boolean</tt>]</span>
+      
+      
+        <span class='name'></span>
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+If loading suceed.
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+<div class="raise">
+  <h3>Raises:</h3>
+  <dl>
+  
+    <dt>
+      
+        <span class='type'>[<tt>LoadError</tt>]</span>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+Unless <tt>soft: true</tt> option is used, it will raise <tt>LoadError</tt>
+if the file wasn&#8217;t found.
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+<div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/mixins/import.rb', line 44</span>
+
+<span class='def def kw'>def</span> <span class='import identifier id'>import</span><span class='lparen token'>(</span><span class='path identifier id'>path</span><span class='comma token'>,</span> <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='Hash constant id'>Hash</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='rparen token'>)</span>
+  <span class='comment val'># it is better than rescue LoadError, because</span>
+  <span class='comment val'># LoadError can be raise inside the required file</span>
+  <span class='fullpath identifier id'>fullpath</span> <span class='assign token'>=</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='find_absolute identifier id'>find_absolute</span><span class='lparen token'>(</span><span class='path identifier id'>path</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='fullpath identifier id'>fullpath</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span> <span class='andop op'>&amp;&amp;</span> <span class='options identifier id'>options</span><span class='lbrack token'>[</span><span class='colon op'>:</span><span class='soft identifier id'>soft</span><span class='rbrack token'>]</span>   <span class='comment val'># any file found and soft importing enabled</span>
+    <span class='comment val'># do nothing</span>
+  <span class='elsif elsif kw'>elsif</span> <span class='fullpath identifier id'>fullpath</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span> <span class='andop op'>&amp;&amp;</span> <span class='notop op'>!</span><span class='options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:soft</span><span class='rbrack token'>]</span>            <span class='comment val'># any file found and soft importing disabled</span>
+    <span class='raise identifier id'>raise</span> <span class='LoadError constant id'>LoadError</span><span class='comma token'>,</span> <span class='dstring node'>&quot;File #{path.inspect} (treated as #{fullpath.inspect}) doesn't exist&quot;</span>
+  <span class='elsif elsif kw'>elsif</span> <span class='notop op'>!</span><span class='fullpath identifier id'>fullpath</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span>                     <span class='comment val'># the file was found</span>
+    <span class='Kernel constant id'>Kernel</span><span class='dot token'>.</span><span class='load identifier id'>load</span><span class='lparen token'>(</span><span class='fullpath identifier id'>fullpath</span><span class='rparen token'>)</span>
+  <span class='elsif elsif kw'>elsif</span> <span class='notop op'>!</span><span class='fullpath identifier id'>fullpath</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span>                    <span class='comment val'># the file was found</span>
+    <span class='Kernel constant id'>Kernel</span><span class='dot token'>.</span><span class='require identifier id'>require</span><span class='lparen token'>(</span><span class='fullpath identifier id'>fullpath</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>import!</h3>
+</div><div id="import%21-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'><tt>Boolean</tt></span>
+    <span class='name'>import!</span><span class='args'>(path)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+    
+      <dt>
+        <span class='type'>[<tt><a href="../String.html" title="String">String</a></tt>]</span>
+        <span class='name'>path</span>
+        
+      </dt>
+      <dd>
+        <span class='desc'><p>
+Path to loaded file.
+</p>
+</span>
+      </dd>
+    
+  
+  </dl>
+</div><div class="return">
+  <h3>Returns:</h3>
+  <dl>
+  
+    <dt>
+      
+        <span class='type'>[<tt>Boolean</tt>]</span>
+      
+      
+        <span class='name'></span>
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+If the loading was successful.
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+<div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+72
+73
+74
+75
+76</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/mixins/import.rb', line 72</span>
+
+<span class='def def kw'>def</span> <span class='import! fid id'>import!</span><span class='lparen token'>(</span><span class='path identifier id'>path</span><span class='rparen token'>)</span>
+  <span class='path identifier id'>path</span> <span class='assign token'>=</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='root identifier id'>root</span><span class='comma token'>,</span> <span class='path identifier id'>path</span><span class='rparen token'>)</span>
+  <span class='file identifier id'>file</span> <span class='assign token'>=</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='find_absolute identifier id'>find_absolute</span><span class='lparen token'>(</span><span class='path identifier id'>path</span><span class='rparen token'>)</span>
+  <span class='Kernel constant id'>Kernel</span><span class='dot token'>.</span><span class='load identifier id'>load</span><span class='lparen token'>(</span><span class='file identifier id'>file</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>import_first</h3>
+</div><div id="import_first-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>import_first</span><span class='args'>(paths, options = Hash.new)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="raise">
+  <h3>Raises:</h3>
+  <dl>
+  
+    <dt>
+      
+        <span class='type'>[<tt>LoadError</tt>]</span>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'></span>
+    </dd>
+  
+  </dl>
+</div>
+<div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.2
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+60
+61
+62
+63
+64
+65
+66
+67</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/mixins/import.rb', line 60</span>
+
+<span class='def def kw'>def</span> <span class='import_first identifier id'>import_first</span><span class='lparen token'>(</span><span class='paths identifier id'>paths</span><span class='comma token'>,</span> <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='Hash constant id'>Hash</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='rparen token'>)</span>
+  <span class='paths identifier id'>paths</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='path identifier id'>path</span><span class='bitor op'>|</span>
+    <span class='fullpath identifier id'>fullpath</span> <span class='assign token'>=</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='find_absolute identifier id'>find_absolute</span><span class='lparen token'>(</span><span class='path identifier id'>path</span><span class='rparen token'>)</span>
+    <span class='next next kw'>next</span> <span class='if if_mod kw'>if</span> <span class='fullpath identifier id'>fullpath</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span>
+    <span class='return return kw'>return</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='import identifier id'>import</span><span class='lparen token'>(</span><span class='fullpath identifier id'>fullpath</span><span class='comma token'>,</span> <span class='options identifier id'>options</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='raise identifier id'>raise</span> <span class='LoadError constant id'>LoadError</span> <span class='unless unless_mod kw'>unless</span> <span class='options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:soft</span><span class='rbrack token'>]</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+</div>
+  </div>
+
+</div>
+    </div>
+  </body>
+</html>
