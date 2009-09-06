@@ -1,0 +1,2499 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="style.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="syntax_highlight.css" type="text/css" charset="utf-8" />
+
+    <script src="jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="app.js" type="text/javascript" charset="utf-8"></script>
+    <title>Class: Path</title>
+  </head>
+  <body>
+    <div id="content">
+      <div class="section class Path">
+  <h1 class="title">Class: Path</h1>
+  <div class="section inheritance">
+  <ul>
+  <li><a href="Object.html" title="Object">Object</a></li><ul><li>Path</li>
+  </ul></ul>
+</div><div class="section docstring">
+  <p>
+TODO: copy it&#8217;s spec file
+</p>
+
+</div><div class="section attributes">
+  <h1>Attributes</h1>
+
+  
+    <div class="instance">
+      <h2>Instance Attributes</h2>
+      <table>
+      
+        <tr>
+          <th class="name">absolute</td>
+          <td class="readwrite">
+            [<span id='absolute-instance_method'>R</span>W] 
+          </td>
+          <td class="visibility">
+            public
+          </td>
+          <td class="docstring">
+            
+            
+          </td>
+        </tr>
+      
+      </table>
+    </div>
+  
+</div><div class="section constants">
+  
+</div><div class="section constructor">
+<h1>Constructor Summary</h1>
+  <div id="initialize-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>initialize</span><span class='args'>(path)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section docstring">
+  <p>
+Path.new(&#8220;public/uploads&#8221;)
+Path.new(&#8220;#{Rango::.root}/public/uploads&#8221;)
+</p>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="raise">
+  <h3>Raises:</h3>
+  <dl>
+  
+    <dt>
+      
+        <span class='type'>[<tt>ArgumentError</tt>]</span>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'></span>
+    </dd>
+  
+  </dl>
+</div>
+<div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 12</span>
+
+<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='path identifier id'>path</span><span class='rparen token'>)</span>
+  <span class='path identifier id'>path</span> <span class='assign token'>=</span> <span class='path identifier id'>path</span><span class='dot token'>.</span><span class='absolute identifier id'>absolute</span> <span class='if if_mod kw'>if</span> <span class='path identifier id'>path</span><span class='dot token'>.</span><span class='is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='Path constant id'>Path</span><span class='rparen token'>)</span> <span class='comment val'># TODO: spec it</span>
+  <span class='raise identifier id'>raise</span> <span class='ArgumentError constant id'>ArgumentError</span> <span class='unless unless_mod kw'>unless</span> <span class='path identifier id'>path</span><span class='dot token'>.</span><span class='is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='String constant id'>String</span><span class='rparen token'>)</span> <span class='comment val'># TODO: spec it</span>
+  <span class='comment val'># no trailing /</span>
+  <span class='path identifier id'>path</span><span class='dot token'>.</span><span class='sub! fid id'>sub!</span><span class='lparen token'>(</span><span class='regexp val'>%r{/$}</span><span class='comma token'>,</span> <span class='string val'>&quot;&quot;</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='path identifier id'>path</span><span class='dot token'>.</span><span class='match identifier id'>match</span><span class='lparen token'>(</span><span class='regexp val'>%r{^/}</span><span class='rparen token'>)</span>
+    <span class='@absolute ivar id'>@absolute</span> <span class='assign token'>=</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='expand_path identifier id'>expand_path</span><span class='lparen token'>(</span><span class='path identifier id'>path</span><span class='rparen token'>)</span>
+  <span class='else else kw'>else</span>
+    <span class='@absolute ivar id'>@absolute</span> <span class='assign token'>=</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='expand_path identifier id'>expand_path</span><span class='lparen token'>(</span><span class='File constant id'>File</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='Dir constant id'>Dir</span><span class='dot token'>.</span><span class='pwd identifier id'>pwd</span><span class='comma token'>,</span> <span class='path identifier id'>path</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='unless unless kw'>unless</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='exist? fid id'>exist?</span><span class='lparen token'>(</span><span class='@absolute ivar id'>@absolute</span><span class='rparen token'>)</span>
+    <span class='raise identifier id'>raise</span> <span class='dstring node'>&quot;NotExists: #{@absolute}&quot;</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+</div>  <div class="section visibilitygroup public">
+    <h1>Public Visibility</h1>
+      <div class="section methodsummary class public">
+    <h1>Public Class Method Summary</h1>
+<table class="summary">
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#basename_without_extension-class_method" title="basename_without_extension">basename_without_extension</a></span><span class='args'>(file)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#change_extension-class_method" title="change_extension">change_extension</a></span><span class='args'>(file, extension)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#without_extension-class_method" title="without_extension">without_extension</a></span><span class='args'>(file)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+</table>
+  </div>
+  <div class="section methodsummary instance public">
+    <h1>Public Instance Method Summary</h1>
+<table class="summary">
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#%2B-instance_method" title="#+">#+</a></span><span class='args'>(segment)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#%3D%3D-instance_method" title="#==">#==</a></span><span class='args'>(another)</span>
+        <span class='block'></span>
+        
+          <span class='alias'>#eql?</span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#append-instance_method" title="#append">#append</a></span><span class='args'>(&amp;block)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#basename-instance_method" title="#basename">#basename</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#empty%3F-instance_method" title="#empty?">#empty?</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#entries-instance_method" title="#entries">#entries</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#exist%3F-instance_method" title="#exist?">#exist?</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#extension-instance_method" title="#extension">#extension</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#hidden%3F-instance_method" title="#hidden?">#hidden?</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#inspect-instance_method" title="#inspect">#inspect</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#load-instance_method" title="#load">#load</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#make_executable-instance_method" title="#make_executable">#make_executable</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        <p>
+alias_method :childrens, :children.
+</p>
+
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#make_unexecutable-instance_method" title="#make_unexecutable">#make_unexecutable</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#md5-instance_method" title="#md5">#md5</a></span><span class='args'>(file)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#normalize-instance_method" title="#normalize">#normalize</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        <p>
+dir/foo/.
+</p>
+
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#read-instance_method" title="#read">#read</a></span><span class='args'>(&amp;block)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#relative-instance_method" title="#relative">#relative</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#rewrite-instance_method" title="#rewrite">#rewrite</a></span><span class='args'>(&amp;block)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#run-instance_method" title="#run">#run</a></span><span class='args'>(command)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#to_a-instance_method" title="#to_a">#to_a</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#url-instance_method" title="#url">#url</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#without_extension-instance_method" title="#without_extension">#without_extension</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#without_extension%21-instance_method" title="#without_extension!">#without_extension!</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#write-instance_method" title="#write">#write</a></span><span class='args'>(&amp;block)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        <p>
+# Use instead of File.
+</p>
+
+        
+      </td>
+    </tr>
+  
+</table><div class="inherited">
+  
+  <div>
+    <h1>Public Instance Methods Inherited from <a href="Object.html" title="Object">Object</a></h1>
+    <p><span class='name'><a href="Object.html#try-instance_method" title="try">try</a></span></p>
+  </div>
+  
+</div>
+<div class="clear"></div>
+  </div>
+<div class="section methoddetails class public">
+  <h1>Public Class Method Details</h1>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>basename_without_extension</h3>
+</div><div id="basename_without_extension-class_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>basename_without_extension</span><span class='args'>(file)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+214
+215
+216</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 214</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='basename_without_extension identifier id'>basename_without_extension</span><span class='lparen token'>(</span><span class='file identifier id'>file</span><span class='rparen token'>)</span>
+  <span class='return return kw'>return</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='basename identifier id'>basename</span><span class='lparen token'>(</span><span class='file identifier id'>file</span><span class='dot token'>.</span><span class='sub identifier id'>sub</span><span class='lparen token'>(</span><span class='regexp val'>/\.\w+$/</span><span class='comma token'>,</span> <span class='string val'>''</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>change_extension</h3>
+</div><div id="change_extension-class_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>change_extension</span><span class='args'>(file, extension)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+219
+220
+221</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 219</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='change_extension identifier id'>change_extension</span><span class='lparen token'>(</span><span class='file identifier id'>file</span><span class='comma token'>,</span> <span class='extension identifier id'>extension</span><span class='rparen token'>)</span>
+  <span class='return return kw'>return</span> <span class='file identifier id'>file</span><span class='dot token'>.</span><span class='sub identifier id'>sub</span><span class='lparen token'>(</span><span class='regexp val'>/\.\w+$/</span><span class='comma token'>,</span> <span class='dstring node'>&quot;.#{extension}&quot;</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>without_extension</h3>
+</div><div id="without_extension-class_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>without_extension</span><span class='args'>(file)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+209
+210
+211</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 209</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='without_extension identifier id'>without_extension</span><span class='lparen token'>(</span><span class='file identifier id'>file</span><span class='rparen token'>)</span>
+  <span class='return return kw'>return</span> <span class='file identifier id'>file</span><span class='dot token'>.</span><span class='sub identifier id'>sub</span><span class='lparen token'>(</span><span class='regexp val'>/\.\w+$/</span><span class='comma token'>,</span> <span class='string val'>''</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+</div><div class="section methoddetails instance public">
+  <h1>Public Instance Method Details</h1>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>+</h3>
+</div><div id="%2B-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>+</span><span class='args'>(segment)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="raise">
+  <h3>Raises:</h3>
+  <dl>
+  
+    <dt>
+      
+        <span class='type'>[<tt>ArgumentError</tt>]</span>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'></span>
+    </dd>
+  
+  </dl>
+</div>
+<div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+56
+57
+58
+59
+60</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 56</span>
+
+<span class='def def kw'>def</span> <span class='plus op'>+</span><span class='lparen token'>(</span><span class='segment identifier id'>segment</span><span class='rparen token'>)</span>
+  <span class='raise identifier id'>raise</span> <span class='ArgumentError constant id'>ArgumentError</span> <span class='unless unless_mod kw'>unless</span> <span class='segment identifier id'>segment</span><span class='dot token'>.</span><span class='is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='String constant id'>String</span><span class='rparen token'>)</span>
+  <span class='raise identifier id'>raise</span> <span class='ArgumentError constant id'>ArgumentError</span> <span class='if if_mod kw'>if</span> <span class='segment identifier id'>segment</span><span class='dot token'>.</span><span class='match identifier id'>match</span><span class='lparen token'>(</span><span class='regexp val'>%r{^/}</span><span class='rparen token'>)</span>
+  <span class='Path constant id'>Path</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='dstring node'>&quot;#@absolute/#{segment}&quot;</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>==</h3>
+</div><div id="%3D%3D-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>==</span><span class='args'>(another)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+<p class="aliases">
+  <span class="aka">Also known as:</span>
+  
+    <tt id="eql%3F-instance_method">eql?</tt>
+  
+</p>
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="raise">
+  <h3>Raises:</h3>
+  <dl>
+  
+    <dt>
+      
+        <span class='type'>[<tt>TypeError</tt>]</span>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'></span>
+    </dd>
+  
+  </dl>
+</div>
+<div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+42
+43
+44
+45</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 42</span>
+
+<span class='def def kw'>def</span> <span class='eq op'>==</span><span class='lparen token'>(</span><span class='another identifier id'>another</span><span class='rparen token'>)</span>
+  <span class='raise identifier id'>raise</span> <span class='TypeError constant id'>TypeError</span> <span class='unless unless_mod kw'>unless</span> <span class='another identifier id'>another</span><span class='dot token'>.</span><span class='is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='class identifier id'>class</span><span class='rparen token'>)</span>
+  <span class='@absolute ivar id'>@absolute</span> <span class='eq op'>==</span> <span class='another identifier id'>another</span><span class='dot token'>.</span><span class='absolute identifier id'>absolute</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>append</h3>
+</div><div id="append-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>append</span><span class='args'>(&amp;block)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+117
+118
+119</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 117</span>
+
+<span class='def def kw'>def</span> <span class='append identifier id'>append</span><span class='lparen token'>(</span><span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='File constant id'>File</span><span class='dot token'>.</span><span class='open identifier id'>open</span><span class='lparen token'>(</span><span class='file identifier id'>file</span><span class='comma token'>,</span> <span class='string val'>&quot;a&quot;</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>basename</h3>
+</div><div id="basename-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>basename</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+78
+79
+80</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 78</span>
+
+<span class='def def kw'>def</span> <span class='basename identifier id'>basename</span>
+  <span class='File constant id'>File</span><span class='dot token'>.</span><span class='basename identifier id'>basename</span><span class='lparen token'>(</span><span class='@absolute ivar id'>@absolute</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>empty?</h3>
+</div><div id="empty%3F-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>empty?</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+198
+199
+200</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 198</span>
+
+<span class='def def kw'>def</span> <span class='empty? fid id'>empty?</span>
+  <span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='directory? fid id'>directory?</span> <span class='and and kw'>and</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='children identifier id'>children</span><span class='dot token'>.</span><span class='empty? fid id'>empty?</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='zero? fid id'>zero?</span><span class='lparen token'>(</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>entries</h3>
+</div><div id="entries-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>entries</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+66
+67
+68
+69
+70</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 66</span>
+
+<span class='def def kw'>def</span> <span class='entries identifier id'>entries</span>
+  <span class='Dir constant id'>Dir</span><span class='lbrack token'>[</span><span class='string val'>&quot;#@absolute/*&quot;</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='map identifier id'>map</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='path identifier id'>path</span><span class='bitor op'>|</span>
+    <span class='self self kw'>self</span><span class='dot token'>.</span><span class='class identifier id'>class</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='path identifier id'>path</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>exist?</h3>
+</div><div id="exist%3F-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>exist?</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+177
+178
+179</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 177</span>
+
+<span class='def def kw'>def</span> <span class='exist? fid id'>exist?</span>
+  <span class='File constant id'>File</span><span class='dot token'>.</span><span class='exist? fid id'>exist?</span><span class='lparen token'>(</span><span class='@absolute ivar id'>@absolute</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>extension</h3>
+</div><div id="extension-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>extension</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+129
+130
+131
+132
+133
+134
+135</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 129</span>
+
+<span class='def def kw'>def</span> <span class='extension= identifier id'>extension=</span><span class='lparen token'>(</span><span class='extension identifier id'>extension</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='@path ivar id'>@path</span><span class='dot token'>.</span><span class='last identifier id'>last</span><span class='dot token'>.</span><span class='match identifier id'>match</span><span class='lparen token'>(</span><span class='regexp val'>/\./</span><span class='rparen token'>)</span>
+    <span class='return return kw'>return</span> <span class='Path constant id'>Path</span><span class='lbrack token'>[</span><span class='self self kw'>self</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='dot2 op'>..</span><span class='integer val'>-1</span><span class='rbrack token'>]</span> <span class='plus op'>+</span> <span class='@path ivar id'>@path</span><span class='dot token'>.</span><span class='last identifier id'>last</span><span class='dot token'>.</span><span class='sub identifier id'>sub</span><span class='lparen token'>(</span><span class='regexp val'>/\.\w+$/</span><span class='comma token'>,</span> <span class='dstring node'>&quot;.#{extension}&quot;</span><span class='rparen token'>)</span><span class='rbrack token'>]</span>
+  <span class='else else kw'>else</span>
+    <span class='return return kw'>return</span> <span class='@path ivar id'>@path</span><span class='lbrack token'>[</span><span class='integer val'>-1</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;#{@path.last}.#{extension}&quot;</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>hidden?</h3>
+</div><div id="hidden%3F-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>hidden?</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+187
+188
+189</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 187</span>
+
+<span class='def def kw'>def</span> <span class='hidden? fid id'>hidden?</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='basename identifier id'>basename</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='dot token'>.</span><span class='match identifier id'>match</span><span class='lparen token'>(</span><span class='regexp val'>/^\./</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='to_bool identifier id'>to_bool</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>inspect</h3>
+</div><div id="inspect-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>inspect</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+73
+74
+75</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 73</span>
+
+<span class='def def kw'>def</span> <span class='inspect identifier id'>inspect</span>
+  <span class='string val'>%{&quot;file://#@absolute&quot;}</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>load</h3>
+</div><div id="load-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>load</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+182
+183
+184</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 182</span>
+
+<span class='def def kw'>def</span> <span class='load identifier id'>load</span>
+  <span class='Kernel constant id'>Kernel</span><span class='dot token'>.</span><span class='load identifier id'>load</span><span class='lparen token'>(</span><span class='@absolute ivar id'>@absolute</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>make_executable</h3>
+</div><div id="make_executable-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>make_executable</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section docstring">
+  <p>
+alias_method :childrens, :children
+</p>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+160
+161
+162</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 160</span>
+
+<span class='def def kw'>def</span> <span class='make_executable identifier id'>make_executable</span>
+  <span class='File constant id'>File</span><span class='dot token'>.</span><span class='chmod identifier id'>chmod</span><span class='lparen token'>(</span><span class='integer val'>0755</span><span class='comma token'>,</span> <span class='@filename ivar id'>@filename</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>make_unexecutable</h3>
+</div><div id="make_unexecutable-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>make_unexecutable</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+165
+166
+167</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 165</span>
+
+<span class='def def kw'>def</span> <span class='make_unexecutable identifier id'>make_unexecutable</span>
+  <span class='File constant id'>File</span><span class='dot token'>.</span><span class='chmod identifier id'>chmod</span><span class='lparen token'>(</span><span class='integer val'>0644</span><span class='comma token'>,</span> <span class='@filename ivar id'>@filename</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>md5</h3>
+</div><div id="md5-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>md5</span><span class='args'>(file)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+203
+204
+205
+206</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 203</span>
+
+<span class='def def kw'>def</span> <span class='md5 identifier id'>md5</span><span class='lparen token'>(</span><span class='file identifier id'>file</span><span class='rparen token'>)</span>
+  <span class='require identifier id'>require</span> <span class='string val'>'digest/md5'</span>
+  <span class='Digest constant id'>Digest</span><span class='colon2 op'>::</span><span class='MD5 constant id'>MD5</span><span class='dot token'>.</span><span class='hexdigest identifier id'>hexdigest</span><span class='lparen token'>(</span><span class='File constant id'>File</span><span class='dot token'>.</span><span class='read identifier id'>read</span><span class='lparen token'>(</span><span class='file identifier id'>file</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>normalize</h3>
+</div><div id="normalize-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>normalize</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section docstring">
+  <p>
+dir/foo/../ => dir/
+</p>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+193
+194
+195</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 193</span>
+
+<span class='def def kw'>def</span> <span class='normalize identifier id'>normalize</span>
+  <span class='@filename ivar id'>@filename</span><span class='dot token'>.</span><span class='gsub! fid id'>gsub!</span><span class='lparen token'>(</span><span class='regexp val'>/[^\/]+\/\.{2}/</span><span class='comma token'>,</span> <span class='string val'>&quot;&quot;</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>read</h3>
+</div><div id="read-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>read</span><span class='args'>(&amp;block)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+108
+109
+110
+111
+112
+113
+114</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 108</span>
+
+<span class='def def kw'>def</span> <span class='read identifier id'>read</span><span class='lparen token'>(</span><span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='block_given? fid id'>block_given?</span>
+    <span class='File constant id'>File</span><span class='dot token'>.</span><span class='open identifier id'>open</span><span class='lparen token'>(</span><span class='@absolute ivar id'>@absolute</span><span class='comma token'>,</span> <span class='string val'>&quot;r&quot;</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='else else kw'>else</span>
+    <span class='File constant id'>File</span><span class='dot token'>.</span><span class='read identifier id'>read</span><span class='lparen token'>(</span><span class='@absolute ivar id'>@absolute</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>relative</h3>
+</div><div id="relative-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>relative</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+28
+29
+30
+31
+32</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 28</span>
+
+<span class='def def kw'>def</span> <span class='relative identifier id'>relative</span>
+  <span class='path identifier id'>path</span> <span class='assign token'>=</span> <span class='@absolute ivar id'>@absolute</span><span class='dot token'>.</span><span class='dup identifier id'>dup</span>
+  <span class='path identifier id'>path</span><span class='lbrack token'>[</span><span class='Dir constant id'>Dir</span><span class='dot token'>.</span><span class='pwd identifier id'>pwd</span> <span class='plus op'>+</span> <span class='string val'>&quot;/&quot;</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='String constant id'>String</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
+  <span class='return return kw'>return</span> <span class='path identifier id'>path</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>rewrite</h3>
+</div><div id="rewrite-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>rewrite</span><span class='args'>(&amp;block)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+122
+123
+124</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 122</span>
+
+<span class='def def kw'>def</span> <span class='rewrite identifier id'>rewrite</span><span class='lparen token'>(</span><span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='File constant id'>File</span><span class='dot token'>.</span><span class='open identifier id'>open</span><span class='lparen token'>(</span><span class='file identifier id'>file</span><span class='comma token'>,</span> <span class='string val'>&quot;w+&quot;</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>run</h3>
+</div><div id="run-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>run</span><span class='args'>(command)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+170
+171
+172
+173
+174</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 170</span>
+
+<span class='def def kw'>def</span> <span class='run identifier id'>run</span><span class='lparen token'>(</span><span class='command identifier id'>command</span><span class='rparen token'>)</span>
+  <span class='Dir constant id'>Dir</span><span class='dot token'>.</span><span class='chdir identifier id'>chdir</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='rparen token'>)</span> <span class='do do kw'>do</span>
+    <span class='return return kw'>return</span> <span class='dxstring node'>%x(#{command})</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>to_a</h3>
+</div><div id="to_a-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>to_a</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+144
+145
+146</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 144</span>
+
+<span class='def def kw'>def</span> <span class='to_a identifier id'>to_a</span>
+  <span class='return return kw'>return</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='string val'>&quot;/&quot;</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>url</h3>
+</div><div id="url-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>url</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+35
+36
+37
+38
+39</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 35</span>
+
+<span class='def def kw'>def</span> <span class='url identifier id'>url</span>
+  <span class='path identifier id'>path</span> <span class='assign token'>=</span> <span class='@absolute ivar id'>@absolute</span><span class='dot token'>.</span><span class='dup identifier id'>dup</span>
+  <span class='path identifier id'>path</span><span class='lbrack token'>[</span><span class='Project constant id'>Project</span><span class='dot token'>.</span><span class='root identifier id'>root</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='String constant id'>String</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
+  <span class='path identifier id'>path</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>without_extension</h3>
+</div><div id="without_extension-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>without_extension</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+149
+150
+151</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 149</span>
+
+<span class='def def kw'>def</span> <span class='without_extension identifier id'>without_extension</span>
+  <span class='return return kw'>return</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='dot token'>.</span><span class='sub identifier id'>sub</span><span class='lparen token'>(</span><span class='dregexp node'>/#{extension}$/</span><span class='comma token'>,</span> <span class='string val'>''</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>without_extension!</h3>
+</div><div id="without_extension%21-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>without_extension!</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+154
+155
+156</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 154</span>
+
+<span class='def def kw'>def</span> <span class='without_extension! fid id'>without_extension!</span>
+  <span class='return return kw'>return</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='dot token'>.</span><span class='sub! fid id'>sub!</span><span class='lparen token'>(</span><span class='dregexp node'>/#{extension}$/</span><span class='comma token'>,</span> <span class='string val'>''</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>write</h3>
+</div><div id="write-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>write</span><span class='args'>(&amp;block)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section docstring">
+  <p>
+# Use instead of File.open(&#8220;foo&#8221;, &#8220;w&#8221;) def
+self.write(file, &amp;block)
+</p>
+<pre class="code">
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='open identifier id'>open</span><span class='lparen token'>(</span><span class='file identifier id'>file</span><span class='comma token'>,</span> <span class='string val'>&quot;w&quot;</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+</pre>
+<p>
+end
+</p>
+<p>
+# Use instead of File.open(&#8220;foo&#8221;, &#8220;r&#8221;) def
+self.read(file, &amp;block)
+</p>
+<pre class="code">
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='open identifier id'>open</span><span class='lparen token'>(</span><span class='file identifier id'>file</span><span class='comma token'>,</span> <span class='string val'>&quot;r&quot;</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+</pre>
+<p>
+end
+</p>
+<p>
+# Use instead of File.open(&#8220;foo&#8221;, &#8220;a&#8221;) def
+self.append(file, &amp;block)
+</p>
+<pre class="code">
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='open identifier id'>open</span><span class='lparen token'>(</span><span class='file identifier id'>file</span><span class='comma token'>,</span> <span class='string val'>&quot;a&quot;</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+</pre>
+<p>
+end
+</p>
+<p>
+# Use instead of File.open(&#8220;foo&#8221;, &#8220;w<tt>&#8221;) def
+self.rewrite(file, &amp;block)
+</p>
+<pre class="code">
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='open identifier id'>open</span><span class='lparen token'>(</span><span class='file identifier id'>file</span><span class='comma token'>,</span> <span class='string val'>&quot;w&lt;/tt&gt;&quot;</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+</pre>
+<p>
+end
+</p>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+103
+104
+105</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/path.rb', line 103</span>
+
+<span class='def def kw'>def</span> <span class='write identifier id'>write</span><span class='lparen token'>(</span><span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='File constant id'>File</span><span class='dot token'>.</span><span class='open identifier id'>open</span><span class='lparen token'>(</span><span class='file identifier id'>file</span><span class='comma token'>,</span> <span class='string val'>&quot;w&quot;</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+</div>
+  </div>
+
+</div>
+    </div>
+  </body>
+</html>

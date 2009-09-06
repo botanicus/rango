@@ -1,0 +1,328 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="../../style.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="../../syntax_highlight.css" type="text/css" charset="utf-8" />
+
+    <script src="../../jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../app.js" type="text/javascript" charset="utf-8"></script>
+    <title>Module: Rango::Templates::TemplateHelpers</title>
+  </head>
+  <body>
+    <div id="content">
+      <div class="section module Rango_Templates_TemplateHelpers">
+  <h1 class="title">Module: Rango::Templates::TemplateHelpers</h1>
+  <div class="section constants">
+  
+</div>  <div class="section visibilitygroup public">
+    <h1>Public Visibility</h1>
+      <div class="section methodsummary instance public">
+    <h1>Public Instance Method Summary</h1>
+<table class="summary">
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#block-instance_method" title="#block">#block</a></span><span class='args'>(name, value = nil, &amp;block)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        <p>
+post/show.
+</p>
+
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#extends-instance_method" title="#extends">#extends</a></span><span class='args'>(template)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        <p>
+extends &#8220;base.
+</p>
+
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#partial-instance_method" title="#partial">#partial</a></span><span class='args'>(template, locals = Hash.new)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        <p>
+partial &#8220;products/list&#8221;.
+</p>
+
+        
+      </td>
+    </tr>
+  
+</table>
+  </div>
+<div class="section methoddetails instance public">
+  <h1>Public Instance Method Details</h1>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>block</h3>
+</div><div id="block-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>block</span><span class='args'>(name, value = nil, &amp;block)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section docstring">
+  <p>
+post/show.html: it&#8217;s block is the block we like to see in output
+post/base.html base.html: here it will be rendered, so we need block to
+returns the correct block code
+</p>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.2
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+95
+96
+97
+98
+99</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/templates/template.rb', line 95</span>
+
+<span class='def def kw'>def</span> <span class='block identifier id'>block</span><span class='lparen token'>(</span><span class='name identifier id'>name</span><span class='comma token'>,</span> <span class='value identifier id'>value</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='value identifier id'>value</span> <span class='assign token'>=</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='_template identifier id'>_template</span><span class='dot token'>.</span><span class='context identifier id'>context</span><span class='dot token'>.</span><span class='capture identifier id'>capture</span><span class='lparen token'>(</span><span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span> <span class='if if_mod kw'>if</span> <span class='value identifier id'>value</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span> <span class='andop op'>&amp;&amp;</span> <span class='block identifier id'>block</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='_template identifier id'>_template</span><span class='dot token'>.</span><span class='blocks identifier id'>blocks</span><span class='lbrack token'>[</span><span class='name identifier id'>name</span><span class='rbrack token'>]</span> <span class='opasgn op'>||=</span> <span class='value identifier id'>value</span>
+  <span class='return return kw'>return</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='_template identifier id'>_template</span><span class='dot token'>.</span><span class='blocks identifier id'>blocks</span><span class='lbrack token'>[</span><span class='name identifier id'>name</span><span class='rbrack token'>]</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>extends</h3>
+</div><div id="extends-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>extends</span><span class='args'>(template)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section docstring">
+  <p>
+extends &#8220;base.html&#8220;
+</p>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.2
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+120
+121
+122</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/templates/template.rb', line 120</span>
+
+<span class='def def kw'>def</span> <span class='extends identifier id'>extends</span><span class='lparen token'>(</span><span class='template identifier id'>template</span><span class='rparen token'>)</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='_template identifier id'>_template</span><span class='dot token'>.</span><span class='supertemplate identifier id'>supertemplate</span> <span class='assign token'>=</span> <span class='template identifier id'>template</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>partial</h3>
+</div><div id="partial-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>partial</span><span class='args'>(template, locals = Hash.new)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section docstring">
+  <p>
+partial &#8220;products/list&#8220;
+</p>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.2
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/templates/template.rb', line 103</span>
+
+<span class='def def kw'>def</span> <span class='partial identifier id'>partial</span><span class='lparen token'>(</span><span class='template identifier id'>template</span><span class='comma token'>,</span> <span class='locals identifier id'>locals</span> <span class='assign token'>=</span> <span class='Hash constant id'>Hash</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='template identifier id'>template</span><span class='dot token'>.</span><span class='match identifier id'>match</span><span class='lparen token'>(</span><span class='regexp val'>%r[/]</span><span class='rparen token'>)</span>
+    <span class='path identifier id'>path</span><span class='comma token'>,</span> <span class='last identifier id'>last</span> <span class='assign token'>=</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='template identifier id'>template</span><span class='rparen token'>)</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='dot2 op'>..</span><span class='integer val'>-1</span><span class='rbrack token'>]</span>
+    <span class='template identifier id'>template</span> <span class='assign token'>=</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='path identifier id'>path</span><span class='comma token'>,</span> <span class='dstring node'>&quot;_#{last}&quot;</span><span class='rparen token'>)</span>
+  <span class='else else kw'>else</span>
+    <span class='template identifier id'>template</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;_#{template}&quot;</span>
+  <span class='end end kw'>end</span>
+  <span class='template identifier id'>template</span> <span class='assign token'>=</span> <span class='Rango constant id'>Rango</span><span class='colon2 op'>::</span><span class='Templates constant id'>Templates</span><span class='colon2 op'>::</span><span class='Template constant id'>Template</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='template identifier id'>template</span><span class='comma token'>,</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='_template identifier id'>_template</span><span class='dot token'>.</span><span class='context identifier id'>context</span><span class='comma token'>,</span> <span class='locals identifier id'>locals</span><span class='rparen token'>)</span>
+  <span class='template identifier id'>template</span><span class='dot token'>.</span><span class='partial identifier id'>partial</span> <span class='assign token'>=</span> <span class='true true kw'>true</span>
+  <span class='comment val'># TODO: #block in partial templates</span>
+  <span class='output identifier id'>output</span> <span class='assign token'>=</span> <span class='template identifier id'>template</span><span class='dot token'>.</span><span class='render identifier id'>render</span>
+  <span class='comment val'># Rango.logger.debug(&quot;Partial: #{output[0..20]} ...&quot;)</span>
+  <span class='return return kw'>return</span> <span class='output identifier id'>output</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+</div>
+  </div>
+
+</div>
+    </div>
+  </body>
+</html>
