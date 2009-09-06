@@ -11,6 +11,7 @@ class Gem < Thor
 
   desc "package", "Package the gem"
   def package
+    Gemspec.new.generate
     gemspec = File.read("rango.gemspec")
     spec = eval(gemspec)
     FileUtils.mkdir_p(File.join(Dir.pwd, "pkg"))
