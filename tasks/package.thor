@@ -31,6 +31,16 @@ class Gem < Thor
 end
 
 class Gemspec < Thor
+  desc "generate", "Generate gemspec"
+  def generate
+    require_relative "../lib/rango"
+    require "erb"
+    File.open("rango.gemspec", "w") do |file|
+      content = File.read("rango.gemspec.erb")
+      file.puts(ERB.new(content).result)
+    end
+  end
+
   desc "validate", "Validate gemspec"
   def validate
     require "rubygems/specification"
