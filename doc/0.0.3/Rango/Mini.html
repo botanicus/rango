@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="../style.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="../syntax_highlight.css" type="text/css" charset="utf-8" />
+
+    <script src="../jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../app.js" type="text/javascript" charset="utf-8"></script>
+    <title>Module: Rango::Mini</title>
+  </head>
+  <body>
+    <div id="content">
+      <div class="section module Rango_Mini">
+  <h1 class="title">Module: Rango::Mini</h1>
+  <div class="section mixins">
+  <h1>Included Modules</h1>
+  <p><a href="ControllerMixin.html" title="Rango::ControllerMixin">Rango::ControllerMixin</a></p>
+</div><div class="section constants">
+  
+</div>  <div class="section visibilitygroup public">
+    <h1>Public Visibility</h1>
+      <div class="section methodsummary instance public">
+    <h1>Public Instance Method Summary</h1>
+<table class="summary">
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#app-instance_method" title="#app">#app</a></span><span class='args'>(&amp;block)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+</table><div class="included">
+  
+  <div>
+    <h1>Public Instance Methods Included from <a href="ControllerMixin.html" title="Rango::ControllerMixin">Rango::ControllerMixin</a></h1>
+    <p><span class='name'><a href="ControllerMixin.html#autorender-instance_method" title="autorender">autorender</a></span>, <span class='name'><a href="ControllerMixin.html#capture-instance_method" title="capture">capture</a></span>, <span class='name'><a href="ControllerMixin.html#concat-instance_method" title="concat">concat</a></span>, <span class='name'><a href="ControllerMixin.html#display-instance_method" title="display">display</a></span>, <span class='name'><a href="ControllerMixin.html#layout-instance_method" title="layout">layout</a></span>, <span class='name'><a href="ControllerMixin.html#message-instance_method" title="message">message</a></span>, <span class='name'><a href="ControllerMixin.html#redirect-instance_method" title="redirect">redirect</a></span>, <span class='name'><a href="ControllerMixin.html#render-instance_method" title="render">render</a></span>, <span class='name'><a href="ControllerMixin.html#template_location-instance_method" title="template_location">template_location</a></span></p>
+  </div>
+  
+</div>
+<div class="clear"></div>
+  </div>
+<div class="section methoddetails instance public">
+  <h1>Public Instance Method Details</h1>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>app</h3>
+</div><div id="app-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>app</span><span class='args'>(&amp;block)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/mixins/mini.rb', line 15</span>
+
+<span class='def def kw'>def</span> <span class='app identifier id'>app</span><span class='lparen token'>(</span><span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='lambda identifier id'>lambda</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='env identifier id'>env</span><span class='bitor op'>|</span>
+    <span class='request identifier id'>request</span> <span class='assign token'>=</span> <span class='Rango constant id'>Rango</span><span class='colon2 op'>::</span><span class='Request constant id'>Request</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='env identifier id'>env</span><span class='rparen token'>)</span>
+    <span class='response identifier id'>response</span> <span class='assign token'>=</span> <span class='Rack constant id'>Rack</span><span class='colon2 op'>::</span><span class='Response constant id'>Response</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
+    <span class='body identifier id'>body</span> <span class='assign token'>=</span> <span class='block identifier id'>block</span><span class='dot token'>.</span><span class='call identifier id'>call</span><span class='lparen token'>(</span><span class='request identifier id'>request</span><span class='comma token'>,</span> <span class='response identifier id'>response</span><span class='rparen token'>)</span>
+    <span class='comment val'># TODO: check how rack test if object is stringable, probably not this way</span>
+    <span class='raise identifier id'>raise</span> <span class='ArgumentError constant id'>ArgumentError</span> <span class='unless unless_mod kw'>unless</span> <span class='body identifier id'>body</span><span class='dot token'>.</span><span class='respond_to? fid id'>respond_to?</span><span class='lparen token'>(</span><span class='symbol val'>:each</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='body identifier id'>body</span><span class='dot token'>.</span><span class='is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='String constant id'>String</span><span class='rparen token'>)</span>
+    <span class='response identifier id'>response</span><span class='dot token'>.</span><span class='write identifier id'>write</span><span class='lparen token'>(</span><span class='body identifier id'>body</span><span class='rparen token'>)</span>
+    <span class='response identifier id'>response</span><span class='dot token'>.</span><span class='finish identifier id'>finish</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+</div>
+  </div>
+
+</div>
+    </div>
+  </body>
+</html>
