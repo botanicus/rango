@@ -72,7 +72,7 @@ module Rango
 
     attribute :environment, "development"
     def environment?(environment)
-      self.environment.eql?(environment.to_sym)
+      self.environment.eql?(environment)
     end
   end
 end
