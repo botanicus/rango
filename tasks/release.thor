@@ -34,8 +34,8 @@ class Release < Thor
 
   desc "tag", "Create Git tag for this version and push it to GitHub."
   def tag
-    puts "Creating new git tag #{Rango::VERSION} with description #{Rango::CODENAME} and pushing it online ..."
-    %x[git tag -a -m 'Version #{Rango::VERSION} "#{Rango::CODENAME}"' #{Rango::VERSION}]
+    puts "Creating new git tag #{Rango::VERSION} and pushing it online ..."
+    %x[git tag -a -m 'Version #{Rango::VERSION}' #{Rango::VERSION}]
     %x[git push --tags]
     puts "Tag #{Rango::VERSION} was created and pushed to GitHub."
   end
@@ -68,7 +68,7 @@ class Release < Thor
   desc "twitter", "Send message to Twitter"
   def twitter(password)
     message = "Rango #{Rango::VERSION} have been just released! Install via RubyGems from RubyForge or GitHub!"
-    %x[curl --basic --user RangoProject:#{password} --data status="#{message}" http://twitter.com/statuses/update.xml]
+    %x[curl --basic --user RangoProject:#{password} --data status="#{message}" http://twitter.com/statuses/update.xml > /dev/null]
     puts "Message have been sent to Twitter"
   end
 end
