@@ -19,3 +19,6 @@ require_relative "settings"
 
 # database connection
 # DataMapper.setup(:default, "sqlite3::memory")
+
+# if you will run this script with -i argument, interactive session will begin
+Rango.interactive if ARGV.delete("-i")
