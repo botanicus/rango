@@ -53,7 +53,7 @@ module Rango
 
     attribute :bootloaders, Hash.new
     def after_boot(name, &block)
-      self.bootloaders[name] = &block
+      self.bootloaders[name] = block
     end
 
     # Start IRB interactive session
