@@ -11,7 +11,7 @@ end
 
 ::Gem::Specification.new do |s|
   s.name = "rango"
-  s.version = "0.0.3"
+  s.version = "0.0.4"
   s.authors = ["Jakub Šťastný aka Botanicus"]
   s.homepage = "http://github.com/botanicus/rango"
   s.summary = "Rango is ultralightweight, ultracustomizable, ultracool web framework deeply inspired by Django."
