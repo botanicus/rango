@@ -40,8 +40,8 @@ module Rango
     def boot(options = Hash.new, &block)
       Rango.import!("boot")
       block.call if block_given?
-      self.bootloaders.each do |bootloader|
-        logger.debug "Calling bootloader #{bootloader.inspect}"
+      self.bootloaders.each do |name, bootloader|
+        logger.debug "Calling bootloader #{name}"
         bootloader.call
       end
     end
@@ -51,9 +51,9 @@ module Rango
       self.boot(options.merge(force: true))
     end
 
-    attribute :bootloaders, Array.new
-    def after_boot(&block)
-      self.bootloaders.push(block)
+    attribute :bootloaders, Hash.new
+    def after_boot(name, &block)
+      self.bootloaders[name] = &block
     end
 
     # Start IRB interactive session
