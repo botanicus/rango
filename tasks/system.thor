@@ -38,7 +38,7 @@ class System < Thor
             file.puts(content)
           end
           manifest.puts(executable_path(binary))
-          sh "chmod a+xr #{executable_path(binary)}"
+          system "chmod a+xr #{executable_path(binary)}"
         end
       end
       puts "", "You will need rack, extlib and path and for development also erubis (generators) and thor"
@@ -116,6 +116,7 @@ class System < Thor
   end
 
   def write_manifest(&block)
+    mkdir_p File.dirname(manifest) rescue nil
     File.open(manifest, "w") do |file|
       block.call(file)
     end
