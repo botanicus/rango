@@ -32,6 +32,7 @@ class Spec < Thor
     end
   end
 
+  protected
   def spec(*argv)
     ARGV.clear
     ARGV.push(*argv)
