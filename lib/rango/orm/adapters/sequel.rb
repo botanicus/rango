@@ -9,8 +9,8 @@ module Rango
       end
 
       def connect
-        try_connect do |adapter, path|
-          DataMapper.setup(:default, "#{adapter}://#{Project.root}/#{path}")
+        try_connect do |adapter, database|
+          Sequel.connect("#{adapter}://#{database}")
         end
       end
     end

@@ -21,9 +21,9 @@ module Rango
 
       protected
       def try_connect(&block)
-        adapter = Project.settings.database_adapter
-        path = Project.settings.database_name
-        block.call(adapter, path)
+        adapter  = Project.settings.database_adapter
+        database = Project.settings.database_name
+        block.call(adapter, database)
       rescue Exception => exception
         Rango.logger.exception(exception)
         Rango.logger.fatal("Database connection can't be established, exiting")
