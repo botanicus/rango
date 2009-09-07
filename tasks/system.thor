@@ -4,13 +4,12 @@ require "rbconfig"
 require "fileutils"
 require_relative "../lib/rango/ext/platform"
 
-class Install < Thor
+# TODO: better logging (colours, more descriptive)
+class System < Thor
   include RbConfig
   include FileUtils
-  # TODO: rewrite shebang (see CONFIG)
-  # TODO: --disable-gems to shebang
-  desc "system", "Install Rango for #{CONFIG["prefix"]}"
-  def system
+  desc "install", "Install Rango for #{CONFIG["prefix"]}"
+  def install
     # TODO: what about windows?
     if Rango::Platform.unix? && ENV["USER"].eql?("root") # TODO: find a better way, it won't work on Gobo Linux for example
       puts "Installing libraries ..."
@@ -29,6 +28,24 @@ class Install < Thor
           file.puts(content)
         end
         sh "chmod a+xr #{executable_path(binary)}"
+      end
+    else
+      abort "You have to be root!"
+    end
+  end
+
+  desc "uninstall", "Uninstall Rango from #{CONFIG["prefix"]}"
+  def uninstall
+    if Rango::Platform.unix? && ENV["USER"].eql?("root") # TODO: find a better way, it won't work on Gobo Linux for example
+      puts "Uninstalling libraries ..."
+      rm_r File.join(install_dir, "lib/rango")
+      rm   File.join(install_dir, "lib/rango.rb")
+      puts "Installing stubs into share directory ..."
+      rm_r share_dir rescue nil
+      puts "Installing executables ..."
+      Dir["bin/*"].each do |path|
+        binary = File.basename(path)
+        rm executable_path(binary)
       end
     else
       abort "You have to be root!"
