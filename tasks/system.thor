@@ -5,11 +5,15 @@ require "fileutils"
 require_relative "../lib/rango/ext/platform"
 
 # TODO: better logging (colours, more descriptive)
+# TODO: refactoring
+# TODO: --prefix & --no-root for install e. g. to $HOME etc
+# TODO: --bindir --libdir
+# TODO: vendor installation for project
+# TODO: --datadir
+# TODO: --dry-run
 class System < Thor
   include RbConfig
   include FileUtils
-  # TODO: dry-run
-  # TODO: write manifest in install and in uninstall just go through it and rm files
   method_options env: false, suffix: true, prefix: true, dry_run: false
   desc "install", "Install Rango for #{CONFIG["prefix"]}"
   def install
@@ -37,6 +41,7 @@ class System < Thor
           sh "chmod a+xr #{executable_path(binary)}"
         end
       end
+      puts "", "You will need rack, extlib and path and for development also erubis (generators) and thor"
     end
   end
 
