@@ -23,6 +23,14 @@ class String
     ColoredString.new(self)
   end
 
+  def remove(pattern)
+    self.gsub(pattern, "")
+  end
+
+  def remove!(pattern)
+    self.gsub!(pattern, "")
+  end
+
   # For Rack
   # @since 0.0.2
   # @todo Is it still required?
