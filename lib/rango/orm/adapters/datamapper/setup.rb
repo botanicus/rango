@@ -1,16 +1,35 @@
 # encoding: utf-8
 
-Rango.dependency "dm-core", gem: true
-require_relative "support"
+module Rango
+  module ORM
+    class Datamapper
+      def load
+        Rango.dependency "dm-core", gem: true
+        require_relative "support"
+      end
 
-begin
-  adapter = Project.settings.database_adapter
-  path = Project.settings.database_name
-  DataMapper.setup(:default, "#{adapter}://#{Project.root}/#{path}")
-rescue Exception => exception
-  Rango.logger.exception(exception)
-  Rango.logger.fatal("Database connection can't be established, exiting")
-  exit 1
+      def connect
+        try_connect do |adapter, path|
+          DataMapper.setup(:default, "#{adapter}://#{Project.root}/#{path}")
+        end
+      end
+    end
+  end
 end
 
-Rango.logger.info("DataMapper started with database #{path}")
+module Rango
+  module ORM
+    class Sequel
+      def load
+        Rango.dependency "sequel", gem: true
+        require_relative "support"
+      end
+
+      def connect
+        try_connect do |adapter, path|
+          DataMapper.setup(:default, "#{adapter}://#{Project.root}/#{path}")
+        end
+      end
+    end
+  end
+end
