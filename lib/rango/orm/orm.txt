@@ -1,0 +1,8 @@
+1) tasks for migrations, creating db etc
+2) Rango.orm, so plugins knows which ORM is in use
+? environments support
+? custom fields (slugfield)
+? "action orm" layer for form_for etc
+  - Rango.orm.form_for
+  - or support just ModelForms
+    - or both ones
