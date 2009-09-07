@@ -1,8 +1,7 @@
 === Core Support ===
 - tasks for migrations, creating db etc
-- Project.orm, so plugins knows which ORM is in use
+- Project.orm (adapter object) so plugins knows which ORM is in use and can use it's methods
 ? environments support ... settings_local.rb
-Project.orm => object, Project.orm.name
 
 === Extended Support ===
 ? custom fields (slugfield)
