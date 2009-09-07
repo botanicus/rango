@@ -10,8 +10,7 @@ class System < Thor
   include FileUtils
   desc "install", "Install Rango for #{CONFIG["prefix"]}"
   def install
-    # TODO: what about windows?
-    if Rango::Platform.unix? && ENV["USER"].eql?("root") # TODO: find a better way, it won't work on Gobo Linux for example
+    run_if_has_permissions do
       puts "Installing libraries ..."
       cp_r "lib/rango",    install_dir
       cp   "lib/rango.rb", install_dir
@@ -29,14 +28,12 @@ class System < Thor
         end
         sh "chmod a+xr #{executable_path(binary)}"
       end
-    else
-      abort "You have to be root!"
     end
   end
 
   desc "uninstall", "Uninstall Rango from #{CONFIG["prefix"]}"
   def uninstall
-    if Rango::Platform.unix? && ENV["USER"].eql?("root") # TODO: find a better way, it won't work on Gobo Linux for example
+    run_if_has_permissions do
       puts "Uninstalling libraries ..."
       rm_r File.join(install_dir, "lib/rango")
       rm   File.join(install_dir, "lib/rango.rb")
@@ -47,12 +44,20 @@ class System < Thor
         binary = File.basename(path)
         rm executable_path(binary)
       end
+    end
+  end
+
+  protected
+  def run_if_has_permissions(&block)
+    # TODO: find a better way, it won't work on Gobo Linux for example
+    # TODO: what about windows & permissions?
+    if Rango::Platform.unix? && ENV["USER"].eql?("root")
+      block.call
     else
       abort "You have to be root!"
     end
   end
 
-  protected
   def install_dir
     CONFIG["sitelibdir"]
   end
