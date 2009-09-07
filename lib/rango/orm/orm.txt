@@ -1,8 +1,12 @@
-1) tasks for migrations, creating db etc
-2) Rango.orm, so plugins knows which ORM is in use
-? environments support
+=== Core Support ===
+- tasks for migrations, creating db etc
+- Project.orm, so plugins knows which ORM is in use
+? environments support ... settings_local.rb
+Project.orm => object, Project.orm.name
+
+=== Extended Support ===
 ? custom fields (slugfield)
 ? "action orm" layer for form_for etc
-  - Rango.orm.form_for
+  - Project.orm.form_for
   - or support just ModelForms
     - or both ones

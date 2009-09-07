@@ -18,7 +18,7 @@ class Project
     attribute :settings, Rango::Settings::Framework.new
 
     # @since 0.0.5
-    # @return [String, NilClass] Used ORM
+    # @return [Rango::ORM::Adapter, NilClass] Used ORM
     attribute :orm
 
     def bundled?

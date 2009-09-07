@@ -4,7 +4,12 @@ module Rango
   module ORM
     class Adapter
       def initialize
-        Project.orm = self.class.name.split("::").last
+        Project.orm = self
+      end
+
+      # @return [String] "datamapper"
+      def name
+        self.class.name.split("::").last
       end
 
       def load
@@ -13,6 +18,13 @@ module Rango
 
       def connect
         raise NotImplementedError, "You have to implement Adapter#connect method!"
+      end
+
+      # DB[:table]
+      attr_reader :connection
+
+      def form_for(*)
+        raise NotImplementedError
       end
 
       def finish
