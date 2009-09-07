@@ -8,6 +8,7 @@ require_relative "../lib/rango/ext/platform"
 class System < Thor
   include RbConfig
   include FileUtils
+  method_options env: false, suffix: true, prefix: true
   desc "install", "Install Rango for #{CONFIG["prefix"]}"
   def install
     run_if_has_permissions do
@@ -52,6 +53,7 @@ class System < Thor
     # TODO: find a better way, it won't work on Gobo Linux for example
     # TODO: what about windows & permissions?
     if Rango::Platform.unix? && ENV["USER"].eql?("root")
+      puts "Running with options: #{options.inspect}"
       block.call
     else
       abort "You have to be root!"
@@ -76,7 +78,7 @@ class System < Thor
   def executable_name(binary)
     suffix = CONFIG["configure_args"].match(/'--program-suffix=([^']+)'/)[1] rescue nil
     prefix = CONFIG["configure_args"].match(/'--program-prefix=([^']+)'/)[1] rescue nil
-    [prefix, binary, suffix].join("")
+    [(prefix if options.prefix?), binary, (suffix if options.suffix?)].join("")
   end
 
   def executable_path(binary)
@@ -84,7 +86,10 @@ class System < Thor
   end
 
   def shebang
-    "#!/usr/bin/env #{CONFIG["RUBY_INSTALL_NAME"]} --disable-gems"
-    #"#!/usr/bin/env #{CONFIG["exec_prefix"]} --disable-gems" # TODO: options for it
+    if options.env?
+      "#!/usr/bin/env #{CONFIG["exec_prefix"]} --disable-gems"
+    else
+      "#!/usr/bin/env #{CONFIG["RUBY_INSTALL_NAME"]} --disable-gems"
+    end
   end
 end
