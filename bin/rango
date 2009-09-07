@@ -3,7 +3,9 @@
 
 base   = File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__
 libdir = File.expand_path(File.join(File.dirname(base), "..", "lib"))
-$:.unshift(libdir) unless $:.include?(libdir)
+unless File.directory?(File.join(libdir, "rango")) # because of system installation
+  $:.unshift(libdir) unless $:.include?(libdir)
+end
 
 def help(command, description, indentation = 40)
   indentation = indentation - command.length
