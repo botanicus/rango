@@ -17,9 +17,9 @@ class Project
     # @return [Rango::Settings::Framework] Project settings.
     attribute :settings, Rango::Settings::Framework.new
 
-    # @since 0.0.1
-    # @return [Rango::Router] Project main router.
-    attribute :router
+    # @since 0.0.5
+    # @return [String, NilClass] Used ORM
+    attribute :orm
 
     def bundled?
       @bundled ||= Dir.exist?(File.join(Project.root, "gems"))
