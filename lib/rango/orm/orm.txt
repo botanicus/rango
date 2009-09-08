@@ -6,6 +6,6 @@
 === Extended Support ===
 ? custom fields (slugfield)
 ? "action orm" layer for form_for etc
-  - Project.orm.form_for
+  - Rango.orm.form_for ... well, maybe better will be Rango.orm.errors etc (see ActionORM)
   - or support just ModelForms
     - or both ones
