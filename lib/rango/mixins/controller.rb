@@ -84,17 +84,16 @@ module Rango
     end
 
     # RENDERING #
-    def template_location
-      # TODO
+    def template_location(extension = "html")
+      File.join(self.controller_name, "#{self.env[:action]}.#{extension}")
     end
 
-    # TODO: default option for template
+    # TODO: extensions handling
     # @since 0.0.2
-    def render(template, locals = Hash.new)
+    def render(template = self.template_location, locals = Hash.new)
       Rango::Templates::Template.new(template, self, locals).render
     end
 
-    # TODO: default option for template
     # @since 0.0.2
     def display(object, template, locals = Hash.new)
       render(template)
@@ -104,11 +103,6 @@ module Rango
         object.respond_to?("to_#{format}")
       end
       format ? object.send("to_#{format}") : raise(Error406.new(self.params))
-    end
-
-    #
-    def autorender(locals = Hash.new)
-      self.__render__(template_location, locals)
     end
   end
 end

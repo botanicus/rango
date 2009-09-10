@@ -16,16 +16,12 @@ module Rango
       # @since 0.0.2
       attribute :after_filters,  Hash.new
 
-      # @since 0.0.2
-      attribute :autorendering, false
-
       def inherited(subclass)
         unless subclass.before_filters.empty? && subclass.after_filters.empty?
           Rango.logger.debug("Inheritting filters from #{self.inspect} to #{subclass.inspect} (before: #{subclass.before_filters.inspect}, after: #{subclass.after_filters.inspect})")
           subclass.before_filters = self.before_filters
           subclass.after_filters = self.after_filters
         end
-        subclass.autorendering = self.autorendering
       end
 
       # before :login
@@ -63,7 +59,6 @@ module Rango
           Rango.logger.info("Calling method #{self.name}##{method} with arguments #{args.inspect}")
           value = controller.method(method).call(*args)
         end
-        controller.autorender if self.autorendering
         controller.run_filters(:after, method)
         response.body = proceed_value(value)
         response.status = controller.status if controller.status
