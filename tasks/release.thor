@@ -2,6 +2,7 @@
 
 class Release < Thor
   def initialize
+    require "gemcutter"
     require_relative "../lib/rango"
     load "#{File.dirname(__FILE__)}/yardoc.thor"
     load "#{File.dirname(__FILE__)}/../rango.gemspec"
@@ -49,10 +50,9 @@ class Release < Thor
 
     puts "Pushing packages to RubyForge ..."
     %x[rubyforge login]
-    file = Dir["pkg/*.gem"].last
     # args: rubyforge_project gem_name gem_version gem_file
-    %x[rubyforge add_release 8080 rango #{Rango::VERSION} #{file}]
-    %x[rubyforge add_file 8080 rango #{Rango::VERSION} #{file}]
+    %x[rubyforge add_release 8080 rango #{Rango::VERSION} #{self.gem}]
+    %x[rubyforge add_file 8080 rango #{Rango::VERSION} #{self.gem}]
   end
 
   desc "tmbundle", "Upgrade the TextMate bundle."
@@ -70,5 +70,16 @@ class Release < Thor
     message = "Rango #{Rango::VERSION} have been just released! Install via RubyGems from RubyForge or GitHub!"
     %x[curl --basic --user RangoProject:#{password} --data status="#{message}" http://twitter.com/statuses/update.xml > /dev/null]
     puts "Message have been sent to Twitter"
+  end
+
+  desc "gemcutter", "Push gem to gemcutter"
+  def gemcutter
+    puts "Pushing to gemcutter ..."
+    puts %x[gemcutter push #{gem}]
+  end
+
+  protected
+  def gem
+    Dir["pkg/*.gem"].last
   end
 end
