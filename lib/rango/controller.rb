@@ -17,10 +17,22 @@ module Rango
       attribute :after_filters,  Hash.new
 
       def inherited(subclass)
+        # TODO: rewrite with inherit_filters
         unless subclass.before_filters.empty? && subclass.after_filters.empty?
-          Rango.logger.debug("Inheritting filters from #{self.inspect} to #{subclass.inspect} (before: #{subclass.before_filters.inspect}, after: #{subclass.after_filters.inspect})")
+          Rango.logger.debug("Inheritting filters from #{self.inspect} to #{subclass.inspect} (before: #{subclass.before_filters.inspect}, after: #{subclass.after_filters.inspect})") # WTF?
           subclass.before_filters = self.before_filters
           subclass.after_filters = self.after_filters
+        end
+        inherit_filters(subclass, :before_render)
+        inherit_filters(subclass, :after_render)
+        inherit_filters(subclass, :before_display)
+        inherit_filters(subclass, :after_display)
+      end
+
+      def inherit_filters(subclass, name)
+        unless self.send("#{name}_filters").empty?
+          Rango.logger.debug("Inheritting #{name} filters from #{self.inspect} to #{subclass.inspect}")
+          subclass.send("#{name}_filters") = self.send("#{name}_filters")
         end
       end
 
@@ -35,6 +47,26 @@ module Rango
       def after(action = nil, options = Hash.new, &block)
         self.after_filters[action || block] = options
       end
+
+      cattr_accessor :before_render_filters
+      cattr_accessor :after_render_filters
+      @@before_render_filters = Array.new
+      @@after_render_filters  = Array.new
+
+      cattr_accessor :before_display_filters
+      cattr_accessor :after_display_filters
+      @@before_display_filters = Array.new
+      @@after_display_filters  = Array.new
+
+      # class Posts < Rango::Controller
+      #   self.context ||= Object.new.binding
+      #   def show
+      #     # you can't use @explicit
+      #     post = Post.get(params[:id])
+      #     render "post.html", post: post
+      #   end
+      # end
+      attribute :context
 
       # [master] Change Merb::Controller to respond to #call and return a Rack Array. (wycats)http://rubyurl.com/BhoY
       # @since 0.0.2
