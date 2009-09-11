@@ -9,7 +9,7 @@ module Rango
 
     module LastModified
       def self.included(base)
-        Rango.logger.debug("LastModified-based caching mixin included to #{self.inspect}")
+        Rango.logger.debug("LastModified caching mixin included to #{self.inspect}")
         base.before_render_filters.push(:check_last_modified_for_template)
         base.before_display_filters.push(:check_last_modified_for_object)
         base.after_display_filters.push(:set_last_modified_for_object)
@@ -21,15 +21,15 @@ module Rango
       # set headers
       # after display
       def set_last_modified_for_object(object, result)
-        if self["Last-Modified"].nil? || self["Last-Modified"] < object.updated_at
-          self["Last-Modified"] = object.updated_at
+        if request.last_modified.nil? || request.last_modified < object.updated_at
+          self.headers["Last-Modified"] = object.updated_at
         end
       end
 
       # after render
       def set_last_modified_for_template(template)
         if self["Last-Modified"].nil? || self["Last-Modified"] < template.mtime
-          self["Last-Modified"] = template.mtime
+          self.headers["Last-Modified"] = template.mtime
         end
       end
 
@@ -59,7 +59,7 @@ module Rango
       # set headers
       # after render
       def set_etag(template)
-        self["Http-Etag"] = template.render.hash.to_s
+        headers["ETag"] = template.render.hash.to_s
       end
 
       # check headers
