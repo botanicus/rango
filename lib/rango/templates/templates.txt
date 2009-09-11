@@ -1,0 +1,39 @@
+1) local template variables
+	 render "index", post: Post.first
+	 + we will get exception when we have unitialized variable (@unitialized is nil)
+	 + it's the same as in partials, no problem to take part of template and create new partial from it
+	 + we have full controll what goes to the template
+2) instance controller variables
+	 @post = Post.first
+	 render "index"
+3) combination
+	 -> something is really important and we need ensure it is initialized, but something is optional and definitely is easier to do @foo.nil? than defined?(foo)
+
+1) same namespace as controller
+2) different namespace than controller
+
+def index
+	@context[:post] = Post.first
+	render "index"
+end
+
+def index
+	render "index", post: Post.first
+end
+
+... hard to say => user must decide
+
+list = ['<aaa>', 'b&b', '"ccc"']
+puts eruby.result(binding())
+
+!!!! binding works with local variables !!!
+
+
+nechceme definice views, chceme @post, chceme request
+
+Project.settings => OpenStruct
+
+Project.settings.template.format = :html
+Project.settings.template.format_version = 5
+Project.settings.template.caching = Rango.debug?
+	- for helpers
