@@ -30,10 +30,8 @@ module Rango
       end
 
       def inherit_filters(subclass, name)
-        unless self.send("#{name}_filters").empty?
-          Rango.logger.debug("Inheritting #{name} filters from #{self.inspect} to #{subclass.inspect}")
-          subclass.send("#{name}_filters") = self.send("#{name}_filters")
-        end
+        Rango.logger.debug("Inheritting #{name} filters from #{self.inspect} to #{subclass.inspect}")
+        subclass.send("#{name}_filters=", self.send("#{name}_filters"))
       end
 
       # before :login
