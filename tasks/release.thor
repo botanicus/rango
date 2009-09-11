@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+# TODO: rango-head.gemspec for git HEAD package (version Time.now.to_i or so)
 class Release < Thor
   def initialize
     require "gemcutter"
