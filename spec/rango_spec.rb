@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-require_relative "../spec_helper"
+require_relative "spec_helper"
 
 describe Rango do
   it "should have version and codename" do
