@@ -12,7 +12,7 @@ class Repair < Thor
   desc "encoding", "Add missing coding declaration"
   def encoding
     ruby_files do |file, lines, original|
-      if lines.length > 1 && ! lines.first.match(/^# encoding: utf-8\s*$/)
+      if lines.length > 1 && ! lines[0..1].any? { |line| line.match(/^# encoding: utf-8\s*$/) }
         puts "Added missing coding declaration to #{file}"
         lines.insert(0, "# encoding: utf-8\n\n")
         self.save(file, lines)
