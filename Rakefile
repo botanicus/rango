@@ -11,7 +11,8 @@ namespace :setup do
 end
 
 task :default => :setup do
+  rubylib = (ENV["RUBYLIB"] || String.new).split(":")
   libdirs = Dir["vendor/*/lib"]
-  ENV["RUBYLIB"] = libdirs.join(":") + ENV["RUBYLIB"]
+  ENV["RUBYLIB"] = (libdirs + rubylib).join(":")
   exec "spec --options spec/spec.opts spec"
 end
