@@ -93,17 +93,17 @@ module Rango
     def render(template, locals = Hash.new)
       run_filters2 self.class.before_render_filters, template, locals
       template, locals = self.template_location, template if template.is_a?(Hash) && locals.empty?
-      output = Rango::Templates::Template.new(template, self.class.context || self, locals).render
-      run_filters2 self.class.after_render_filters, output
-      return output
+      template2 = Rango::Templates::Template.new(template, self.class.context || self, locals)
+      run_filters2 self.class.after_render_filters, template2
+      return template2.render
     end
 
     # @since 0.0.2
     def display(object, template, locals = Hash.new)
       run_filters2 self.class.before_display_filters, object, template, locals
       result = render(template)
-      run_filters2 self.class.after_display_filters, result
-      result
+      run_filters2 self.class.after_display_filters, object, result
+      return result
     rescue Error406
       # TODO: provides API
       format = Project.settings.mime_formats.find do |format|
