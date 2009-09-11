@@ -65,6 +65,10 @@ module Rango
         raise Error406.new(self.params)
       end
 
+      def mtime
+        @mtime ||= File.mtime(self.template)
+      end
+
       # @since 0.0.2
       def find(template)
         if template.match(/^\//)
