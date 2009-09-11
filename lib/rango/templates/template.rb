@@ -40,7 +40,7 @@ module Rango
             supertemplate.blocks = self.blocks
             return supertemplate.render
           end
-          return value
+          value
         end
       end
 
