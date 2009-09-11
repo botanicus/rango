@@ -1,10 +1,11 @@
 # encoding: utf-8
 
-Rango.import("controller")
+require "rango/controller"
+require "rango/mixins/http_caching"
 
 <% @controllers.each do |controller| %>
 class <%= controller %> < Rango::Controller
-  # TODO
+  include Rango::HttpCaching
 end
 
 <% end %>
