@@ -1,0 +1,9 @@
+[submodule "vendor/extlib"]
+	path = vendor/extlib
+	url = git://github.com/datamapper/extlib.git
+[submodule "vendor/path"]
+	path = vendor/path
+	url = git://github.com/botanicus/path.git
+[submodule "vendor/rack"]
+	path = vendor/rack
+	url = git://github.com/rack/rack.git
