@@ -25,21 +25,23 @@ module Rango
 
       # @since 0.0.2
       def render
-        self.context = extend_context(self.context) unless self.partial
-        path = self.find(self.template)
-        raise TemplateNotFound.new(template, Project.settings.template_dirs) if path.nil?
-        file = File.new(path)
-        value = self.engine.render(file, context, self.locals)
-        STDOUT.puts
-        Rango.logger.info("Rendering template #{self.template}")
-        # Rango.logger.inspect(self.blocks)
-        if self.supertemplate
-          Rango.logger.debug("Extends call: #{self.supertemplate}")
-          supertemplate = self.class.new(self.supertemplate, self.context, self.locals)
-          supertemplate.blocks = self.blocks
-          return supertemplate.render
+        @body ||= begin
+          self.context = extend_context(self.context) unless self.partial
+          path = self.find(self.template)
+          raise TemplateNotFound.new(template, Project.settings.template_dirs) if path.nil?
+          file = File.new(path)
+          value = self.engine.render(file, context, self.locals)
+          STDOUT.puts
+          Rango.logger.info("Rendering template #{self.template}")
+          # Rango.logger.inspect(self.blocks)
+          if self.supertemplate
+            Rango.logger.debug("Extends call: #{self.supertemplate}")
+            supertemplate = self.class.new(self.supertemplate, self.context, self.locals)
+            supertemplate.blocks = self.blocks
+            return supertemplate.render
+          end
+          return value
         end
-        return value
       end
 
       # @since 0.0.2
