@@ -4,7 +4,6 @@ require_relative "spec_helper"
 
 describe Rango do
   it "should have version and codename" do
-    Rango::CODENAME.should be_kind_of(String)
     Rango::VERSION.should be_kind_of(String)
     Rango::VERSION.should match(/^\d+\.\d+\.\d+$/)
   end

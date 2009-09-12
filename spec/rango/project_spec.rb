@@ -23,10 +23,6 @@ describe Project do
     Project.setttings.should be_kind_of(Rango::Settings::Framework)
   end
 
-  it "should have router" do
-    Project.should respond_to(:router)
-  end
-
   it "should have logger" do
     Project.should respond_to(:logger)
     Project.logger.should be_kind_of(Rango::Logger)

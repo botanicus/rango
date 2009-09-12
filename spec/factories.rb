@@ -9,14 +9,14 @@ class Factory
     end
 
     def request
+      require "rango/rack/request"
       Rango::Request.new(self.rack_env)
     end
 
     def controller
-      controller = Rango::Controller.new
-      controller.request
-      controller.params
-      return controller
+      require "rango/controller"
+      params = Hash.new
+      Rango::Controller.new(self.request, params)
     end
   end
 end
