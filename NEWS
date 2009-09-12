@@ -1,0 +1,21 @@
+= Version 0.0.1 Miracle Born
+  * Just basics
+
+= Version 0.0.2 MVC Princess
+  * static files middleware
+  * MVC layer
+  * sessions, cookies
+  * integrated merb-auth
+
+= Version 0.0.3
+
+= Version 0.0.4
+
+= Version 0.0.5
+  * [FEATURE] environments support
+  * [FEATURE] installation without RubyGems
+  * [FEATURE] Rip support
+  * [FEATURE] HTTP caching
+  * [FEATURE] Hooks for Rendering
+  * [SPECS]   Integration with RunCodeRun.com
+  * [SPECS]   All specs passing
