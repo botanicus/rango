@@ -56,16 +56,6 @@ module Rango
       @@before_display_filters ||= Array.new
       @@after_display_filters  ||= Array.new
 
-      # class Posts < Rango::Controller
-      #   self.context ||= Object.new.binding
-      #   def show
-      #     # you can't use @explicit
-      #     post = Post.get(params[:id])
-      #     render "post.html", post: post
-      #   end
-      # end
-      attribute :context
-
       # [master] Change Merb::Controller to respond to #call and return a Rack Array. (wycats)http://rubyurl.com/BhoY
       # @since 0.0.2
       def call(env)
@@ -140,6 +130,25 @@ module Rango
 
     def route_to(action, params = Hash.new)
       self.class.route_to(request.env, action, params)
+    end
+
+    # class Posts < Rango::Controller
+    #   def context
+    #     Object.new
+    #   end
+    #
+    #   def show
+    #     # you can't use @explicit
+    #     post = Post.get(params[:id])
+    #     render "post.html", post: post
+    #   end
+    # end
+    #
+    # Context for rendering templates
+    # This context will be extended by same crucial methods from template mixin
+    # We are in context of current controller by default
+    def context
+      self
     end
 
     # redefine this method for your controller if you want to provide custom error pages
