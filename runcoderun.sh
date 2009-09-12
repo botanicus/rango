@@ -4,4 +4,8 @@ for libdir in vendor/*/lib
   do RUBYLIB="$libdir:$RUBYLIB"
 done
 
-exec spec --options spec/spec.opts spec
+if [[ "$#" = "0" ]] ; then
+  exec spec --options spec/spec.opts spec
+else
+  exec spec --options spec/spec.opts $*
+fi
