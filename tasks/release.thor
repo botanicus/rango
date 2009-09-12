@@ -3,7 +3,6 @@
 # TODO: rango-head.gemspec for git HEAD package (version Time.now.to_i or so)
 class Release < Thor
   def initialize
-    require "gemcutter"
     require_relative "../lib/rango"
     load "#{File.dirname(__FILE__)}/yardoc.thor"
     load "#{File.dirname(__FILE__)}/../rango.gemspec"
