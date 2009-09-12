@@ -1,6 +1,10 @@
 # encoding: utf-8
 
 require_relative "../../../spec_helper"
+require "rango/helpers/merb-helpers/tag_helpers"
+
+__END__
+TODO: rewrite to not send any requests
 
 # Rango::Router.prepare do
 #   default_routes

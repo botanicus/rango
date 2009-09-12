@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require_relative "../../../spec_helper"
+require "rango/helpers/merb-helpers/text_helpers"
 
 describe "cycle" do
   include Rango::Helpers::Text

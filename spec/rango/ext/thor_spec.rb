@@ -19,8 +19,7 @@ describe Rango::Tasks do
 
   describe "#boot" do
     it "should boot Rango" do
-      quiet { Tasks.new.boot(flat: true) }
-      Rango.should be_loaded
+      quiet { Tasks.new.boot }
     end
   end
 end

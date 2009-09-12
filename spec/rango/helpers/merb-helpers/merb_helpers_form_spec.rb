@@ -1,6 +1,8 @@
 # encoding: utf-8
 
+__END__
 require_relative "../../../spec_helper"
+require "rango/helpers/merb-helpers/form_helpers"
 
 # Quick rundown of how these specs work
 # please read before hacking on this plugin

@@ -62,10 +62,12 @@ describe TimeDSL do
   end
 
   it "should return correct count of seconds for 1.year" do
+    pending "year can have 365 or 366 days"
     1.year.should eql YEAR
   end
 
   it "should return correct count of seconds for 2.years" do
+    pending "year can have 365 or 366 days"
     2.years.should eql 2 * YEAR
   end
 

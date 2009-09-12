@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+# TODO: rewrite default_format-related functionality, it should simply write to Hash#default
 class Numeric
   module Transformer
 

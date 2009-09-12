@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 module DateAndTimeFormatting
-
   def self.included(base)
     base.class_eval do
       include DateAndTimeFormatting::InstanceMethods
@@ -11,8 +10,6 @@ module DateAndTimeFormatting
   end
 
   module InstanceMethods
-
-
     # Formats a date/time instance using a defined format
     #
     # ==== Parameters
@@ -40,11 +37,9 @@ module DateAndTimeFormatting
     def formatted(format = :default)
       self.strftime(Date.formats[format])
     end
-
   end
 
   module ClassMethods
-
     @@formats = {
       :db             => "%Y-%m-%d %H:%M:%S",
       :time           => "%H:%M", # 21:12
@@ -92,18 +87,7 @@ module DateAndTimeFormatting
     def add_format(key, format)
       formats.merge!({key => format})
     end
-
-
-    # Resets the date and time formats
-    # --
-    # @private
-    def reset_formats
-      original_formats = [:db, :time, :short, :date, :long, :long_ordinal, :rfc822]
-      formats = @@formats.delete_if{|format, v| !original_formats.include?(format)}
-    end
-
   end
-
 end
 
 module Ordinalize
@@ -134,7 +118,6 @@ Integer.send :include, Ordinalize
 # Time.now.to_ordinalized_s :long
 # => "February 28th, 2006 21:10"
 module OrdinalizedFormatting
-
   def to_ordinalized_s(format = :default)
     format = Date.formats[format]
     return self.to_s if format.nil?
@@ -152,7 +135,10 @@ module OrdinalizedFormatting
   #
   # ==== Examples
   #    5.days.ago.strftime_ordinalized('%b %d, %Y')     # =>
-  def strftime_ordinalized(fmt, format=nil)
-    strftime(fmt.gsub(/(^|[^-])%d/, '\1_%d_')).gsub(/_(\d+)_/) { |s| s.to_i.ordinalize }
+  def strftime_ordinalized(fmt, format = nil)
+    strftime(fmt.gsub(/(^|[^-])%d/, '\1_%d_')).gsub(/_(\d+)_/) { |s| s[1..-2].to_i.ordinalize }
   end
 end
+
+Time.send(:include, DateAndTimeFormatting)
+Date.send(:include, DateAndTimeFormatting)

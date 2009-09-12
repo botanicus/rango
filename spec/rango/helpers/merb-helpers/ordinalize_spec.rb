@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require_relative "../../../spec_helper"
+require "rango/helpers/merb-helpers/date_time_formatting"
 
 describe "#strftime_ordinalized" do
 

@@ -1,7 +1,7 @@
 # encoding: utf-8
 
-require "pathname" # TODO: it should be done in dm-aggregates
-Rango.dependency("dm-aggregates")
+require "pathname" # TODO: it should be done in dm-aggregates # TODO 2: don't use this crappy shit at all!
+#Rango.dependency("dm-aggregates")
 
 Rango.import("contrib/pagination/page")
 Rango.import("contrib/pagination/strategies")

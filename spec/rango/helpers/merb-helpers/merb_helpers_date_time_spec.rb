@@ -1,6 +1,8 @@
 # encoding: utf-8
 require_relative "../../../spec_helper"
+require "rango/helpers/merb-helpers/date_time_helpers"
 
+__END__
 describe "relative_date" do
   include Rango::Helpers::DateAndTime
 

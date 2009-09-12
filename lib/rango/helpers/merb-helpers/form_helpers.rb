@@ -3,8 +3,10 @@
 require_relative "form/helpers"
 require_relative "form/builder"
 
-module Rango::Helpers
-  include Rango::Helpers::Form
+module Rango
+  module Helpers
+    include Rango::Helpers::Form
+  end
 end
 
 class Rango::Controller

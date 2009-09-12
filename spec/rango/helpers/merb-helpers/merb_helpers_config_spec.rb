@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+__END__
 require_relative "../../../spec_helper"
 FIXTURES_DIR = File.dirname(__FILE__) + '/fixtures'
 MERB_HELPERS_ROOT = File.dirname(__FILE__) + "/.."

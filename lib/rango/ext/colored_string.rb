@@ -1,6 +1,5 @@
 # encoding: utf-8
 
-require "delegate"
 require "extlib"
 require_relative "string"
 require_relative "attribute"
