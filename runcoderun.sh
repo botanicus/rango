@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# clone submodules
+test -d vendor || git submodule init
+
+# setup RUBYLIB
 for libdir in vendor/*/lib
   do RUBYLIB="$libdir:$RUBYLIB"
 done
