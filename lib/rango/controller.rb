@@ -48,13 +48,13 @@ module Rango
 
       cattr_accessor :before_render_filters
       cattr_accessor :after_render_filters
-      @@before_render_filters = Array.new
-      @@after_render_filters  = Array.new
+      @@before_render_filters ||= Array.new
+      @@after_render_filters  ||= Array.new
 
       cattr_accessor :before_display_filters
       cattr_accessor :after_display_filters
-      @@before_display_filters = Array.new
-      @@after_display_filters  = Array.new
+      @@before_display_filters ||= Array.new
+      @@after_display_filters  ||= Array.new
 
       # class Posts < Rango::Controller
       #   self.context ||= Object.new.binding
