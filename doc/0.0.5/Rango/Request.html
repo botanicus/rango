@@ -1,0 +1,1177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="../style.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="../syntax_highlight.css" type="text/css" charset="utf-8" />
+
+    <script src="../jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../app.js" type="text/javascript" charset="utf-8"></script>
+    <title>Class: Rango::Request</title>
+  </head>
+  <body>
+    <div id="content">
+      <div class="section class Rango_Request">
+  <h1 class="title">Class: Rango::Request</h1>
+  <div class="section inheritance">
+  <ul>
+  <li>Rack::Request</li><ul><li>Rango::Request</li>
+  </ul></ul>
+</div><div class="section attributes">
+  <h1>Attributes</h1>
+
+  
+    <div class="instance">
+      <h2>Instance Attributes</h2>
+      <table>
+      
+        <tr>
+          <th class="name">env</td>
+          <td class="readwrite">
+            [<span id='env-instance_method'>R</span>W] 
+          </td>
+          <td class="visibility">
+            public
+          </td>
+          <td class="docstring">
+            
+            
+              <p class='returns'>
+                Returns: 
+                  <span class='return_types'>
+                     <tt><a href="../Hash.html" title="Hash">Hash</a></tt>
+                  </span>
+              </p>
+            
+          </td>
+        </tr>
+      
+        <tr>
+          <th class="name">path</td>
+          <td class="readwrite">
+            [<span id='path-instance_method'>R</span>W] 
+          </td>
+          <td class="visibility">
+            public
+          </td>
+          <td class="docstring">
+            
+            
+              <p class='returns'>
+                Returns: 
+                  <span class='return_types'>
+                     <tt><a href="../Hash.html" title="Hash">Hash</a></tt>
+                  </span>
+              </p>
+            
+          </td>
+        </tr>
+      
+      </table>
+    </div>
+  
+</div><div class="section constants">
+  
+</div><div class="section constructor">
+<h1>Constructor Summary</h1>
+  <div id="initialize-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>initialize</span><span class='args'>(env)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+    
+      <dt>
+        <span class='type'>[<tt><a href="../Hash.html" title="Hash">Hash</a></tt>]</span>
+        <span class='name'>env</span>
+        
+      </dt>
+      <dd>
+        <span class='desc'><p>
+Rack environment.
+</p>
+</span>
+      </dd>
+    
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+58
+59
+60
+61
+62
+63
+64
+65</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/rack/request.rb', line 58</span>
+
+<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='env identifier id'>env</span><span class='rparen token'>)</span>
+  <span class='@env ivar id'>@env</span>  <span class='assign token'>=</span> <span class='env identifier id'>env</span>
+  <span class='comment val'># /path will be transformed to path/</span>
+  <span class='@path ivar id'>@path</span> <span class='assign token'>=</span> <span class='env identifier id'>env</span><span class='lbrack token'>[</span><span class='string val'>&quot;PATH_INFO&quot;</span><span class='rbrack token'>]</span>
+  <span class='@path ivar id'>@path</span><span class='dot token'>.</span><span class='chomp! fid id'>chomp!</span><span class='lparen token'>(</span><span class='string val'>&quot;/&quot;</span><span class='rparen token'>)</span> <span class='if if_mod kw'>if</span> <span class='@path ivar id'>@path</span><span class='dot token'>.</span><span class='length identifier id'>length</span> <span class='gt op'>&gt;</span> <span class='integer val'>1</span> <span class='comment val'># so let the / just if the path is only /</span>
+  <span class='@method ivar id'>@method</span> <span class='assign token'>=</span> <span class='env identifier id'>env</span><span class='lbrack token'>[</span><span class='string val'>&quot;REQUEST_METHOD&quot;</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='downcase identifier id'>downcase</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='extend_session identifier id'>extend_session</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+</div>  <div class="section visibilitygroup public">
+    <h1>Public Visibility</h1>
+      <div class="section methodsummary instance public">
+    <h1>Public Instance Method Summary</h1>
+<table class="summary">
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#ajax%3F-instance_method" title="#ajax?">#ajax?</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#base_url-instance_method" title="#base_url">#base_url</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#cookies-instance_method" title="#cookies">#cookies</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#DELETE-instance_method" title="#DELETE">#DELETE</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#domain-instance_method" title="#domain">#domain</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+          <p class='returns'>
+            Returns: 
+              <span class='return_types'>
+                 <tt><a href="../String.html" title="String">String</a></tt>
+              </span>
+          </p>
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#extend_session-instance_method" title="#extend_session">#extend_session</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        <p>
+TODO: use extend method.
+</p>
+
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#form-instance_method" title="#form">#form</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#GET-instance_method" title="#GET">#GET</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#params-instance_method" title="#params">#params</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#POST-instance_method" title="#POST">#POST</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#PUT-instance_method" title="#PUT">#PUT</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#session-instance_method" title="#session">#session</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#subdomain-instance_method" title="#subdomain">#subdomain</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+          <p class='returns'>
+            Returns: 
+              <span class='return_types'>
+                 <tt><a href="../String.html" title="String">String</a></tt>
+              </span>
+          </p>
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#tld-instance_method" title="#tld">#tld</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+          <p class='returns'>
+            Returns: 
+              <span class='return_types'>
+                 <tt><a href="../String.html" title="String">String</a></tt>
+              </span>
+          </p>
+        
+      </td>
+    </tr>
+  
+</table>
+  </div>
+<div class="section methoddetails instance public">
+  <h1>Public Instance Method Details</h1>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>ajax?</h3>
+</div><div id="ajax%3F-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>ajax?</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+120
+121
+122</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/rack/request.rb', line 120</span>
+
+<span class='def def kw'>def</span> <span class='ajax? fid id'>ajax?</span>
+  <span class='env identifier id'>env</span><span class='lbrack token'>[</span><span class='string val'>&quot;HTTP_X_REQUESTED_WITH&quot;</span><span class='rbrack token'>]</span> <span class='eq op'>==</span> <span class='string val'>&quot;XMLHttpRequest&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>base_url</h3>
+</div><div id="base_url-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>base_url</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+158
+159
+160
+161
+162
+163
+164</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/rack/request.rb', line 158</span>
+
+<span class='def def kw'>def</span> <span class='base_url identifier id'>base_url</span>
+  <span class='require identifier id'>require</span> <span class='string val'>&quot;uri&quot;</span>
+  <span class='fragments identifier id'>fragments</span> <span class='assign token'>=</span> <span class='URI constant id'>URI</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='string val'>&quot;http://localhost:2000/foo/bar?q=foo&quot;</span><span class='rparen token'>)</span>
+  <span class='fragments identifier id'>fragments</span> <span class='assign token'>=</span> <span class='fragments identifier id'>fragments</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='dot2 op'>..</span><span class='integer val'>4</span><span class='rbrack token'>]</span>
+  <span class='float val'>5</span><span class='dot token'>.</span><span class='times identifier id'>times</span> <span class='lbrace token'>{</span> <span class='fragments identifier id'>fragments</span><span class='dot token'>.</span><span class='push identifier id'>push</span><span class='lparen token'>(</span><span class='nil nil kw'>nil</span><span class='rparen token'>)</span> <span class='rbrace token'>}</span>
+  <span class='URI constant id'>URI</span><span class='colon2 op'>::</span><span class='HTTP constant id'>HTTP</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='mult op'>*</span><span class='fragments identifier id'>fragments</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>cookies</h3>
+</div><div id="cookies-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>cookies</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+106
+107
+108</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/rack/request.rb', line 106</span>
+
+<span class='def def kw'>def</span> <span class='cookies identifier id'>cookies</span>
+  <span class='super super kw'>super</span><span class='dot token'>.</span><span class='except identifier id'>except</span><span class='lparen token'>(</span><span class='string val'>&quot;rack.session&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='symbolize_keys identifier id'>symbolize_keys</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>DELETE</h3>
+</div><div id="DELETE-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>DELETE</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+94
+95
+96</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/rack/request.rb', line 94</span>
+
+<span class='def def kw'>def</span> <span class='DELETE constant id'>DELETE</span>
+  <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='dot token'>.</span><span class='deep_symbolize_keys identifier id'>deep_symbolize_keys</span><span class='dot token'>.</span><span class='except identifier id'>except</span><span class='lparen token'>(</span><span class='symbol val'>:_method</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>domain</h3>
+</div><div id="domain-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'><tt><a href="../String.html" title="String">String</a></tt></span>
+    <span class='name'>domain</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="return">
+  <h3>Returns:</h3>
+  <dl>
+  
+    <dt>
+      
+        <span class='type'>[<tt><a href="../String.html" title="String">String</a></tt>]</span>
+      
+      
+        <span class='name'></span>
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+Domain name.
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+<div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+141
+142
+143
+144
+145
+146
+147</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/rack/request.rb', line 141</span>
+
+<span class='def def kw'>def</span> <span class='domain identifier id'>domain</span>
+  <span class='if if kw'>if</span> <span class='host identifier id'>host</span><span class='dot token'>.</span><span class='match identifier id'>match</span><span class='lparen token'>(</span><span class='regexp val'>/^localhost/</span><span class='rparen token'>)</span>
+    <span class='return return kw'>return</span> <span class='host identifier id'>host</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='string val'>&quot;.&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='last identifier id'>last</span>
+  <span class='else else kw'>else</span>
+    <span class='return return kw'>return</span> <span class='host identifier id'>host</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='string val'>&quot;.&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='last identifier id'>last</span><span class='lparen token'>(</span><span class='integer val'>2</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='string val'>&quot;.&quot;</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>extend_session</h3>
+</div><div id="extend_session-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>extend_session</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section docstring">
+  <p>
+TODO: use extend method
+</p>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+125
+126
+127
+128
+129</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/rack/request.rb', line 125</span>
+
+<span class='def def kw'>def</span> <span class='extend_session identifier id'>extend_session</span>
+  <span class='class class kw'>class</span> <span class='lshft op'>&lt;&lt;</span> <span class='session identifier id'>session</span>
+    <span class='include identifier id'>include</span> <span class='Rango constant id'>Rango</span><span class='colon2 op'>::</span><span class='Session constant id'>Session</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>form</h3>
+</div><div id="form-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>form</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+110
+111
+112
+113</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/rack/request.rb', line 110</span>
+
+<span class='def def kw'>def</span> <span class='form identifier id'>form</span>
+  <span class='data identifier id'>data</span> <span class='assign token'>=</span> <span class='env identifier id'>env</span><span class='lbrack token'>[</span><span class='string val'>&quot;rack.request.form_hash&quot;</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='Hash constant id'>Hash</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
+  <span class='data identifier id'>data</span><span class='dot token'>.</span><span class='deep_symbolize_keys identifier id'>deep_symbolize_keys</span><span class='dot token'>.</span><span class='except identifier id'>except</span><span class='lparen token'>(</span><span class='symbol val'>:_method</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>GET</h3>
+</div><div id="GET-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>GET</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+67
+68
+69</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/rack/request.rb', line 67</span>
+
+<span class='def def kw'>def</span> <span class='GET constant id'>GET</span>
+  <span class='super super kw'>super</span><span class='dot token'>.</span><span class='deep_symbolize_keys identifier id'>deep_symbolize_keys</span><span class='dot token'>.</span><span class='except identifier id'>except</span><span class='lparen token'>(</span><span class='symbol val'>:_method</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>params</h3>
+</div><div id="params-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>params</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+98
+99
+100
+101
+102
+103
+104</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/rack/request.rb', line 98</span>
+
+<span class='def def kw'>def</span> <span class='params identifier id'>params</span>
+  <span class='@params ivar id'>@params</span> <span class='assign token'>=</span> <span class='Hash constant id'>Hash</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
+  <span class='lbrack token'>[</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='GET constant id'>GET</span><span class='comma token'>,</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='POST constant id'>POST</span><span class='comma token'>,</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='PUT constant id'>PUT</span><span class='comma token'>,</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='DELETE constant id'>DELETE</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='data identifier id'>data</span><span class='bitor op'>|</span>
+    <span class='@params ivar id'>@params</span><span class='dot token'>.</span><span class='merge! fid id'>merge!</span><span class='lparen token'>(</span><span class='data identifier id'>data</span><span class='rparen token'>)</span> <span class='if if_mod kw'>if</span> <span class='data identifier id'>data</span><span class='dot token'>.</span><span class='respond_to? fid id'>respond_to?</span><span class='lparen token'>(</span><span class='symbol val'>:merge</span><span class='rparen token'>)</span> <span class='comment val'># Hash, Mash and friends</span>
+  <span class='end end kw'>end</span>
+  <span class='@params ivar id'>@params</span><span class='dot token'>.</span><span class='deep_symbolize_keys identifier id'>deep_symbolize_keys</span><span class='dot token'>.</span><span class='except identifier id'>except</span><span class='lparen token'>(</span><span class='symbol val'>:msg</span><span class='comma token'>,</span> <span class='symbol val'>:_method</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>POST</h3>
+</div><div id="POST-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>POST</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+71
+72
+73</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/rack/request.rb', line 71</span>
+
+<span class='def def kw'>def</span> <span class='POST constant id'>POST</span>
+  <span class='super super kw'>super</span><span class='dot token'>.</span><span class='deep_symbolize_keys identifier id'>deep_symbolize_keys</span><span class='dot token'>.</span><span class='except identifier id'>except</span><span class='lparen token'>(</span><span class='symbol val'>:_method</span><span class='rparen token'>)</span> <span class='if if_mod kw'>if</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='post? fid id'>post?</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>PUT</h3>
+</div><div id="PUT-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>PUT</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/rack/request.rb', line 75</span>
+
+<span class='def def kw'>def</span> <span class='PUT constant id'>PUT</span>
+  <span class='if if kw'>if</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='put? fid id'>put?</span>
+    <span class='if if kw'>if</span> <span class='@env ivar id'>@env</span><span class='lbrack token'>[</span><span class='string val'>&quot;rack.request.form_input&quot;</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='eql? fid id'>eql?</span> <span class='@env ivar id'>@env</span><span class='lbrack token'>[</span><span class='string val'>&quot;rack.input&quot;</span><span class='rbrack token'>]</span>
+      <span class='@env ivar id'>@env</span><span class='lbrack token'>[</span><span class='string val'>&quot;rack.request.form_hash&quot;</span><span class='rbrack token'>]</span>
+    <span class='elsif elsif kw'>elsif</span> <span class='form_data? fid id'>form_data?</span>
+      <span class='@env ivar id'>@env</span><span class='lbrack token'>[</span><span class='string val'>&quot;rack.request.form_input&quot;</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='@env ivar id'>@env</span><span class='lbrack token'>[</span><span class='string val'>&quot;rack.input&quot;</span><span class='rbrack token'>]</span>
+      <span class='unless unless kw'>unless</span> <span class='@env ivar id'>@env</span><span class='lbrack token'>[</span><span class='string val'>&quot;rack.request.form_hash&quot;</span><span class='rbrack token'>]</span> <span class='assign token'>=</span>
+          <span class='Utils constant id'>Utils</span><span class='colon2 op'>::</span><span class='Multipart constant id'>Multipart</span><span class='dot token'>.</span><span class='parse_multipart identifier id'>parse_multipart</span><span class='lparen token'>(</span><span class='env identifier id'>env</span><span class='rparen token'>)</span>
+        <span class='@env ivar id'>@env</span><span class='lbrack token'>[</span><span class='string val'>&quot;rack.request.form_vars&quot;</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='@env ivar id'>@env</span><span class='lbrack token'>[</span><span class='string val'>&quot;rack.input&quot;</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='read identifier id'>read</span>
+        <span class='@env ivar id'>@env</span><span class='lbrack token'>[</span><span class='string val'>&quot;rack.request.form_hash&quot;</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='Utils constant id'>Utils</span><span class='dot token'>.</span><span class='parse_query identifier id'>parse_query</span><span class='lparen token'>(</span><span class='@env ivar id'>@env</span><span class='lbrack token'>[</span><span class='string val'>&quot;rack.request.form_vars&quot;</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+        <span class='@env ivar id'>@env</span><span class='lbrack token'>[</span><span class='string val'>&quot;rack.input&quot;</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rewind identifier id'>rewind</span> <span class='if if_mod kw'>if</span> <span class='@env ivar id'>@env</span><span class='lbrack token'>[</span><span class='string val'>&quot;rack.input&quot;</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='respond_to? fid id'>respond_to?</span><span class='lparen token'>(</span><span class='symbol val'>:rewind</span><span class='rparen token'>)</span>
+      <span class='end end kw'>end</span>
+      <span class='@env ivar id'>@env</span><span class='lbrack token'>[</span><span class='string val'>&quot;rack.request.form_hash&quot;</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='deep_symbolize_keys identifier id'>deep_symbolize_keys</span><span class='dot token'>.</span><span class='except identifier id'>except</span><span class='lparen token'>(</span><span class='symbol val'>:_method</span><span class='rparen token'>)</span>
+    <span class='else else kw'>else</span>
+      <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>session</h3>
+</div><div id="session-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>session</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+115
+116
+117
+118</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/rack/request.rb', line 115</span>
+
+<span class='def def kw'>def</span> <span class='session identifier id'>session</span>
+  <span class='comment val'># Rango.logger.inspect(session: @env['rack.session'])</span>
+  <span class='@env ivar id'>@env</span><span class='lbrack token'>[</span><span class='string val'>'rack.session'</span><span class='rbrack token'>]</span> <span class='opasgn op'>||=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>subdomain</h3>
+</div><div id="subdomain-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'><tt><a href="../String.html" title="String">String</a></tt></span>
+    <span class='name'>subdomain</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="return">
+  <h3>Returns:</h3>
+  <dl>
+  
+    <dt>
+      
+        <span class='type'>[<tt><a href="../String.html" title="String">String</a></tt>]</span>
+      
+      
+        <span class='name'></span>
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+Subdomain name.
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+<div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+152
+153
+154
+155
+156</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/rack/request.rb', line 152</span>
+
+<span class='def def kw'>def</span> <span class='subdomain identifier id'>subdomain</span>
+  <span class='parts identifier id'>parts</span> <span class='assign token'>=</span> <span class='host identifier id'>host</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='string val'>&quot;.&quot;</span><span class='rparen token'>)</span>
+  <span class='index identifier id'>index</span> <span class='assign token'>=</span> <span class='parts identifier id'>parts</span><span class='dot token'>.</span><span class='index identifier id'>index</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='domain identifier id'>domain</span><span class='rparen token'>)</span>
+  <span class='parts identifier id'>parts</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='dot2 op'>..</span><span class='lparen token'>(</span><span class='index identifier id'>index</span> <span class='minus op'>-</span> <span class='integer val'>1</span><span class='rparen token'>)</span><span class='rbrack token'>]</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>tld</h3>
+</div><div id="tld-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'><tt><a href="../String.html" title="String">String</a></tt></span>
+    <span class='name'>tld</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="return">
+  <h3>Returns:</h3>
+  <dl>
+  
+    <dt>
+      
+        <span class='type'>[<tt><a href="../String.html" title="String">String</a></tt>]</span>
+      
+      
+        <span class='name'></span>
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+Top level domain.
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+<div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.1
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+134
+135
+136</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/rack/request.rb', line 134</span>
+
+<span class='def def kw'>def</span> <span class='tld identifier id'>tld</span>
+  <span class='host identifier id'>host</span><span class='dot token'>.</span><span class='match identifier id'>match</span><span class='lparen token'>(</span><span class='regexp val'>/^localhost/</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='nil nil kw'>nil</span> <span class='colon op'>:</span> <span class='host identifier id'>host</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='string val'>&quot;.&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='last identifier id'>last</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+</div>
+  </div>
+
+</div>
+    </div>
+  </body>
+</html>

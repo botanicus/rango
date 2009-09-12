@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="style.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="syntax_highlight.css" type="text/css" charset="utf-8" />
+
+    <script src="jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="app.js" type="text/javascript" charset="utf-8"></script>
+    <title>Class: Time</title>
+  </head>
+  <body>
+    <div id="content">
+      <div class="section class Time">
+  <h1 class="title">Class: Time</h1>
+  <div class="section inheritance">
+  <ul>
+  <li><a href="Object.html" title="Object">Object</a></li><ul><li>Time</li>
+  </ul></ul>
+</div><div class="section docstring">
+  <p>
+encoding: utf-8
+</p>
+
+</div><div class="section constants">
+  
+</div>  <div class="section visibilitygroup public">
+    <h1>Public Visibility</h1>
+      <div class="section methodsummary class public">
+    <h1>Public Class Method Summary</h1>
+<table class="summary">
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#timer-class_method" title="timer">timer</a></span><span class='args'>(&amp;block)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        <p>
+How long it takes to run the block in seconds.
+</p>
+
+        
+          <p class='returns'>
+            Returns: 
+              <span class='return_types'>
+                 <tt>Float</tt>
+              </span>
+          </p>
+        
+      </td>
+    </tr>
+  
+</table>
+  </div>
+  <div class="section methodsummary instance public">
+    <div class="inherited">
+  
+  <div>
+    <h1>Public Instance Methods Inherited from <a href="Object.html" title="Object">Object</a></h1>
+    <p><span class='name'><a href="Object.html#define_instance_method-instance_method" title="define_instance_method">define_instance_method</a></span>, <span class='name'><a href="Object.html#not_nil%3F-instance_method" title="not_nil?">not_nil?</a></span>, <span class='name'><a href="Object.html#try-instance_method" title="try">try</a></span></p>
+  </div>
+  
+</div>
+<div class="clear"></div>
+  </div>
+<div class="section methoddetails class public">
+  <h1>Public Class Method Details</h1>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>timer</h3>
+</div><div id="timer-class_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'><tt>Float</tt></span>
+    <span class='name'>timer</span><span class='args'>(&amp;block)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section docstring">
+  <p>
+How long it takes to run the block in seconds
+</p>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="return">
+  <h3>Returns:</h3>
+  <dl>
+  
+    <dt>
+      
+        <span class='type'>[<tt>Float</tt>]</span>
+      
+      
+        <span class='name'></span>
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+How long it takes to run the block in seconds
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+<div class="author">
+  <h3>Author:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+Botanicus
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+<div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.3
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+11
+12
+13
+14</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/ext/time.rb', line 11</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='timer identifier id'>timer</span><span class='lparen token'>(</span><span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='start identifier id'>start</span> <span class='assign token'>=</span> <span class='Time constant id'>Time</span><span class='dot token'>.</span><span class='now identifier id'>now</span><span class='dot token'>.</span><span class='tap identifier id'>tap</span> <span class='lbrace token'>{</span> <span class='block identifier id'>block</span><span class='dot token'>.</span><span class='call identifier id'>call</span> <span class='rbrace token'>}</span>
+  <span class='return return kw'>return</span> <span class='Time constant id'>Time</span><span class='dot token'>.</span><span class='now identifier id'>now</span> <span class='minus op'>-</span> <span class='start identifier id'>start</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+</div>
+  </div>
+
+</div>
+    </div>
+  </body>
+</html>

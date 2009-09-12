@@ -1,0 +1,860 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="../style.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="../syntax_highlight.css" type="text/css" charset="utf-8" />
+
+    <script src="../jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../app.js" type="text/javascript" charset="utf-8"></script>
+    <title>Module: Rango::ControllerMixin</title>
+  </head>
+  <body>
+    <div id="content">
+      <div class="section module Rango_ControllerMixin">
+  <h1 class="title">Module: Rango::ControllerMixin</h1>
+  <div class="section mixins">
+  <h1>Included Modules</h1>
+  <p>Rango::HttpExceptions</p>
+</div><div class="section attributes">
+  <h1>Attributes</h1>
+
+  
+    <div class="instance">
+      <h2>Instance Attributes</h2>
+      <table>
+      
+        <tr>
+          <th class="name">cookies</td>
+          <td class="readwrite">
+            [<span id='cookies-instance_method'>R</span><span id='cookies%3D-instance_method'>W</span>] 
+          </td>
+          <td class="visibility">
+            public
+          </td>
+          <td class="docstring">
+            
+            
+              <p class='returns'>
+                Returns: 
+                  <span class='return_types'>
+                     <tt><a href="Request.html" title="Rango::Request">Rango::Request</a></tt>
+                  </span>
+              </p>
+            
+          </td>
+        </tr>
+      
+        <tr>
+          <th class="name">params</td>
+          <td class="readwrite">
+            [<span id='params-instance_method'>R</span><span id='params%3D-instance_method'>W</span>] 
+          </td>
+          <td class="visibility">
+            public
+          </td>
+          <td class="docstring">
+            
+            
+              <p class='returns'>
+                Returns: 
+                  <span class='return_types'>
+                     <tt><a href="../Hash.html" title="Hash">Hash</a></tt>
+                  </span>
+              </p>
+            
+          </td>
+        </tr>
+      
+        <tr>
+          <th class="name">request</td>
+          <td class="readwrite">
+            [<span id='request-instance_method'>R</span><span id='request%3D-instance_method'>W</span>] 
+          </td>
+          <td class="visibility">
+            public
+          </td>
+          <td class="docstring">
+            
+            
+              <p class='returns'>
+                Returns: 
+                  <span class='return_types'>
+                     <tt><a href="Request.html" title="Rango::Request">Rango::Request</a></tt>
+                  </span>
+              </p>
+            
+          </td>
+        </tr>
+      
+        <tr>
+          <th class="name">response</td>
+          <td class="readwrite">
+            [<span id='response-instance_method'>R</span><span id='response%3D-instance_method'>W</span>] 
+          </td>
+          <td class="visibility">
+            public
+          </td>
+          <td class="docstring">
+            
+            
+              <p class='returns'>
+                Returns: 
+                  <span class='return_types'>
+                     <tt><a href="Request.html" title="Rango::Request">Rango::Request</a></tt>
+                  </span>
+              </p>
+            
+          </td>
+        </tr>
+      
+      </table>
+    </div>
+  
+</div><div class="section constants">
+  
+</div>  <div class="section visibilitygroup public">
+    <h1>Public Visibility</h1>
+      <div class="section methodsummary instance public">
+    <h1>Public Instance Method Summary</h1>
+<table class="summary">
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#autorender-instance_method" title="#autorender">#autorender</a></span><span class='args'>(locals = Hash.new)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#capture-instance_method" title="#capture">#capture</a></span><span class='args'>(*args, &amp;block)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        <p>
+Calls the capture method for the selected template engine.
+</p>
+
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#concat-instance_method" title="#concat">#concat</a></span><span class='args'>(str, binding)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        <p>
+Calls the concatenate method for the selected template engine.
+</p>
+
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#display-instance_method" title="#display">#display</a></span><span class='args'>(object, template, locals = Hash.new)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        <p>
+TODO: default option for template.
+</p>
+
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#layout-instance_method" title="#layout">#layout</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        <p>
+view: render &#8220;index&#8221; template: extends &#8220;base.
+</p>
+
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#message-instance_method" title="#message">#message</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        <p>
+The rails-style flash messages.
+</p>
+
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#redirect-instance_method" title="#redirect">#redirect</a></span><span class='args'>(url, options = Hash.new)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#render-instance_method" title="#render">#render</a></span><span class='args'>(template, locals = Hash.new)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        <p>
+TODO: default option for template.
+</p>
+
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#template_location-instance_method" title="#template_location">#template_location</a></span><span class='args'></span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        <p>
+RENDERING #.
+</p>
+
+        
+      </td>
+    </tr>
+  
+</table>
+  </div>
+<div class="section methoddetails instance public">
+  <h1>Public Instance Method Details</h1>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>autorender</h3>
+</div><div id="autorender-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>autorender</span><span class='args'>(locals = Hash.new)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+111
+112
+113</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/mixins/controller.rb', line 111</span>
+
+<span class='def def kw'>def</span> <span class='autorender identifier id'>autorender</span><span class='lparen token'>(</span><span class='locals identifier id'>locals</span> <span class='assign token'>=</span> <span class='Hash constant id'>Hash</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='rparen token'>)</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='__render__ identifier id'>__render__</span><span class='lparen token'>(</span><span class='template_location identifier id'>template_location</span><span class='comma token'>,</span> <span class='locals identifier id'>locals</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>capture</h3>
+</div><div id="capture-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>capture</span><span class='args'>(*args, &amp;block)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section docstring">
+  <p>
+Calls the capture method for the selected template engine.
+</p>
+<h4>Parameters</h4>
+<table>
+<tr><td valign="top">*args:</td><td>Arguments to pass to the block.
+
+</td></tr>
+<tr><td valign="top">&amp;block:</td><td>The block to call.
+
+</td></tr>
+</table>
+<h4>Returns</h4>
+<table>
+<tr><td valign="top">String:</td><td>The output of a template block or the return value of a non-template block
+converted to a string.
+
+</td></tr>
+</table>
+<p>
+:api: public
+</p>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/mixins/controller.rb', line 56</span>
+
+<span class='def def kw'>def</span> <span class='capture identifier id'>capture</span><span class='lparen token'>(</span><span class='mult op'>*</span><span class='args identifier id'>args</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='ret identifier id'>ret</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span>
+
+  <span class='captured identifier id'>captured</span> <span class='assign token'>=</span> <span class='send identifier id'>send</span><span class='lparen token'>(</span><span class='dstring node'>&quot;capture_#{Project.settings.template_engine}&quot;</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='args identifier id'>args</span><span class='rparen token'>)</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='mult op'>*</span><span class='args identifier id'>args</span><span class='bitor op'>|</span>
+    <span class='ret identifier id'>ret</span> <span class='assign token'>=</span> <span class='yield yield kw'>yield</span> <span class='mult op'>*</span><span class='args identifier id'>args</span>
+  <span class='end end kw'>end</span>
+
+  <span class='comment val'># return captured value only if it is not empty</span>
+  <span class='captured identifier id'>captured</span><span class='dot token'>.</span><span class='empty? fid id'>empty?</span> <span class='integer val'>? </span><span class='ret identifier id'>ret</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span> <span class='colon op'>:</span> <span class='captured identifier id'>captured</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>concat</h3>
+</div><div id="concat-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>concat</span><span class='args'>(str, binding)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section docstring">
+  <p>
+Calls the concatenate method for the selected template engine.
+</p>
+<h4>Parameters</h4>
+<table>
+<tr><td valign="top">str<String>:</td><td>The string to concatenate to the buffer.
+
+</td></tr>
+<tr><td valign="top">binding<Binding>:</td><td>The binding to use for the buffer.
+
+</td></tr>
+</table>
+<p>
+:api: public
+</p>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+74
+75
+76</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/mixins/controller.rb', line 74</span>
+
+<span class='def def kw'>def</span> <span class='concat identifier id'>concat</span><span class='lparen token'>(</span><span class='str identifier id'>str</span><span class='comma token'>,</span> <span class='binding identifier id'>binding</span><span class='rparen token'>)</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='send identifier id'>send</span><span class='lparen token'>(</span><span class='dstring node'>&quot;concat_#{Project.settings.template_engine}&quot;</span><span class='comma token'>,</span> <span class='str identifier id'>str</span><span class='comma token'>,</span> <span class='binding identifier id'>binding</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>display</h3>
+</div><div id="display-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>display</span><span class='args'>(object, template, locals = Hash.new)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section docstring">
+  <p>
+TODO: default option for template
+</p>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.2
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+100
+101
+102
+103
+104
+105
+106
+107
+108</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/mixins/controller.rb', line 100</span>
+
+<span class='def def kw'>def</span> <span class='display identifier id'>display</span><span class='lparen token'>(</span><span class='object identifier id'>object</span><span class='comma token'>,</span> <span class='template identifier id'>template</span><span class='comma token'>,</span> <span class='locals identifier id'>locals</span> <span class='assign token'>=</span> <span class='Hash constant id'>Hash</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='rparen token'>)</span>
+  <span class='render identifier id'>render</span><span class='lparen token'>(</span><span class='template identifier id'>template</span><span class='rparen token'>)</span>
+<span class='rescue rescue kw'>rescue</span> <span class='Error406 constant id'>Error406</span>
+  <span class='comment val'># TODO: provides API</span>
+  <span class='format identifier id'>format</span> <span class='assign token'>=</span> <span class='Project constant id'>Project</span><span class='dot token'>.</span><span class='settings identifier id'>settings</span><span class='dot token'>.</span><span class='mime_formats identifier id'>mime_formats</span><span class='dot token'>.</span><span class='find identifier id'>find</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='format identifier id'>format</span><span class='bitor op'>|</span>
+    <span class='object identifier id'>object</span><span class='dot token'>.</span><span class='respond_to? fid id'>respond_to?</span><span class='lparen token'>(</span><span class='dstring node'>&quot;to_#{format}&quot;</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='format identifier id'>format</span> <span class='integer val'>? </span><span class='object identifier id'>object</span><span class='dot token'>.</span><span class='send identifier id'>send</span><span class='lparen token'>(</span><span class='dstring node'>&quot;to_#{format}&quot;</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='raise identifier id'>raise</span><span class='lparen token'>(</span><span class='Error406 constant id'>Error406</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='params identifier id'>params</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>layout</h3>
+</div><div id="layout-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>layout</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section docstring">
+  <p>
+view: render &#8220;index&#8221; template: extends &#8220;base.html&#8221;
+if layout This is helper can works as render layout: false for AJAX
+requests when you probably would like to render just the page without
+layout
+</p>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+83
+84
+85</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/mixins/controller.rb', line 83</span>
+
+<span class='def def kw'>def</span> <span class='layout identifier id'>layout</span>
+  <span class='request identifier id'>request</span><span class='dot token'>.</span><span class='ajax? fid id'>ajax?</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>message</h3>
+</div><div id="message-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>message</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section docstring">
+  <p>
+The rails-style flash messages
+</p>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.2
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+27
+28
+29</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/mixins/controller.rb', line 27</span>
+
+<span class='def def kw'>def</span> <span class='message identifier id'>message</span>
+  <span class='@message ivar id'>@message</span> <span class='opasgn op'>||=</span> <span class='lparen token'>(</span><span class='request identifier id'>request</span><span class='dot token'>.</span><span class='GET constant id'>GET</span><span class='lbrack token'>[</span><span class='symbol val'>:msg</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='Hash constant id'>Hash</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>redirect</h3>
+</div><div id="redirect-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>redirect</span><span class='args'>(url, options = Hash.new)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.2
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/mixins/controller.rb', line 32</span>
+
+<span class='def def kw'>def</span> <span class='redirect identifier id'>redirect</span><span class='lparen token'>(</span><span class='url identifier id'>url</span><span class='comma token'>,</span> <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='Hash constant id'>Hash</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='rparen token'>)</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='status identifier id'>status</span> <span class='assign token'>=</span> <span class='integer val'>302</span>
+
+  <span class='comment val'># for example ?msg[error]=foo</span>
+  <span class='lbrack token'>[</span><span class='symbol val'>:error</span><span class='comma token'>,</span> <span class='symbol val'>:success</span><span class='comma token'>,</span> <span class='symbol val'>:notice</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='type identifier id'>type</span><span class='bitor op'>|</span>
+    <span class='if if kw'>if</span> <span class='msg identifier id'>msg</span> <span class='assign token'>=</span> <span class='lparen token'>(</span><span class='options identifier id'>options</span><span class='lbrack token'>[</span><span class='type identifier id'>type</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='message identifier id'>message</span><span class='lbrack token'>[</span><span class='type identifier id'>type</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+      <span class='url identifier id'>url</span><span class='dot token'>.</span><span class='concat identifier id'>concat</span><span class='lparen token'>(</span><span class='dstring node'>&quot;?msg[#{type}]=#{msg}&quot;</span><span class='rparen token'>)</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='headers identifier id'>headers</span><span class='lbrack token'>[</span><span class='string val'>&quot;Location&quot;</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='URI constant id'>URI</span><span class='dot token'>.</span><span class='escape identifier id'>escape</span><span class='lparen token'>(</span><span class='url identifier id'>url</span><span class='rparen token'>)</span>
+  <span class='return return kw'>return</span> <span class='String constant id'>String</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>render</h3>
+</div><div id="render-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>render</span><span class='args'>(template, locals = Hash.new)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section docstring">
+  <p>
+TODO: default option for template
+</p>
+
+</div><div class="section tags">
+  <h2>Meta Tags</h2>
+  <div class="param">
+  <h3>Parameters:</h3>
+  <dl>
+  
+  </dl>
+</div><div class="since">
+  <h3>Since:</h3>
+  <dl>
+  
+    <dt>
+      
+      
+      
+    </dt>
+    <dd>
+      <span class='desc'><p>
+0.0.2
+</p>
+</span>
+    </dd>
+  
+  </dl>
+</div>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+94
+95
+96</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/mixins/controller.rb', line 94</span>
+
+<span class='def def kw'>def</span> <span class='render identifier id'>render</span><span class='lparen token'>(</span><span class='template identifier id'>template</span><span class='comma token'>,</span> <span class='locals identifier id'>locals</span> <span class='assign token'>=</span> <span class='Hash constant id'>Hash</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='rparen token'>)</span>
+  <span class='Rango constant id'>Rango</span><span class='colon2 op'>::</span><span class='Templates constant id'>Templates</span><span class='colon2 op'>::</span><span class='Template constant id'>Template</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='template identifier id'>template</span><span class='comma token'>,</span> <span class='self self kw'>self</span><span class='comma token'>,</span> <span class='locals identifier id'>locals</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='render identifier id'>render</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>template_location</h3>
+</div><div id="template_location-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>template_location</span><span class='args'></span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section docstring">
+  <p>
+RENDERING #
+</p>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+88
+89
+90</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/mixins/controller.rb', line 88</span>
+
+<span class='def def kw'>def</span> <span class='template_location identifier id'>template_location</span>
+  <span class='comment val'># TODO</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+</div>
+  </div>
+
+</div>
+    </div>
+  </body>
+</html>

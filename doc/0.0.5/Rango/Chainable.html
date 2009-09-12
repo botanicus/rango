@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="../style.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="../syntax_highlight.css" type="text/css" charset="utf-8" />
+
+    <script src="../jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../app.js" type="text/javascript" charset="utf-8"></script>
+    <title>Module: Rango::Chainable</title>
+  </head>
+  <body>
+    <div id="content">
+      <div class="section module Rango_Chainable">
+  <h1 class="title">Module: Rango::Chainable</h1>
+  <div class="section constants">
+  
+</div>  <div class="section visibilitygroup public">
+    <h1>Public Visibility</h1>
+      <div class="section methodsummary instance public">
+    <h1>Public Instance Method Summary</h1>
+<table class="summary">
+  
+    <tr>
+      <th class="signature">
+        <span class='name'><a href="#chainable-instance_method" title="#chainable">#chainable</a></span><span class='args'>(method = nil, &amp;block)</span>
+        <span class='block'></span>
+        
+      </th>
+      <td class="docstring">
+        <p>
+Allows the definition of methods on a class that will be available via
+super.
+</p>
+
+        
+      </td>
+    </tr>
+  
+</table>
+  </div>
+<div class="section methoddetails instance public">
+  <h1>Public Instance Method Details</h1>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>chainable</h3>
+</div><div id="chainable-instance_method" class="section method">
+  <div class="details_title">
+  <div class='section methodsignature'>
+  <tt class='def'>
+    <span class='visibility'>public</span>
+    <span class='return_types'></span>
+    <span class='name'>chainable</span><span class='args'>(method = nil, &amp;block)</span>
+    <span class='block'></span>
+  </tt>
+</div>
+
+</div><div class="section docstring">
+  <p>
+Allows the definition of methods on a class that will be available via
+super.
+</p>
+<h4>Examples</h4>
+<pre class="code">
+    <span class='class class kw'>class</span> <span class='Foo constant id'>Foo</span>
+      <span class='extend identifier id'>extend</span> <span class='Rango constant id'>Rango</span><span class='colon2 op'>::</span><span class='Chainable constant id'>Chainable</span>
+      <span class='chainable identifier id'>chainable</span> <span class='do do kw'>do</span>
+        <span class='def def kw'>def</span> <span class='hello identifier id'>hello</span>
+          <span class='string val'>&quot;hello&quot;</span>
+        <span class='end end kw'>end</span>
+      <span class='end end kw'>end</span>
+    <span class='end end kw'>end</span>
+
+    <span class='class class kw'>class</span> <span class='Foo constant id'>Foo</span>
+      <span class='def def kw'>def</span> <span class='hello identifier id'>hello</span>
+        <span class='super super kw'>super</span> <span class='plus op'>+</span> <span class='string val'>&quot; Merb!&quot;</span>
+      <span class='end end kw'>end</span>
+    <span class='end end kw'>end</span>
+</pre>
+<p>
+# Example with mixin: module TestMixin
+</p>
+<pre class="code">
+  <span class='extend identifier id'>extend</span> <span class='Rango constant id'>Rango</span><span class='colon2 op'>::</span><span class='Chainable constant id'>Chainable</span>
+  <span class='chainable identifier id'>chainable</span> <span class='do do kw'>do</span>
+    <span class='def def kw'>def</span> <span class='test identifier id'>test</span>
+      <span class='string val'>&quot;from mixin!&quot;</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+</pre>
+<p>
+end
+</p>
+<p>
+class Test
+</p>
+<pre class="code">
+  <span class='include identifier id'>include</span> <span class='TestMixin constant id'>TestMixin</span>
+  <span class='def def kw'>def</span> <span class='test identifier id'>test</span>
+    <span class='string val'>&quot;hello &quot;</span> <span class='plus op'>+</span> <span class='super super kw'>super</span>
+  <span class='end end kw'>end</span>
+</pre>
+<p>
+end
+</p>
+<p>
+puts Test.new.test
+</p>
+<p>
+Foo.new.hello #=> &#8220;hello Merb!&#8220;
+</p>
+<h4>Parameters</h4>
+<table>
+<tr><td valign="top">&amp;block:</td><td>a block containing method definitions that should be marked as chainable
+
+</td></tr>
+</table>
+<h4>Returns</h4>
+<table>
+<tr><td valign="top">Module:</td><td>The anonymous module that was created
+
+</td></tr>
+</table>
+
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/rango/mixins/chainable.rb', line 54</span>
+
+<span class='def def kw'>def</span> <span class='chainable identifier id'>chainable</span><span class='lparen token'>(</span><span class='method identifier id'>method</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='method identifier id'>method</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span> <span class='andop op'>&amp;&amp;</span> <span class='block_given? fid id'>block_given?</span>
+    <span class='mixin identifier id'>mixin</span> <span class='assign token'>=</span> <span class='Module constant id'>Module</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+    <span class='include identifier id'>include</span> <span class='mixin identifier id'>mixin</span>
+    <span class='return return kw'>return</span> <span class='mixin identifier id'>mixin</span>
+  <span class='elsif elsif kw'>elsif</span> <span class='method identifier id'>method</span> <span class='andop op'>&amp;&amp;</span> <span class='notop op'>!</span> <span class='block_given? fid id'>block_given?</span>
+    <span class='comment val'># TODO</span>
+    <span class='comment val'># def test</span>
+    <span class='comment val'>#   # ...</span>
+    <span class='comment val'># end</span>
+    <span class='comment val'># chainable :test</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+</div>
+  </div>
+
+</div>
+    </div>
+  </body>
+</html>
