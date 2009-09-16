@@ -1,9 +1,8 @@
 # encoding: utf-8
 
 # dependencies
-Rango.bundle "rango"
-Rango.dependency "rack"
-Rango.dependency "extlib"
+require "rack"
+require "extlib"
 
 # imports
 Rango.import("project")

@@ -2,7 +2,6 @@
 
 Rango.import("exceptions")
 Rango.import("loggers/logger")
-Rango.import("bundling/dependency")
 Rango.import("rack/middlewares/basic")
 Rango.import("project")
 
