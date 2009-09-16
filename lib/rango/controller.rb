@@ -17,12 +17,8 @@ module Rango
       attribute :after_filters,  Hash.new
 
       def inherited(subclass)
-        # TODO: rewrite with inherit_filters
-        unless subclass.before_filters.empty? && subclass.after_filters.empty?
-          Rango.logger.debug("Inheritting filters from #{self.inspect} to #{subclass.inspect} (before: #{subclass.before_filters.inspect}, after: #{subclass.after_filters.inspect})") # WTF?
-          subclass.before_filters = self.before_filters
-          subclass.after_filters = self.after_filters
-        end
+        inherit_filters(subclass, :before)
+        inherit_filters(subclass, :after)
         inherit_filters(subclass, :before_render)
         inherit_filters(subclass, :after_render)
         inherit_filters(subclass, :before_display)
@@ -30,7 +26,6 @@ module Rango
       end
 
       def inherit_filters(subclass, name)
-        Rango.logger.debug("Inheritting #{name} filters from #{self.inspect} to #{subclass.inspect}")
         subclass.send("#{name}_filters=", self.send("#{name}_filters"))
       end
 
@@ -46,15 +41,11 @@ module Rango
         self.after_filters[action || block] = options
       end
 
-      cattr_accessor :before_render_filters
-      cattr_accessor :after_render_filters
-      @@before_render_filters ||= Array.new
-      @@after_render_filters  ||= Array.new
+      attribute :before_render_filters, Array.new
+      attribute :after_render_filters, Array.new
 
-      cattr_accessor :before_display_filters
-      cattr_accessor :after_display_filters
-      @@before_display_filters ||= Array.new
-      @@after_display_filters  ||= Array.new
+      attribute :before_display_filters, Array.new
+      attribute :after_display_filters, Array.new
 
       # [master] Change Merb::Controller to respond to #call and return a Rack Array. (wycats)http://rubyurl.com/BhoY
       # @since 0.0.2
@@ -62,30 +53,27 @@ module Rango
         Rango::Router.new.set_rack_env(env) # See rango/router/adapters/*
         request = Rango::Request.new(env)
         options = env["rango.router.params"] || raise("rango.router.params property has to be setup at least to empty hash")
-        method = options[:action] || :index
-        response = Rack::Response.new
+        method = env["rango.controller.action"].to_sym
         controller = self.new(request, options.merge(request.params))
-        controller.response = response
-        Rango.logger.info("#{self.name}.call(env) with method #{method}")
-        # Rango.logger.inspect(before: ::Application.get_filters(:before), after: ::Application.get_filters(:after))
-        # Rango.logger.inspect(before: get_filters(:before), after: get_filters(:after))
-        controller.run_filters(:before, method.to_sym)
-        # If you don't care about arguments or if you prefer usage of params.
-        args = controller.params.map { |key, value| value }
-        if controller.method(method).arity.eql?(0)
-          Rango.logger.info("Calling method #{self.name}##{method} without arguments")
-          value = controller.method(method).call
-        else
-          Rango.logger.info("Calling method #{self.name}##{method} with arguments #{args.inspect}")
-          value = controller.method(method).call(*args)
+        begin
+          unless controller.respond_to?(method)
+            raise NotFound, "Controller #{self.name} doesn't have method #{method}"
+          end
+          controller.run_filters(:before, method.to_sym)
+          # If you don't care about arguments or if you prefer usage of params.
+          if controller.method(method).arity.eql?(0)
+            Rango.logger.debug("Calling method #{self.name}##{method} without arguments")
+            controller.response.body = controller.method(method).call
+          else
+            args = controller.params.values
+            Rango.logger.debug("Calling method #{self.name}##{method} with arguments #{args.inspect}")
+            controller.response.body = controller.method(method).call(*args)
+          end
+          controller.run_filters(:after, method)
+          return controller.response.finish
+        rescue HttpError => exception
+          controller.rescue_http_error(exception)
         end
-        controller.run_filters(:after, method)
-        response.body = proceed_value(value)
-        response.status = controller.status if controller.status
-        response.headers.merge!(controller.headers)
-        return response.finish
-      rescue HttpError => exception
-        rescue_http_error(exception)
       end
 
       # @experimental
@@ -100,16 +88,9 @@ module Rango
       # for routers
       def dispatcher(action)
         lambda do |env|
+          Rango.logger.info("Dispatching to #{self}##{action}")
           env["rango.controller.action"] = action
           return self.call(env)
-        end
-      end
-
-      def proceed_value(value)
-        case value
-        when true, false then value.to_s
-        when nil then String.new
-        else value
         end
       end
 
@@ -121,6 +102,7 @@ module Rango
 
     def initialize(request, params)
       @request = request
+      @response = Rack::Response.new
       @params  = params
       @cookies = request.cookies
       @session = request.session
