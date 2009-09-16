@@ -3,6 +3,12 @@
 module Rango
   module Settings
     class Settings
+      def initialize(params = Hash.new)
+        params.each do |key, value|
+          self.send("#{key}=", value)
+        end
+      end
+
       # @since 0.0.1
       # @example
       #   Project.settings.merge(MyPlugin.settings)
