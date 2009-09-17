@@ -8,6 +8,10 @@ require "fileutils"
 
 require_relative "templater"
 
+# yes? etc
+require "rango/ext/cli"
+include Rango::CLI
+
 # TODO
 # metadata :file option for rendering just one file
 # gem installation (for plugin)
