@@ -26,7 +26,7 @@ module Rango
       end
 
       def inherit_filters(subclass, name)
-        subclass.send("#{name}_filters=", self.send("#{name}_filters"))
+        subclass.send("#{name}_filters=", self.send("#{name}_filters").dup)
       end
 
       # before :login
@@ -56,7 +56,7 @@ module Rango
         method = env["rango.controller.action"].to_sym
         controller = self.new(request, options.merge(request.params))
         begin
-          unless controller.respond_to?(method)
+          unless controller.respond_to?(method) # TODO: what about method_missing?
             raise NotFound, "Controller #{self.name} doesn't have method #{method}"
           end
           controller.run_filters(:before, method.to_sym)
