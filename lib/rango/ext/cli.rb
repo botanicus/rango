@@ -2,9 +2,11 @@
 
 module Rango
   module CLI
+    # TODO: yes?("You're fine?", default: true)
     def yes?(question)
       print "#{question} [Y/n] "
       values = {"y" => true, "n" => false}
+      values.default = "y"
       input  = STDIN.readline.chomp.downcase
       values[input]
     end
