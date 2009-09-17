@@ -21,8 +21,6 @@ class Project
     # @return [Rango::ORM::Adapter, NilClass] Used ORM
     attribute :orm
 
-    def bundled?
-      @bundled ||= Dir.exist?(File.join(Project.root, "gems"))
-    end
+    attribute :router
   end
 end
