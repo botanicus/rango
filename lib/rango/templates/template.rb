@@ -28,7 +28,7 @@ module Rango
         @body ||= begin
           self.context = extend_context(self.context) unless self.partial
           path = self.find(self.template)
-          raise TemplateNotFound.new(template, Project.settings.template_dirs) if path.nil?
+          raise TemplateNotFound.new("Template #{template} wasn't found in these template_dirs: #{Project.settings.template_dirs.inspect}") if path.nil?
           file = File.new(path)
           value = self.engine.render(file, context, self.locals)
           STDOUT.puts
