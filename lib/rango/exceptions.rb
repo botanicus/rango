@@ -58,61 +58,61 @@ module Rango
   # http://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 
   # informational
-  class Informational               < Rango::HttpError; end
-  class Continue                    < Rango::Informational; STATUS ||= 100; end
-  class SwitchingProtocols          < Rango::Informational; STATUS ||= 101; end
+  Informational = Class.new(Rango::HttpError)
+  Error100 = Continue = Class.new(Rango::Informational) { STATUS ||= 100 }
+  Error101 = SwitchingProtocols = Class.new(Rango::Informational) { STATUS ||= 101 }
 
   # successful
-  class Successful                  < Rango::HttpError; end
-  class OK                          < Rango::Successful; STATUS ||= 200; end
-  class Created                     < Rango::Successful; STATUS ||= 201; end
-  class Accepted                    < Rango::Successful; STATUS ||= 202; end
-  class NonAuthoritativeInformation < Rango::Successful; STATUS ||= 203; end
-  class NoContent                   < Rango::Successful; STATUS ||= 204; end
-  class ResetContent                < Rango::Successful; STATUS ||= 205; end
-  class PartialContent              < Rango::Successful; STATUS ||= 206; end
+  Successful = Class.new(Rango::HttpError)
+  Error200 = OK = Class.new(Rango::Successful) { STATUS ||= 200 }
+  Error201 = Created = Class.new(Rango::Successful) { STATUS ||= 201 }
+  Error202 = Accepted = Class.new(Rango::Successful) { STATUS ||= 202 }
+  Error203 = NonAuthoritativeInformation = Class.new(Rango::Successful) { STATUS ||= 203 }
+  Error204 = NoContent = Class.new(Rango::Successful) { STATUS ||= 204 }
+  Error205 = ResetContent = Class.new(Rango::Successful) { STATUS ||= 205 }
+  Error206 = PartialContent = Class.new(Rango::Successful) { STATUS ||= 206 }
 
   # redirection
-  class Redirection                 < Rango::HttpError; end
-  class MultipleChoices             < Rango::Redirection; STATUS ||= 300; end
-  class MovedPermanently            < Rango::Redirection; STATUS ||= 301; end
-  class MovedTemporarily            < Rango::Redirection; STATUS ||= 302; end
-  class SeeOther                    < Rango::Redirection; STATUS ||= 303; end
-  class NotModified                 < Rango::Redirection; STATUS ||= 304; end
-  class UseProxy                    < Rango::Redirection; STATUS ||= 305; end
-  class TemporaryRedirect           < Rango::Redirection; STATUS ||= 307; end
+  Redirection = Class.new(Rango::HttpError)
+  Error300 = MultipleChoices = Class.new(Rango::Redirection) { STATUS ||= 300 }
+  Error301 = MovedPermanently = Class.new(Rango::Redirection) { STATUS ||= 301 }
+  Error302 = MovedTemporarily = Class.new(Rango::Redirection) { STATUS ||= 302 }
+  Error303 = SeeOther = Class.new(Rango::Redirection) { STATUS ||= 303 }
+  Error304 = NotModified = Class.new(Rango::Redirection) { STATUS ||= 304 }
+  Error305 = UseProxy = Class.new(Rango::Redirection) { STATUS ||= 305 }
+  Error307 = TemporaryRedirect = Class.new(Rango::Redirection) { STATUS ||= 307 }
 
   # client error
-  class ClientError                 < Rango::HttpError; end
-  class BadRequest                  < Rango::ClientError; STATUS ||= 400; end
-  class MultiPartParseError         < Rango::BadRequest; end
-  class Unauthorized                < Rango::ClientError; STATUS ||= 401; end
-  class PaymentRequired             < Rango::ClientError; STATUS ||= 402; end
-  class Forbidden                   < Rango::ClientError; STATUS ||= 403; end
-  class NotFound                    < Rango::ClientError; STATUS ||= 404; end
-  class ActionNotFound              < Rango::NotFound; end
-  class TemplateNotFound            < Rango::NotFound; end
-  class LayoutNotFound              < Rango::NotFound; end
-  class MethodNotAllowed            < Rango::ClientError; STATUS ||= 405; end
-  class NotAcceptable               < Rango::ClientError; STATUS ||= 406; end
-  class ProxyAuthenticationRequired < Rango::ClientError; STATUS ||= 407; end
-  class RequestTimeout              < Rango::ClientError; STATUS ||= 408; end
-  class Conflict                    < Rango::ClientError; STATUS ||= 409; end
-  class Gone                        < Rango::ClientError; STATUS ||= 410; end
-  class LengthRequired              < Rango::ClientError; STATUS ||= 411; end
-  class PreconditionFailed          < Rango::ClientError; STATUS ||= 412; end
-  class RequestEntityTooLarge       < Rango::ClientError; STATUS ||= 413; end
-  class RequestURITooLarge          < Rango::ClientError; STATUS ||= 414; end
-  class UnsupportedMediaType        < Rango::ClientError; STATUS ||= 415; end
-  class RequestRangeNotSatisfiable  < Rango::ClientError; STATUS ||= 416; end
-  class ExpectationFailed           < Rango::ClientError; STATUS ||= 417; end
+  ClientError = Class.new(Rango::HttpError)
+  Error400 = BadRequest = Class.new(Rango::ClientError) { STATUS ||= 400 }
+  MultiPartParseError = Class.new(Rango::BadRequest)
+  Error401 = Unauthorized = Class.new(Rango::ClientError) { STATUS ||= 401 }
+  Error402 = PaymentRequired = Class.new(Rango::ClientError) { STATUS ||= 402 }
+  Error403 = Forbidden = Class.new(Rango::ClientError) { STATUS ||= 403 }
+  Error404 = NotFound = Class.new(Rango::ClientError) { STATUS ||= 404 }
+  ActionNotFound = Class.new(Rango::NotFound)
+  TemplateNotFound = Class.new(Rango::NotFound)
+  LayoutNotFound = Class.new(Rango::NotFound)
+  Error405 = MethodNotAllowed = Class.new(Rango::ClientError) { STATUS ||= 405 }
+  Error406 = NotAcceptable = Class.new(Rango::ClientError) { STATUS ||= 406 }
+  Error407 = ProxyAuthenticationRequired = Class.new(Rango::ClientError) { STATUS ||= 407 }
+  Error408 = RequestTimeout = Class.new(Rango::ClientError) { STATUS ||= 408 }
+  Error409 = Conflict = Class.new(Rango::ClientError) { STATUS ||= 409 }
+  Error410 = Gone = Class.new(Rango::ClientError) { STATUS ||= 410 }
+  Error411 = LengthRequired = Class.new(Rango::ClientError) { STATUS ||= 411 }
+  Error412 = PreconditionFailed = Class.new(Rango::ClientError) { STATUS ||= 412 }
+  Error413 = RequestEntityTooLarge = Class.new(Rango::ClientError) { STATUS ||= 413 }
+  Error414 = RequestURITooLarge = Class.new(Rango::ClientError) { STATUS ||= 414 }
+  Error415 = UnsupportedMediaType = Class.new(Rango::ClientError) { STATUS ||= 415 }
+  Error416 = RequestRangeNotSatisfiable = Class.new(Rango::ClientError) { STATUS ||= 416 }
+  Error417 = ExpectationFailed = Class.new(Rango::ClientError) { STATUS ||= 417 }
 
   # server error
-  class ServerError                 < Rango::HttpError; end
-  class InternalServerError         < Rango::ServerError; STATUS ||= 500; end
-  class NotImplemented              < Rango::ServerError; STATUS ||= 501; end
-  class BadGateway                  < Rango::ServerError; STATUS ||= 502; end
-  class ServiceUnavailable          < Rango::ServerError; STATUS ||= 503; end
-  class GatewayTimeout              < Rango::ServerError; STATUS ||= 504; end
-  class HTTPVersionNotSupported     < Rango::ServerError; STATUS ||= 505; end
+  ServerError = Class.new(Rango::HttpError)
+  Error500 = InternalServerError = Class.new(Rango::ServerError) { STATUS ||= 500 }
+  Error501 = NotImplemented = Class.new(Rango::ServerError) { STATUS ||= 501 }
+  Error502 = BadGateway = Class.new(Rango::ServerError) { STATUS ||= 502 }
+  Error503 = ServiceUnavailable = Class.new(Rango::ServerError) { STATUS ||= 503 }
+  Error504 = GatewayTimeout = Class.new(Rango::ServerError) { STATUS ||= 504 }
+  Error505 = HTTPVersionNotSupported = Class.new(Rango::ServerError) { STATUS ||= 505 }
 end
