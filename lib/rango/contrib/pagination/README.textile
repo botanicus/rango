@@ -3,8 +3,8 @@ h1. About
 h1. Usage
 
 <pre>
-dependency "rango-haml"
-dependency "rango-pagination"
+require "haml"
+require "rango/contrib/pagination"
 </pre>
 
 <pre>
