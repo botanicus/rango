@@ -56,6 +56,11 @@ module Kernel
     self.acquire_relative(glob, params.merge(soft: false))
   end
 
+  def load_relative(file)
+    path = File.dirname(caller[0].split(":").first)
+    load File.expand_path(File.join(path, file))
+  end
+
   private
   def __acquire__(path, glob, params)
     glob.replace("#{glob}.rb") if glob.eql?("*") || glob.end_with?("/*")
