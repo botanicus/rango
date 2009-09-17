@@ -93,7 +93,7 @@ module Rango
     def render(template, locals = Hash.new)
       run_filters2 self.class.before_render_filters, template, locals
       template, locals = self.template_location, template if template.is_a?(Hash) && locals.empty?
-      template2 = Rango::Templates::Template.new(template, self.context || self, locals)
+      template2 = Rango::Templates::Template.new(template, self.context, locals)
       run_filters2 self.class.after_render_filters, template2
       return template2.render
     end
