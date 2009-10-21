@@ -88,7 +88,7 @@ module Rango
       # for routers
       def dispatcher(action)
         lambda do |env|
-          Rango.logger.info("Dispatching to #{self}##{action} [#{env["REQUEST_METHOD"]}]")
+          Rango.logger.info("Dispatching to #{self}##{action} [#{env["REQUEST_METHOD"]} #{env["PATH_INFO"]}]")
           env["rango.controller.action"] = action
           return self.call(env)
         end
