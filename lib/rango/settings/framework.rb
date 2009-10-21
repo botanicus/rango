@@ -8,16 +8,12 @@ module Rango
       hattribute :debug, true
 
       # @since 0.0.1
-      # @return [Boolean] Path to your router. Default +urls.rb+.
-      hattribute :router, "urls.rb"
+      # @return [Object, NilClass] Router object
+      hattribute :router
 
       # @since 0.0.1
       # @return [String] Path to your +media+ directory.
-      hattribute :media_root, lambda { get_media_root }
-      def get_media_root
-        path = File.join(Project.root, "media")
-        return path if Dir.exist?(path)
-      end
+      hattribute :media_root, lambda { File.join(Project.root, "media") }
 
       # @since 0.0.2
       # @return [String] rango-project.org/media/javascripts/mootools-core.js
