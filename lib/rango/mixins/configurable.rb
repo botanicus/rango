@@ -12,9 +12,5 @@ module Rango
     def configure(&block)
       self.settings.instance_eval(&block)
     end
-
-    def customize(&block)
-      self.settings.instance_eval(&block)
-    end
   end
 end
