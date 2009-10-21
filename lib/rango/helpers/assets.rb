@@ -1,5 +1,8 @@
 # encoding: utf-8
 
+# TODO: javascript "application" => media/javascripts/application.js
+# ... but what if I need full path? It should be tested if file exist, of course
+# javascript Path.new("design/whatever.js")
 module Rango
   module Helpers
     # stolen from pupu (but it's OK, it's my code)
@@ -11,9 +14,15 @@ module Rango
 
     # @since 0.0.2
     def stylesheet(basename, attrs = Hash.new)
-      path = Path.new(File.join(Project.settings.media_root, basename))
+      path = Path.new(File.join(Project.settings.media_root, "stylesheets", basename))
       default = {href: path.url, media: 'screen', rel: 'stylesheet', type: 'text/css'}
       single_tag :link, default.merge(attrs)
+    end
+
+    def image(basename, attrs = Hash.new)
+      path = Path.new(File.join(Project.settings.media_root, "images", basename))
+      default = {src: path.url, alt: path.basename}
+      single_tag :img, default.merge(attrs)
     end
 
     # @since 0.0.2
