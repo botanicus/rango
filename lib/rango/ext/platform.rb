@@ -15,12 +15,12 @@ module Rango
         self.match?("linux")
       end
 
-      def macosx?
+      def osx?
         self.match?("-darwin")
       end
 
       def unix?
-        self.linux? or self.macosx?
+        self.linux? or self.osx?
       end
     end
   end

@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby1.9
+<%= shebang @options %>
 # encoding: utf-8
 
 require "rango"
@@ -9,9 +9,7 @@ require "rango"
 Rango.boot(environment: ARGV.shift)
 
 # dependencies
-# Rango.dependency "dm-core", github: "datamapper/dm-core"
-# Rango.dependency "pupu", github: "botanicus/pupu", as: "pupu/adapters/rango"
-Rango.dependency "haml", github: "nex3/haml"
+require "haml"
 
 # === Setup your paths === #
 # if Dir.exist?("gems")
