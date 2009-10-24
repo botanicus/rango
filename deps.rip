@@ -2,4 +2,4 @@
 # repository [tag or commit to install]
 git://github.com/datamapper/extlib.git
 git://github.com/botanicus/path.git
-git://github.com/rack/rack.git
+git://github.com/rack/rack.git 1.0.1

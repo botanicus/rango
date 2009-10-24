@@ -1,23 +1,19 @@
 # encoding: utf-8
 
 # Run thor package:gem or gem build rango.gemspec
-$:.unshift(File.join(File.dirname(__FILE__), "lib"))
+# NOTE: we can't use require_relative because when we run gem build, it use eval for executing this file
+require File.join(File.dirname(__FILE__), "lib", "rango")
 
-begin
-  require "rubygems/specification"
-rescue SecurityError
-  # http://gems.github.com
-end
-
-::Gem::Specification.new do |s|
+Gem::Specification.new do |s|
   s.name = "rango"
-  s.version = "0.0.4"
+  s.version = Rango::VERSION
   s.authors = ["Jakub Šťastný aka Botanicus"]
   s.homepage = "http://github.com/botanicus/rango"
   s.summary = "Rango is ultralightweight, ultracustomizable, ultracool web framework deeply inspired by Django."
   s.description = "" # TODO: long description
   s.cert_chain = nil
   s.email = ["knava.bestvinensis", "gmail.com"].join("@")
+  s.has_rdoc = true
 
   # files
   s.files = Dir.glob("**/*") - Dir.glob("pkg/*")
@@ -29,14 +25,14 @@ end
   s.required_ruby_version = ::Gem::Requirement.new(">= 1.9.1")
 
   # runtime dependencies
-  s.add_dependency "rack"
+  s.add_dependency "rack", "1.0.1"
   s.add_dependency "extlib"
   s.add_dependency "path"
 
   # development dependencies
   # use gem install rango --development if you want to install them
-  s.add_development_dependency "erubis"
-  s.add_development_dependency "thor"
+  s.add_development_dependency "erubis" # for generators
+  s.add_development_dependency "thor"   # for tasks
 
   # RubyForge
   s.rubyforge_project = "rango"
