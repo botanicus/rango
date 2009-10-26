@@ -7,3 +7,12 @@
 [submodule "vendor/rack"]
 	path = vendor/rack
 	url = git://github.com/rack/rack.git
+[submodule "vendor/rspec"]
+	path = vendor/rspec
+	url = git://github.com/dchelimsky/rspec.git
+[submodule "vendor/thor"]
+	path = vendor/thor
+	url = git://github.com/wycats/thor.git
+[submodule "vendor/erubis"]
+	path = vendor/erubis
+	url = git://github.com/genki/erubis.git
