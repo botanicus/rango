@@ -4,6 +4,17 @@
 base   = File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__
 libdir = File.expand_path(File.join(File.dirname(base), "..", "lib"))
 
+vendor = File.join(File.dirname(__FILE__), "..", "vendor")
+if File.directory?(vendor)
+  Dir["#{vendor}/*"].each do |path|
+    if File.directory?(path) && Dir["#{path}/*"].empty?
+      warn "Dependency #{File.basename(path)} in vendor seems to be empty. Run git submodule init && git submodule update to checkout it."
+    elsif File.directory?(path) && File.directory?(File.join(path, "lib"))
+      $:.unshift(File.join(path, "lib"))
+    end
+  end
+end
+
 # because of system installation, there is bin/../lib, but not bin/../lib/rango
 if File.directory?(File.join(libdir, "rango"))
   $:.unshift(libdir) unless $:.include?(libdir)

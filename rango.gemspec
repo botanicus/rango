@@ -3,7 +3,7 @@
 
 Dir[File.join(File.dirname(__FILE__), "vendor", "*")].each do |path|
   if File.directory?(path) && Dir["#{path}/*"].empty?
-    warn "All projects in vendor seems to be empty. Run git submodule init && git submodule update to checkout them."
+    warn "Dependency #{File.basename(path)} in vendor seems to be empty. Run git submodule init && git submodule update to checkout it."
   elsif File.directory?(path) && File.directory?(File.join(path, "lib"))
     $:.unshift File.join(path, "lib")
   end
