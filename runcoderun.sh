@@ -13,7 +13,7 @@ done
 
 echo "Running specs ..."
 if [[ "$#" = "0" ]] ; then
-  exec spec --options spec/spec.opts spec
+  exec vendor/rspec/bin/spec --options spec/spec.opts spec
 else
-  exec spec --options spec/spec.opts $*
+  exec vendor/rspec/bin/spec --options spec/spec.opts $*
 fi
