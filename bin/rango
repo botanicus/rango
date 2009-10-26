@@ -21,18 +21,13 @@ if File.directory?(File.join(libdir, "rango"))
 end
 
 # === Helpers === #
+# TODO: Generators.each { |generator| puts generator.help }
 def usage
-  # TODO: Generators.each { |generator| puts generator.help }
-  STDERR.puts("=== Usage ===")
-  help "rango create project mycoolproject", "Generate new site"
-  help "rango create app mycoolapp", "Generate new application"
-  help "rango -i", "Start Rango console"
-end
-
-def help(command, description, indentation = 40)
-  indentation = indentation - command.length
-  spaces = " " * indentation
-  STDERR.puts(command + spaces + description)
+<<-HELP
+=== Usage ===
+rango create project mycoolproject    Generate new site
+rango create app mycoolapp            Generate new application
+HELP
 end
 
 case command = ARGV.shift
@@ -42,8 +37,8 @@ when "create"
   require "rango/cli/generator"
   begin
     Rango::CLI::Generator.new(*ARGV).create
-  rescue ArgumentError
-    abort usage
+  rescue ArgumentError => exception
+    abort [exception.inspect, "", usage].join("\n")
   end
 when "-i"
   require "rango"
