@@ -1,4 +1,13 @@
+#!/usr/bin/env gem1.9 build
 # encoding: utf-8
+
+Dir[File.join(File.dirname(__FILE__), "vendor", "*")].each do |path|
+  if File.directory?(path) && Dir["#{path}/*"].empty?
+    warn "All projects in vendor seems to be empty. Run git submodule init && git submodule update to checkout them."
+  elsif File.directory?(path) && File.directory?(File.join(path, "lib"))
+    $:.unshift File.join(path, "lib")
+  end
+end
 
 # Run thor package:gem or gem build rango.gemspec
 # NOTE: we can't use require_relative because when we run gem build, it use eval for executing this file
