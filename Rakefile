@@ -4,9 +4,8 @@ task :setup => ["setup:submodules"]
 
 namespace :setup do
   task :submodules do
-    unless File.directory?("vendor")
-      sh "git submodule init"
-    end
+    sh "git submodule init"
+    sh "git submodule update"
   end
 end
 
