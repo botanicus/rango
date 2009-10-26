@@ -20,6 +20,15 @@ if File.directory?(File.join(libdir, "rango"))
   $:.unshift(libdir) unless $:.include?(libdir)
 end
 
+# === Helpers === #
+def usage
+  # TODO: Generators.each { |generator| puts generator.help }
+  STDERR.puts("=== Usage ===")
+  help "rango create project mycoolproject", "Generate new site"
+  help "rango create app mycoolapp", "Generate new application"
+  help "rango -i", "Start Rango console"
+end
+
 def help(command, description, indentation = 40)
   indentation = indentation - command.length
   spaces = " " * indentation
@@ -31,16 +40,15 @@ when "create"
   # we can't use require_relative because it can be symlinked to
   # /usr/bin or just be located in different place than we expect
   require "rango/cli/generator"
-  Rango::CLI::Generator.new(*ARGV).create
+  begin
+    Rango::CLI::Generator.new(*ARGV).create
+  rescue ArgumentError
+    abort usage
+  end
 when "-i"
   require "rango"
   Rango.boot
   Rango.interactive
 else
-  # TODO: Generators.each { |generator| puts generator.help }
-  STDERR.puts("=== Usage ===")
-  help "rango create project mycoolproject", "Generate new site"
-  help "rango create app mycoolapp", "Generate new application"
-  help "rango -i", "Start Rango console"
-  exit 1
+  abort usage
 end
