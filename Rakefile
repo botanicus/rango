@@ -1,3 +1,4 @@
+#!/usr/bin/env rake1.9
 # encoding: utf-8
 
 # http://support.runcoderun.com/faqs/builds/how-do-i-run-rake-with-trace-enabled
