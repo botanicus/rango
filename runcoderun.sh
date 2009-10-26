@@ -1,13 +1,17 @@
 #!/bin/sh
 
 # clone submodules
-test -d vendor || git submodule init
+echo "Updating submodules ..."
+git submodule init
+git submodule update
 
 # setup RUBYLIB
+echo "setup RUBYLIB variable ..."
 for libdir in vendor/*/lib
   do RUBYLIB="$libdir:$RUBYLIB"
 done
 
+echo "Running specs ..."
 if [[ "$#" = "0" ]] ; then
   exec spec --options spec/spec.opts spec
 else
