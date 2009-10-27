@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 require "thor"
-require "extlib"
 require_relative "../ext"
 
 # Hooks

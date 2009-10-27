@@ -35,12 +35,12 @@ Gem::Specification.new do |s|
 
   # runtime dependencies
   s.add_dependency "rack", "1.0.1"
-  s.add_dependency "extlib"
+  s.add_dependency "rubyexts"
   s.add_dependency "path"
 
   # development dependencies
   # use gem install rango --development if you want to install them
-  s.add_development_dependency "erubis" # for generators
+  s.add_development_dependency "simple-templater"
   s.add_development_dependency "thor"   # for tasks
 
   # RubyForge

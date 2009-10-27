@@ -16,3 +16,12 @@
 [submodule "vendor/erubis"]
 	path = vendor/erubis
 	url = git://github.com/genki/erubis.git
+[submodule "vendor/cli"]
+	path = vendor/cli
+	url = git://github.com/botanicus/cli.git
+[submodule "vendor/rubyexts"]
+	path = vendor/rubyexts
+	url = git://github.com/botanicus/rubyexts.git
+[submodule "vendor/simple-templater"]
+	path = vendor/simple-templater
+	url = git://github.com/botanicus/simple-templater.git

@@ -1,7 +1,7 @@
 h1. Installation
 
-* From RubyForge: @sudo gem install rango@
-* From GitHub: @sudo gem install botanicus-rango -s http://gems.github.com@
+* From RubyForge: @sudo gem install rango --development@
+* From Gemcutter: @sudo gem install rango -s http://gemcutter.org --development@
 
 h1. Documentation
 

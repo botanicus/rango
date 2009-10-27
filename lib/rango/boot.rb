@@ -2,7 +2,6 @@
 
 # dependencies
 require "rack"
-require "extlib"
 
 # imports
 Rango.import("project")
