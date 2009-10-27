@@ -17,5 +17,5 @@ task :default => :setup do
   rubylib = (ENV["RUBYLIB"] || String.new).split(":")
   libdirs = Dir["vendor/*/lib"]
   ENV["RUBYLIB"] = (libdirs + rubylib).join(":")
-  exec "vendor/rspec/bin/spec --options spec/spec.opts spec"
+  exec "./script/spec --options spec/spec.opts spec"
 end
