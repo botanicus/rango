@@ -34,16 +34,14 @@ case command = ARGV.shift
 when "create"
   # we can't use require_relative because it can be symlinked to
   # /usr/bin or just be located in different place than we expect
-  require "rango/cli/generator"
+  require "simple-templater"
+  require "rango"
+  SimpleTemplater.logger = Rango.logger
   begin
-    Rango::CLI::Generator.new(*ARGV).create
+    SimpleTemplater::Generator.new(*ARGV).create
   rescue ArgumentError => exception
     abort [exception.inspect, "", usage].join("\n")
   end
-when "-i"
-  require "rango"
-  Rango.boot
-  Rango.interactive
 else
   abort usage
 end
