@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 require "fileutils"
-require_relative "../lib/rango/ext"
+require "rubyexts"
 
 # TODO: short vs. long formating (just libs, specs etc or them + each file)
 # TODO: proper indentation (1<space>, but 12<space> => bad indentation) => format string

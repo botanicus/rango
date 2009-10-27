@@ -2,7 +2,7 @@
 
 require "rbconfig"
 require "fileutils"
-require_relative "../lib/rango/ext/platform"
+require "rubyexts/platform"
 
 # TODO: better logging (colours, more descriptive)
 # TODO: refactoring
