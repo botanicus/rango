@@ -20,6 +20,14 @@ if File.directory?(File.join(libdir, "rango"))
   $:.unshift(libdir) unless $:.include?(libdir)
 end
 
+begin
+  require "simple-templater"
+rescue LoadError
+  abort "You have to install simple-templater first!"
+end
+
+require "rango"
+
 # === Helpers === #
 # TODO: Generators.each { |generator| puts generator.help }
 def usage
@@ -30,18 +38,19 @@ rango create app mycoolapp            Generate new application
 HELP
 end
 
-case command = ARGV.shift
-when "create"
-  # we can't use require_relative because it can be symlinked to
-  # /usr/bin or just be located in different place than we expect
-  require "simple-templater"
-  require "rango"
-  SimpleTemplater.logger = Rango.logger
+begin
+  generator = ARGV.shift
+  templater = SimpleTemplater.new(:rango, Rango.logger)
+  # This enables you to create custom generators for Rango
+  templater.discover!
+  templater.find(generator)
   begin
     SimpleTemplater::Generator.new(*ARGV).create
   rescue ArgumentError => exception
     abort [exception.inspect, "", usage].join("\n")
   end
-else
-  abort usage
+rescue SimpleTemplater::GeneratorNotFound => exception
+  warn "Generator #{ARGV.first} doesn't exist. Available generators are:"
+  warn templater.generators.join
+  exit 1
 end

@@ -1,0 +1,6 @@
+SimpleTemplater.scope(:rango) do
+  path = File.join(File.dirname(__FILE__), "stubs")
+  Dir["#{path}/*"].each do |directory|
+    self.register File.basename(directory).to_sym, directory
+  end
+end
