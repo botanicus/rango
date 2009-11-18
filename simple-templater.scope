@@ -1,6 +1,6 @@
 SimpleTemplater.scope(:rango) do
   root = File.join(File.dirname(__FILE__))
   Dir["#{root}/stubs/*"].each do |path|
-    SimpleTemplater.register(File.basename(directory).to_sym, path)
+    SimpleTemplater.register(:rango, File.basename(path).to_sym, File.expand_path(path))
   end
 end

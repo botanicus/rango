@@ -11,4 +11,4 @@ models = ARGV.shift.try(:split, ",") || Array.new
 controllers = ARGV.shift.try(:split, ",") || Array.new
 
 context = {application: application, models: models, controllers: controllers}
-Rango::CLI::Templater.create(content_dir, context)
+# Rango::CLI::Templater.create(content_dir, context)

@@ -39,18 +39,23 @@ HELP
 end
 
 begin
-  generator = ARGV.shift
-  templater = SimpleTemplater.new(:rango, Rango.logger)
+  ARGV.shift # create
+  generator_name = ARGV.shift
+  SimpleTemplater.logger = Rango.logger
+  templater = SimpleTemplater::Main.new(:rango)
   # This enables you to create custom generators for Rango
+  load "simple-templater.scope" # neccesary if we run rango locally and not from RubyGems
   templater.discover!
-  templater.find(generator)
-  begin
-    SimpleTemplater::Generator.new(*ARGV).create
-  rescue ArgumentError => exception
-    abort [exception.inspect, "", usage].join("\n")
+  generator_set = templater.find(generator_name)
+  if generator_set.nil?
+    abort "Generator #{generator_name} doesn't exist. Available generators are: #{templater.generators.inspect}"
+  else
+    begin
+      generator_set.run(*ARGV)
+    rescue SimpleTemplater::TargetDirectoryAlreadyExist => exception
+      abort exception.message
+    rescue Exception => exception
+      abort "Exception #{exception} occured during running generator #{generator_set.inspect}\n#{exception.backtrace.join("\n")}"
+    end
   end
-rescue SimpleTemplater::GeneratorNotFound => exception
-  warn "Generator #{ARGV.first} doesn't exist. Available generators are:"
-  warn templater.generators.join
-  exit 1
 end
