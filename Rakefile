@@ -10,17 +10,19 @@ namespace :submodules do
   desc "Init submodules"
   task :init do
     sh "git submodule init"
-    sh "git submodule update"
   end
 
   desc "Update submodules"
-  task :update => :init do
+  task :update do
     Dir["vendor/*"].each do |path|
       if File.directory?(path) && File.directory?(File.join(path, ".git"))
         Dir.chdir(path) do
           puts "=> #{path}"
+          puts %x[git clean -fd]
+          puts %x[git reset --hard]
+          puts %x[git checkout master]
           puts %x[git fetch]
-          puts %x[git reset origin/master]
+          puts %x[git reset origin/master --hard]
           puts
         end
       end
