@@ -5,6 +5,6 @@
 # because you are manipulating with one object, rather than returning new one
 # Dir.pwd => empty directory where the project will be located
 
-setup do |generator, context|
-  #
+hook do |generator, context|
+  generator.target = "#{generator.target}.ru"
 end

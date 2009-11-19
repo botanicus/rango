@@ -1,0 +1,8 @@
+# encoding: utf-8
+
+require "rango/controller"
+require "rango/mixins/http_caching"
+
+class <%= @controller.capitalize %> < Rango::Controller
+  include Rango::HttpCaching
+end

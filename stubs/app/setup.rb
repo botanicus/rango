@@ -6,7 +6,7 @@
 # Dir.pwd => empty directory where the project will be located
 
 # rango create app blog --models=post,tag --controllers=posts,tags
-setup do |generator, context|
+hook do |generator, context|
   models  = context[:models] || Array.new
   controllers = context[:controllers] || Array.new
   context.merge!(models: models, controllers: controllers)

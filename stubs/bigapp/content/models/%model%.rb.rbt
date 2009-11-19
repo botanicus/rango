@@ -1,0 +1,6 @@
+# encoding: utf-8
+
+class <%= @model.capitalize %>
+  include DataMapper::Resource
+  property :title, String
+end

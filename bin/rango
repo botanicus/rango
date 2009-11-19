@@ -51,11 +51,11 @@ begin
     abort "Generator #{generator_name} doesn't exist. Available generators are: #{templater.generators.map { |set| set.name }.inspect}"
   else
     begin
-      generator_set.run(ARGV.shift, *ARGV) # TODO: shift is important, but simple-templater should take care about it
+      generator_set.run(ARGV)
     rescue SimpleTemplater::TargetDirectoryAlreadyExist => exception
       abort exception.message
     rescue Exception => exception
-      abort "Exception #{exception} occured during running generator #{generator_set.inspect}\n#{exception.backtrace.join("\n")}"
+      abort "Exception #{exception.inspect} occured during running generator #{generator_set.inspect}\n#{exception.backtrace.join("\n")}"
     end
   end
 end
