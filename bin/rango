@@ -42,16 +42,16 @@ begin
   ARGV.shift # create
   generator_name = ARGV.shift
   SimpleTemplater.logger = Rango.logger
-  templater = SimpleTemplater::Main.new(:rango)
+  templater = SimpleTemplater.new(:rango)
   # This enables you to create custom generators for Rango
   load "simple-templater.scope" # neccesary if we run rango locally and not from RubyGems
   templater.discover!
   generator_set = templater.find(generator_name)
   if generator_set.nil?
-    abort "Generator #{generator_name} doesn't exist. Available generators are: #{templater.generators.inspect}"
+    abort "Generator #{generator_name} doesn't exist. Available generators are: #{templater.generators.map { |set| set.name }.inspect}"
   else
     begin
-      generator_set.run(*ARGV)
+      generator_set.run(ARGV.shift, *ARGV) # TODO: shift is important, but simple-templater should take care about it
     rescue SimpleTemplater::TargetDirectoryAlreadyExist => exception
       abort exception.message
     rescue Exception => exception

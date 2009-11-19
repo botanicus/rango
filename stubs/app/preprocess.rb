@@ -5,10 +5,9 @@
 # Dir.pwd => the stubs directory location
 
 # rango create app blog post,tag posts,tags
-content_dir = ARGV.shift
-application = ARGV.shift
-models = ARGV.shift.try(:split, ",") || Array.new
-controllers = ARGV.shift.try(:split, ",") || Array.new
+require "simple-templater/argv_parsing"
 
-context = {application: application, models: models, controllers: controllers}
-Rango::CLI::Templater.create(content_dir, context)
+options = ARGV.parse!
+models  = options[:models] || Array.new
+controllers = options[:controllers] || Array.new
+{models: models, controllers: controllers}

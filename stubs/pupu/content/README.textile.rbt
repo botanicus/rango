@@ -1,7 +1,0 @@
-h1. About Pupu
-
-Pupu is a plugin system for merb's public stuff like mootools plugins, icon sets etc. It knows dependencies and it has CLI interface, so it's really easy to bundle such plugins into your app. Please see http://github.com/botanicus/pupu for more informations.
-
-h1. About <%= @name %>
-
-h1. Usage

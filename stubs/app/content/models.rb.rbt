@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 <% @models.each do |model| %>
-class <%= model %>
+class <%= model.capitalize %>
   include DataMapper::Resource
   property :title, String
 end

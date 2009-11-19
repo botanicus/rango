@@ -4,7 +4,7 @@ require "rango/controller"
 require "rango/mixins/http_caching"
 
 <% @controllers.each do |controller| %>
-class <%= controller %> < Rango::Controller
+class <%= controller.capitalize %> < Rango::Controller
   include Rango::HttpCaching
 end
 
