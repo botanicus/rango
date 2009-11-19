@@ -5,6 +5,10 @@
 # because you are manipulating with one object, rather than returning new one
 # Dir.pwd => empty directory where the project will be located
 
+# rango create flat api
+# rango create flat api.ru
 hook do |generator, context|
-  generator.target = "#{generator.target}.ru"
+  unless generator.target.end_with?(".ru")
+    generator.target = "#{generator.target}.ru"
+  end
 end

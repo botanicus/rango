@@ -8,4 +8,6 @@ if Rango::Platform.unix?
 	sh "chmod +x config.ru"
 end
 
-SimpleTemplater::Hooks::GitRepository.invoke
+hook do |generator, context|
+  generator.hooks.push(Hooks::GitRepository)
+end
