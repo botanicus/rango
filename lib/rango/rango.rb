@@ -17,7 +17,7 @@ module Rango
     #   # => /usr/lib/ruby/lib/ruby/site_ruby/1.8/rango
     # @return [Path] Rango root path
     def path
-      @path ||= Path.new(self.root)
+      @path ||= MediaPath.new(self.root)
     end
 
     # @since 0.0.1

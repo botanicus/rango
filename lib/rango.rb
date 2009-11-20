@@ -2,7 +2,7 @@
 
 require "ostruct"
 require "uri"
-require "path"
+require "media-path"
 require "rubyexts"
 
 rango_lib = File.dirname(__FILE__)

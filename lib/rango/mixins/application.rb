@@ -7,7 +7,7 @@ module Rango
     # @see Path
     # @return [Path] Path reprezentation of project root directory.
     def path
-      Path.new(self.root)
+      MediaPath.new(self.root)
     end
 
     # @since 0.0.1
