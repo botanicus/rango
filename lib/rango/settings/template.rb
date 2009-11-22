@@ -4,7 +4,7 @@ module Rango
   module Settings
     class Template < Settings
       # @since 0.0.3
-      hattribute :caching, Rango.debug?
+      hattribute :caching, Rango.development?
 
       # @since 0.0.3
       # useful for helpers

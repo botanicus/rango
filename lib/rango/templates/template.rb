@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-# TODO: qattribute :partial, true
+# TODO: questionable :partial, true
 # => define #partial?
 
 module Rango

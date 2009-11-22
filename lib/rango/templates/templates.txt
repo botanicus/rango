@@ -35,5 +35,5 @@ Project.settings => OpenStruct
 
 Project.settings.template.format = :html
 Project.settings.template.format_version = 5
-Project.settings.template.caching = Rango.debug?
+Project.settings.template.caching = Rango.development?
 	- for helpers

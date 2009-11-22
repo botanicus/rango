@@ -72,6 +72,15 @@ module Rango
       IRB.start
     end
 
+    # clever environments support
+    attribute :development_environments, ["development", "test", "spec", "cucumber"]
+    attribute :testing_environments, ["test", "spec", "cucumber"]
+    attribute :production_environments, ["stage", "production"]
+
+    questionable :testing,     lambda { self.testing_environments.include?(Rango.environment) }
+    questionable :development, lambda { self.development_environments.include?(Rango.environment) }
+    questionable :production,  lambda { self.production_environments.include?(Rango.environment) }
+
     def environment?(environment)
       self.environment.eql?(environment.to_sym)
     end

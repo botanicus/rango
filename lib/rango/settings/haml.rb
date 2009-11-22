@@ -33,7 +33,7 @@ module Rango
 
       # @since 0.0.7
       # Haml now has an :ugly option, thanks to Wincent Colaiuta. This option forgoes pretty output formatting in favor of speed increases, which show up in particular when rendering deeply nested partials
-      hattribute :ugly, lambda { not Rango.debug?  }
+      hattribute :ugly, lambda { not Rango.development?  }
     end
   end
 end
