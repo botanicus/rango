@@ -2,7 +2,11 @@
 # encoding: utf-8
 
 # bundler
-require_relative "gems/environment"
+begin
+  require_relative "gems/environment"
+rescue LoadError => exception
+  abort "LoadError during loading gems/environment: #{exception.message}\nRun gem bundle to fix it."
+end
 
 # settings
 require_relative "settings"

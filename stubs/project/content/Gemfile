@@ -11,9 +11,25 @@
 # Specify a dependency on rango. When the bundler downloads gems,
 # it will download rango as well as all of rango' dependencies
 gem "rango"#, git: "git://github.com/botanicus/rango.git"
+
+<% case @router %>
+<% when "usher" %>
 gem "usher"#, git: "git://github.com/joshbuddy/usher.git"
+<% when "rack-mount" %>
+gem "rack-mount"#, git: "git://github.com/josh/rack-mount.git"
+<% when "rack-router" %>
+gem "rack-router"#, git: "git://github.com/carllerche/rack-router.git"
+# TODO: routes
+<% when "urlmap" %>
+<% end %>
 gem "rack"#, git: "git://github.com/rack/rack.git"
 gem "haml"#, git: "git://github.com/nex3/haml.git"
+
+gem "dm_sqlite3"#, git: "git://github.com/datamapper/do.git"
+gem "dm-core"#, git: "git://github.com/datamapper/dm-core.git"
+gem "dm-timestamps"#, git: "git://github.com/datamapper/dm-more.git"
+
+#gem "sequel"#, git: "git://github.com/jeremyevans/sequel.git"
 
 only(:test) do
   gem "rspec"#, git: "git://github.com/dchelimsky/rspec.git"
