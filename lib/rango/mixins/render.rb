@@ -1,10 +1,10 @@
 # encoding: utf-8
 
-Rango.import("templates/template")
+require "rango/templates/template"
 
 # This mixin should be included to the all objects which are supposed to return response for Rack, so not just ControllerStrategy, but also CallableStrategy
 module Rango
-  module ControllerMixin
+  module RenderMixin
     # @since 0.0.1
     # @return [Rango::Request]
     # @see Rango::Request
@@ -62,6 +62,25 @@ module Rango
       # return captured value only if it is not empty
       captured.empty? ? ret.to_s : captured
     end
+    
+    # class Posts < Rango::Controller
+    #   def context
+    #     Object.new
+    #   end
+    #
+    #   def show
+    #     # you can't use @explicit
+    #     post = Post.get(params[:id])
+    #     render "post.html", post: post
+    #   end
+    # end
+    #
+    # Context for rendering templates
+    # This context will be extended by same crucial methods from template mixin
+    # We are in context of current controller by default
+    def context
+      self
+    end
 
     # Calls the concatenate method for the selected template engine.
     #
@@ -91,18 +110,26 @@ module Rango
     # TODO: extensions handling
     # @since 0.0.2
     def render(template, locals = Hash.new)
-      run_filters2 self.class.before_render_filters, template, locals
+      if self.class.respond_to?(:before_render_filters) # generic views, plain rack etc
+        run_filters2 self.class.before_render_filters, template, locals
+      end
       template, locals = self.template_location, template if template.is_a?(Hash) && locals.empty?
       template2 = Rango::Templates::Template.new(template, self.context, locals)
-      run_filters2 self.class.after_render_filters, template2
+      if self.class.respond_to?(:after_render_filters)
+        run_filters2 self.class.after_render_filters, template2
+      end
       return template2.render
     end
 
     # @since 0.0.2
     def display(object, template, locals = Hash.new)
-      run_filters2 self.class.before_display_filters, object, template, locals
+      if self.class.respond_to?(:before_display_filters)
+        run_filters2 self.class.before_display_filters, object, template, locals
+      end
       result = render(template)
-      run_filters2 self.class.after_display_filters, object, result
+      if self.class.respond_to?(:after_display_filters)
+        run_filters2 self.class.after_display_filters, object, result
+      end
       return result
     rescue Error406
       # TODO: provides API

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-Rango.import("mixins/controller")
+require "rango/mixins/render"
 
 # run app { |request, response|
 # if request.env["PATH_INFO"].match(/^\/admin/)
@@ -11,7 +11,7 @@ Rango.import("mixins/controller")
 # }
 module Rango
   module Mini
-    include Rango::ControllerMixin
+    include Rango::RenderMixin
     def app(&block)
       lambda do |env|
         request = Rango::Request.new(env)

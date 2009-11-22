@@ -75,7 +75,7 @@ class Release < Thor
   desc "gemcutter", "Push gem to gemcutter"
   def gemcutter
     puts "Pushing to gemcutter ..."
-    puts %x[gemcutter push #{gem}]
+    puts %x[gem push #{gem}]
   end
 
   protected

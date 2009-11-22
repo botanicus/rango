@@ -1,7 +1,11 @@
 # encoding: utf-8
 
+require "rubyexts/attribute"
+
 module Rango
   module Settings
+    ConfigurationError = Class.new(StandardError)
+
     class Settings
       def initialize(params = Hash.new)
         params.each do |key, value|
@@ -46,7 +50,7 @@ module Rango
         if self.hattributes[name]
           return self.hattributes[name]
         else
-          Rango.import("settings/#{name}")
+          require "rango/settings/#{name}"
           const_name = name.to_s.camel_case
           constant = Rango::Settings.const_get(const_name)
           instance = constant.new
@@ -63,7 +67,7 @@ module Rango
       # @param [type] name explanation
       def method_missing(name, *args, &block)
         if name.to_s.match(/^([\w\d]+)=$/) && args.length.eql?(1)# && not block_given?
-          Rango.logger.warn("Unknown setting item: #$1")
+          raise ConfigurationError, "Unknown #{self.class} item: #$1"
         else
           super(name, *args, &block)
         end
@@ -90,4 +94,4 @@ module Rango
   end
 end
 
-Rango.import("settings/framework")
+require "rango/settings/framework"

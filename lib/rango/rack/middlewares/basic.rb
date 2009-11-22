@@ -3,24 +3,60 @@
 require_relative "encoding"
 
 module Rango
+  module RackDebug
+    def call(env)
+      Rango.logger.info("Middleware #{self.class} executed")
+      returned = super(env)
+      Rango.logger.info("Middleware #{self.class} finished")
+      returned
+    end
+  end
+end
+
+
+module Rango
   module Middlewares
     class Basic
-      def initialize(app)
-        @app = app
+      attr_accessor :before, :after
+      def initialize(app, &block)
+        @app = app.extend(Rango::RackDebug)
+
+        #, key: 'rack.session', domain: 'foo.com', path: '/', expire_after: 2592000, secret: 'change_me'
+        self.before = [Rango::Middlewares::Encoding, Rack::MethodOverride, [Rack::Session::Cookie, path: '/']]
+        self.after = [Rack::ContentType, Rack::ContentLength, Rango::Middlewares::Encoding, Rack::Head]
+
+        self.static_files_serving
+        
+        block.call(self) if block_given?
+        # use Rango::Middlewares::Basic do |middleware|
+        #   middleware.before.push MyMiddleware
+        # end
+      end
+      
+      def call(env)
+        # Matryoshka principle
+        # MethodOverride.new(Encoding.new(@app))
+        middlewares = self.before + self.after
+        @app = middlewares.inject(@app) do |app, klass|
+          args = Array.new
+          if klass.is_a?(Array)
+            klass, args = klass
+            args = [args]
+            Rango.logger.debug("#{klass}.new(app, #{args.map { |arg| arg.inspect }.join(", ")})")
+          else
+            Rango.logger.debug("#{klass}.new(app)")
+          end
+          klass.new(app, *args).extend(RackDebug)
+        end
+        @app.call(env)
       end
 
-      def call(env)
-        Rango.logger.debug(Rango::Middlewares::Encoding.new(@app).call(env))
-        Rango.logger.debug(Rack::MethodOverride.new(@app).call(env)) # _method: put etc
-
-        Rango.logger.debug("Calling app #{@app.inspect}: #{@app.call(env).inspect}")
-
-        Rango.logger.debug(Rack::ContentType.new(@app).call(env))
-        Rango.logger.debug(Rack::ContentLength.new(@app).call(env))
-        Rango.logger.debug(Rack::Head.new(@app).call(env))
-
-        # serve static files
-        if Project.settings.media_prefix
+      def static_files_serving
+        if Project.settings.media_prefix.empty?
+          Rango.logger.info("Media files are routed directly to the /")
+          require "rango/rack/middlewares/static"
+          self.before.unshift Rango::Middlewares::Static
+        else
           # use Rack::Static, :urls => ["/media"]
           # will serve all requests beginning with /media from the "media" folder
           # located in the current directory (ie media/*).
@@ -30,16 +66,8 @@ module Rango
           # "public" in the current directory (ie public/css/* and public/images/*)
           Rango.logger.info("Media files are available on #{Project.settings.media_prefix}")
           options = {urls: [Project.settings.media_prefix]}
-          Rango.logger.debug(Rack::Static.new(@app, options).call(env))
-        else
-          Rango.logger.info("Media files are routed directly to the /")
-          Rango.import("rack/middlewares/static.rb")
-          Rango.logger.debug(Rango::Static.new(@app).call(env))
+          self.before.unshift [Rack::Static, options]
         end
-
-        # cookies
-        Rango.logger.debug(Rack::Session::Cookie.new(@app, path: '/').call(env))
-        #, key: 'rack.session', domain: 'foo.com', path: '/', expire_after: 2592000, secret: 'change_me'
       end
     end
   end

@@ -3,6 +3,6 @@
 require "rango/controller"
 require "rango/mixins/http_caching"
 
-class <%= @controller.capitalize %> < Rango::Controller
+class <%= @controller.camel_case %> < Rango::Controller
   include Rango::HttpCaching
 end

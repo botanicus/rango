@@ -26,7 +26,7 @@ module Rango
   end
 
   # realoder
-  # Rango.import("reloader")
+  # require "rango/reloader"
   # cattr_reader :reloader
   # @@reloader = Rango::Reloader.new
 end

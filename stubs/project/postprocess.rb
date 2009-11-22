@@ -1,13 +1,16 @@
 # encoding: utf-8
 
-require "rango/ext/platform"
-require "simple-templater/hooks/postprocess/git-repository"
+# This hook will be executed after templater finish in context of current generator object.
+# Current directory is what you just generated, unless this is flat generator.
 
-if Rango::Platform.unix?
+require "rubyexts/platform"
+require "simple-templater/hooks/postprocess/git_repository"
+
+if RubyExts::Platform.unix?
 	sh "chmod +x init.rb"
 	sh "chmod +x config.ru"
 end
 
 hook do |generator, context|
-  generator.hooks.push(Hooks::GitRepository)
+  generator.after(Hooks::GitRepository)
 end

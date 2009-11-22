@@ -2,7 +2,7 @@
 
 require_relative "../spec_helper"
 
-Rango.import("controller")
+require "rango/controller"
 
 describe Rango::Controller do
   before(:each) do

@@ -4,7 +4,7 @@
 # TODO: how to change environment from CLI?
 require_relative "init"
 
-use Rango::Basic
+use Rango::Middlewares::Basic
 
 # warden authentication
 # wiki.github.com/hassox/warden/setup

@@ -18,15 +18,37 @@ namespace :submodules do
       if File.directory?(path) && File.directory?(File.join(path, ".git"))
         Dir.chdir(path) do
           puts "=> #{path}"
-          puts %x[git clean -fd]
           puts %x[git reset --hard]
-          puts %x[git checkout master]
           puts %x[git fetch]
           puts %x[git reset origin/master --hard]
           puts
         end
       end
     end
+  end
+end
+
+task :gem do
+  sh "gem build rango.gemspec"
+end
+
+desc "Release new version of rango"
+task release: ["release:tag", "release:gemcutter"]
+
+namespace :release do
+  desc "Create Git tag"
+  task :tag do
+    require_relative "lib/rango"
+    puts "Creating new git tag #{Rango::VERSION} and pushing it online ..."
+    sh "git tag -a -m 'Version #{Rango::VERSION}' #{Rango::VERSION}"
+    sh "git push --tags"
+    puts "Tag #{Rango::VERSION} was created and pushed to GitHub."
+  end
+
+  desc "Push gem to Gemcutter"
+  task :gemcutter => :gem do
+    puts "Pushing to Gemcutter ..."
+    sh "gem push #{Dir["*.gem"].last}"
   end
 end
 

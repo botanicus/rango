@@ -1,8 +1,9 @@
 # encoding: utf-8
 
-Rango.import("settings")
-Rango.import("mixins/application")
-Rango.import("mixins/configurable")
+require "rango/settings"
+require "rango/mixins/import"
+require "rango/mixins/application"
+require "rango/mixins/configurable"
 
 class Project
   class << self

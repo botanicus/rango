@@ -2,12 +2,12 @@
 
 require "dm-aggregates"
 
-Rango.import("contrib/pagination/page")
-Rango.import("contrib/pagination/strategies")
-Rango.import("contrib/pagination/helpers")
-Rango.import("contrib/pagination/adapters/#{Project.settings.orm || "datamapper"}")
+require "rango/contrib/pagination/page"
+require "rango/contrib/pagination/strategies"
+require "rango/contrib/pagination/helpers"
+require "rango/contrib/pagination/adapters/#{Project.settings.orm || "datamapper"}"
 
-Rango.import("controller") # TODO: it should not works just with controller
+require "rango/controller" # TODO: it should not works just with controller
 Rango::Controller.send(:include, Rango::Pagination::PaginationMixin)
 # require code that must be loaded before the application
 

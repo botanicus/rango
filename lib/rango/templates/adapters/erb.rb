@@ -8,7 +8,7 @@
 #   - contexts
 
 require "erb"
-Rango.import("templates/adapter")
+require "rango/templates/adapter"
 
 module Rango
   module Templates
@@ -31,7 +31,7 @@ module Rango
     end
   end
 
-  module ControllerMixin
+  module RenderMixin
     # ==== Parameters
     # *args:: Arguments to pass to the block.
     # &block:: The template block to call.

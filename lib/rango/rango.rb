@@ -1,11 +1,16 @@
 # encoding: utf-8
 
-Rango.import("exceptions")
-Rango.import("loggers/logger")
-Rango.import("rack/middlewares/basic")
-Rango.import("project")
+require "rango/exceptions"
+require "rango/loggers/logger"
+require "rango/rack/middlewares/basic"
+require "rango/project"
 
 module Rango
+  # all the helpers are in Rango::Helpers
+  # so if you want to register your own, just
+  # Rango::Helpers.send(:include, Pupu::Helpers)
+  Helpers ||= Module.new
+
   class << self
     # @since 0.0.1
     # @return [String] Returns current environment name. Possibilities are +development+ or +production+.
@@ -38,7 +43,7 @@ module Rango
     # @return [Boolean] Returns true if boot succeed or false if not. If ARGV includes "-i", IRB interactive session will start.
     def boot(options = Hash.new, &block)
       self.environment = options[:environment] unless options[:environment]
-      Rango.import!("boot")
+      require "rango/boot"
       block.call if block_given?
       self.bootloaders.each do |name, bootloader|
         logger.debug "Calling bootloader #{name}"
@@ -60,18 +65,14 @@ module Rango
     # @since 0.0.1
     def interactive
       require "irb"
+      require "rango/testing" # so you can load_rackup
       try_require "irb/completion" # some people can have ruby compliled without readline
       ARGV.delete("-i") # otherwise irb will read it
       IRB.start
     end
 
-    # @since 0.0.1
-    # @return [Boolean] If application is flat or not.
-    questionable :flat, false
-
-    attribute :environment, "development"
     def environment?(environment)
-      self.environment.eql?(environment)
+      self.environment.eql?(environment.to_sym)
     end
   end
 end

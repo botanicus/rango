@@ -8,6 +8,7 @@ describe Rango::Settings do
   end
 
   it "should can merge one settings with another" do
+    p @settings
     # TODO
   end
 

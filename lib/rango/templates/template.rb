@@ -59,7 +59,7 @@ module Rango
         # TODO: test if Project.settings.template_engine nil => useful message
         # TODO: maybe more template engines?
         engine_name = Project.settings.template_engine
-        Rango.import("templates/adapters/#{engine_name}.rb")
+        require "rango/templates/adapters/#{engine_name}.rb"
         engine_class = Rango::Templates.engine(engine_name)
         engine_class.new
       rescue LoadError
@@ -101,6 +101,15 @@ module Rango
       def block(name, value = nil, &block)
         value = self._template.context.capture(&block) if value.nil? && block
         self._template.blocks[name] ||= value
+        return self._template.blocks[name]
+      end
+
+      # - extend_block(:head) do
+      #   != pupu :lighter, syntax: "html", theme: "standard"
+      #   != block(:head)
+      def extend_block(name, value = nil, &block)
+        value = self._template.context.capture(&block) if value.nil? && block
+        self._template.blocks[name] += value
         return self._template.blocks[name]
       end
 

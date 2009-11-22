@@ -6,7 +6,7 @@
 #   - preprocessing (not yet, see ticket #68)
 
 require "erubis"
-Rango.import("templates/adapter")
+require "rango/templates/adapter"
 
 module Erubis
   class FastEscapedEruby < FastEruby

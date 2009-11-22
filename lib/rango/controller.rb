@@ -1,12 +1,12 @@
 # encoding: utf-8
 
-Rango.import("mixins/controller")
-Rango.import("helpers")
+require "rango/mixins/render"
+require "rango/helpers"
 
 module Rango
   class Controller
     include Rango::Helpers
-    include Rango::ControllerMixin
+    include Rango::RenderMixin
     include Rango::Templates::TemplateHelpers
 
     class << self
@@ -112,25 +112,6 @@ module Rango
 
     def route_to(action, params = Hash.new)
       self.class.route_to(request.env, action, params)
-    end
-
-    # class Posts < Rango::Controller
-    #   def context
-    #     Object.new
-    #   end
-    #
-    #   def show
-    #     # you can't use @explicit
-    #     post = Post.get(params[:id])
-    #     render "post.html", post: post
-    #   end
-    # end
-    #
-    # Context for rendering templates
-    # This context will be extended by same crucial methods from template mixin
-    # We are in context of current controller by default
-    def context
-      self
     end
 
     # redefine this method for your controller if you want to provide custom error pages

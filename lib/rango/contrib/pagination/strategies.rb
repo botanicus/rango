@@ -1,5 +1,5 @@
 # encoding: utf-8
-Rango.import("contrib/pagination/page")
+require "rango/contrib/pagination/page"
 
 module Rango
   module Pagination

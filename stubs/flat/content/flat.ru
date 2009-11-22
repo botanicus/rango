@@ -14,7 +14,7 @@ Project.configure do
 end
 
 # router
-Rango.import("router/adapters/basic")
+require "rango/router/adapters/basic"
 
 map("/") do
   run app { "<h1>Rango is just Awesome!</h1>" }

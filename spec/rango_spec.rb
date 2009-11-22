@@ -19,11 +19,11 @@ describe Rango do
   describe ".import" do
     it "should import file from Rango if file exists" do
       pending "It returns false if file is already loaded. Of course, so fix API."
-      Rango.import("ext").should be_true
+      require "rango/ext".should be_true
     end
 
     it "should raise LoadError if file doesn't exist" do
-      -> { Rango.import("i_do_not_exist") }.should raise_error(LoadError)
+      -> { require "rango/i_do_not_exist" }.should raise_error(LoadError)
     end
 
     it "should not raise LoadError if soft: true" do

@@ -5,7 +5,7 @@
 #   - caching (not yet)
 
 require "haml"
-Rango.import("templates/adapter")
+require "rango/templates/adapter"
 
 module Rango
   module Templates

@@ -44,7 +44,7 @@ begin
   SimpleTemplater.logger = Rango.logger
   templater = SimpleTemplater.new(:rango)
   # This enables you to create custom generators for Rango
-  load "simple-templater.scope" # neccesary if we run rango locally and not from RubyGems
+  load File.join(File.dirname(base), "..", "simple-templater.scope") # neccesary if we run rango locally and not from RubyGems
   templater.discover!
   generator_set = templater.find(generator_name)
   if generator_set.nil?
@@ -52,8 +52,10 @@ begin
   else
     begin
       generator_set.run(ARGV)
-    rescue SimpleTemplater::TargetDirectoryAlreadyExist => exception
+    rescue SimpleTemplater::TargetAlreadyExist => exception
       abort exception.message
+    rescue Interrupt
+      exit
     rescue Exception => exception
       abort "Exception #{exception.inspect} occured during running generator #{generator_set.inspect}\n#{exception.backtrace.join("\n")}"
     end

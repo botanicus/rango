@@ -1,0 +1,9 @@
+# encoding: utf-8
+
+desc "Boot environment"
+task :environment do
+  require_relative "init"
+end
+
+load "pupu/tasks/pupu.rake"
+load "rango/orm/adapters/datamapper/tasks.rake"

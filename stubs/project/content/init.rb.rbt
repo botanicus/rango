@@ -1,35 +1,16 @@
 <%= shebang %>
 # encoding: utf-8
 
+# bundler
+require_relative "gems/environment"
+
+# settings
+require_relative "settings"
+require_relative "settings_local"
+
 require "rango"
 
-# === Usage === #
-# init.rb
-# init.rb production
-Rango.boot(environment: ARGV.shift)
-
-# dependencies
-require "haml"
-
-# === Setup your paths === #
-# if Dir.exist?("gems")
-#   Gem.path.clear
-#   Gem.path.push(Project.path.join("gems").to_s)
-# end
-
-if Dir.exist?("vendor")
-  $:.unshift(File.expand_path("vendor"))
-end
-
-require_relative "settings"
-
-# environment support
-env_file = "settings/environments/#{Rango.environment}"
-if File.exist?(env_file)
-  require_relative env_file
-else
-  abort "File #{env_file} doesn't exist!"
-end
+Rango.boot
 
 # database connection
 # DataMapper.setup(:default, "sqlite3::memory")

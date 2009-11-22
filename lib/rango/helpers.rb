@@ -18,7 +18,7 @@ module Rango
   end
 end
 
-Rango.import("helpers/assets")
-Rango.import("helpers/syntax")
-Rango.import("helpers/general")
-Rango.import("helpers/merb-helpers")
+require "rango/helpers/assets"
+require "rango/helpers/syntax"
+require "rango/helpers/general"
+require "rango/helpers/merb-helpers"

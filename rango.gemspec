@@ -41,7 +41,7 @@ Gem::Specification.new do |s|
   # development dependencies
   # use gem install rango --development if you want to install them
   s.add_development_dependency "simple-templater"
-  s.add_development_dependency "thor"   # for tasks
+  s.add_development_dependency "bundler"
 
   # RubyForge
   s.rubyforge_project = "rango"

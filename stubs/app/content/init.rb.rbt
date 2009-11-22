@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class <%= @name.capitalize %>
+class <%= @name.camel_case %>
   extend Rango::ImportMixin
   extend Rango::ApplicationMixin
 end
