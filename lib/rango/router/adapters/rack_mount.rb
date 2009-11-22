@@ -8,7 +8,7 @@ Rango::Router.implement(:rack_mount) do |env|
 end
 
 module Rango
-  class Controller
+  module UrlHelper
     # url(:login)
     def url(*args)
       Project.router.url(*args)

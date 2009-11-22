@@ -1,6 +1,15 @@
 # encoding: utf-8
 
 module Rango
+  module UrlHelper
+    # url(:login)
+    def url(*args)
+      raise "Your router or your router adapter doesn't support this method"
+    end
+  end
+
+  Helpers.send(:include, UrlHelper)
+
   class Router
     @@routers = Hash.new unless defined?(@@routers)
     def self.implement(router, &block)
