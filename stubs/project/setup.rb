@@ -9,6 +9,7 @@ hook do |generator, context|
   models  = context[:models] || Array.new
   controllers = context[:controllers] || Array.new
   context.merge!(models: models, controllers: controllers)
+  context[:orm] = "datamapper" unless context[:orm]
   context[:router] = "usher" unless context[:router]
   context[:template_engine] = "haml" unless context[:template_engine]
 end

@@ -32,11 +32,14 @@ gem "haml"#, git: "git://github.com/nex3/haml.git"
 gem "erubis"#, git: "git://github.com/genki/erubis.git"
 <% end %>
 
+<% case @orm %>
+<% when "datamapper" %>
 gem "dm_sqlite3"#, git: "git://github.com/datamapper/do.git"
 gem "dm-core"#, git: "git://github.com/datamapper/dm-core.git"
 gem "dm-timestamps"#, git: "git://github.com/datamapper/dm-more.git"
-
+<% when "datamapper" %>
 #gem "sequel"#, git: "git://github.com/jeremyevans/sequel.git"
+<% end %>
 
 only(:test) do
   gem "rspec"#, git: "git://github.com/dchelimsky/rspec.git"

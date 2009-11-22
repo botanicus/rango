@@ -6,4 +6,4 @@ task :environment do
 end
 
 load "pupu/tasks/pupu.rake"
-load "rango/orm/adapters/datamapper/tasks.rake"
+load "rango/orm/tasks/<%= @orm %>.rake"
