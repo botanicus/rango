@@ -9,6 +9,16 @@ module Rango
         template = File.join(root, "pagination")
         partial template, page: page
       end
+
+      # @since 0.0.7
+      def previous_page(text, page = Page.current)
+        link_to text, Page.route(request, page, page.previous.number)
+      end
+
+      # @since 0.0.7
+      def next_page(text, page = Page.current)
+        link_to text, Page.route(request, page, page.previous.number)
+      end
     end
   end
 end

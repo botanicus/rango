@@ -8,7 +8,7 @@ require "rango/contrib/pagination/helpers"
 require "rango/contrib/pagination/adapters/#{Project.settings.orm || "datamapper"}"
 
 require "rango/controller" # TODO: it should not works just with controller
-Rango::Controller.send(:include, Rango::Pagination::PaginationMixin)
+Rango::Helpers.send(:include, Rango::Pagination::PaginationMixin)
 # require code that must be loaded before the application
 
 # default route rule
