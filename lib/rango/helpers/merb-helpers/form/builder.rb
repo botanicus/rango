@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 require_relative "../tag_helpers"
-require "rango/templates/template"
 
 module Rango
   module Helpers
