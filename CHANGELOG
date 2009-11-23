@@ -14,9 +14,12 @@
 = Version 0.1
   * [FEATURE] environments support
   * [FEATURE] installation without RubyGems
-  * [FEATURE] Rip support
   * [FEATURE] HTTP caching
   * [FEATURE] Hooks for Rendering
   * [SPECS]   Integration with RunCodeRun.com
   * [SPECS]   All specs passing
 	* SimpleTemplater, RubyExts & CLI
+  * [FEATURE] Bundler Support
+  * [FEATURE] Generic view
+  * [FEATURE] Project generator
+  * [FEATURE] Rack-mount support
