@@ -2,19 +2,21 @@
 
 require "rango/controller"
 
-class <%= @name.camel_case %>::Application < Rango::Controller
-  # TODO: implement application controller
-end
-
-class <%= @name.camel_case %>::ShowCase < <%= @name.camel_case %>::Application
-  def index
-    render "index.html"
+class <%= @name.camel_case %>
+  class Application < Rango::Controller
+    # TODO: implement application controller
   end
-end
 
-<% @controllers.each do |controller| %>
-class <%= "#{@name.camel_case}::#{controller.camel_case}" %> < <%= @name.camel_case %>::Application
-  # TODO: implement <%= controller %> controller
-end
+  class ShowCase < Application
+    def index
+      render "index.html"
+    end
+  end
 
-<% end %>
+  <% @controllers.each do |controller| %>
+  class <%= controller.camel_case %> < Application
+    # TODO: implement <%= controller %> controller
+  end
+
+  <% end %>
+end
