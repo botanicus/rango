@@ -6,8 +6,8 @@
 
 # rango create app blog --models=post,tag --controllers=posts,tags --router=usher|rack-router|rack-mount --template-engine=erubis
 hook do |generator, context|
-  models  = context[:models] || Array.new
-  controllers = context[:controllers] || Array.new
+  models = [context[:models]].compact.flatten # the flatten thing: if you have --models=post, it would be just a string
+  controllers = [context[:controllers]].compact.flatten
   context.merge!(models: models, controllers: controllers)
   context[:orm] = "datamapper" unless context[:orm]
   context[:router] = "usher" unless context[:router]
