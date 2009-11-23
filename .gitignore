@@ -1,7 +1,6 @@
 .DS_Store
 .yardoc
 .cache
-doc/head
 pkg/
 nbproject/
 *.itProject
