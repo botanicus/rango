@@ -6,8 +6,6 @@
 # useful to have config.ru as an executable, because
 # it's easy to have default arguments for bin/rackup
 require_relative "init.rb" unless $0.eql?(__FILE__)
-
-require "rango/gv"
 <% if @warden %>
 
 # warden authentication
@@ -44,7 +42,7 @@ Rango::Router.use(:<%= @router.to_sym %>)
 <% when "usher" %>
 # http://github.com/joshbuddy/usher
 Project.router = Usher::Interface.for(:rack) do
-  get("/").to(Rango::GV.static { "index" }).name(:root)
+  get("/").to(<%= @name.camel_case %>::ShowCase.dispatcher(:index)).name(:showcase)
 end
 <% when "rack-mount" %>
 # http://github.com/josh/rack-mount
@@ -52,7 +50,7 @@ Project.router = Rack::Mount::RouteSet.new do |set|
   # add_route takes a rack application and conditions to match with
   # conditions may be strings or regexps
   # See Rack::Mount::RouteSet#add_route for more options.
-  set.add_route Rango::GV.static { "index" }, method: "get", path: "/"
+  set.add_route <%= @name.camel_case %>::ShowCase.dispatcher(:index), method: "get", path: "/"
 end
 <% when "rack-router" %>
 # TODO: routes

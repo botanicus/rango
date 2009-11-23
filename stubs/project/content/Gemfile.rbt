@@ -8,11 +8,13 @@
 # http://yehudakatz.com/2009/11/03/using-the-new-gem-bundler-today
 # http://www.engineyard.com/blog/2009/using-the-rubygems-bundler-for-your-app
 
+# === Shared Gems === #
 # Specify a dependency on rango. When the bundler downloads gems,
 # it will download rango as well as all of rango' dependencies
 gem "rango"#, git: "git://github.com/botanicus/rango.git"
 gem "rack"#, git: "git://github.com/rack/rack.git"
 
+# router
 <% case @router %>
 <% when "usher" %>
 gem "usher"#, git: "git://github.com/joshbuddy/usher.git"
@@ -20,39 +22,58 @@ gem "usher"#, git: "git://github.com/joshbuddy/usher.git"
 gem "rack-mount"#, git: "git://github.com/josh/rack-mount.git"
 <% when "rack-router" %>
 gem "rack-router"#, git: "git://github.com/carllerche/rack-router.git"
-# TODO: routes
-<% when "urlmap" %>
 <% end %>
 
+# template engine
 <% case @template_engine %>
 <% when "haml" %>
 gem "haml"#, git: "git://github.com/nex3/haml.git"
-<% when "erb" %>
 <% when "erubis" %>
 gem "erubis"#, git: "git://github.com/genki/erubis.git"
 <% end %>
 
+# ORM
 <% case @orm %>
 <% when "datamapper" %>
-gem "do_sqlite3"#, git: "git://github.com/datamapper/do.git"
 gem "dm-core"#, git: "git://github.com/datamapper/dm-core.git"
 gem "dm-timestamps"#, git: "git://github.com/datamapper/dm-more.git"
-<% when "datamapper" %>
-#gem "sequel"#, git: "git://github.com/jeremyevans/sequel.git"
+
+<% when "sequel" %>
+gem "sequel"#, git: "git://github.com/jeremyevans/sequel.git"
+
 <% end %>
-
 # TODO: don't load them
-# gem "thin" # there seems to be some problems with latest thin
-gem "racksh", require_as: nil
-gem "shotgun", require_as: nil
-
+#gem "thin"#, git: "git://github.com/macournoyer/thin.git" # there seems to be some problems with latest thin
+#gem "unicorn"#, git: "git://repo.or.cz/unicorn.git"
+gem "racksh", require_as: nil#, git: "git://github.com/sickill/racksh.git"
 <% if @warden %>
 gem "warden"
 <% end %>
 
+# === Environment-Specific Setup === #
+only(:development) do
+  gem "shotgun", require_as: nil#, git: "git://github.com/rtomayko/shotgun.git"
+end
+
+except(:stage, :production) do
+  <% case @orm %>
+  <% when "datamapper" %>
+  gem "do_sqlite3"#, git: "git://github.com/datamapper/do.git"
+  <% end %>
+end
+
+only(:stage, :production) do
+  <% case @orm %>
+  <% when "datamapper" %>
+  gem "do_mysql"#, git: "git://github.com/datamapper/do.git"
+  <% else %>
+  # TODO: db adapters etc
+  <% end %>
+end
+
 only(:test) do
   gem "rspec"#, git: "git://github.com/dchelimsky/rspec.git"
-  gem "rack-test"#, git: "git://github.com/brynary/rack-test.git"
+  gem "rack-test", require_as: "rack/test"#, git: "git://github.com/brynary/rack-test.git"
   gem "webrat"#, git: "git://github.com/brynary/webrat.git"
 end
 
@@ -63,6 +84,7 @@ only(:cucumber) do
   gem "cucumber"#, git: "git://github.com/aslakhellesoy/cucumber.git"
 end
 
+# === Bundler Setup === #
 # Specify where the bundled gems should be stashed. This directory will
 # be a gem repository where all gems are downloaded to and installed to.
 #

@@ -4,3 +4,6 @@ class <%= @name.camel_case %>
   extend Rango::ImportMixin
   extend Rango::ApplicationMixin
 end
+
+require_relative "models.rb"
+require_relative "views.rb"

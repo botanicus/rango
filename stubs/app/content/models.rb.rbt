@@ -1,9 +1,17 @@
 # encoding: utf-8
 
 <% @models.each do |model| %>
-class <%= model.camel_case %>
+<% case @orm %>
+<% when "datamapper" %>
+class <%= "#{@name.camel_case}::#{model.camel_case}" %>
   include DataMapper::Resource
   property :title, String
 end
 
+<% when "sequel" %>
+class <%= "#{@name.camel_case}::#{model.camel_case}" < Sequel::Model %>
+  # TODO: implement <%= model %> model
+end
+
+<% end %>
 <% end %>

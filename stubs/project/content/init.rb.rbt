@@ -18,10 +18,14 @@ require_relative "settings_local"
 
 require "rango"
 
-Rango.boot
+environment = ENV["RANGO_ENV"] || (RANGO_ENV if defined?(RANGO_ENV)) || "development"
+Rango.boot(environment: environment)
 
 Rango.logger.info("Loading dependencies for #{Rango.environment}")
 Bundler.require_env(Rango.environment)
+
+# register applications
+require_relative "<%= @name %>/init.rb"
 
 # database connection
 # DataMapper.setup(:default, "sqlite3::memory")

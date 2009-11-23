@@ -8,10 +8,17 @@
 
 / body
 != block(:content) do
-  %ul
-    %li
-      %a{href: "http://wiki.github.com/botanicus/rango/tutorial"} Rango Tutorial
-    %li
-      %a{href: "http://wiki.github.com/botanicus/rango"} Rango Wiki
-    %li
-      %a{href: "http://github.com/botanicus/rango/issues"} Rango Issue Tracker
+  #next-steps
+    %h2 Next Steps
+    %ul
+      %li Run specs: <code>rake spec</code>
+
+  #links
+    %h2 Links
+    %ul
+      %li
+        %a{href: "http://wiki.github.com/botanicus/rango/tutorial"} Rango Tutorial
+      %li
+        %a{href: "http://wiki.github.com/botanicus/rango"} Rango Wiki
+      %li
+        %a{href: "http://github.com/botanicus/rango/issues"} Rango Issue Tracker

@@ -1,0 +1,10 @@
+# encoding: utf-8
+
+require_relative "../spec_helper.rb"
+
+<% @models.each do |model| %>
+describe <%= "#{@name.camel_case}::#{model.camel_case}" %> do
+  # TODO: write specs
+end
+
+<% end %>

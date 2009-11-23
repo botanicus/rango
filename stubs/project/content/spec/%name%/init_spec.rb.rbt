@@ -1,0 +1,7 @@
+# encoding: utf-8
+
+require_relative "../spec_helper.rb"
+
+describe <%= @name.camel_case %> do
+  # TODO: write specs
+end

@@ -1,11 +1,20 @@
 # encoding: utf-8
 
 require "rango/controller"
-require "rango/mixins/http_caching"
+
+class <%= @name.camel_case %>::Application < Rango::Controller
+  # TODO: implement application controller
+end
+
+class <%= @name.camel_case %>::ShowCase < <%= @name.camel_case %>::Application
+  def index
+    render "index.html"
+  end
+end
 
 <% @controllers.each do |controller| %>
-class <%= controller.camel_case %> < Rango::Controller
-  include Rango::HttpCaching
+class <%= "#{@name.camel_case}::#{controller.camel_case}" %> < <%= @name.camel_case %>::Application
+  # TODO: implement <%= controller %> controller
 end
 
 <% end %>

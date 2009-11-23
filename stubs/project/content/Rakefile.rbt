@@ -7,5 +7,6 @@ task :environment do
   require_relative "init.rb"
 end
 
-load "pupu/tasks/pupu.rake"
+#load "pupu/tasks/pupu.rake"
+load "rango/tasks/spec.rake"
 load "rango/orm/tasks/<%= @orm %>.rake"
