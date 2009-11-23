@@ -66,10 +66,13 @@ module Rango
     # @since 0.0.1
     def interactive
       ARGV.delete("-i") # otherwise irb will read it
-      try_require("racksh") || Rango.logger.info("For more goodies install racksh gem")
+      unless try_require("racksh/boot")
+        Rango.logger.info("For more goodies install racksh gem")
+        try_require "irb/completion" # some people can have ruby compliled without readline
+        Rango::Utils.load_rackup # so you can use Project.router etc
+      end
       require "irb"
-      require "rango/testing" # so you can load_rackup
-      try_require "irb/completion" # some people can have ruby compliled without readline
+      require "rango/utils"
       IRB.start
     end
 
