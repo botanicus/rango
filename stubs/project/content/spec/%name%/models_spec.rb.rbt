@@ -2,7 +2,7 @@
 
 require_relative "../spec_helper.rb"
 
-describe @name.camel_case do
+describe <%= @name.camel_case %> do
   <% @models.each do |model| %>
   describe <%= model.camel_case %> do
     # TODO: write specs
