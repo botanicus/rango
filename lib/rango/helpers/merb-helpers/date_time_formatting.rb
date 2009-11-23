@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+require "date"
+
 module DateAndTimeFormatting
   def self.included(base)
     base.class_eval do
