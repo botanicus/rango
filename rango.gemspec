@@ -40,8 +40,12 @@ Gem::Specification.new do |s|
 
   # development dependencies
   # use gem install rango --development if you want to install them
-  s.add_development_dependency "simple-templater"
-  s.add_development_dependency "bundler"
+  # s.add_development_dependency "simple-templater"
+  # s.add_development_dependency "bundler"
+  # NOTE: OK, these dependencies aren't actually development, because
+  # development dependency of rack is mongrel and mongrel can't be compiled on Ruby 1.9
+  s.add_dependency "simple-templater"
+  s.add_dependency "bundler"
 
   # RubyForge
   s.rubyforge_project = "rango"
