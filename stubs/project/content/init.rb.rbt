@@ -1,5 +1,11 @@
-<%= shebang %>
+<%= shebang "ruby1.9", ["--disable-gems"] %>
 # encoding: utf-8
+
+# This file should set Rango environment
+# You can run your scripts with ./init.rb my-script.rb
+# See http://wiki.github.com/botanicus/rango/rango-boot-process
+
+require_relative "boot.rb"
 
 # bundler
 begin
@@ -21,3 +27,21 @@ Rango.boot
 
 # if you will run this script with -i argument, interactive session will begin
 Rango.interactive if ARGV.delete("-i")
+
+# so it can work as a runner
+# ./init.rb: start webserver
+if File.basename($0).eql?("init.rb")
+  ARGV.push("--port=4000", "config.ru") if ARGV.empty?
+  # there seems to be some problems with latest thin
+  #ARGV.push("--port=4000", "--server=thin", "config.ru") if ARGV.empty?
+  # config.ru
+  if ARGV.last.split(".").last.eql?("ru")
+    if Rango.development?
+      load_relative "bin/shotgun"
+    else
+      load_relative "bin/rackup"
+    end
+  else
+    load ARGV.shift
+  end
+end

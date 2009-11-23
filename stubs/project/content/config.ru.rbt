@@ -1,11 +1,6 @@
-<%= shebang "rackup", ["-s", "thin", "-p", 4000] %>
 # encoding: utf-8
 
-# TODO: how to change environment from CLI?
-require_relative "init"
-
-use Rango::Middlewares::Basic
-
+<% if @warden %>
 # warden authentication
 # wiki.github.com/hassox/warden/setup
 require "warden"
@@ -32,11 +27,14 @@ Warden::Strategies.add(:password) do
     User.new # TODO
   end
 end
+<% end %>
+
+Rango::Router.use(:<%= @router.to_sym %>)
 
 <% case @router %>
 <% when "usher" %>
 Project.router = Usher::Interface.for(:rack) do
-  get("/").to(Rango::GV.static {"index"})
+  get("/").to(lambda { |env| [200, Hash.new, "<h1>Welcome in Rango!</h1>"] })
 end
 <% when "rack-mount" %>
 # http://github.com/josh/rack-mount
@@ -44,7 +42,7 @@ Project.router = Rack::Mount::RouteSet.new do |set|
   # add_route takes a rack application and conditions to match with
   # conditions may be strings or regexps
   # See Rack::Mount::RouteSet#add_route for more options.
-  set.add_route Rango::GV.static {"index"}, method: "get", path: "/foo"
+  set.add_route lambda { |env| [200, Hash.new, "<h1>Welcome in Rango!</h1>"] }, method: "get", path: "/"
 end
 <% when "rack-router" %>
 # TODO: routes
@@ -52,4 +50,5 @@ end
 # TODO: routes
 <% end %>
 
+use Rango::Middlewares::Basic
 run Project.router

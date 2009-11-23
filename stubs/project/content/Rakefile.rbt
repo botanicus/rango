@@ -1,8 +1,10 @@
 # encoding: utf-8
 
+require_relative "boot.rb"
+
 desc "Boot environment"
 task :environment do
-  require_relative "init"
+  require_relative "init.rb"
 end
 
 load "pupu/tasks/pupu.rake"

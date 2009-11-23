@@ -34,11 +34,20 @@ gem "erubis"#, git: "git://github.com/genki/erubis.git"
 
 <% case @orm %>
 <% when "datamapper" %>
-gem "dm_sqlite3"#, git: "git://github.com/datamapper/do.git"
+gem "do_sqlite3"#, git: "git://github.com/datamapper/do.git"
 gem "dm-core"#, git: "git://github.com/datamapper/dm-core.git"
 gem "dm-timestamps"#, git: "git://github.com/datamapper/dm-more.git"
 <% when "datamapper" %>
 #gem "sequel"#, git: "git://github.com/jeremyevans/sequel.git"
+<% end %>
+
+# TODO: don't load them
+# gem "thin" # there seems to be some problems with latest thin
+gem "racksh"
+gem "shotgun"
+
+<% if @warden %>
+gem "warden"
 <% end %>
 
 only(:test) do
