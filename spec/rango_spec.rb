@@ -8,10 +8,6 @@ describe Rango do
     Rango::VERSION.should match(/^\d+\.\d+\.\d+$/)
   end
 
-  it "should not be flat by default" do
-    Rango.should_not be_flat
-  end
-
   it "should has logger" do
     Rango.logger.should be_kind_of(Rango::Logger)
   end

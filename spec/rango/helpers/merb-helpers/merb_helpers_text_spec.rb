@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+__END__
 require_relative "../../../spec_helper"
 require "rango/helpers/merb-helpers/text_helpers"
 

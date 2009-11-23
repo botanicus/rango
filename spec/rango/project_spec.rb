@@ -8,9 +8,9 @@ describe Project do
     Project.root.should be_kind_of(String)
   end
 
-  it "should have path which is similar as root, but it is Path, not String" do
+  it "should have path which is similar as root, but it is MediaPath, not String" do
     Project.should respond_to(:path)
-    Project.path.should be_kind_of(Path)
+    Project.path.should be_kind_of(MediaPath)
   end
 
   it "should respond to name" do

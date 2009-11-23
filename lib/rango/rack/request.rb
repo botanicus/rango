@@ -36,6 +36,8 @@
 # http://rack.rubyforge.org/doc/
 # http://rack.rubyforge.org/doc/classes/Rack/Request.html
 
+require "rubyexts/hash" # Hash#except
+
 module Rango
   module Session
   end
