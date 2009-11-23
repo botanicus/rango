@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-require_relative "boot.rb"
+require_relative "gems/environment.rb"
 
 desc "Boot environment"
 task :environment do

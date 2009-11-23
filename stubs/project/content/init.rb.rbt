@@ -5,11 +5,9 @@
 # You can run your scripts with ./init.rb my-script.rb
 # See http://wiki.github.com/botanicus/rango/rango-boot-process
 
-require_relative "boot.rb"
-
 # bundler
 begin
-  require_relative "gems/environment"
+  require_relative "gems/environment.rb"
 rescue LoadError => exception
   abort "LoadError during loading gems/environment: #{exception.message}\nRun gem bundle to fix it."
 end
@@ -22,6 +20,9 @@ require "rango"
 
 Rango.boot
 
+Rango.logger.info("Loading dependencies for #{Rango.environment}")
+Bundler.require_env(Rango.environment)
+
 # database connection
 # DataMapper.setup(:default, "sqlite3::memory")
 
@@ -30,10 +31,7 @@ Rango.interactive if ARGV.delete("-i")
 
 # so it can work as a runner
 # ./init.rb: start webserver
-if File.basename($0).eql?("init.rb")
-  ARGV.push("--port=4000", "config.ru") if ARGV.empty?
-  # there seems to be some problems with latest thin
-  #ARGV.push("--port=4000", "--server=thin", "config.ru") if ARGV.empty?
+if ARGV.length > 0 && $0.eql?(__FILE__)
   # config.ru
   if ARGV.last.split(".").last.eql?("ru")
     if Rango.development?

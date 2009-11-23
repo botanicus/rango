@@ -43,8 +43,8 @@ gem "dm-timestamps"#, git: "git://github.com/datamapper/dm-more.git"
 
 # TODO: don't load them
 # gem "thin" # there seems to be some problems with latest thin
-gem "racksh"
-gem "shotgun"
+gem "racksh", require_as: nil
+gem "shotgun", require_as: nil
 
 <% if @warden %>
 gem "warden"

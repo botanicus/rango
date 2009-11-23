@@ -1,6 +1,15 @@
+<%= shebang "./init.rb", %w[-p 4000 -s webrick] %>
 # encoding: utf-8
 
+# Load init.rb even if config.ru is just loaded 
+# This comes handy in Passenger etc, but it's still
+# useful to have config.ru as an executable, because
+# it's easy to have default arguments for bin/rackup
+require_relative "init.rb" unless $0.eql?(__FILE__)
+
+require "rango/gv"
 <% if @warden %>
+
 # warden authentication
 # wiki.github.com/hassox/warden/setup
 require "warden"
@@ -33,8 +42,9 @@ Rango::Router.use(:<%= @router.to_sym %>)
 
 <% case @router %>
 <% when "usher" %>
+# http://github.com/joshbuddy/usher
 Project.router = Usher::Interface.for(:rack) do
-  get("/").to(lambda { |env| [200, Hash.new, "<h1>Welcome in Rango!</h1>"] })
+  get("/").to(Rango::GV.static { "index" }).name(:root)
 end
 <% when "rack-mount" %>
 # http://github.com/josh/rack-mount
@@ -42,7 +52,7 @@ Project.router = Rack::Mount::RouteSet.new do |set|
   # add_route takes a rack application and conditions to match with
   # conditions may be strings or regexps
   # See Rack::Mount::RouteSet#add_route for more options.
-  set.add_route lambda { |env| [200, Hash.new, "<h1>Welcome in Rango!</h1>"] }, method: "get", path: "/"
+  set.add_route Rango::GV.static { "index" }, method: "get", path: "/"
 end
 <% when "rack-router" %>
 # TODO: routes

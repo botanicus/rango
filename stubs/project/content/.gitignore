@@ -4,5 +4,9 @@
 .*.swo
 settings_local.rb
 *.cache
+:memory
+*.db
 tmp/*
 log/*
+gems/*
+!gems/cache
