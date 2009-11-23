@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.has_rdoc = true
 
   # files
-  s.files = Dir.glob("**/*") - Dir.glob("pkg/*")
+  s.files = Dir.glob("**/*") - Dir.glob("pkg/*") - Dir.glob("vendor/*") - Dir.glob("doc/*")
   s.executables = ["rango"]
   s.default_executable = "rango"
   s.require_paths = ["lib"]

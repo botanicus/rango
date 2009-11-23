@@ -5,7 +5,7 @@ module Rango
     class << self
       # @since 0.0.2
       def engine(name)
-        Rango::Templates.const_get(name.capitalize + "Adapter")
+        Rango::Templates.const_get(name.to_s.capitalize + "Adapter")
       end
     end
 

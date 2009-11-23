@@ -6,9 +6,11 @@ require "rango/mixins/render"
 # what about filters?
 #   - include to controller or use directly (include Rango::GV, but what if I want to include just for example static gv?)
 #   - or Rango::GV.extend FiltersMixin
+
 module Rango
   module GV
     class View
+      include Rango::Helpers
       include Rango::RenderMixin
       attr_reader :name, :definition
       attr_accessor :args, :custom_block # we can't use just block because of block(:head)
@@ -83,6 +85,7 @@ end
 ###############
   
 Rango::GV.define(:static) do |hook = nil|
+  require "rango/helpers" # for javascripts etc helpers
   path = env["rango.router.params"][:template]
   path = hook.call(path) unless hook.nil?
   Rango.logger.debug("Rendering '#{path}'")
