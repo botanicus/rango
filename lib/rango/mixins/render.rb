@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+require "rango/router"
 require "rango/templates/template"
 
 # This mixin should be included to the all objects which are supposed to return response for Rack, so not just ControllerStrategy, but also CallableStrategy

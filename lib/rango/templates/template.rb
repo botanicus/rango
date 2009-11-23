@@ -3,6 +3,8 @@
 # TODO: questionable :partial, true
 # => define #partial?
 
+require "rubyexts/attribute"
+
 module Rango
   module Templates
     class Template

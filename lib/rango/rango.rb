@@ -4,6 +4,7 @@ require "rango/exceptions"
 require "rango/loggers/logger"
 require "rango/rack/middlewares/basic"
 require "rango/project"
+require "rango/utils"
 
 module Rango
   # all the helpers are in Rango::Helpers

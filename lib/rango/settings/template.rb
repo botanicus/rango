@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+require "rango/settings"
+
 module Rango
   module Settings
     class Template < Settings

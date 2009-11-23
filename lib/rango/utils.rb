@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 module Rango
-  module Testing
+  module Utils
     extend self
     def load_rackup(path = "config.ru")
       fullpath = File.join(Project.root, "config.ru")
