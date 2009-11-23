@@ -43,7 +43,7 @@ module Rango
     # @param [Hash] options You can specify flat: true for sinatra-like flat application.
     # @return [Boolean] Returns true if boot succeed or false if not. If ARGV includes "-i", IRB interactive session will start.
     def boot(options = Hash.new, &block)
-      self.environment = options[:environment] unless options[:environment]
+      self.environment = options[:environment] if options[:environment]
       require "rango/boot"
       block.call if block_given?
       self.bootloaders.each do |name, bootloader|
