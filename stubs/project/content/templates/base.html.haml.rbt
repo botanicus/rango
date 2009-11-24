@@ -12,5 +12,5 @@
     = block(:head)
   %body
     .container
-      %h1!= block(:title)
-      != block(:content)
+      %h1= block(:title)
+      = block(:content)

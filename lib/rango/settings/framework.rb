@@ -57,7 +57,7 @@ module Rango
       hattribute :mime_formats, Array.new
 
       # @since 0.0.2
-      hattribute :autoescape, true
+      hattribute :autoescape, false
 
       # @since 0.0.2
       hattribute :gems_directory, lambda { File.join(Project.root, "gems") }
