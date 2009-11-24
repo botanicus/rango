@@ -2,7 +2,7 @@
 
 SettingsNotFound = Class.new(StandardError)
 
-class TemplateNotFound < StandardError
+class TemplateNotFound < StandardError # TODO: should inherit from NotFound
   # @since 0.0.2
   attr_accessor :message
 
@@ -11,9 +11,6 @@ class TemplateNotFound < StandardError
     self.message = "Template '#{template}' wasn't found in any of these locations: #{locations.join(", ")}."
   end
 end
-
-# @since 0.0.1
-AnyStrategyMatched = Class.new(StandardError)
 
 # superclass of all the controller exceptions
 module Rango
