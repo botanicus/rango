@@ -7,6 +7,11 @@ require "rango/mixins/render"
 #   - include to controller or use directly (include Rango::GV, but what if I want to include just for example static gv?)
 #   - or Rango::GV.extend FiltersMixin
 
+#
+# TODO: each generic view should has its own module, so rather than
+# include Rango::GV we should do include Rango::GV::Static
+#
+
 module Rango
   module GV
     class View
