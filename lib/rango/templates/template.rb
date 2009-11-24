@@ -109,6 +109,16 @@ module Rango
       # - extend_block(:head) do
       #   != pupu :lighter, syntax: "html", theme: "standard"
       #   != block(:head)
+      #
+      # TODO: something more intuitive like:
+      # - block(:head) do
+      #   != pupu :lighter, syntax: "html", theme: "standard"
+      #   != block(:head)
+      #
+      # OR even:
+      # - block(:head) do
+      #   != pupu :lighter, syntax: "html", theme: "standard"
+      #   = superblock
       def extend_block(name, value = nil, &block)
         value = self._template.context.capture(&block) if value.nil? && block
         self._template.blocks[name] += value
