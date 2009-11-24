@@ -20,6 +20,13 @@ Spec::Runner.configure do |config|
   config.include Rack::Test::Methods
   config.include Webrat::Matchers
 
+  # automigrate database
+  # TODO: with this setup it runs after custom block, so
+  # if you create a record, it will be destroyed immediately
+  #config.before(:each) do
+  #  DataMapper.auto_migrate!
+  #end
+
   # for rack-test
   def app
     Project.router

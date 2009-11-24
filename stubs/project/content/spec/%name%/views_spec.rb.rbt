@@ -3,6 +3,7 @@
 require_relative "../spec_helper.rb"
 
 describe "URL /" do
+  include <%= @name.camel_case %>
   before(:each) do
     @response = get("/")
   end

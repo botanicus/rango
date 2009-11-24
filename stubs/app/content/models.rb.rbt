@@ -1,12 +1,13 @@
 # encoding: utf-8
 
-class <%= @name.camel_case %>
+module <%= @name.camel_case %>
   <% @models.each do |model| %>
   <% case @orm %>
   <% when "datamapper" %>
   class <%= model.camel_case %>
     include DataMapper::Resource
     property :title, String
+    property :slug,  String, key: true
   end
 
   <% when "sequel" %>

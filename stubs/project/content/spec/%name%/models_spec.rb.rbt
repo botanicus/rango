@@ -3,9 +3,20 @@
 require_relative "../spec_helper.rb"
 
 describe <%= @name.camel_case %> do
+  include <%= @name.camel_case %>
   <% @models.each do |model| %>
   describe <%= model.camel_case %> do
-    # TODO: write specs
+    before(:each) do
+      @<%= @name %> = <%= @name.camel_case %>.new
+    end
+
+    it "should have a title" do
+      @<%= @name %>.should respond_to(:title)
+    end
+
+    it "should have a slug" do
+      @<%= @name %>.should respond_to(:slug)
+    end
   end
 
   <% end %>

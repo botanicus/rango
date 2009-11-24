@@ -2,7 +2,7 @@
 
 require "rango/controller"
 
-class <%= @name.camel_case %>
+module <%= @name.camel_case %>
   class Application < Rango::Controller
     # TODO: implement application controller
   end
