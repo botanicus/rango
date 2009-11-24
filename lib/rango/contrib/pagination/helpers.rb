@@ -17,7 +17,7 @@ module Rango
 
       # @since 0.0.7
       def next_page(text, page = Page.current)
-        link_to text, Page.route(request, page, page.previous.number)
+        link_to text, Page.route(request, page, page.next.number)
       end
     end
   end
