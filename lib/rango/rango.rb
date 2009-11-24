@@ -66,6 +66,7 @@ module Rango
     # @since 0.0.1
     def interactive
       ARGV.delete("-i") # otherwise irb will read it
+      ENV["RACK_ENV"] = Rango.environment # for racksh
       unless try_require("racksh/boot")
         Rango.logger.info("For more goodies install racksh gem")
         try_require "irb/completion" # some people can have ruby compliled without readline
@@ -77,7 +78,7 @@ module Rango
     end
 
     # clever environments support
-    attribute :development_environments, ["development", "test", "spec", "cucumber"]
+    attribute :development_environments, ["development"]
     attribute :testing_environments, ["test", "spec", "cucumber"]
     attribute :production_environments, ["stage", "production"]
 
@@ -86,7 +87,7 @@ module Rango
     questionable :production,  lambda { self.production_environments.include?(Rango.environment) }
 
     def environment?(environment)
-      self.environment.eql?(environment.to_sym)
+      self.environment.eql?(environment.to_s)
     end
   end
 end
