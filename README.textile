@@ -1,7 +1,14 @@
-h1. Installation
+h1. Installation via RubyGems
 
-* From RubyForge: @sudo gem install rango --development@
-* From Gemcutter: @sudo gem install rango -s http://gemcutter.org --development@
+* Daily builds: @gem install rango --pre@ _(Daily builds currently doesn't work, I'm going to fix it till end of this week.)_
+* Stable version: @gem install rango@
+
+_We were using option @--development@ for installing development dependencies, unfortunately Rack has Mongrel as a development dependency and Mongrel compilation fails on Ruby 1.9, so I put everything into normal dependencies for now._
+
+h1. Installation via "Rip":http://hellorip.com
+
+* Install edge version: @rip install git://github.com/botanicus/rango.git@
+* Install tagged version: @rip install git://github.com/botanicus/rango.git 0.1@
 
 h1. Documentation
 
@@ -9,9 +16,9 @@ h1. Documentation
 * "Tutorial":http://wiki.github.com/botanicus/rango/tutorial
 * "API Docs":http://rdoc.info/projects/botanicus/rango
 * "Examples":http://github.com/botanicus/rango-examples
-* "Rango Development":http://wiki.github.com/botanicus/rango/rango-development
 * "Bug reporting":http://github.com/botanicus/rango/issues
 
 h1. Community
 
 * "Twitter":https://twitter.com/RangoProject
+* "Rango Blog":http://botanicus.github.com/rango
