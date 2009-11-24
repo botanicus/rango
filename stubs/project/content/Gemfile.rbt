@@ -37,6 +37,7 @@ gem "erubis"#, git: "git://github.com/genki/erubis.git"
 <% when "datamapper" %>
 gem "dm-core"#, git: "git://github.com/datamapper/dm-core.git"
 gem "dm-timestamps"#, git: "git://github.com/datamapper/dm-more.git"
+gem "dm-aggregates"#, git: "git://github.com/datamapper/dm-more.git" # for count etc
 
 <% when "sequel" %>
 gem "sequel"#, git: "git://github.com/jeremyevans/sequel.git"

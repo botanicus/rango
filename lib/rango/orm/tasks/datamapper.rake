@@ -4,9 +4,6 @@ namespace :db do
   # @since 0.0.2
   desc "Automigrate the database. It will destroy all the data!"
   task :automigrate => :environment do
-    unless Rango.debug && @opts[:force]
-      abort "You are in production environment. This operation will destroy all your data. If you are sure what you are doing, use thor db:automigrate --force"
-    end
     Rango.logger.info("Migrating database #{Project.settings.database_name} ...")
     result = DataMapper.auto_migrate!
     Rango.logger.debug("Result: #{result.inspect}")
@@ -23,11 +20,13 @@ namespace :db do
   # @since 0.0.2
   desc "Run migrations"
   task :migrate => :environment do
+    abort "This task isn't implemented so far!"
   end
 
   desc "Report count of objects in database"
   task :report => :environment do
-    Rango::ORM::DataMapper.models.each do |model_class|
+    require "rango/orm/adapters/datamapper" # should be loaded in runtime, but isn't at the moment
+    Rango::ORM::Datamapper.models.each do |model_class|
       puts "#{model_class}: #{model_class.count}"
     end
   end
