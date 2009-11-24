@@ -25,3 +25,6 @@
 [submodule "vendor/simple-templater"]
 	path = vendor/simple-templater
 	url = git://github.com/botanicus/simple-templater.git
+[submodule "examples"]
+	path = examples
+	url = git://github.com/botanicus/rango-examples.git
