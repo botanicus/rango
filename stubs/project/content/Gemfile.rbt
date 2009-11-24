@@ -72,16 +72,13 @@ only(:stage, :production) do
   <% end %>
 end
 
-only(:test) do
+only(:test, :cucumber) do
   gem "rspec"#, git: "git://github.com/dchelimsky/rspec.git"
   gem "rack-test", require_as: "rack/test"#, git: "git://github.com/brynary/rack-test.git"
   gem "webrat"#, git: "git://github.com/brynary/webrat.git"
 end
 
 only(:cucumber) do
-  gem "rspec"#, git: "git://github.com/dchelimsky/rspec.git"
-  gem "rack-test"#, git: "git://github.com/brynary/rack-test.git"
-  gem "webrat"#, git: "git://github.com/brynary/webrat.git"
   gem "cucumber"#, git: "git://github.com/aslakhellesoy/cucumber.git"
 end
 
