@@ -7,15 +7,15 @@ describe <%= @name.camel_case %> do
   <% @models.each do |model| %>
   describe <%= model.camel_case %> do
     before(:each) do
-      @<%= @name %> = <%= @name.camel_case %>.new
+      @<%= model %> = <%= model.camel_case %>.new
     end
 
     it "should have a title" do
-      @<%= @name %>.should respond_to(:title)
+      @<%= model %>.should respond_to(:title)
     end
 
     it "should have a slug" do
-      @<%= @name %>.should respond_to(:slug)
+      @<%= model %>.should respond_to(:slug)
     end
   end
 

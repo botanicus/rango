@@ -23,6 +23,8 @@ unless %w[test development stage production].include?(environment)
   abort "Unknown environment: #{environment}"
 end
 
+Rango.boot(environment: environment)
+
 Rango.logger.info("Loading dependencies for #{Rango.environment}")
 Bundler.require_env(Rango.environment)
 
