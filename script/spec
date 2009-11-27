@@ -9,4 +9,6 @@ Dir[File.join(File.dirname(__FILE__), "..", "vendor", "*")].each do |path|
   end
 end
 
+ARGV.push("spec") if ARGV.empty?
+
 load File.expand_path(File.join(File.dirname(__FILE__), "..", "vendor", "rspec", "bin", "spec"))
