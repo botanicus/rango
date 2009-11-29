@@ -37,6 +37,7 @@
 # http://rack.rubyforge.org/doc/classes/Rack/Request.html
 
 require "rack"
+require "rubyexts/try"
 require "rubyexts/hash" # Hash#except
 
 module Rango
@@ -62,8 +63,8 @@ module Rango
       @env  = env
       # /path will be transformed to path/
       @path = env["PATH_INFO"]
-      @path.chomp!("/") if @path.length > 1 # so let the / just if the path is only /
-      @method = env["REQUEST_METHOD"].downcase
+      @path.chomp!("/") if @path && @path.length > 1 # so let the / just if the path is only /
+      @method = env["REQUEST_METHOD"].try(:downcase)
       self.extend_session
     end
 
