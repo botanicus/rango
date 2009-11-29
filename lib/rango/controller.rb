@@ -4,6 +4,10 @@
 
 require "rango/mixins/render"
 require "rango/exceptions"
+require "rango/project"
+require "rango/rack/request"
+require "rango/router"
+require "rango/templates/template"
 
 module Rango
   class Controller
