@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+# http://wiki.github.com/botanicus/rango/generic-views
+
 # GV = generic views
 require "rango/exceptions"
 require "rango/mixins/render"

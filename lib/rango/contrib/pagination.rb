@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+# http://wiki.github.com/botanicus/rango/pagination
+
 require "dm-aggregates"
 
 require "rango/contrib/pagination/page"

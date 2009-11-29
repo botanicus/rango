@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+# http://wiki.github.com/botanicus/rango/environments-support
+
 module Rango
   class << self
     # @since 0.0.1

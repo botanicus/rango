@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+# http://wiki.github.com/botanicus/rango/errors-handling
+
 # superclass of all the controller exceptions
 module Rango
   class HttpError < StandardError

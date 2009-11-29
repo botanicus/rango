@@ -38,6 +38,7 @@ Warden::Strategies.add(:password) do
 end
 <% end %>
 
+# http://wiki.github.com/botanicus/rango/routers
 Rango::Router.use(:<%= @router.to_sym %>)
 
 <% case @router %>
