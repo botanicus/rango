@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+# TODO: move into separate gem with settings
 module Rango
   module Configurable
     # @since 0.0.1

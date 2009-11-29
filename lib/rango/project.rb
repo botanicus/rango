@@ -1,9 +1,9 @@
 # encoding: utf-8
 
 require "rango/settings"
-require "rango/mixins/import"
 require "rango/mixins/application"
 require "rango/mixins/configurable"
+require "rubyexts/mixins/import"
 
 class Project
   class << self
