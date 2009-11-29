@@ -12,6 +12,7 @@ module Rango
     include Rango::RenderMixin
     extend self # so you can run Rango::Mini.app
     def app(&block)
+      raise ArgumentError, "Block is required" unless block_given?
       lambda do |env|
         request = Rango::Request.new(env)
         response = Rack::Response.new
@@ -19,7 +20,8 @@ module Rango
         # TODO: check how rack test if object is stringable, probably not this way
         raise ArgumentError unless body.respond_to?(:each) || body.is_a?(String)
         response.write(body)
-        response.finish
+        array = response.finish
+        [array[0], array[1], body] # we don't want to have Rack::Response instance instead body, it's mess!
       end
     end
   end
