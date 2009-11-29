@@ -1,15 +1,12 @@
 # encoding: utf-8
 
+# Rango::Mini is the most low-level part which can render
+# templates standalone. More low-level is only the RenderMixin.
+# See http://wiki.github.com/botanicus/rango/template-rendering
+
 require "rango/mixins/render"
 require "rango/rack/request"
 
-# run app { |request, response|
-# if request.env["PATH_INFO"].match(/^\/admin/)
-#   redirect ""
-# else
-#   render "index"
-# end
-# }
 module Rango
   module Mini
     include Rango::RenderMixin
