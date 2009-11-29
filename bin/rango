@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby1.9
+#!/usr/bin/env ruby
 # encoding: utf-8
 
 base   = File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__
