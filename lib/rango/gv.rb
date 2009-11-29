@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 # GV = generic views
+require "rango/exceptions"
 require "rango/mixins/render"
 
 # what about filters?

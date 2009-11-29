@@ -17,9 +17,9 @@ module Rango
     end
 
     # @since 0.0.1
-    # @return [Rango::Logger] Logger for project related stuff.
+    # @return [RubyExts::Logger] Logger for project related stuff.
     def logger
-      @logger ||= Rango::Logger.new
+      @logger ||= RubyExts::Logger.new
     end
   end
 end

@@ -36,13 +36,14 @@
 # http://rack.rubyforge.org/doc/
 # http://rack.rubyforge.org/doc/classes/Rack/Request.html
 
+require "rack"
 require "rubyexts/hash" # Hash#except
 
 module Rango
   module Session
   end
 
-  class Request < Rack::Request
+  class Request < ::Rack::Request
     # @since 0.0.1
     # @return [Hash] Original Rack environment.
     attr_reader :env

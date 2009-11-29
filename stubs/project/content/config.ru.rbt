@@ -1,6 +1,8 @@
 <%= shebang "./init.rb", %w[-p 4000 -s webrick] %>
 # encoding: utf-8
 
+require "rango/rack/middlewares/basic"
+
 # Load init.rb even if config.ru is just loaded 
 # This comes handy in Passenger etc, but it's still
 # useful to have config.ru as an executable, because

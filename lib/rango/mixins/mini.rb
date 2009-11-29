@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require "rango/mixins/render"
+require "rango/rack/request"
 
 # run app { |request, response|
 # if request.env["PATH_INFO"].match(/^\/admin/)
@@ -12,6 +13,7 @@ require "rango/mixins/render"
 module Rango
   module Mini
     include Rango::RenderMixin
+    extend self # so you can run Rango::Mini.app
     def app(&block)
       lambda do |env|
         request = Rango::Request.new(env)
@@ -25,5 +27,3 @@ module Rango
     end
   end
 end
-
-Rack::Builder.send(:include, Rango::Mini)

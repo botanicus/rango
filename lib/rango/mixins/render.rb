@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+require "rango/project"
 require "rango/router"
 require "rango/templates/template"
 
@@ -20,8 +21,8 @@ module Rango
     attribute :headers, Hash.new
 
     # @since 0.0.1
-    # @return [Rango::Logger] Logger for logging project related stuff.
-    # @see Rango::Logger
+    # @return [RubyExts::Logger] Logger for logging project related stuff.
+    # @see RubyExts::Logger
     attribute :logger, Project.logger
 
     # The rails-style flash messages

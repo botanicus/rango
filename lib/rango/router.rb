@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+require "rango" # for helpers
+
 module Rango
   module UrlHelper
     # url(:login)

@@ -26,7 +26,7 @@ describe Project do
 
   it "should have logger" do
     Project.should respond_to(:logger)
-    Project.logger.should be_kind_of(Rango::Logger)
+    Project.logger.should be_kind_of(RubyExts::Logger)
   end
 
   describe ".import" do

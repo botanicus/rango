@@ -9,7 +9,7 @@ describe Rango do
   end
 
   it "should has logger" do
-    Rango.logger.should be_kind_of(Rango::Logger)
+    Rango.logger.should be_kind_of(RubyExts::Logger)
   end
 
   describe ".import" do

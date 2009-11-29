@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 require "rango/mixins/render"
-require "rango/helpers"
+require "rango/exceptions"
 
 module Rango
   class Controller
