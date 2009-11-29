@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+# http://wiki.github.com/botanicus/rango/controllers
+
 require "rango/controller"
 
 module <%= @name.camel_case %>

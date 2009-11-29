@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-require "rango"
-
 module Rango
   class << self
     # @since 0.0.1

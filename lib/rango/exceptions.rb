@@ -1,17 +1,5 @@
 # encoding: utf-8
 
-SettingsNotFound = Class.new(StandardError)
-
-class TemplateNotFound < StandardError # TODO: should inherit from NotFound
-  # @since 0.0.2
-  attr_accessor :message
-
-  # @since 0.0.2
-  def initialize(template, locations)
-    self.message = "Template '#{template}' wasn't found in any of these locations: #{locations.join(", ")}."
-  end
-end
-
 # superclass of all the controller exceptions
 module Rango
   class HttpError < StandardError
