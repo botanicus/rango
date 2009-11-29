@@ -14,7 +14,8 @@ h1. Documentation
 
 * "Wiki":http://wiki.github.com/botanicus/rango
 * "Tutorial":http://wiki.github.com/botanicus/rango/tutorial
-* "API Docs":http://rdoc.info/projects/botanicus/rango
+* "RDoc.info API Docs":http://rdoc.info/projects/botanicus/rango
+* "Yardoc.org API Docs":http://yardoc.org/docs/botanicus-rango
 * "Examples":http://github.com/botanicus/rango-examples
 * "Bug reporting":http://github.com/botanicus/rango/issues
 
