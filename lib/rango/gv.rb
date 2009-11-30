@@ -1,70 +1,75 @@
 # encoding: utf-8
 
+# Generic Views
+# Use directly or include into a controller if you want to use filters or customize them
 # http://wiki.github.com/botanicus/rango/generic-views
 
-# GV = generic views
-require "rango/exceptions"
+require "rango/mini"
+require "rango/router"
 require "rango/mixins/render"
-
-# what about filters?
-#   - include to controller or use directly (include Rango::GV, but what if I want to include just for example static gv?)
-#   - or Rango::GV.extend FiltersMixin
-
-#
-# TODO: each generic view should has its own module, so rather than
-# include Rango::GV we should do include Rango::GV::Static
-#
+require "rubyexts/string" # String#camel_case
+require "rubyexts/module" # Module#mattr_accessor
 
 module Rango
   module GV
-    class View
-      include Rango::Helpers
-      include Rango::RenderMixin
-      attr_reader :name, :definition
-      attr_accessor :args, :custom_block # we can't use just block because of block(:head)
-      attr_accessor :env, :request, :response
-      def initialize(name, &definition)
-        @name, @definition = name, definition
-      end
+    def self.define(action, &block)
+      const_name = action.to_s.camel_case
       
-      def setup(*args, &custom_block)
-        self.args = args
-        self.custom_block = custom_block
+      if self.const_defined?(const_name)
+        constant = self.const_get(const_name)
+      else
+        mixin = Module.new
+        self.const_set(const_name, mixin)
+        constant = const_get(const_name)
       end
-      
-      def call(env)
-        Rango::Router.new.set_rack_env(env) # so env["usher.params"] => env["rango.router.params"]
-        self.request = Rango::Request.new(env)
-        self.response = Rack::Response.new
-        self.env = env
 
-        # Welcome to Ruby 1.9 world! instance_exec is the same as instance_eval,
-        # but it can takes arguments for the custom_block
-        args = [*self.args, self.custom_block]
-        Rango.logger.debug("Calling generic view #{self.name} with #{args.inspect}")
-        body = self.instance_exec(*args, &self.definition)
+      constant.module_eval <<-RUBY, __FILE__, __LINE__
+        include Rango::RenderMixin
+        extend  Rango::RenderMixin
+        mattr_accessor :block
 
-        # TODO: check how rack test if object is stringable, probably not this way
-        raise ArgumentError unless body.respond_to?(:each) || body.is_a?(String)
-        response.write(body)
-        response.finish
-      end
-    end
+        # method Rango::GV::Static.static
+        def self.#{action}(*args, &hook)
+          #.call(env)? what it should returns? array or lambda?
+          Rango::Mini.app do |request, response|
+            if hook
+              self.block.call(request, response, *args) do
+                hook.call(request, response)
+              end
+            else
+              self.block.call(request, response, *args)
+            end
+          end
+        end
 
-    def self.define(action, &definition)
-      # instance method for including
-      define_method(action, &definition)
-
-      # class method for direct usage
-      # TODO: clean this mess before someone start vomit
-      @@view = View.new(action, &definition)
-      module_eval <<-RUBY, __FILE__, __LINE__
-      def self.#{action}(*args, &block)
-        view = @@view.dup
-        view.setup(*args, &block)
-        view # has #call
-      end
+        # method Rango::GV::Static#static for inheritance
+        def #{action}(*args, &hook)
+          raise "Object #{self.inspect} must have request method defined!"  unless self.respond_to?(:request)
+          raise "Object #{self.inspect} must have response method defined!" unless self.respond_to?(:response)
+          if hook
+            #{const_name}.block.call(request, response, *args) do
+              hook.call(request, response)
+            end
+          else
+            #{const_name}.block.call(request, response, *args) # returns body
+          end
+        end
       RUBY
+
+      constant.block = block
+
+      # method Rango::GV.static for direct usage in router
+      define_singleton_method(action) do |*args, &hook|
+        if hook
+          constant.send(action, *args) do |request, response|
+            Rango::Router.new.set_rack_env(request.env) # so env["usher.params"] => env["rango.router.params"]
+            Rango.logger.debug("Calling generic view #{action} with #{args.inspect}")
+            hook.call
+          end
+        else
+          constant.send(action, *args)
+        end
+      end
     end
   end
 end
@@ -81,21 +86,12 @@ end
 #     end
 #   end
 
-# THE MAIN PROBLEM IS THIS CAN'T WORK WITH BLOCKS
-# BECAUSE OF instance_exec(*args, &block, &definition) will cause syntax error in Ruby
-
-###############
-# This might be the best solution:
-#Rango::GV.define(:static) do |view, template = nil, &block|
-#end
-
-# implementation: just definition.call(self, *self.args, &self.block)
-###############
-  
-Rango::GV.define(:static) do |hook = nil|
+# Rango::GV.static("index")
+# Rango::GV.static { |template| raise if template.eql?("base") }
+Rango::GV.define(:static) do |template, &hook|
   require "rango/helpers" # for javascripts etc helpers
-  path = env["rango.router.params"][:template]
-  path = hook.call(path) unless hook.nil?
+  path = template || env["rango.router.params"][:template]
+  hook.call(path) unless hook.nil?
   Rango.logger.debug("Rendering '#{path}'")
   render path
 end
