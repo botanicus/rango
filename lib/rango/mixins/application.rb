@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+require "rubyexts/mixins/import"
+
 module Rango
   module ApplicationMixin
     include Rango::ImportMixin
