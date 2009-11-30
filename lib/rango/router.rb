@@ -24,5 +24,9 @@ module Rango
       define_method(:set_rack_env, @@routers[router])
       @@router = router
     end
+
+    def set_rack_env(env)
+      raise "You have to run Rango::Router.use(router_name) before you use Rango::Router#set_rack_env!"
+    end
   end
 end
