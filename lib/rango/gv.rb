@@ -4,6 +4,11 @@
 # Use directly or include into a controller if you want to use filters or customize them
 # http://wiki.github.com/botanicus/rango/generic-views
 
+# If you read this file, you might not be very happy how complex and magic the implementation is.
+# However I was thinking a lot about design of generic views and if we want to provide something
+# working and with reasonable functionality, we have to do it this way. If you have better idea,
+# let me know. If you think your implementation is fine, try to run tests against it first.
+
 require "rango/mini"
 require "rango/router"
 require "rango/mixins/render"
