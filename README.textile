@@ -21,6 +21,7 @@ h1. Documentation
 
 h1. Community
 
+* "Google Group":http://groups.google.com/group/rango-project
 * "Rango Blog":http://botanicus.github.com/rango
 * "Twitter":https://twitter.com/RangoProject
 * IRC: #rango at irc://irc.freenode.net
