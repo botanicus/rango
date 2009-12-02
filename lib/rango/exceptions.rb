@@ -78,8 +78,6 @@ module Rango
   Error403 = Forbidden = Class.new(Rango::ClientError) { STATUS ||= 403 }
   Error404 = NotFound = Class.new(Rango::ClientError) { STATUS ||= 404 }
   ActionNotFound = Class.new(Rango::NotFound)
-  TemplateNotFound = Class.new(Rango::NotFound)
-  LayoutNotFound = Class.new(Rango::NotFound)
   Error405 = MethodNotAllowed = Class.new(Rango::ClientError) { STATUS ||= 405 }
   Error406 = NotAcceptable = Class.new(Rango::ClientError) { STATUS ||= 406 }
   Error407 = ProxyAuthenticationRequired = Class.new(Rango::ClientError) { STATUS ||= 407 }

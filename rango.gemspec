@@ -35,6 +35,7 @@ Gem::Specification.new do |s|
 
   # runtime dependencies
   s.add_dependency "rack", "1.0.1"
+  s.add_dependency "tilt"
   s.add_dependency "rubyexts"
   s.add_dependency "media-path"
 

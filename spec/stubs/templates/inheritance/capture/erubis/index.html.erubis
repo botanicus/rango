@@ -1,0 +1,4 @@
+<% extends "inheritance/capture/erubis/base.html" %>
+<% block(:content) do %>
+  Hello!
+<% end %>

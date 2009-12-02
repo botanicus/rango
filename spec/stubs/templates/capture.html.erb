@@ -1,6 +1,6 @@
 <ul>
   <% 1.upto(3) do |step| %>
-    <% @code = capture_erubis do %>
+    <% @code = capture do %>
       <li><%= step %></li>
     <% end %>
   <% end %>

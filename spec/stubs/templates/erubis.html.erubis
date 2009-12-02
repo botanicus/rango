@@ -1,0 +1,2 @@
+<%= helper do %>
+<% end =%>
