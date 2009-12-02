@@ -60,7 +60,7 @@ module Rango
         request = Rango::Request.new(env)
         options = env["rango.router.params"] || raise("rango.router.params property has to be setup at least to empty hash")
         method = env["rango.controller.action"].to_sym
-        controller = self.new(request, options.merge(request.params))
+        controller = self.new(env, options.merge(request.params))
         begin
           unless controller.respond_to?(method) # TODO: what about method_missing?
             raise NotFound, "Controller #{self.name} doesn't have method #{method}"
@@ -106,12 +106,12 @@ module Rango
       end
     end
 
-    def initialize(request, params)
-      @request = request
+    def initialize(env, params = Hash.new)
+      @request  = Rango::Request.new(env)
       @response = Rack::Response.new
-      @params  = params
-      @cookies = request.cookies
-      @session = request.session
+      @params   = params
+      @cookies  = request.cookies
+      @session  = request.session
       Rango.logger.inspect(params: params, cookies: cookies, session: session)
     end
     attr_reader :session
