@@ -26,8 +26,9 @@ describe Rango::Utils do
 
     it "should take config.ru in current directory as the default path" do
       current_directory = Dir.pwd
-      Dir.stub!(:pwd).and_return(File.join(current_directory, "spec", "stubs"))
-      Rango::Utils.load_rackup
+      Dir.chdir(File.join(current_directory, "spec", "stubs")) do
+        Rango::Utils.load_rackup
+      end
     end
   end
 end

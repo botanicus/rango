@@ -3,10 +3,12 @@
 require_relative "../spec_helper"
 
 require "rango/controller"
+require "rack/mock"
 
 describe Rango::Controller do
   before(:each) do
-    @controller = Factory.controller
+    env = Rack::MockRequest.env_for("/")
+    @controller = Rango::Controller.new(env)
   end
 
   it "should respond to request" do
