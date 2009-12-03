@@ -6,7 +6,7 @@ namespace :db do
   task :automigrate, :environment do |task, args|
     RANGO_ENV = args.environment || ENV["RANGO_ENV"] || "development"
     Rake::Task[:environment].invoke
-    Rango.logger.info("[#{Rango.environment}] Migrating database #{Project.settings.database_name} ...")
+    Rango.logger.info("[#{Rango.environment}] Migrating databases ...")
     result = DataMapper.auto_migrate!
     Rango.logger.debug("Result: #{result.inspect}")
   end
@@ -16,7 +16,7 @@ namespace :db do
   task :autupgrade, :environment do |task, args|
     RANGO_ENV = args.environment || ENV["RANGO_ENV"] || "development"
     Rake::Task[:environment].invoke
-    Rango.logger.info("[#{Rango.environment}] Upgrading database #{Project.settings.database_name} ...")
+    Rango.logger.info("[#{Rango.environment}] Upgrading databases ...")
     result = DataMapper.auto_upgrade!
     Rango.logger.debug("Result: #{result.inspect}")
   end
