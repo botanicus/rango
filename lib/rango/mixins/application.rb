@@ -4,7 +4,7 @@ require "rubyexts/mixins/import"
 
 module Rango
   module ApplicationMixin
-    include Rango::ImportMixin
+    include RubyExts::ImportMixin
     # @since 0.0.1
     # @see Path
     # @return [Path] Path reprezentation of project root directory.
