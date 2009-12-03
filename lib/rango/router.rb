@@ -13,7 +13,18 @@ module Rango
   Helpers.send(:include, UrlHelper)
 
   class Router
-    @@routers = Hash.new unless defined?(@@routers)
+    @@routers ||= Hash.new
+
+    def self.router
+      @@router
+    rescue
+      raise "You have to run Rango::Router.use(router_name) first!"
+    end
+
+    def self.router=(router)
+      @@router = router
+    end
+
     def self.implement(router, &block)
       @@routers[router] = block
     end
@@ -21,12 +32,13 @@ module Rango
     def self.use(router)
       require_relative "router/adapters/#{router}"
       Rango.logger.debug("Using router #{router}")
-      define_method(:set_rack_env, @@routers[router])
       @@router = router
     end
 
-    def set_rack_env(env)
-      raise "You have to run Rango::Router.use(router_name) before you use Rango::Router#set_rack_env!"
+    def self.set_rack_env(env)
+      unless env["rango.router.params"]
+        @@routers[self.router].call(env)
+      end
     end
   end
 end
