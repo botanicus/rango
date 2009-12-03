@@ -27,5 +27,5 @@
 = Version 0.1.1
   * Tilt support
   * Removed old merb-helpers
-  * Templates are rendering in separate namespace
+  * Templates are rendered in separate namespace
   * Reworked generic views
