@@ -49,9 +49,9 @@ if ARGV.length > 0 && $0.eql?(__FILE__)
   # config.ru
   if ARGV.last.split(".").last.eql?("ru")
     if Rango.development?
-      load_relative "bin/shotgun"
+      require_relative "bin/shotgun"
     else
-      load_relative "bin/rackup"
+      require_relative "bin/rackup"
     end
   else
     load ARGV.shift

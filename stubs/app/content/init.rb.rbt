@@ -1,7 +1,8 @@
 # encoding: utf-8
 
+require "rango/mixins/application"
+
 module <%= @name.camel_case %>
-  extend Rango::ImportMixin
   extend Rango::ApplicationMixin
 end
 

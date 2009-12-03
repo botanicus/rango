@@ -5,8 +5,6 @@ require "rango/project"
 Project.configure do
   # write it: self.feature = value
   # read it:  Project.settings.feature
-  self.testing_engine = :rspec
-  self.template_engine = :haml
   self.orm = :datamapper
 end
 
