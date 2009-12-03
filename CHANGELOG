@@ -23,3 +23,6 @@
   * [FEATURE] Generic view
   * [FEATURE] Project generator
   * [FEATURE] Rack-mount support
+
+= Version 0.1.1
+  * Tilt support
