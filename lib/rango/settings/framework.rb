@@ -21,6 +21,10 @@ module Rango
       hattribute :mime_formats, Array.new
 
       # @since 0.0.2
+      # Just informative for plugins, it doesn't really do anything
+      hattribute :orm
+
+      # @since 0.0.2
       # Project.settings.erubis.pattern
       # hattribute :erubis, lambda { self.settings_module(:erubis) }
       def erubis
