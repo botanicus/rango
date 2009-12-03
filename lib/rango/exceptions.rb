@@ -5,7 +5,7 @@
 # superclass of all the controller exceptions
 module Rango
   class HttpError < StandardError
-    CONTENT_TYPE ||= "text/plain"
+    CONTENT_TYPE ||= "text/html"
 
     attr_accessor :content_type, :headers
     def initialize(*args)
