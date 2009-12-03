@@ -23,14 +23,16 @@ require "rango/environments"
 require "rango/environments"
 
 environment = (ENV["RANGO_ENV"] || (RANGO_ENV if defined?(RANGO_ENV)) || "development").to_s
+RACK_ENV = environment
 unless %w[test development stage production].include?(environment)
   abort "Unknown environment: #{environment}"
 end
 
-Rango.boot(environment: environment)
+# we need to load dependencies before boot, so bootloaders will be called
+Rango.logger.info("Loading dependencies for #{environment}")
+Bundler.require_env(environment)
 
-Rango.logger.info("Loading dependencies for #{Rango.environment}")
-Bundler.require_env(Rango.environment)
+Rango.boot(environment: environment)
 
 # register applications
 require_relative "<%= @name %>/init.rb"
