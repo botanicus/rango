@@ -19,11 +19,12 @@ module Rango
     class Basic
       attr_accessor :before, :after
       def initialize(app, &block)
+        @@called = false unless defined?(@@called) # I'm not entirely sure why we have to do this
         @app = app.extend(Rango::RackDebug)
 
         #, key: 'rack.session', domain: 'foo.com', path: '/', expire_after: 2592000, secret: 'change_me'
         self.before = [Rango::Middlewares::Encoding, Rack::MethodOverride, [Rack::Session::Cookie, path: '/']]
-        self.after = [Rack::ContentType, Rack::ContentLength, Rango::Middlewares::Encoding, Rack::Head]
+        self.after = [Rack::ContentType, Rack::ContentLength, Rack::Head]
 
         self.static_files_serving
         
@@ -36,18 +37,21 @@ module Rango
       def call(env)
         # Matryoshka principle
         # MethodOverride.new(Encoding.new(@app))
-        middlewares = self.before + self.after
-        @app = middlewares.inject(@app) do |app, klass|
-          args = Array.new
-          if klass.is_a?(Array)
-            klass, args = klass
-            args = [args]
-            Rango.logger.debug("#{klass}.new(app, #{args.map { |arg| arg.inspect }.join(", ")})")
-          else
-            Rango.logger.debug("#{klass}.new(app)")
+        unless @@called
+          middlewares = self.before.reverse + self.after.reverse
+          @app = middlewares.inject(@app) do |app, klass|
+            args = Array.new
+            if klass.is_a?(Array)
+              klass, args = klass
+              args = [args]
+              Rango.logger.debug("#{klass}.new(app, #{args.map { |arg| arg.inspect }.join(", ")})")
+            else
+              Rango.logger.debug("#{klass}.new(app)")
+            end
+            klass.new(app, *args).extend(RackDebug)
           end
-          klass.new(app, *args).extend(RackDebug)
         end
+        @@called = true
         @app.call(env)
       end
 
