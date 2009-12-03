@@ -4,7 +4,6 @@ require "rack/mount"
 
 Rango::Router.implement(:rack_mount) do |env|
   env["rango.router.params"] = env["rack.routing_args"]
-  env["rango.router.app"] = self
 end
 
 module Rango

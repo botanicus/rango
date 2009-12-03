@@ -6,5 +6,4 @@
 
 Rango::Router.implement(:urlmap) do |env|
   env["rango.router.params"] = Hash.new
-  env["rango.router.app"] = self
 end
