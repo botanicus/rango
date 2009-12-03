@@ -46,27 +46,6 @@ module Rango
       return String.new
     end
 
-    # Calls the capture method for the selected template engine.
-    #
-    # ==== Parameters
-    # *args:: Arguments to pass to the block.
-    # &block:: The block to call.
-    #
-    # ==== Returns
-    # String:: The output of a template block or the return value of a non-template block converted to a string.
-    #
-    # :api: public
-    def capture(*args, &block)
-      ret = nil
-
-      captured = send("capture_#{Project.settings.template_engine}", *args) do |*args|
-        ret = yield *args
-      end
-
-      # return captured value only if it is not empty
-      captured.empty? ? ret.to_s : captured
-    end
-    
     # class Posts < Rango::Controller
     #   def context
     #     Object.new
@@ -86,26 +65,6 @@ module Rango
       self
     end
 
-    # Calls the concatenate method for the selected template engine.
-    #
-    # ==== Parameters
-    # str<String>:: The string to concatenate to the buffer.
-    # binding<Binding>:: The binding to use for the buffer.
-    #
-    # :api: public
-    def concat(str, binding)
-      self.send("concat_#{Project.settings.template_engine}", str, binding)
-    end
-
-    # view:
-    # render "index"
-    # template:
-    # extends "base.html" if layout
-    # This is helper can works as render layout: false for AJAX requests when you probably would like to render just the page without layout
-    def layout
-      request.ajax?
-    end
-
     # RENDERING #
     def template_location(extension = "html")
       File.join(self.controller_name, "#{self.env[:action]}.#{extension}")
@@ -118,11 +77,11 @@ module Rango
         run_filters2 self.class.before_render_filters, template, locals
       end
       template, locals = self.template_location, template if template.is_a?(Hash) && locals.empty?
-      template2 = Rango::Templates::Template.new(template, self.context, locals)
+      template2 = Rango::Templates::Template.new(template, self.context)
       if self.class.respond_to?(:after_render_filters)
         run_filters2 self.class.after_render_filters, template2
       end
-      return template2.render
+      return template2.render(locals)
     end
 
     # @since 0.0.2
