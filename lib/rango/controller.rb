@@ -56,7 +56,7 @@ module Rango
       # [master] Change Merb::Controller to respond to #call and return a Rack Array. (wycats)http://rubyurl.com/BhoY
       # @since 0.0.2
       def call(env)
-        Rango::Router.new.set_rack_env(env) # See rango/router/adapters/*
+        Rango::Router.set_rack_env(env) # See rango/router/adapters/*
         request = Rango::Request.new(env)
         options = env["rango.router.params"] || raise("rango.router.params property has to be setup at least to empty hash")
         method = env["rango.controller.action"].to_sym
@@ -125,11 +125,12 @@ module Rango
     # if you need to change just body of error message, define render_http_error method
     # @api plugin
     def rescue_http_error(exception)
+      status, headers, body = exception.to_response
       if self.respond_to?(:render_http_error)
-        message = self.render_http_error(exception)
-        exception.message = message unless message.nil?
+        [status, headers, self.render_http_error(exception)]
+      else
+        [status, headers, body]
       end
-      exception.to_response
     end
 
     # def show
@@ -137,7 +138,7 @@ module Rango
     #   render "show.html", locals
     # end
     def locals
-      @locals ||= Hash.new
+      @locals ||= {message: self.message}
     end
 
     # @since 0.0.2
