@@ -132,6 +132,14 @@ module Rango
       exception.to_response
     end
 
+    # def show
+    #   context[:post] = Post.get(params[:id])
+    #   render "show.html", context
+    # end
+    def context
+      @context ||= Hash.new
+    end
+
     # @since 0.0.2
     def run_filters(name, method)
       # Rango.logger.debug(self.class.instance_variables)
