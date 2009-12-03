@@ -28,3 +28,6 @@
 [submodule "examples"]
 	path = examples
 	url = git://github.com/botanicus/rango-examples.git
+[submodule "vendor/tilt"]
+	path = vendor/tilt
+	url = git://github.com/rtomayko/tilt.git
