@@ -133,11 +133,11 @@ module Rango
     end
 
     # def show
-    #   context[:post] = Post.get(params[:id])
-    #   render "show.html", context
+    #   locals[:post] = Post.get(params[:id])
+    #   render "show.html", locals
     # end
-    def context
-      @context ||= Hash.new
+    def locals
+      @locals ||= Hash.new
     end
 
     # @since 0.0.2
