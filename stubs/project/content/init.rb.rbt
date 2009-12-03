@@ -17,6 +17,7 @@ require_relative "settings"
 require_relative "settings_local"
 
 require "rango"
+require "rango/environments"
 
 # http://wiki.github.com/botanicus/rango/environments-support
 require "rango/environments"
