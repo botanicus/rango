@@ -73,6 +73,7 @@ module Rango
     # TODO: extensions handling
     # @since 0.0.2
     def render(template, locals = Hash.new)
+      locals = {request: self.request}.merge(locals)
       if self.class.respond_to?(:before_render_filters) # generic views, plain rack etc
         run_filters2 self.class.before_render_filters, template, locals
       end
