@@ -28,3 +28,4 @@
   * Tilt support
   * Removed old merb-helpers
   * Templates are rendering in separate namespace
+  * Reworked generic views
