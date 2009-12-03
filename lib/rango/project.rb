@@ -7,7 +7,7 @@ require "rubyexts/mixins/import"
 
 class Project
   class << self
-    include Rango::ImportMixin
+    include RubyExts::ImportMixin
     include Rango::ApplicationMixin
     include Rango::Configurable
     # @since 0.0.1
