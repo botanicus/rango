@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require "uri"
+require "rango/helpers"
 
 module Rango
   module Helpers

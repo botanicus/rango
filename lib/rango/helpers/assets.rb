@@ -3,6 +3,8 @@
 # TODO: javascript "application" => media/javascripts/application.js
 # ... but what if I need full path? It should be tested if file exist, of course
 # javascript Path.new("design/whatever.js")
+require "rango/helpers"
+
 module Rango
   module Helpers
     # stolen from pupu (but it's OK, it's my code)

@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+require "rango/helpers"
+
 module Rango
   module Helpers
     # @since 0.0.1

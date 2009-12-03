@@ -21,4 +21,3 @@ end
 require "rango/helpers/assets"
 require "rango/helpers/syntax"
 require "rango/helpers/general"
-require "rango/helpers/merb-helpers"
