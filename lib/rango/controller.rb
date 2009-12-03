@@ -13,7 +13,6 @@ module Rango
   class Controller
     include Rango::Helpers
     include Rango::RenderMixin
-    include Rango::Templates::TemplateHelpers
 
     class << self
       # @since 0.0.2
@@ -106,6 +105,46 @@ module Rango
       end
     end
 
+    # @since 0.0.1
+    # @return [RubyExts::Logger] Logger for logging project related stuff.
+    # @see RubyExts::Logger
+    attribute :logger, Project.logger
+    attribute :status
+    attribute :headers, Hash.new
+
+    # @since 0.0.1
+    # @return [Rango::Request]
+    # @see Rango::Request
+    attr_accessor :request, :params, :cookies, :response
+    # @since 0.0.1
+    # @return [Hash] Hash with params from request. For example <code>{messages: {success: "You're logged in"}, post: {id: 2}}</code>
+    attr_accessor :params
+
+    # The rails-style flash messages
+    # @since 0.0.2
+    def message
+      @message ||= (request.GET[:msg] || Hash.new)
+    end
+
+    def render(template, locals = Hash.new)
+      super template, self.locals.merge!(locals)
+    end
+
+    # @since 0.0.2
+    def redirect(url, options = Hash.new)
+      self.status = 302
+
+      # for example ?msg[error]=foo
+      [:error, :success, :notice].each do |type|
+        if msg = (options[type] || message[type])
+          url.concat("?msg[#{type}]=#{msg}")
+        end
+      end
+
+      self.headers["Location"] = URI.escape(url)
+      return String.new
+    end
+
     def initialize(env, params = Hash.new)
       @request  = Rango::Request.new(env)
       @response = Rack::Response.new
@@ -131,14 +170,6 @@ module Rango
       else
         [status, headers, body]
       end
-    end
-
-    # def show
-    #   locals[:post] = Post.get(params[:id])
-    #   render "show.html", locals
-    # end
-    def locals
-      @locals ||= {message: self.message}
     end
 
     # @since 0.0.2

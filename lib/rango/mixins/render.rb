@@ -10,43 +10,6 @@ module Rango
     include Rango::UrlHelper
     extend self # so you can use Rango::RenderMixin.render
 
-    # @since 0.0.1
-    # @return [Rango::Request]
-    # @see Rango::Request
-    attr_accessor :request, :params, :cookies, :response
-    # @since 0.0.1
-    # @return [Hash] Hash with params from request. For example <code>{messages: {success: "You're logged in"}, post: {id: 2}}</code>
-    attr_accessor :params
-
-    attribute :status
-    attribute :headers, Hash.new
-
-    # @since 0.0.1
-    # @return [RubyExts::Logger] Logger for logging project related stuff.
-    # @see RubyExts::Logger
-    attribute :logger, Project.logger
-
-    # The rails-style flash messages
-    # @since 0.0.2
-    def message
-      @message ||= (request.GET[:msg] || Hash.new)
-    end
-
-    # @since 0.0.2
-    def redirect(url, options = Hash.new)
-      self.status = 302
-
-      # for example ?msg[error]=foo
-      [:error, :success, :notice].each do |type|
-        if msg = (options[type] || message[type])
-          url.concat("?msg[#{type}]=#{msg}")
-        end
-      end
-
-      self.headers["Location"] = URI.escape(url)
-      return String.new
-    end
-
     # class Posts < Rango::Controller
     #   def context
     #     Object.new
@@ -66,9 +29,12 @@ module Rango
       Object.new.extend(Rango::Helpers)
     end
 
-    # RENDERING #
-    def template_location(extension = "html")
-      File.join(self.controller_name, "#{self.env[:action]}.#{extension}")
+    # def show
+    #   locals[:post] = Post.get(params[:id])
+    #   render "show.html", locals
+    # end
+    def locals
+      @locals ||= {message: self.message}
     end
 
     # TODO: extensions handling
