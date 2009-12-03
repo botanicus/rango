@@ -62,7 +62,7 @@ module Rango
     # This context will be extended by same crucial methods from template mixin
     # We are in context of current controller by default
     def context
-      self
+      Object.new
     end
 
     # RENDERING #
