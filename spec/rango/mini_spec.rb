@@ -6,6 +6,8 @@ require "rango/mini"
 require "rack/mock"
 require "rack/lint"
 
+Rango::Router.use(:urlmap)
+
 describe Rango::Mini do
   before(:each) do
     @app = Rango::Mini.app { "Hello Rack!" }

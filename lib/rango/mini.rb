@@ -4,6 +4,7 @@
 # templates standalone. More low-level is only the RenderMixin.
 # See http://wiki.github.com/botanicus/rango/template-rendering
 
+require "rango/router"
 require "rango/mixins/render"
 require "rango/rack/request"
 
