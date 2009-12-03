@@ -8,6 +8,7 @@ require "rango/templates/template"
 module Rango
   module RenderMixin
     include Rango::UrlHelper
+    extend self # so you can use Rango::RenderMixin.render
 
     # @since 0.0.1
     # @return [Rango::Request]
@@ -73,6 +74,7 @@ module Rango
     # TODO: extensions handling
     # @since 0.0.2
     def render(template, locals = Hash.new)
+      Rango.logger.inspect(locals: locals.merge(request: self.request.to_s))
       locals = {request: self.request}.merge(locals)
       if self.class.respond_to?(:before_render_filters) # generic views, plain rack etc
         run_filters2 self.class.before_render_filters, template, locals
