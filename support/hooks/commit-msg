@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby1.9
+#!/usr/bin/env ruby
 #
 # Hook script to check the commit log message.
 # Called by git-commit with one argument, the name of the file

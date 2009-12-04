@@ -58,7 +58,7 @@ module Erubis
         end
       end
       #rest = $' || input                        # ruby1.8
-      rest = pos == 0 ? input : input[pos..-1]   # ruby1.9
+      rest = pos == 0 ? input : input[pos..-1]   # ruby
       add_text(src, rest)
     end
   end
