@@ -9,7 +9,17 @@ module Tilt
     chainable do
       def initialize_engine
         super
-        require "rango/templates/erubis"
+        require "rango/templates/exts/erubis"
+      end
+    end
+  end
+
+  HamlTemplate.class_eval do
+    extend RubyExts::Chainable
+    chainable do
+      def initialize_engine
+        super
+        require "rango/templates/exts/haml"
       end
     end
   end

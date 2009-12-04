@@ -36,6 +36,11 @@ module Rango
       # @since 0.0.7
       # Haml now has an :ugly option, thanks to Wincent Colaiuta. This option forgoes pretty output formatting in favor of speed increases, which show up in particular when rendering deeply nested partials
       hattribute :ugly, lambda { not Rango.development?  }
+
+      # @since 0.1.1
+      # You don't have to explicitly specify attributes which are same for all the tags of same
+      # kind in your markup over and over if you just specify them as an options for the engine
+      hattribute :default_attributes, {script: {type: "text/javascript"}, form: {method: "POST"}}
     end
   end
 end
