@@ -18,7 +18,7 @@
   * [FEATURE] Hooks for Rendering
   * [SPECS]   Integration with RunCodeRun.com
   * [SPECS]   All specs passing
-	* SimpleTemplater, RubyExts & CLI
+  * SimpleTemplater, RubyExts & CLI
   * [FEATURE] Bundler Support
   * [FEATURE] Generic view
   * [FEATURE] Project generator
@@ -27,9 +27,9 @@
 = Version 0.1.1
   * Tilt support
   * Removed old merb-helpers
-  * Templates are rendered in separate namespace
   * Reworked generic views
   * Default attributes for Haml
   * MessagesMixin and FiltersMixin were divided from Rango::Controller
+  * Shebang is just ruby rather than ruby1.9, so it plays well with rvm
   * ImplicitRendering and ExplicitRendering mixins for using locals
     vs. rendering in context of current controller instance
