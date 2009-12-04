@@ -2,6 +2,7 @@ h1. Installation via RubyGems
 
 * Daily builds: @gem install rango --pre@ _(Daily builds currently doesn't work, I'm going to fix it till end of this week.)_
 * Stable version: @gem install rango@
+* JRuby: @jruby --1.9 -S gem install rango@
 
 _We were using option @--development@ for installing development dependencies, unfortunately Rack has Mongrel as a development dependency and Mongrel compilation fails on Ruby 1.9, so I put everything into normal dependencies for now._
 
