@@ -84,6 +84,7 @@ module Rango
     # @since 0.0.1
     def interactive
       require "rango/utils"
+      require "rubyexts"
       ARGV.delete("-i") # otherwise irb will read it
       ENV["RACK_ENV"] = Rango.environment # for racksh
       unless try_require("racksh/boot")
