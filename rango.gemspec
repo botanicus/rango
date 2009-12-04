@@ -31,13 +31,16 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # Ruby version
-  s.required_ruby_version = ::Gem::Requirement.new(">= 1.9.1")
+  # Current JRuby with --1.9 switch has RUBY_VERSION set to "1.9.2dev"
+  # and RubyGems don't play well with it, so we have to set minimal
+  # Ruby version to 1.9, even if it actually is 1.9.1
+  s.required_ruby_version = ::Gem::Requirement.new(">= 1.9")
 
   # runtime dependencies
-  s.add_dependency "rack", "1.0.1"
-  s.add_dependency "tilt"
-  s.add_dependency "rubyexts"
-  s.add_dependency "media-path"
+  s.add_dependency "rack", ">= 1.0.1"
+  s.add_dependency "tilt", ">= 0.3"
+  s.add_dependency "rubyexts", "0.0.2"
+  s.add_dependency "media-path", ">= 0.1"
 
   # development dependencies
   # use gem install rango --development if you want to install them
@@ -45,8 +48,8 @@ Gem::Specification.new do |s|
   # s.add_development_dependency "bundler"
   # NOTE: OK, these dependencies aren't actually development, because
   # development dependency of rack is mongrel and mongrel can't be compiled on Ruby 1.9
-  s.add_dependency "simple-templater"
-  s.add_dependency "bundler"
+  s.add_dependency "simple-templater", "0.0.1.1"
+  s.add_dependency "bundler", ">= 0.7"
 
   # RubyForge
   s.rubyforge_project = "rango"
