@@ -19,7 +19,7 @@ end
 Encoding.default_internal = "utf-8"
 
 module Rango
-  VERSION ||= "0.1.1"
+  VERSION ||= "0.1.1.1"
   extend ApplicationMixin
 
   def self.root
