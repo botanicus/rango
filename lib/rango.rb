@@ -11,6 +11,10 @@ unless $:.include?(rango_lib) || $:.include?(File.expand_path(rango_lib))
   $:.unshift(rango_lib)
 end
 
+if RUBY_VERSION < "1.9.1"
+  raise "Rango requires at least Ruby 1.9.1. If you run JRuby, please ensure you used the --1.9 switch for JRuby command, for example jruby --1.9 -S rango create project blog"
+end
+
 # It should solve problems with encoding in URL (flash messages) and templates
 Encoding.default_internal = "utf-8"
 
