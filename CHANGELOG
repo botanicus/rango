@@ -29,3 +29,7 @@
   * Removed old merb-helpers
   * Templates are rendered in separate namespace
   * Reworked generic views
+  * Default attributes for Haml
+  * MessagesMixin and FiltersMixin were divided from Rango::Controller
+  * ImplicitRendering and ExplicitRendering mixins for using locals
+    vs. rendering in context of current controller instance
