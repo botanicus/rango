@@ -39,7 +39,7 @@ Gem::Specification.new do |s|
   # runtime dependencies
   s.add_dependency "rack", ">= 1.0.1"
   s.add_dependency "tilt", ">= 0.3"
-  s.add_dependency "rubyexts", "0.0.2.1"
+  s.add_dependency "rubyexts", ">= 0.0.2.1"
   s.add_dependency "media-path", ">= 0.1.1"
 
   # development dependencies
@@ -48,7 +48,7 @@ Gem::Specification.new do |s|
   # s.add_development_dependency "bundler"
   # NOTE: OK, these dependencies aren't actually development, because
   # development dependency of rack is mongrel and mongrel can't be compiled on Ruby 1.9
-  s.add_dependency "simple-templater", "0.0.1.2"
+  s.add_dependency "simple-templater", ">= 0.0.1.2"
   s.add_dependency "bundler", ">= 0.7"
 
   # RubyForge
