@@ -34,7 +34,7 @@ Gem::Specification.new do |s|
   # Current JRuby with --1.9 switch has RUBY_VERSION set to "1.9.2dev"
   # and RubyGems don't play well with it, so we have to set minimal
   # Ruby version to 1.9, even if it actually is 1.9.1
-  s.required_ruby_version = ::Gem::Requirement.new(">= 1.9")
+  s.required_ruby_version = ::Gem::Requirement.new("~> 1.9")
 
   # runtime dependencies
   s.add_dependency "rack", ">= 1.0.1"
