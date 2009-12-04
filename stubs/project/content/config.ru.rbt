@@ -1,4 +1,4 @@
-<%= shebang "./init.rb", %w[-p 4000 -s webrick] %>
+<%= shebang "./init.rb", %w[-p 4000 -s thin] %>
 # encoding: utf-8
 
 require "rango/rack/middlewares/basic"
