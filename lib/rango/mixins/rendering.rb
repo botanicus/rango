@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 module Rango
-  module ImplicitRendering
+  module ExplicitRendering
     def render(template, locals = Hash.new)
       super(template, self.locals.merge!(locals))
     end
@@ -29,7 +29,7 @@ module Rango
     end
   end
 
-  module ExplicitRendering
+  module ImplicitRendering
     def context
       self
     end
