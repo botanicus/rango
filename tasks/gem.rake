@@ -8,7 +8,6 @@ end
 namespace :build do
   desc "Build the prerelease gem"
   task :prerelease do
-    require_relative "../lib/rango"
     gemspec = "rango.gemspec"
     content = File.read(gemspec)
     prename = "#{gemspec.split(".").first}.pre.gemspec"

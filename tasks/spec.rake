@@ -2,9 +2,6 @@
 
 desc "Run specs"
 task :spec, :path do |task, args|
-  rubylib = (ENV["RUBYLIB"] || String.new).split(":")
-  libdirs = Dir["vendor/*/lib"]
-  ENV["RUBYLIB"] = (libdirs + rubylib).join(":")
   exec "./script/spec --options spec/spec.opts #{args.path || "spec"}"
 end
 
