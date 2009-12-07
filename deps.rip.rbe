@@ -1,0 +1,8 @@
+#!/usr/bin/env rip install
+
+# Syntax:
+# repository [tag or commit to install]
+git://github.com/botanicus/media-path.git #{commits["media-path"]}
+git://github.com/botanicus/rubyexts.git #{commits["rubyexts"]}
+git://github.com/botanicus/simple-templater.git #{commits["simple-templater"]}
+git://github.com/rack/rack.git #{commits["rack"]}
