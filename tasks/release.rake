@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 desc "Release new version of rango"
-task release: ["deps.rip", "version:increase", "release:tag", "release:gemcutter", "release:twitter"]
+task release: ["deps.rip", "version:increase", "release:tag", "release:gemcutter"]
 
 namespace :version do
   task :increase do
@@ -37,13 +37,6 @@ namespace :release do
   task :gemcutter do
     puts "Pushing to Gemcutter ..."
     sh "gem push #{Dir["*.gem"].last}"
-  end
-
-  desc "Send message to Twitter"
-  task :twitter, :password do
-    message = "Rango #{Rango::VERSION} have been just released! Install via RubyGems from RubyForge or GitHub!"
-    %x[curl --basic --user RangoProject:#{password} --data status="#{message}" http://twitter.com/statuses/update.xml > /dev/null]
-    puts "Message have been sent to Twitter"
   end
 end
 
