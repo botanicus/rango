@@ -8,33 +8,36 @@ require "rango/rack/request"
 
 module Rango
   class Controller
+    include Rango::UrlHelper
     # [master] Change Merb::Controller to respond to #call and return a Rack Array. (wycats)http://rubyurl.com/BhoY
     # @since 0.0.2
     def self.call(env)
       Rango::Router.set_rack_env(env)
       request = Rango::Request.new(env)
       options = env["rango.router.params"] || raise("rango.router.params property has to be setup at least to empty hash")
-      method = env["rango.controller.action"].to_sym
       controller = self.new(env, options.merge(request.params))
-      begin
-        unless controller.respond_to?(method) # TODO: what about method_missing?
-          raise NotFound, "Controller #{self.name} doesn't have method #{method}"
-        end
-        controller.run_filters(:before, method.to_sym)
-        # If you don't care about arguments or if you prefer usage of params.
-        if controller.method(method).arity.eql?(0)
-          Rango.logger.debug("Calling method #{self.name}##{method} without arguments")
-          controller.response.body = controller.method(method).call
-        else
-          args = controller.params.values
-          Rango.logger.debug("Calling method #{self.name}##{method} with arguments #{args.inspect}")
-          controller.response.body = controller.method(method).call(*args)
-        end
-        controller.run_filters(:after, method)
-        return controller.response.finish
-      rescue HttpError => exception
-        controller.rescue_http_error(exception)
+      controller.to_response
+    end
+
+    def to_response
+      method = env["rango.controller.action"].to_sym
+      unless controller.respond_to?(method) # TODO: what about method_missing?
+        raise NotFound, "Controller #{self.name} doesn't have method #{method}"
       end
+      controller.run_filters(:before, method.to_sym)
+      # If you don't care about arguments or if you prefer usage of params.
+      if controller.method(method).arity.eql?(0)
+        Rango.logger.debug("Calling method #{self.name}##{method} without arguments")
+        controller.response.body = controller.method(method).call
+      else
+        args = controller.params.values
+        Rango.logger.debug("Calling method #{self.name}##{method} with arguments #{args.inspect}")
+        controller.response.body = controller.method(method).call(*args)
+      end
+      controller.run_filters(:after, method)
+      return controller.response.finish
+    rescue HttpError => exception
+      controller.rescue_http_error(exception)
     end
 
     # for routers
