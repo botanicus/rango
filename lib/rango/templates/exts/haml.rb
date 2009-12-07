@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 # Option default_attributes
-# 
+#
 # A hash of default attributes for tags (`{tag => {attribute => default_value}}`).
 # Attributes of each tag will reverse merged with his default attributes, so you
 # don't have to write over and over that script tag has attribute `type` with value
