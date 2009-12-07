@@ -1,8 +1,11 @@
 # encoding: utf-8
 
 require "rango/gv"
+require "rango/mini"
+require "rango/mixins/render"
 
 module Rango
+  extend Rango::RenderMixin
   module GV
     def self.static(template, locals = nil, &hook)
       Rango::Mini.app do |request, response|
