@@ -34,7 +34,7 @@ namespace :release do
   end
 
   desc "Push gem to Gemcutter"
-  task :gemcutter do
+  task :gemcutter => :build do
     puts "Pushing to Gemcutter ..."
     sh "gem push #{Dir["*.gem"].last}"
   end

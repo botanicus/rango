@@ -14,5 +14,11 @@ task :default => ["submodules:init", :spec]
 
 # load tasks
 Dir["tasks/*.rake"].each do |taskfile|
-  load taskfile
+  begin
+    load File.join(Dir.pwd, taskfile)
+  rescue Exception => exception
+    puts "Exception #{exception.class} occured during loading #{taskfile}:"
+    puts exception.message
+    puts exception.backtrace
+  end
 end
