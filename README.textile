@@ -11,6 +11,23 @@ h1. Installation via "Rip":http://hellorip.com
 * Install edge version: @rip install git://github.com/botanicus/rango.git@
 * Install tagged version: @rip install git://github.com/botanicus/rango.git 0.1@
 
+h1. How to Contribute To Rango
+
+Contributions to Rango is easy, you don't have to create a ticket or something, the only thing you really have to do is write good code. Before you send a pull request, please ensure that you:
+* Wrote YARD documentation
+* Wrote specs and run them under at least under Ruby 1.9.1, ideally under all the supported Ruby platforms:
+
+<pre>
+# run all the specs under Ruby 1.9.1 and Ruby 1.9.2
+rvm specs 1.9.1,1.9.2
+
+# run given spec under all installed Ruby implementations
+rvm ruby ./script/spec spec/rango/mixins/message_spec.rb
+
+# run given spec under Ruby 1.9.1
+rvm 1.9.1 ruby ./script/spec spec/rango/mixins/message_spec.rb
+</pre>
+
 h1. Documentation
 
 * "Wiki":http://wiki.github.com/botanicus/rango
