@@ -160,11 +160,13 @@ module Rango
     end
 
     def base_url
-      require "uri"
-      fragments = URI.split("http://localhost:2000/foo/bar?q=foo")
-      fragments = fragments[0..4]
-      5.times { fragments.push(nil) }
-      URI::HTTP.new(*fragments).to_s
+      url = scheme + "://"
+      url << host
+      if scheme == "https" && port != 443 ||
+          scheme == "http" && port != 80
+        url << ":#{port}"
+      end
+      url
     end
   end
 end

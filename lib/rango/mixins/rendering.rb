@@ -5,7 +5,12 @@ module Rango
     def render(template, locals = Hash.new)
       super(template, self.locals.merge!(locals))
     end
-    
+
+    # class Posts < Rango::Controller
+    #   def context
+    #     Object.new
+    #   end
+    #
     #   def show
     #     # you can't use @explicit
     #     post = Post.get(params[:id])
@@ -25,7 +30,7 @@ module Rango
     #   render "show.html", locals
     # end
     def locals
-      @locals ||= {message: self.message}
+      @locals ||= {request: self.request}
     end
   end
 
