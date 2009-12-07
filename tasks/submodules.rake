@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 # === Helpers === #
-def submodule(&block)
+def submodules(&block)
   File.foreach(File.join(File.dirname(__FILE__), "..", ".gitmodules")) do |line|
     if line.match(%r{submodule "(.+)"})
       block.call($1)
