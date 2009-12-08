@@ -1,4 +1,4 @@
-#!/usr/bin/env gem1.9 build
+#!/usr/bin/env gem build
 # encoding: utf-8
 
 # NOTE: we can't use require_relative because when we run gem build, it use eval for executing this file
