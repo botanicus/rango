@@ -38,14 +38,14 @@ namespace :release do
   end
 
   desc "Push gem to Gemcutter"
-  task :gemcutter => :clean, :build do
+  task :gemcutter => [:clean, :build] do
     puts "Pushing to Gemcutter ..."
     sh "gem push #{Dir["*.gem"].last}"
   end
 end
 
 desc "Create and push prerelease gem"
-task :prerelease => :clean, "build:prerelease" do
+task :prerelease => [:clean, "build:prerelease"] do
   puts "Pushing to Gemcutter ..."
   sh "gem push #{Dir["*.pre.gem"].last}"
 end
