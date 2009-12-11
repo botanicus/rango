@@ -64,7 +64,7 @@ module Rango
           Rango.logger.debug("Extends call: #{self.supertemplate}")
           supertemplate = self.class.new(self.supertemplate, self.context)
           supertemplate.blocks = self.blocks
-          return supertemplate.render(locals)
+          return supertemplate.render(self.scope, locals)
         end
         value
       end
