@@ -21,23 +21,23 @@ module Rango
 
     def to_response
       method = self.request.env["rango.controller.action"].to_sym
-      unless controller.respond_to?(method) # TODO: what about method_missing?
-        raise NotFound, "Controller #{self.name} doesn't have method #{method}"
+      unless self.respond_to?(method) # TODO: what about method_missing?
+        raise NotFound, "Controller #{self.class.name} doesn't have method #{method}"
       end
-      controller.run_filters(:before, method.to_sym)
+      self.run_filters(:before, method.to_sym)
       # If you don't care about arguments or if you prefer usage of params.
-      if controller.method(method).arity.eql?(0)
-        Rango.logger.debug("Calling method #{self.name}##{method} without arguments")
-        controller.response.body = controller.method(method).call
+      if self.method(method).arity.eql?(0)
+        Rango.logger.debug("Calling method #{self.class.name}##{method} without arguments")
+        self.response.body = self.method(method).call
       else
-        args = controller.params.values
-        Rango.logger.debug("Calling method #{self.name}##{method} with arguments #{args.inspect}")
-        controller.response.body = controller.method(method).call(*args)
+        args = self.params.values
+        Rango.logger.debug("Calling method #{self.class.name}##{method} with arguments #{args.inspect}")
+        self.response.body = self.method(method).call(*args)
       end
-      controller.run_filters(:after, method)
-      return controller.response.finish
+      self.run_filters(:after, method)
+      return self.response.finish
     rescue HttpError => exception
-      controller.rescue_http_error(exception)
+      self.rescue_http_error(exception)
     end
 
     # for routers
