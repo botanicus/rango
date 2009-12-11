@@ -1,8 +1,10 @@
 # encoding: utf-8
 
-require "rake/clean"
-
-CLEAN.include("*.gem")
+task :clean do
+  Dir["*.gem"].each do |file|
+    rm file
+  end
+end
 
 desc "Release new version of rango"
 task release: ["deps.rip", "version:increase", "release:tag", "release:gemcutter"]
