@@ -6,6 +6,13 @@ module Rango
       controller.extend(ClassMethods)
     end
 
+    # for Rango::Controller
+    def process_action(method)
+      self.run_filters(:before, method)
+      super(method)
+      self.run_filters(:after, method)
+    end
+
     # @since 0.0.2
     def run_filters(name, method)
       # Rango.logger.debug(self.class.instance_variables)
@@ -24,7 +31,7 @@ module Rango
         end
       end
     end
-    
+
     module ClassMethods
       def inherited(subclass)
         inherit_filters(subclass, :before)
@@ -66,5 +73,5 @@ module Rango
       attribute :before_display_filters, Array.new
       attribute :after_display_filters, Array.new
     end
-  end  
+  end
 end

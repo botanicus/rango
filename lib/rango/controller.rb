@@ -20,11 +20,18 @@ module Rango
     end
 
     def to_response
-      method = self.request.env["rango.controller.action"].to_sym
-      unless self.respond_to?(method) # TODO: what about method_missing?
+      method = request.env["rango.controller.action"].to_sym
+      if self.respond_to?(method) # TODO: what about method_missing?
+        self.process_action(method)
+      else
         raise NotFound, "Controller #{self.class.name} doesn't have method #{method}"
       end
-      self.run_filters(:before, method.to_sym)
+      return self.response.finish
+    rescue HttpError => exception
+      self.rescue_http_error(exception)
+    end
+
+    def process_action(method)
       # If you don't care about arguments or if you prefer usage of params.
       if self.method(method).arity.eql?(0)
         Rango.logger.debug("Calling method #{self.class.name}##{method} without arguments")
@@ -34,10 +41,6 @@ module Rango
         Rango.logger.debug("Calling method #{self.class.name}##{method} with arguments #{args.inspect}")
         self.response.body = self.method(method).call(*args)
       end
-      self.run_filters(:after, method)
-      return self.response.finish
-    rescue HttpError => exception
-      self.rescue_http_error(exception)
     end
 
     # for routers
