@@ -6,7 +6,7 @@ module Rango
   module ExplicitRendering
     include Rango::RenderMixin
     def render(template, locals = Hash.new)
-      super(template, self.locals.merge!(locals))
+      super(template, self.context, self.locals.merge!(locals))
     end
 
     # class Posts < Rango::Controller
@@ -38,12 +38,13 @@ module Rango
   end
 
   module ImplicitRendering
+    include Rango::RenderMixin
     def context
       self
     end
 
-    def render(template)
-      super template
+    def render(template) # so you can't specify locals
+      super template, self.context
     end
   end
 end
