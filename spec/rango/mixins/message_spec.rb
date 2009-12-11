@@ -18,9 +18,9 @@ describe Rango::MessageMixin do
   end
 
   describe ".included" do
-    it "should not do anything if method locals isn't defined" do
+    it "should not do anything if method context isn't defined" do
       pending "How to implement it?"
-      @controller.should_not respond_to(:locals)
+      @controller.should_not respond_to(:context)
     end
 
     class ExplicitRenderingController < Rango::Controller
@@ -28,9 +28,9 @@ describe Rango::MessageMixin do
       include Rango::MessageMixin
     end
 
-    it "should add message to locals if method locals is defined" do
+    it "should add message to context if method context is defined" do
       controller = ExplicitRenderingController.new(@env)
-      controller.locals.should have_key(:message)
+      controller.context.should have_key(:message)
     end
   end
 

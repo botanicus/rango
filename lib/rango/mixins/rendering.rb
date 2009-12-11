@@ -5,12 +5,12 @@ require "rango/mixins/render"
 module Rango
   module ExplicitRendering
     include Rango::RenderMixin
-    def render(template, locals = Hash.new)
-      super(template, self.context, self.locals.merge!(locals))
+    def render(template, context = Hash.new)
+      super(template, self.scope, self.context.merge!(context))
     end
 
     # class Posts < Rango::Controller
-    #   def context
+    #   def scope
     #     Object.new
     #   end
     #
@@ -22,29 +22,29 @@ module Rango
     # end
     #
     # Context for rendering templates
-    # This context will be extended by same crucial methods from template mixin
-    # We are in context of current controller by default
-    def context
+    # This scope will be extended by same crucial methods from template mixin
+    # We are in scope of current controller by default
+    def scope
       Object.new.extend(Rango::Helpers)
     end
 
     # def show
-    #   locals[:post] = Post.get(params[:id])
-    #   render "show.html", locals
+    #   context[:post] = Post.get(params[:id])
+    #   render "show.html", context
     # end
-    def locals
-      @locals ||= {request: self.request}
+    def context
+      @context ||= {request: self.request}
     end
   end
 
   module ImplicitRendering
     include Rango::RenderMixin
-    def context
+    def scope
       self
     end
 
-    def render(template) # so you can't specify locals
-      super template, self.context
+    def render(template) # so you can't specify context
+      super template, self.scope
     end
   end
 end

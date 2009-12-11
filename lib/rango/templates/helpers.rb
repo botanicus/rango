@@ -82,14 +82,14 @@ module Rango
 
       # partial "products/list"
       # @since 0.0.2
-      def partial(template, locals = Hash.new)
+      def partial(template, context = Hash.new)
         if template.match(%r[/])
           path, last = File.split(template)[0..-1]
           template = File.join(path, "_#{last}")
         else
           template = "_#{template}"
         end
-        template = Rango::Templates::Template.new(template, self._template.scope, locals)
+        template = Rango::Templates::Template.new(template, self._template.scope, context)
         template.partial = true
         # TODO: #block in partial templates
         output = template.render

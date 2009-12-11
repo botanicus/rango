@@ -8,10 +8,10 @@ module Rango
     def self.included(controller)
       # How to determine
       # respond to not, it's a class
-      # if controller.instance_methods.include?(:locals)
+      # if controller.instance_methods.include?(:context)
       controller.class_eval do
-        def locals
-          @locals ||= super.merge!(message: self.message)
+        def context
+          @context ||= super.merge!(message: self.message)
         end
       end
     end

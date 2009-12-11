@@ -1,4 +1,8 @@
+<% if defined?(JRUBY_VERSION) %>
+<%= shebang rubypath, ["--1.9", "--disable-gems"] %>
+<% else %>
 <%= shebang rubypath, ["--disable-gems"] %>
+<% end %>
 # encoding: utf-8
 
 # This file should set Rango environment

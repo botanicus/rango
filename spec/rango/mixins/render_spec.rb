@@ -24,20 +24,20 @@ describe Rango::RenderMixin do
       body.should be_kind_of(String)
     end
 
-    it "should take a context as the second argument" do
+    it "should take a scope as the second argument" do
       context    = Object.new
       body       = render "context_id.html", context
       context_id = body.chomp.to_i
       context_id.should eql(context.object_id)
     end
 
-    it "should take locals as the third argument" do
+    it "should take context as the third argument" do
       context = Object.new
       body    = render "index.html", context, title: "Hi!"
       body.should match(/Hi\!/)
     end
 
-    it "should take the second arguments as a locals if it's a hash and there is no third argument" do
+    it "should take the second arguments as a context if it's a hash and there is no third argument" do
       body = render "index.html", title: "Hi!"
       body.should match(/Hi\!/)
     end

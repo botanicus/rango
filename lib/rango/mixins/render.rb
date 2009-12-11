@@ -8,11 +8,11 @@ module Rango
     extend self # so you can use Rango::RenderMixin.render
 
     # @since 0.0.2
-    def render(path, context = Object.new, locals = Hash.new)
-      context, locals = Object.new, context if locals.empty? && context.is_a?(Hash)
-      Rango.logger.inspect(locals: locals)
-      template = Rango::Templates::Template.new(path, context)
-      return template.render(locals)
+    def render(path, scope = Object.new, context = Hash.new)
+      scope, context = Object.new, scope if context.empty? && scope.is_a?(Hash)
+      Rango.logger.inspect(context: context)
+      template = Rango::Templates::Template.new(path, scope)
+      return template.render(context)
     end
   end
 end

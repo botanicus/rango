@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
+if RUBY_VERSION < "1.9.1"
+  abort "Rango requires at least Ruby 1.9.1. If you run JRuby, please ensure you used the --1.9 switch for JRuby command, for example jruby --1.9 -S rango create project blog"
+end
+
 base   = File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__
 libdir = File.expand_path(File.join(File.dirname(base), "..", "lib"))
 
@@ -34,12 +38,11 @@ def usage
 <<-HELP
 === Usage ===
 rango create project mycoolproject    Generate new site
-rango create app mycoolapp            Generate new application
 HELP
 end
 
 begin
-  ARGV.shift # create
+  ARGV.shift || usage # create
   generator_name = ARGV.shift
   SimpleTemplater.logger = Rango.logger
   templater = SimpleTemplater.new(:rango)
