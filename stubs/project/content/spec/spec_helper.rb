@@ -8,6 +8,7 @@ RANGO_ENV = "test"
 require_relative "../init.rb"
 
 # load config.ru
+require "rango/utils"
 Rango::Utils.load_rackup
 
 # webrat

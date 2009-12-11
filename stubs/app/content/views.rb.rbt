@@ -3,15 +3,15 @@
 # http://wiki.github.com/botanicus/rango/controllers
 
 require "rango/controller"
-require "rango/mixins/render"
 require "rango/mixins/filters"
+require "rango/mixins/rendering"
 require "rango/mixins/message"
 
 module <%= @name.camel_case %>
   class Application < Rango::Controller
     include Rango::FiltersMixin
     include Rango::MessageMixin
-    include Rango::RenderMixin
+    include Rango::ExplicitRendering
   end
 
   class ShowCase < Application
