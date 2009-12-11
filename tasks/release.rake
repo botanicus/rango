@@ -1,5 +1,9 @@
 # encoding: utf-8
 
+require "rake/clean"
+
+CLEAN.include("*.gem")
+
 desc "Release new version of rango"
 task release: ["deps.rip", "version:increase", "release:tag", "release:gemcutter"]
 
@@ -34,14 +38,14 @@ namespace :release do
   end
 
   desc "Push gem to Gemcutter"
-  task :gemcutter => :build do
+  task :gemcutter => :clean, :build do
     puts "Pushing to Gemcutter ..."
     sh "gem push #{Dir["*.gem"].last}"
   end
 end
 
 desc "Create and push prerelease gem"
-task :prerelease => "build:prerelease" do
+task :prerelease => :clean, "build:prerelease" do
   puts "Pushing to Gemcutter ..."
   sh "gem push #{Dir["*.pre.gem"].last}"
 end
