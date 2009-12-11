@@ -30,7 +30,7 @@ module Rango
       # @since 0.0.2
       def fullpath
         @fullpath ||= begin
-          if self.path.match(/^\//)
+          if self.path.match(/^(\/|\.)/) # /foo or ./foo
             Dir[self.path, "#{self.path}.*"].first
           else
             self.find_in_template_dirs
