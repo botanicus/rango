@@ -5,8 +5,8 @@ require "rango"
 module Rango
   module Templates
     module TemplateHelpers
-      def self.extended(context)
-        class << context
+      def self.extended(scope)
+        class << scope
           attr_accessor :_template
           # @example Capture being used in a .html.erb page:
           #   <% @foo = capture do %>
@@ -47,8 +47,8 @@ module Rango
         end
       end
 
-      def self.included(context_class)
-        context_class.class_eval { attr_accessor :_template}
+      def self.included(scope_class)
+        scope_class.class_eval { attr_accessor :_template}
       end
 
       # post/show.html: it's block is the block we like to see in output
@@ -56,7 +56,7 @@ module Rango
       # base.html: here it will be rendered, so we need block to returns the correct block code
       # @since 0.0.2
       def block(name, value = nil, &block)
-        value = self._template.context.capture(&block) if value.nil? && block
+        value = self._template.scope.capture(&block) if value.nil? && block
         self._template.blocks[name] ||= value
         return self._template.blocks[name]
       end
@@ -75,7 +75,7 @@ module Rango
       #   != pupu :lighter, syntax: "html", theme: "standard"
       #   = superblock
       def extend_block(name, value = nil, &block)
-        value = self._template.context.capture(&block) if value.nil? && block
+        value = self._template.scope.capture(&block) if value.nil? && block
         self._template.blocks[name] += value
         return self._template.blocks[name]
       end
@@ -89,7 +89,7 @@ module Rango
         else
           template = "_#{template}"
         end
-        template = Rango::Templates::Template.new(template, self._template.context, locals)
+        template = Rango::Templates::Template.new(template, self._template.scope, locals)
         template.partial = true
         # TODO: #block in partial templates
         output = template.render

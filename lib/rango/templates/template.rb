@@ -15,16 +15,16 @@ module Rango
     class Template
       # template -> supertemplate is the same relationship as class -> superclass
       # @since 0.0.2
-      attr_accessor :path, :context, :supertemplate
+      attr_accessor :path, :scope, :supertemplate
 
       # @since 0.0.2
       attribute :blocks, Hash.new
 
       # @since 0.0.2
-      def initialize(path, context = Object.new)
-        self.path    = path#[context.class.template_prefix.chomp("/"), template].join("/")
-        self.context = context.extend(TemplateHelpers)
-        self.context._template = self
+      def initialize(path, scope = Object.new)
+        self.path    = path#[scope.class.template_prefix.chomp("/"), template].join("/")
+        self.scope = scope.extend(TemplateHelpers)
+        self.scope._template = self
       end
 
       # @since 0.0.2
@@ -57,14 +57,14 @@ module Rango
       # @since 0.0.2
       def render(locals = Hash.new)
         raise Errors::TemplateNotFound.new("Template #{self.path} wasn't found in these template_dirs: #{Project.settings.template_dirs.inspect}") if self.fullpath.nil?
-        value = self.template.render(self.context, locals)
+        value = self.template.render(self.scope, locals)
         Rango.logger.info("Rendering template #{self.path}")
         Rango.logger.inspect(self.blocks)
         if self.supertemplate
           Rango.logger.debug("Extends call: #{self.supertemplate}")
-          supertemplate = self.class.new(self.supertemplate, self.context)
+          supertemplate = self.class.new(self.supertemplate, self.scope)
           supertemplate.blocks = self.blocks
-          return supertemplate.render(self.scope, locals)
+          return supertemplate.render(locals)
         end
         value
       end
