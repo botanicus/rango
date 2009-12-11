@@ -78,6 +78,12 @@ module Rango
       self.bootloaders[name] = block
     end
 
+    # Rango.loaded?("environments.rb")
+    def loaded?(relative_path) # would work just with Kernel#require, not with Kernel#load, I know that the name may be misleading, but better than required?
+      full_path = File.expand_path(File.join(File.dirname(__FILE__), relative_path))
+      $LOADED_FEATURES.any? { |file| file == full_path }
+    end
+
     # Start IRB interactive session
     # @since 0.0.1
     def interactive
