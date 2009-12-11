@@ -1,7 +1,10 @@
 # encoding: utf-8
 
+require "rango/mixins/render"
+
 module Rango
   module ExplicitRendering
+    include Rango::RenderMixin
     def render(template, locals = Hash.new)
       super(template, self.locals.merge!(locals))
     end
