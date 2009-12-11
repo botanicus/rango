@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+require "rango" # Rango.loaded?
 require "rango/settings"
 
 module Rango
@@ -11,7 +12,7 @@ module Rango
 
       # @since 0.0.2
       # Sets whether or not to escape HTML-sensitive characters in script. If this is true, = behaves like &=; otherwise, it behaves like !=. Note that if this is set, != should be used for yielding to subtemplates and rendering partials. Defaults to false.
-      hattribute :escape_html, lambda { Project.settings.autoescape }
+      hattribute :escape_html, false
 
       # @since 0.0.2
       # Whether or not attribute hashes and Ruby scripts designated by =  or ~ should be evaluated. If this is true, said scripts are rendered as empty strings. Defaults to false.
@@ -35,7 +36,7 @@ module Rango
 
       # @since 0.0.7
       # Haml now has an :ugly option, thanks to Wincent Colaiuta. This option forgoes pretty output formatting in favor of speed increases, which show up in particular when rendering deeply nested partials
-      hattribute :ugly, lambda { not Rango.development?  }
+      hattribute :ugly, lambda { Rango.loaded?("environments.rb") ? !Rango.development? : false  }
 
       # @since 0.1.1
       # You don't have to explicitly specify attributes which are same for all the tags of same

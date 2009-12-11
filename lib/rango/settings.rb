@@ -20,7 +20,8 @@ module Rango
       # @return [Hash] Hash of settings attributes.
       # TODO: maybe it should returns Rango::Settings?
       def merge(another)
-        self.hattributes.merge(another.hattributes)
+        hattributes = another.is_a?(Hash) ? another : another.hattributes
+        self.hattributes.merge(hattributes)
       end
 
       # @since 0.0.1
