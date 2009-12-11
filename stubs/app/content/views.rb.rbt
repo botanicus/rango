@@ -2,6 +2,7 @@
 
 # http://wiki.github.com/botanicus/rango/controllers
 
+require "rango/helpers"
 require "rango/controller"
 require "rango/mixins/filters"
 require "rango/mixins/rendering"
