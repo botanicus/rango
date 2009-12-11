@@ -20,7 +20,7 @@ module Rango
     end
 
     def to_response
-      method = env["rango.controller.action"].to_sym
+      method = self.request.env["rango.controller.action"].to_sym
       unless controller.respond_to?(method) # TODO: what about method_missing?
         raise NotFound, "Controller #{self.name} doesn't have method #{method}"
       end
