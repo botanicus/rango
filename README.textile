@@ -31,6 +31,7 @@ rvm 1.9.1 ruby ./script/spec spec/rango/mixins/message_spec.rb
 h1. Documentation
 
 * "Wiki":http://wiki.github.com/botanicus/rango
+* Presentation "Introduction to Rango":http://www.slideshare.net/botanicus/rango
 * "Tutorial":http://wiki.github.com/botanicus/rango/tutorial
 * "RDoc.info API Docs":http://rdoc.info/projects/botanicus/rango
 * "Yardoc.org API Docs":http://yardoc.org/docs/botanicus-rango
