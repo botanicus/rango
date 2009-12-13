@@ -12,6 +12,8 @@ module Rango
   end
 
   class Template
+    cattr_accessor :template_paths
+
     # template -> supertemplate is the same relationship as class -> superclass
     # @since 0.0.2
     attr_accessor :path, :scope, :supertemplate
@@ -32,7 +34,7 @@ module Rango
         if self.path.match(/^(\/|\.)/) # /foo or ./foo
           Dir[self.path, "#{self.path}.*"].first
         else
-          self.find_in_template_dirs
+          self.find_in_template_paths
         end
       end
     end
@@ -45,20 +47,16 @@ module Rango
       File.extname(path)[1..-1]
     end
 
-    def options
-      @options ||= Project.settings.send(self.extension) rescue Hash.new
-    end
-
-    def template
-      @template ||= Tilt.new(self.fullpath, nil, self.options)
+    def template(options = Hash.new)
+      @template ||= Tilt.new(self.fullpath, nil, options)
     end
 
     # @since 0.0.2
     def render(context = Hash.new)
-      raise Errors::TemplateNotFound.new("Template #{self.path} wasn't found in these template_dirs: #{Project.settings.template_dirs.inspect}") if self.fullpath.nil?
+      raise Errors::TemplateNotFound.new("Template #{self.path} wasn't found in these template_paths: #{self.template_paths.inspect}") if self.fullpath.nil?
       value = self.template.render(self.scope, context)
       Rango.logger.info("Rendering template #{self.path}")
-      Rango.logger.inspect(self.blocks)
+      # Rango.logger.inspect(self.blocks)
       if self.supertemplate
         Rango.logger.debug("Extends call: #{self.supertemplate}")
         supertemplate = self.class.new(self.supertemplate, self.scope)
@@ -69,8 +67,8 @@ module Rango
     end
 
     protected
-    def find_in_template_dirs
-      Project.settings.template_dirs.each do |directory|
+    def find_in_template_paths
+      self.template_paths.each do |directory|
         path = File.join(directory, self.path)
         return Dir[path, "#{path}.*"].first
       end
