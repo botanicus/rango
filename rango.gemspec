@@ -27,22 +27,23 @@ Gem::Specification.new do |s|
   # Ruby version to 1.9, even if it actually is 1.9.1
   s.required_ruby_version = ::Gem::Requirement.new("~> 1.9")
 
-  # runtime dependencies
-  s.add_dependency "rack", ">= 1.0.1"
-  s.add_dependency "tilt", ">= 0.3"
-  s.add_dependency "rubyexts", ">= 0.0.2.1"
-  s.add_dependency "media-path", ">= 0.1.1"
+  # === Dependencies ===
+  # RubyGems has runtime dependencies (add_dependency) and
+  # development dependencies (add_development_dependency)
+  # Rango isn't a monolithic framework, so you might want
+  # to use just one specific part of it, so it has no sense
+  # to specify dependencies for the whole gem. If you want
+  # to install everything, just run gem install rango --development
 
-  # development dependencies
-  # use gem install rango --development if you want to install them
-  # s.add_development_dependency "simple-templater"
-  # s.add_development_dependency "bundler"
-  # NOTE: OK, these dependencies aren't actually development, because
-  # development dependency of rack is mongrel and mongrel can't be compiled on Ruby 1.9
-  s.add_dependency "simple-templater", ">= 0.0.1.2"
-  s.add_dependency "bundler", ">= 0.7"
+  # Unfortunatelly Rack has Mongrel as a development dependency and since Mongrel can't be compiled on Ruby 1.9, it won't work. Tell Rack team to fix this shit, not me.
+  s.add_development_dependency "rack", ">= 1.0.1"
+  s.add_development_dependency "tilt", ">= 0.3"
+  s.add_development_dependency "rubyexts", ">= 0.0.2.1"
+  s.add_development_dependency "media-path", ">= 0.1.1"
+  s.add_development_dependency "simple-templater", ">= 0.0.1.2"
+  s.add_development_dependency "bundler"
 
-  s.post_install_message File.read("CHANGELOG")
+  s.post_install_message = File.read("CHANGELOG")
 
   # RubyForge
   s.rubyforge_project = "rango"
