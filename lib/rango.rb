@@ -6,7 +6,6 @@ end
 
 require "rango/core_ext"
 require "rubyexts/attribute"
-require "rubyexts/module"
 
 rango_lib = File.dirname(__FILE__)
 unless $:.include?(rango_lib) || $:.include?(File.expand_path(rango_lib))
@@ -30,7 +29,12 @@ module Rango
     File.join(self.root, "lib")
   end
 
-  mattr_accessor :logger
+  def self.logger
+    @@logger
+  rescue
+    raise NameError, "You have to assign a logger to Rango.logger"
+  end
+
   def self.logger=(logger)
     require "rango/mixins/logger"
     @@logger = logger.extend(LoggerMixin)
