@@ -31,6 +31,7 @@ rescue LoadError
 end
 
 require "rango"
+require "rango/logger"
 
 # === Helpers === #
 # TODO: Generators.each { |generator| puts generator.help }

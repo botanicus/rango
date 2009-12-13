@@ -2,7 +2,6 @@
 
 require_relative "../../spec_helper"
 
-require "rango/project"
 require "rango/mixins/render"
 
 Rango::Template.template_paths = [File.join(STUBS_ROOT, "templates")]

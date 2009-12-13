@@ -10,8 +10,8 @@ module Rango
   module UrlHelper
     # url(:login)
     def url(*args)
-      raise "You have to asign your routes to Project.router, for example Project.router = Usher::Interface.for(:rack) { get('/') }" if Project.router.nil?
-      Project.router.router.generator.generate(*args)
+      raise "You have to asign your routes to Rango::Router.app, for example Rango::Router.app = Usher::Interface.for(:rack) { get('/') }" if Rango::Router.app.nil?
+      Rango::Router.app.router.generator.generate(*args)
     end
   end
 end

@@ -14,6 +14,15 @@ module Rango
 
   class Router
     @@routers ||= Hash.new
+    def self.app
+      @@app
+    rescue
+      raise "You have to assign your router application to Rango::Router.app\nFor example Rango::Router.app = Usher::Interface.for(:rack, &block)"
+    end
+
+    def self.app=(app)
+      @@app = app
+    end
 
     def self.router
       @@router

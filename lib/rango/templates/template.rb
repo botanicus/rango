@@ -14,6 +14,7 @@ module Rango
 
   class Template
     cattr_accessor :template_paths
+    self.template_paths = [File.join(Rango.root, "templates")]
 
     # template -> supertemplate is the same relationship as class -> superclass
     # @since 0.0.2
@@ -69,7 +70,7 @@ module Rango
 
     protected
     def find_in_template_paths
-      self.template_paths.each do |directory|
+      self.class.template_paths.each do |directory|
         path = File.join(directory, self.path)
         return Dir[path, "#{path}.*"].first
       end

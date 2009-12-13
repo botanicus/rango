@@ -5,6 +5,7 @@
 require "rango/router"
 require "rango/exceptions"
 require "rango/rack/request"
+require "rubyexts/attribute"
 
 module Rango
   class Controller

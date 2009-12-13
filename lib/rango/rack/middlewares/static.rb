@@ -11,7 +11,7 @@ module Rango
       # @since 0.0.2
       def initialize(app)
         @app = app
-        @file_server = ::Rack::File.new(Project.settings.media_root)
+        @file_server = ::Rack::File.new(Rango.media_root)
       end
 
       # @since 0.0.2
@@ -19,7 +19,7 @@ module Rango
         path        = env['PATH_INFO'].chomp('/')
         method      = env['REQUEST_METHOD']
 
-        prefix = Project.settings.media_prefix.chomp("/")
+        prefix = Rango::Middlewares::Basic.media_prefix.chomp("/")
         prefix_regexp = Regexp.new(%r[^#{prefix}/])
         if path.match(prefix_regexp) && FILE_METHODS.include?(method)
           if file_exist?(path)

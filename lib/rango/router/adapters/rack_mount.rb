@@ -10,7 +10,7 @@ module Rango
   module UrlHelper
     # url(:login)
     def url(*args)
-      Project.router.url(*args)
+      Rango::Router.app.url(*args)
     end
   end
 end

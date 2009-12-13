@@ -16,9 +16,6 @@ rescue LoadError => exception
   abort "LoadError during loading gems/environment: #{exception.message}\nRun gem bundle to fix it."
 end
 
-# settings
-require_relative "settings_local"
-
 require "rango/stacks/controller"
 
 # http://wiki.github.com/botanicus/rango/environments-support
@@ -36,8 +33,12 @@ Bundler.require_env(environment)
 
 Rango.boot(environment: environment)
 
+# settings
+require_relative "settings_local"
+
 # register applications
-require_relative "<%= @name %>/init.rb"
+require_relative "views.rb"
+require_relative "models.rb"
 
 # if you will run this script with -i argument, interactive session will begin
 Rango.interactive if ARGV.delete("-i")

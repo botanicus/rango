@@ -20,12 +20,20 @@ module Rango
   # Rango::Helpers.send(:include, Pupu::Helpers)
   Helpers ||= Module.new
 
-  def self.root
-    File.expand_path(File.join(File.dirname(__FILE__), ".."))
+  def self.root=(root)
+    @@root = root
   end
 
-  def self.lib_root
-    File.join(self.root, "lib")
+  def self.root
+    @@root ||= Dir.pwd
+  end
+
+  def self.media_root=(media_root)
+    @@media_root = media_root
+  end
+
+  def self.media_root
+    @@media_root ||= File.join(self.root, "media")
   end
 
   def self.logger
@@ -73,5 +81,21 @@ module Rango
   def self.loaded?(relative_path) # would work just with Kernel#require, not with Kernel#load, I know that the name may be misleading, but better than required?
     full_path = File.expand_path(File.join(File.dirname(__FILE__), relative_path))
     $LOADED_FEATURES.any? { |file| file == full_path }
+  end
+
+  # Start IRB interactive session
+  # @since 0.0.1
+  def self.interactive
+    require "irb"
+    require "rango/utils"
+
+    ARGV.delete("-i") # otherwise irb will read it
+    ENV["RACK_ENV"] = Rango.environment # for racksh
+    unless try_require("racksh/boot")
+      Rango.logger.info("For more goodies install racksh gem")
+      try_require "irb/completion" # some people can have ruby compliled without readline
+      Rango::Utils.load_rackup # so you can use Rango::Router.app etc
+    end
+    IRB.start
   end
 end

@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+require "dm-aggregates"
+
 module DataMapper
   module Model
     # @since 0.0.2

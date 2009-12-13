@@ -44,12 +44,12 @@ Rango::Router.use(:<%= @router.to_sym %>)
 <% case @router %>
 <% when "usher" %>
 # http://github.com/joshbuddy/usher
-Project.router = Usher::Interface.for(:rack) do
+Rango::Router.app = Usher::Interface.for(:rack) do
   get("/").to(<%= @name.camel_case %>::ShowCase.dispatcher(:index)).name(:showcase)
 end
 <% when "rack-mount" %>
 # http://github.com/josh/rack-mount
-Project.router = Rack::Mount::RouteSet.new do |set|
+Rango::Router.app = Rack::Mount::RouteSet.new do |set|
   # add_route takes a rack application and conditions to match with
   # conditions may be strings or regexps
   # See Rack::Mount::RouteSet#add_route for more options.
@@ -62,4 +62,4 @@ end
 <% end %>
 
 use Rango::Middlewares::Basic
-run Project.router
+run Rango::Router.app

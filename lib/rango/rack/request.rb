@@ -50,7 +50,7 @@ module Rango
     attr_reader :env
 
     # @since 0.0.2
-    attribute :message, Hash.new
+    #attribute :message, Hash.new
 
     # @since 0.0.1
     # @example: blog/post/rango-released

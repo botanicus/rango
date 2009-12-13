@@ -13,7 +13,7 @@ h1. Why not ...
 
 h2. Save Used ORM in Project.orm or somewhere?
 
-Because if you need have aditional support for each ORM, it's part of setup to put @load "myplugin/tasks.rake"@ to user's Rakefile etc, so there is no need for this.
+Because if you need have aditional support for each ORM, it's part of setup to put @load "myplugin/tasks/datamapper.rake"@ to user's Rakefile etc, so there is no need for this.
 
 h2. Support @config/database.yml@
 

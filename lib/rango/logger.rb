@@ -1,7 +1,12 @@
 # encoding: utf-8
 
 require "rango"
-require_gem "rubyexts", "rubyexts/logger"
+
+begin
+  require "rubyexts/logger"
+rescue LoadError
+  raise LoadError, "You have to install rubyexts gem"
+end
 
 # @since 0.0.1
 # @example
