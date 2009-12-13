@@ -2,7 +2,6 @@
 
 require_relative "../../spec_helper"
 require "rango/templates/template"
-require "rubyexts/string" # TODO: remove this after rubyexts update
 
 Rango::Template.template_paths = [File.join(STUBS_ROOT, "templates")]
 

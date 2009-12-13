@@ -4,8 +4,6 @@ if RUBY_VERSION < "1.9.1"
   raise "Rango requires at least Ruby 1.9.1. If you run JRuby, please ensure you used the --1.9 switch for JRuby command."
 end
 
-require "rango/core_ext"
-
 rango_lib = File.dirname(__FILE__)
 unless $:.include?(rango_lib) || $:.include?(File.expand_path(rango_lib))
   $:.unshift(rango_lib)

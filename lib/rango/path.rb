@@ -1,7 +1,12 @@
 # encoding: utf-8
 
 require "rango"
-require_gem "media-path"
+
+begin
+  require "media-path"
+rescue LoadError
+  raise LoadError, "You have to install media-path gem!"
+end
 
 # @since 0.0.2
 # @example
