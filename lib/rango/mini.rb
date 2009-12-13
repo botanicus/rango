@@ -1,16 +1,10 @@
 # encoding: utf-8
 
-# Rango::Mini is the most low-level part which can render
-# templates standalone. More low-level is only the RenderMixin.
-# See http://wiki.github.com/botanicus/rango/template-rendering
-
 require "rango/router"
-require "rango/mixins/render"
 require "rango/rack/request"
 
 module Rango
   module Mini
-    include Rango::RenderMixin
     extend self # so you can run Rango::Mini.app
     def app(&block)
       raise ArgumentError, "Block is required" unless block_given?
