@@ -1,6 +1,0 @@
-# encoding: utf-8
-
-class <%= @model.camel_case %>
-  include DataMapper::Resource
-  property :title, String
-end
