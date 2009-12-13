@@ -19,9 +19,7 @@ end
 # settings
 require_relative "settings_local"
 
-require "rango"
-require "rango/helpers"
-require "rango/environments"
+require "rango/stacks/controller"
 
 # http://wiki.github.com/botanicus/rango/environments-support
 require "rango/environments"

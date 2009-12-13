@@ -2,20 +2,13 @@
 # encoding: utf-8
 
 # rackup -p 4000 -s thin flat.ru
-require "rango"
-require "rango/mixins/mini"
+require "rango/stacks/mini"
+require "rango/router/adapters/basic"
 
 Rango.boot
 
 use Rango::Basic
 
-Project.configure do
-  # TODO
-end
-
-# router
-require "rango/router/adapters/basic"
-
 map("/") do
-  run app { "<h1>Rango is just Awesome!</h1>" }
+  run Rango::Mini.app { "<h1>Rango is just Awesome!</h1>" }
 end
