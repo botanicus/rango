@@ -3,6 +3,7 @@
 require "rango/templates/exts/tilt"
 require "rubyexts/attribute"
 require "rubyexts/string" # String#snake_case
+require "rubyexts/class" # cattr_accessor
 require "rango/templates/helpers"
 require "rango/exceptions"
 

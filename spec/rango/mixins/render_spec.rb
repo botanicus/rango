@@ -5,7 +5,7 @@ require_relative "../../spec_helper"
 require "rango/project"
 require "rango/mixins/render"
 
-Project.settings.template_dirs = [File.join(STUBS_ROOT, "templates")]
+Rango::Template.template_paths = [File.join(STUBS_ROOT, "templates")]
 
 describe Rango::RenderMixin do
   it "should work standalone" do

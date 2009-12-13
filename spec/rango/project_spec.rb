@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 require_relative "../spec_helper"
+require "media-path"
+require "rango/project"
 
 describe Project do
   it "should have root" do

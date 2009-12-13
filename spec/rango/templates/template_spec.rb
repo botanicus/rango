@@ -4,7 +4,7 @@ require_relative "../../spec_helper"
 require "rango/templates/template"
 require "rubyexts/string" # TODO: remove this after rubyexts update
 
-Project.settings.template_dirs = [File.join(STUBS_ROOT, "templates")]
+Rango::Template.template_paths = [File.join(STUBS_ROOT, "templates")]
 
 describe Rango::Template do
   describe "#initialize" do
@@ -13,10 +13,10 @@ describe Rango::Template do
       template.path.should eql("test.html")
     end
 
-    it "should take context as an optional second argument" do
-      context  = Object.new
-      template = Rango::Template.new("test.html", context)
-      template.context.should eql(context)
+    it "should take scope as an optional second argument" do
+      scope  = Object.new
+      template = Rango::Template.new("test.html", scope)
+      template.scope.should eql(scope)
     end
   end
 
@@ -62,7 +62,7 @@ describe Rango::Template do
       template.blocks[:content].should match("Hello!")
     end
   end
-  
+
   describe "variables" do
     before(:each) do
       @template = Rango::Template.new("variables.html")
@@ -71,7 +71,7 @@ describe Rango::Template do
     it "should capture erb" do
       @template.render(title: "Hi!").should match("Hi!")
     end
-    
+
     it "should <%= &block %>" do
       pending "<%= &block %> should works for Erubis"
       template = Rango::Template.new("erubis.html")
