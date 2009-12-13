@@ -5,9 +5,8 @@ require "rango/mini"
 require "rango/mixins/render"
 
 module Rango
-  extend Rango::RenderMixin
   module GV
-    def self.static(template, context = nil, &hook)
+    def self.static(template, scope = Object.new, context = Hash.new, &hook)
       Rango::Mini.app do |request, response|
         path = template || request.env["rango.router.params"][:template]
         path = hook.call(path) unless hook.nil?
@@ -15,7 +14,7 @@ module Rango
         Rango.logger.debug("Rendering '#{path}'")
         # Rango::RenderMixin.scope
         context = context.call(request) if context.respond_to?(:call) # lambda { |request| {msg: request.message} }
-        render path, context
+        Rango::RenderMixin.render path, scope, context
       end
     end
 
