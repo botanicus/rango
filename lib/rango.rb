@@ -49,7 +49,7 @@ module Rango
     self.environment = options[:environment] if options[:environment]
     block.call if block_given?
     self.bootloaders.each do |name, bootloader|
-      logger.debug "Calling bootloader #{name}"
+      # logger.debug "Calling bootloader #{name}"
       bootloader.call
     end
   end
