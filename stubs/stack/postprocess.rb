@@ -13,10 +13,4 @@ end
 
 hook do |generator, context|
   generator.after(Hooks::GitRepository)
-  # TODO: this is probably not the best way how to do it
-  args = Array.new
-  args.push("--orm=#{context[:orm]}") if context[:orm]
-  args.push("--models=#{context[:models].join(",")}") unless context[:models].empty?
-  args.push("--controllers=#{context[:controllers].join(",")}") unless context[:controllers].empty?
-  sh "rango create app #{context[:name]} #{args.join(" ")}"
 end
