@@ -42,6 +42,8 @@ Gem::Specification.new do |s|
   s.add_dependency "simple-templater", ">= 0.0.1.2"
   s.add_dependency "bundler", ">= 0.7"
 
+  s.post_install_message File.read("CHANGELOG")
+
   # RubyForge
   s.rubyforge_project = "rango"
 end
