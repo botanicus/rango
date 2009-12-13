@@ -11,7 +11,7 @@ module Rango
     def render(path, scope = Object.new, context = Hash.new)
       scope, context = Object.new, scope if context.empty? && scope.is_a?(Hash)
       Rango.logger.inspect(context: context)
-      template = Rango::Templates::Template.new(path, scope)
+      template = Rango::Template.new(path, scope)
       return template.render(context)
     end
   end
