@@ -10,5 +10,5 @@ require_gem "rubyexts", "rubyexts/logger"
 # @return [RubyExts::Logger] Logger for logging framework-related stuff. For logging project-relating stuff please use Project.logger.
 # @see Project::logger
 def Rango.logger
-  @logger ||= RubyExts::Logger.new
+  @@logger ||= RubyExts::Logger.new
 end
