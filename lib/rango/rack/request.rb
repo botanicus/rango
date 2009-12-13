@@ -153,10 +153,14 @@ module Rango
     # @since 0.0.1
     # @example: "blog" or "user.blog"
     # @return [String] Subdomain name.
-    def subdomain
-      parts = host.split(".")
-      index = parts.index(self.domain)
-      parts[0..(index - 1)]
+    def subdomains(tld_length = 1) # we set tld_length to 1, use 2 for co.uk or similar
+      # cache the result so we only compute it once.
+      @env['rack.env.subdomains'] ||= begin
+        # check if the current host is an IP address, if so return an empty array
+        return [] if (host.nil? ||
+                      /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.match(host))
+        host.split('.')[0...(1 - tld_length - 2)] # pull everything except the TLD
+      end
     end
 
     def base_url
