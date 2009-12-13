@@ -1,0 +1,24 @@
+h1. Kinds of Support
+
+h2. Core Support
+
+- Tasks for migrations, creating db etc
+
+h2. Extended Support
+
+- Custom fields (SlugField, ImageField etc)
+- Whatever else
+
+h1. Why not ...
+
+h2. Save Used ORM in Project.orm or somewhere?
+
+Because if you need have aditional support for each ORM, it's part of setup to put @load "myplugin/tasks.rake"@ to user's Rakefile etc, so there is no need for this.
+
+h2. Support @config/database.yml@
+
+Because it has no point. You can use API of your ORM directly.
+
+h2. Define @form_for@
+
+It's job of your helpers.

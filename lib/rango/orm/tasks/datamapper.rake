@@ -33,9 +33,10 @@ namespace :db do
   task :report, :environment do |task, args|
     RANGO_ENV = args.environment || ENV["RANGO_ENV"] || "development"
     Rake::Task[:environment].invoke
-    require "rango/orm/adapters/datamapper" # should be loaded in runtime, but isn't at the moment
-    Rango::ORM::Datamapper.models.each do |model_class|
-      puts "#{model_class}: #{model_class.count}"
+    ObjectSpace.classes.each do |klass|
+      if klass.included(DataMapper::Resource)
+        puts "#{model_class}: #{model_class.count}"
+      end
     end
   end
 end
