@@ -1,0 +1,2 @@
+# http://rvm.beginrescueend.com/rvmrc
+rvm 1.9.1%<%= @name %>
