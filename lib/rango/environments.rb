@@ -2,25 +2,39 @@
 
 # http://wiki.github.com/botanicus/rango/environments-support
 
-require "rubyexts/attribute"
-
 module Rango
-  class << self
-    # @since 0.0.1
-    # @return [String] Returns current environment name.
-    attribute :environment, "development"
+  # @since 0.0.1
+  # @return [String] Returns current environment name.
+  def self.environment
+    @@environment ||= "development"
+  end
 
-    # clever environments support
-    attribute :development_environments, ["development"]
-    attribute :testing_environments,     ["test", "spec", "cucumber"]
-    attribute :production_environments,  ["stage", "production"]
+  def self.environment=(environment)
+    @@environment = environment
+  end
 
-    questionable(:testing)     { self.testing_environments.include?(Rango.environment) }
-    questionable(:development) { self.development_environments.include?(Rango.environment) }
-    questionable(:production)  { self.production_environments.include?(Rango.environment) }
+  # clever environments support
+  def self.environments
+    @@environments ||= {
+      development: ["development"],
+      testing:     ["test", "spec", "cucumber"],
+      production:  ["stage", "production"]
+    }
+  end
 
-    def environment?(environment)
-      self.environment.eql?(environment.to_s)
-    end
+  def self.testing?
+    self.environments[:testing].include?(Rango.environment)
+  end
+
+  def self.development?
+    self.environments[:development].include?(Rango.environment)
+  end
+
+  def self.production?
+    self.environments[:production].include?(Rango.environment)
+  end
+
+  def self.environment?(environment)
+    self.environment.eql?(environment.to_s)
   end
 end

@@ -14,10 +14,10 @@ describe "Rango environments" do
       Rango.should be_development
     end
 
-    it "should be true if Rango.environment is included in Rango.development_environments" do
+    it "should be true if Rango.environment is included in Rango.environments[:development]" do
       Rango.environment = "foobar"
       Rango.should_not be_development
-      Rango.development_environments.push("foobar")
+      Rango.environments[:development].push("foobar")
       Rango.should be_development
     end
   end
@@ -30,10 +30,10 @@ describe "Rango environments" do
       end
     end
 
-    it "should be true if Rango.environment is included in Rango.production_environments" do
+    it "should be true if Rango.environment is included in Rango.environments[:production]" do
       Rango.environment = "foobar"
       Rango.should_not be_production
-      Rango.production_environments.push("foobar")
+      Rango.environments[:production].push("foobar")
       Rango.should be_production
     end
   end
@@ -46,10 +46,10 @@ describe "Rango environments" do
       end
     end
 
-    it "should be true if Rango.environment is included in Rango.testing_environments" do
+    it "should be true if Rango.environment is included in Rango.environments[:testing]" do
       Rango.environment = "foobar"
       Rango.should_not be_testing
-      Rango.testing_environments.push("foobar")
+      Rango.environments[:testing].push("foobar")
       Rango.should be_testing
     end
   end
