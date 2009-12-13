@@ -14,6 +14,7 @@ module <%= @name.camel_case %>
     include Rango::MessageMixin
     include Rango::ExplicitRendering
 
+    # http://wiki.github.com/botanicus/rango/errors-handling
     def render_http_error(exception)
       if self.respond_to?(exception.to_snakecase)
         self.send(exception.to_snakecase, exception)
