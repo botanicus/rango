@@ -33,3 +33,14 @@
   * Shebang is just ruby rather than ruby1.9, so it plays well with rvm
   * ImplicitRendering and ExplicitRendering mixins for using locals
     vs. rendering in context of current controller instance
+
+= Version 0.1.2, 13/12/2009, 22651050ea20e2997a9e5d07c8a409eb8e5de4fe
+  * Sequel support
+  * Project generator renamed to stack generator
+  * Removed app and bigapp generators
+  * Added migration task for DataMapper
+  * Removed layer of ORM adapters
+  * Removed Project constant and settings
+  * Much more modular design
+  * Removed dependencies, since you can use whichever subset of Rango
+  * There is Rango::Router.app instead of Project.router
