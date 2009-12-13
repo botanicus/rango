@@ -1,6 +1,20 @@
 # encoding: utf-8
 
-# these settings will be merged with settings in main settings file
-Project.configure do
-  # TODO
+# database connection
+<% case @orm %>
+<% when "sequel" %>
+# http://sequel.rubyforge.org/rdoc/files/doc/opening_databases_rdoc.html
+case Rango.environment
+when "development", "production", "staging"
+  DB = Sequel.connect("sqlite://db/#{Rango.environment}.db")
+when "test", "spec", "cucumber"
+  DB = Sequel.sqlite # in memory database
 end
+<% when "datamapper" %>
+case Rango.environment
+when "development", "production", "staging"
+  DataMapper.setup(:default, "sqlite3:db/#{Rango.environment}.db")
+when "test", "spec", "cucumber"
+  DataMapper.setup(:default, "sqlite3::memory:")
+end
+<% end %>

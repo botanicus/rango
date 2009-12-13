@@ -17,7 +17,6 @@ rescue LoadError => exception
 end
 
 # settings
-require_relative "settings"
 require_relative "settings_local"
 
 require "rango"
@@ -41,12 +40,6 @@ Rango.boot(environment: environment)
 
 # register applications
 require_relative "<%= @name %>/init.rb"
-
-# database connection
-<% case @orm %>
-<% when "datamapper" %>
-DataMapper.setup(:default, "sqlite3:#{Rango.environment}.db")
-<% end %>
 
 # if you will run this script with -i argument, interactive session will begin
 Rango.interactive if ARGV.delete("-i")
