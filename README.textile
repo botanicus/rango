@@ -37,6 +37,7 @@ h1. Documentation
 * "Yardoc.org API Docs":http://yardoc.org/docs/botanicus-rango
 * "Examples":http://github.com/botanicus/rango-examples
 * "Bug reporting":http://github.com/botanicus/rango/issues
+* "Caliper Code Metrics":http://devver.net/caliper/project?repo=git%3A%2F%2Fgithub.com%2Fbotanicus%2Frango.git
 
 h1. Community
 
