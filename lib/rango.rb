@@ -5,7 +5,6 @@ if RUBY_VERSION < "1.9.1"
 end
 
 require "rango/core_ext"
-require "rubyexts/attribute"
 
 rango_lib = File.dirname(__FILE__)
 unless $:.include?(rango_lib) || $:.include?(File.expand_path(rango_lib))
@@ -60,7 +59,12 @@ module Rango
     self.boot(options.merge(force: true))
   end
 
-  attribute :bootloaders, Hash.new
+  def self.bootloaders
+    @@bootloaders
+  end
+
+  @@bootloaders = Hash.new
+
   def self.after_boot(name, &block)
     self.bootloaders[name] = block
   end
