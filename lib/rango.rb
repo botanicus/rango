@@ -31,6 +31,10 @@ module Rango
   end
 
   mattr_accessor :logger
+  def self.logger=(logger)
+    require "rango/mixins/logger"
+    @@logger = logger.extend(LoggerMixin)
+  end
 
   # @since 0.0.1
   # @example
