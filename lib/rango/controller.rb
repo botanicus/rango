@@ -73,10 +73,10 @@ module Rango
     attr_accessor :params
 
     # @since 0.0.2
+    # @return [String] Escaped URL (which is RFC recommendation)
     def redirect(url, options = Hash.new)
       self.status = 302
       self.headers["Location"] = URI.escape(url)
-      return String.new
     end
 
     def initialize(env, params = Hash.new)
