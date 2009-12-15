@@ -2,14 +2,15 @@
 
 # http://wiki.github.com/botanicus/rango/controllers
 
+require "forwardable"
 require "rango/router"
 require "rango/exceptions"
 require "rango/rack/request"
-require "rubyexts/attribute"
 
 module Rango
   class Controller
     include Rango::UrlHelper
+    extend Forwardable
     # [master] Change Merb::Controller to respond to #call and return a Rack Array. (wycats)http://rubyurl.com/BhoY
     # @since 0.0.2
     def self.call(env)
@@ -56,9 +57,12 @@ module Rango
     # @since 0.0.1
     # @return [RubyExts::Logger] Logger for logging project related stuff.
     # @see RubyExts::Logger
-    attribute :logger, Rango.logger
-    attribute :status
-    attribute :headers, Hash.new
+    def logger
+      Rango.logger
+    end
+
+    def_delegators :response, :status, :status=
+    def_delegators :response, :headers, :headers=
 
     # @since 0.0.1
     # @return [Rango::Request]
