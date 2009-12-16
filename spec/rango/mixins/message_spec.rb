@@ -7,6 +7,10 @@ require "rango/controller"
 require "rango/mixins/message"
 require "rango/mixins/rendering"
 
+# HACK because of rSpec, the trouble was:
+# TestController.method_defined?(:context) => true
+Rango::Controller.send(:undef_method, :context)
+
 class TestController < Rango::Controller
   include Rango::MessageMixin
 end
@@ -19,7 +23,6 @@ describe Rango::MessageMixin do
 
   describe ".included" do
     it "should not do anything if method context isn't defined" do
-      pending "How to implement it?"
       @controller.should_not respond_to(:context)
     end
 

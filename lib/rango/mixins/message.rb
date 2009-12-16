@@ -6,12 +6,11 @@ module Rango
     # @since 0.0.2
     # NOTE: it's important to include this mixin after ImplicitRendering mixin
     def self.included(controller)
-      # How to determine
-      # respond to not, it's a class
-      # if controller.instance_methods.include?(:context)
-      controller.class_eval do
-        def context
-          @context ||= super.merge!(message: self.message)
+      if controller.method_defined?(:context)
+        controller.class_eval do
+          def context
+            @context ||= super.merge!(message: self.message)
+          end
         end
       end
     end
