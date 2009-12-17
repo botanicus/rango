@@ -1,11 +1,17 @@
 # encoding: utf-8
 
-require "spec" # so you can run ruby spec/rango/whatever_spec.rb
-
 SPEC_ROOT  = File.dirname(__FILE__)
 STUBS_ROOT = File.join(SPEC_ROOT, "stubs")
 
 $:.unshift File.join(SPEC_ROOT, "..", "lib")
+
+begin
+  require_relative "../gems/environment"
+rescue LoadError
+  abort "Run gem bundle --cached"
+end
+
+require "spec" # so you can run ruby spec/rango/whatever_spec.rb
 
 class RecursiveOpenStruct < OpenStruct
   def initialize(attributes = Hash.new)
