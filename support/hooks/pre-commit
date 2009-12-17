@@ -1,4 +1,16 @@
-#!/bin/bash
+#!/bin/sh
 
-thor repair:all
-exec thor gemspec:validate
+echo "Entering pre-commit hook ..."
+
+function modified() {
+  git status | egrep "(modified|new file):" | awk -F: '{ print $2 }' | ruby -ne 'puts $_.strip'
+}
+
+for file in $(modified); do
+  echo "Normalizing $file ..."
+  if test -f $file; then
+    if ./script/normalize.rb "$file"; then
+      git add $file # so the changes will be committed immediately
+    fi
+  fi
+done

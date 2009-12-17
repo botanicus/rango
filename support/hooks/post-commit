@@ -1,4 +1,0 @@
-#!/bin/bash
-
-# yep they are ignored, but it's good idea to have fresh documentation
-thor yardoc:generate

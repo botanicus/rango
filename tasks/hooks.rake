@@ -5,8 +5,10 @@ task :hooks do
   if Dir.exist?(".git/hooks")
     abort "You must remove .git/hooks first"
   else
-    # do not symlink them, otherwise git will add samples
-    # FIXME: permissions
+    # NOTE: Do not symlink them, otherwise git will add samples
     cp_r "support/hooks", ".git/hooks"
+    Dir[".git/hooks/*"].each do |hook|
+      sh "chmod +x #{hook}"
+    end
   end
 end
