@@ -9,7 +9,7 @@ function modified() {
 for file in $(modified); do
   echo "Normalizing $file ..."
   if test -f $file; then
-    if ./script/normalize.rb "$file"; then
+    if ./bin/normalize.rb "$file"; then
       git add $file # so the changes will be committed immediately
     fi
   fi
