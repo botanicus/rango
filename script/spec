@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+ARGV.push("spec") if ARGV.empty?
+
+require File.join(File.dirname(__FILE__), "../gems/environment")
+load File.join(File.dirname(__FILE__), "../gems/gems/rspec-1.2.9/bin/spec")
