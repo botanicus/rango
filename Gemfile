@@ -7,3 +7,5 @@ gem "methopara", git: "git://github.com/genki/methopara.git"
 only(:test) do
   gem "rspec"
 end
+
+bin_path "script"

@@ -2,7 +2,6 @@
 
 require_relative "../spec_helper"
 
-require "rango/logger"
 require "rango/controller"
 require "rack/mock"
 
