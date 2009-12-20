@@ -7,6 +7,6 @@ tHumb.db
 *.gem
 gems/dirs
 gems/gems
-gems/doc/
+gems/doc
+gems/environment.rb
 gems/specifications
-!gems/cache/
