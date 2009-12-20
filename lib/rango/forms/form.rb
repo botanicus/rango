@@ -9,7 +9,8 @@
 # @future 0.0.3 It's just a prototype now
 module Rango
   class Form
-    attribute :media
+    def media
+    end
 
     def valid?
     end

@@ -37,8 +37,7 @@
 # http://rack.rubyforge.org/doc/classes/Rack/Request.html
 
 require "rack"
-require "rubyexts/try"
-require "rubyexts/hash" # Hash#except
+require "rango/core_ext"
 
 module Rango
   module Session
@@ -48,9 +47,6 @@ module Rango
     # @since 0.0.1
     # @return [Hash] Original Rack environment.
     attr_reader :env
-
-    # @since 0.0.2
-    #attribute :message, Hash.new
 
     # @since 0.0.1
     # @example: blog/post/rango-released
@@ -64,16 +60,17 @@ module Rango
       # /path will be transformed to path/
       @path = env["PATH_INFO"]
       @path.chomp!("/") if @path && @path.length > 1 # so let the / just if the path is only /
-      @method = env["REQUEST_METHOD"].try(:downcase)
-      self.extend_session
+      @method = (env["REQUEST_METHOD"] || String.new).downcase
+      session.extend(Session)
+      Rango.logger.debug("Session: #{@env['rack.session'].inspect}")
     end
 
     def GET
-      super.deep_symbolize_keys.except(:_method)
+      normalize_params(super)
     end
 
     def POST
-      super.deep_symbolize_keys.except(:_method) if self.post?
+      normalize_params(super)
     end
 
     def PUT
@@ -88,7 +85,7 @@ module Rango
             @env["rack.request.form_hash"] = Utils.parse_query(@env["rack.request.form_vars"])
             @env["rack.input"].rewind if @env["rack.input"].respond_to?(:rewind)
           end
-          @env["rack.request.form_hash"].deep_symbolize_keys.except(:_method)
+          normalize_params(@env["rack.request.form_hash"])
         else
           {}
         end
@@ -96,15 +93,14 @@ module Rango
     end
 
     def DELETE
-      {}.deep_symbolize_keys.except(:_method)
+      normalize_params(super)
     end
 
     def params
-      @params = Hash.new
-      [self.GET, self.POST, self.PUT, self.DELETE].each do |data|
-        @params.merge!(data) if data.respond_to?(:merge) # Hash, Mash and friends
+      input = [self.GET, self.POST, self.PUT, self.DELETE]
+      input.inject(Hash.new) do |result, hash|
+        result.merge!(hash)
       end
-      @params.deep_symbolize_keys.except(:msg, :_method)
     end
 
     def cookies
@@ -112,24 +108,15 @@ module Rango
     end
 
     def form
-      data = env["rack.request.form_hash"] || Hash.new
-      data.deep_symbolize_keys.except(:_method)
+      normalize_params(env["rack.request.form_hash"] || Hash.new)
     end
 
     def session
-      # Rango.logger.inspect(session: @env['rack.session'])
       @env['rack.session'] ||= {}
     end
 
     def ajax?
       env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest"
-    end
-
-    # TODO: use extend method
-    def extend_session
-      class << session
-        include Rango::Session
-      end
     end
 
     # @since 0.0.1
@@ -142,6 +129,7 @@ module Rango
     # @since 0.0.1
     # @example: "101ideas.cz"
     # @return [String] Domain name.
+    # FIXME: what about .co.uk? Rewrite in the same way as subdomains
     def domain
       if host.match(/^localhost/)
         return host.split(".").last
@@ -171,6 +159,11 @@ module Rango
         url << ":#{port}"
       end
       url
+    end
+
+    protected
+    def normalize_params(hash)
+      hash.deep_symbolize_keys.tap { |hash| hash.delete(:_method) }
     end
   end
 end

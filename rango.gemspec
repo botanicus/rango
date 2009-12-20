@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.has_rdoc = true
 
   # files
-  s.files = Dir.glob("{bin,lib,spec,stubs}/**/*") + %w[CHANGELOG CONTRIBUTORS LICENSE Rakefile README.textile simple-templater.scope]
+  s.files = Dir.glob("{lib,spec,stubs}/**/*") + %w[CHANGELOG CONTRIBUTORS LICENSE Rakefile README.textile bin/rango simple-templater.scope]
   s.executables = ["rango"]
   s.default_executable = "rango"
   s.require_paths = ["lib"]
@@ -38,7 +38,6 @@ Gem::Specification.new do |s|
   # Unfortunatelly Rack has Mongrel as a development dependency and since Mongrel can't be compiled on Ruby 1.9, it won't work. Tell Rack team to fix this shit, not me.
   s.add_development_dependency "rack", ">= 1.0.1"
   s.add_development_dependency "tilt", ">= 0.3"
-  s.add_development_dependency "rubyexts", ">= 0.0.2.1"
   s.add_development_dependency "media-path", ">= 0.1.1"
   s.add_development_dependency "simple-templater", ">= 0.0.1.2"
   s.add_development_dependency "bundler"

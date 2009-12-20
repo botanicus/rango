@@ -2,8 +2,11 @@
 .yardoc
 .cache
 pkg/
-nbproject/
-*.itProject
 *.cache
-Thumb.db
+tHumb.db
 *.gem
+gems/dirs
+gems/gems
+gems/doc/
+gems/specifications
+!gems/cache/

@@ -18,3 +18,14 @@ when "test", "spec", "cucumber"
   DataMapper.setup(:default, "sqlite3::memory:")
 end
 <% end %>
+
+if Rango.development?
+  Rango.logger = Extlib::Logger.new(STDOUT)
+  Rango.logger.extend(Extlib::ColorfulLogger)
+  Rango.logger.autoflush = true
+else
+  Rango.logger = Extlib::Logger.new("log/#{Rango.environment}.log")
+end
+
+# write log at exit
+at_exit { Rango.logger.close }

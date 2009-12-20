@@ -1,5 +1,18 @@
 # encoding: utf-8
 
+<% case @orm %>
+<% when "datamapper" %>
+# TODO: explanation & link to wiki
+without_warnings do
+  DataMapper::ObjectNotFoundError = Class.new(NotFound)
+end
+<% when "sequel" %>
+# TODO: explanation & link to wiki
+without_warnings do
+  DataMapper::ObjectNotFoundError = Class.new(NotFound)
+end
+<% end %>
+
 module <%= @name.camel_case %>
   <% @models.each do |model| %>
   <% case @orm %>

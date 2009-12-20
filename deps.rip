@@ -3,6 +3,5 @@
 # Syntax:
 # repository [tag or commit to install]
 git://github.com/botanicus/media-path.git 777914f46e195b7f570c0e7ab3582d69f99b33a7
-git://github.com/botanicus/rubyexts.git 97b4fedb9d33a92edf3343a8d2c5bf2772e47fce
 git://github.com/botanicus/simple-templater.git 87e47a38da9ce4795e38d88131c535c198cda1f3
 git://github.com/rack/rack.git 4cc6af9b4f0b633b076f27d3a76bf86ebf9fe64e

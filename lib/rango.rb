@@ -35,9 +35,16 @@ module Rango
   end
 
   def self.logger
-    @@logger
-  rescue
-    raise NameError, "You have to assign a logger to Rango.logger"
+    @@logger ||= begin
+      require "extlib/logger"
+      logger = Extlib::Logger.new(STDOUT)
+    rescue LoadError
+      require "logger"
+      logger = Logger.new(STDOUT)
+      logger.debug("Using stdlib logger")
+    ensure
+      logger
+    end
   end
 
   def self.logger=(logger)

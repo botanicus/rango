@@ -16,7 +16,6 @@
 gem "rango"#, git: "git://github.com/botanicus/rango.git"
 gem "rack"#, git: "git://github.com/rack/rack.git"
 gem "tilt"#, git: "git://github.com/rtomayko/tilt.git"
-gem "rubyexts"#, git: "git://github.com/botanicus/rubyexts.git"
 
 # router
 <% case @router %>
@@ -56,6 +55,7 @@ gem "warden"
 
 # === Environment-Specific Setup === #
 only(:development) do
+  gem "colorful-logger"#, git: "git://github.com/botanicus/colorful-logger.git"
   gem "shotgun", require_as: nil#, git: "git://github.com/rtomayko/shotgun.git"
 end
 

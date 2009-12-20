@@ -57,8 +57,7 @@ module Rango
     end
 
     # @since 0.0.1
-    # @return [RubyExts::Logger] Logger for logging project related stuff.
-    # @see RubyExts::Logger
+    # @return [#debug, #info, #error, #fatal, #flush, #close] Logger for logging project related stuff.
     def logger
       Rango.logger
     end

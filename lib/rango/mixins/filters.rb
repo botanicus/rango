@@ -16,7 +16,7 @@ module Rango
     # @since 0.0.2
     def run_filters(name, method)
       # Rango.logger.debug(self.class.instance_variables)
-      # Rango.logger.inspect(name: name, method: method)
+      # #Rango.logger.inspect(name: name, method: method)
       self.class.get_filters(name).each do |filter_method, options|
         unless options[:except] && options[:except].include?(method)
           if filter_method.is_a?(Symbol) && self.respond_to?(filter_method)
@@ -64,14 +64,13 @@ module Rango
       end
 
       # @since 0.0.2
-      attribute :before_filters, Hash.new
-      attribute :after_filters,  Hash.new
+      def before_filters
+        @before_filters ||= Hash.new
+      end
 
-      attribute :before_render_filters, Array.new
-      attribute :after_render_filters, Array.new
-
-      attribute :before_display_filters, Array.new
-      attribute :after_display_filters, Array.new
+      def after_filters
+        @after_filters ||= Hash.new
+      end
     end
   end
 end

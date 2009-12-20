@@ -2,7 +2,7 @@
 
 desc "Run specs"
 task :spec, :path do |task, args|
-  exec "./script/spec --options spec/spec.opts #{args.path || "spec"}"
+  exec "./bin/spec --options spec/spec.opts #{args.path || "spec"}"
 end
 
 desc "Create stubs of all library files."
