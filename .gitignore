@@ -1,18 +1,9 @@
 .DS_Store
-.yardoc
-.cache
-*.cache
-tHumb.db
 *.gem
 
-# bundler
-gems/dirs
-gems/gems
-gems/doc
-gems/environment.rb
-gems/specifications
+gems/*
+!gems/cache
 
-# script
 script/*
 !script/spec
 !script/normalize.rb
