@@ -10,7 +10,8 @@ $LOAD_PATH.clear.push(*Dir["vendor/*/lib"])
 Rake.application.options.trace = true
 
 task :bundle do
-  exec "gem bundle --cached"
+  # NOTE: the sense of the checkout is to avoid overwriting our changes in scripts
+  exec "gem bundle --cached && git checkout script"
 end
 
 # default task for RunCodeRun.com
