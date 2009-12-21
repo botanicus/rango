@@ -11,9 +11,13 @@ describe Rango::TemplateHelpers do
     it "should work" do
       partial "basic.html"
     end
+  end
+
+  describe "#includes" do
+    require "rango/mixins/render"
 
     it "should work with blocks" do
-      partial "partial_with_block.html.haml"
+      Rango::RenderMixin.render("includes.html")
     end
   end
 end

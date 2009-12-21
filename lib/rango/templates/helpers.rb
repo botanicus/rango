@@ -90,9 +90,15 @@ module Rango
         template = "_#{template}"
       end
       template = Rango::Template.new(template, self) # self is scope
-      #template.partial = true
-      # TODO: #block in partial templates
+      template.supertemplate = self._template.path
       return template.render(context)
+    end
+
+    def includes(template, context = Hash.new)
+      template = Rango::Template.new(template, self) # self is scope
+      template.supertemplate = self._template.path
+      template.render(context)
+      return nil
     end
 
     # extends "base.html"
