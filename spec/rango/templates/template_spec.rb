@@ -3,7 +3,7 @@
 require_relative "../../spec_helper"
 require "rango/templates/template"
 
-Rango::Template.template_paths = [File.join(STUBS_ROOT, "templates")]
+Rango::Template.template_paths.clear.push(File.join(STUBS_ROOT, "templates"))
 
 describe Rango::Template do
   describe "#initialize" do
