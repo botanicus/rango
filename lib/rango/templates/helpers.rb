@@ -88,10 +88,10 @@ module Rango
       else
         template = "_#{template}"
       end
-      template = Rango::Template.new(template, self._template.scope, context)
+      template = Rango::Template.new(template)
       template.partial = true
       # TODO: #block in partial templates
-      output = template.render
+      output = template.render(self._template.scope, context)
       return output
     end
 
