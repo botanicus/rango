@@ -2,7 +2,8 @@
 # encoding: utf-8
 
 # NOTE: we can't use require_relative because when we run gem build, it use eval for executing this file
-require File.join(File.dirname(__FILE__), "lib", "rango", "version")
+$:.unshift(File.join(File.dirname(__FILE__), "lib"))
+require "rango/version"
 
 Gem::Specification.new do |s|
   s.name = "rango"
