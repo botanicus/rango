@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require "rango"
+require "rango/templates/template"
 
 module Rango
   module TemplateHelpers
@@ -88,11 +89,10 @@ module Rango
       else
         template = "_#{template}"
       end
-      template = Rango::Template.new(template)
-      template.partial = true
+      template = Rango::Template.new(template, self) # self is scope
+      #template.partial = true
       # TODO: #block in partial templates
-      output = template.render(self._template.scope, context)
-      return output
+      return template.render(context)
     end
 
     # extends "base.html"
