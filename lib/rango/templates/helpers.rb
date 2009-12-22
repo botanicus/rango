@@ -94,14 +94,12 @@ module Rango
         template = "_#{template}"
       end
       template = Rango::Template.new(template, self) # self is scope
-      template.supertemplate = self._template.path
       return template.render(context)
     end
 
     # @since 0.1.1.3
     def includes(template, context = Hash.new)
       template = Rango::Template.new(template, self) # self is scope
-      template.supertemplate = self._template.path
       template.render(context)
       return true
     end
