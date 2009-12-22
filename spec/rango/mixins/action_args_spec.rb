@@ -19,8 +19,8 @@ describe Rango::ActionArgsMixin do
       id
     end
 
-    def create(post, msg = "Create successfuly")
-      msg
+    def create(post, msg = "Created successfuly")
+      "#{post} - #{msg}"
     end
 
     def view_with_a_splat(*args)
@@ -52,31 +52,27 @@ describe Rango::ActionArgsMixin do
 
   it "should call a view with arguments matching params[argument]" do
     env = env_for_action(:show, "/?id=12")
-    response = controller.call(env)
-    response = Rack::Response.new(response)
-    response.body.should eql("12")
+    status, headers, body = controller.call(env)
+    body.should eql(["12"])
   end
 
   it "should call a view with arguments matching params[argument]" do
     env = env_for_action(:show, "/?id=12&msg=hi") # nevadi ze je tam toho vic
     instance = controller.new(env)
-    response = controller.call(env)
-    response = Rack::Response.new(response)
-    response.body.should eql(["neco", "message"])
+    status, headers, body = controller.call(env)
+    body.should eql(["12"])
   end
 
 # NOTE: we can't use stubs because the stub redefine the method, so parameters of this method will be everytime just optional args and block
   it "should call a view with arguments matching params[argument]" do
     env = env_for_action(:create, "/?post=neco&msg=message")
-    response = controller.call(env)
-    response = Rack::Response.new(response)
-    response.body.should eql(["neco", "message"])
+    status, headers, body = controller.call(env)
+    body.should eql(["neco - message"])
   end
 
   it "should not require optinal arguments to be in params" do
     env = env_for_action(:create, "/?post=neco")
-    response = controller.call(env)
-    response = Rack::Response.new(response)
-    response.body.should eql(["neco", "message"])
+    status, headers, body = controller.call(env)
+    body.should eql(["neco - Created successfuly"])
   end
 end
