@@ -19,7 +19,7 @@ describe Rango::TemplateHelpers do
   describe "#includes" do
     require "rango/mixins/render"
     it "should return true" do
-      includes("library.html").should be_true
+      Rango::RenderMixin.render("includes/basic.html").strip.should eql("true")
     end
 
     it "should work with blocks" do
@@ -28,12 +28,12 @@ describe Rango::TemplateHelpers do
 
     it "should work with extends" do
       output = Rango::RenderMixin.render("includes/integration.html")
-      output.strip.should eql("by Jakub Stastny")
+      output.strip.should eql("Greeting by Jakub Stastny")
     end
 
     it "should work with extends" do
       output = Rango::RenderMixin.render("includes/integration2.html")
-      output.strip.should eql("by Jakub Stastny")
+      output.strip.should eql("Greeting by Jakub Stastny")
     end
   end
 
