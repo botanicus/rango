@@ -44,3 +44,16 @@
   * Much more modular design
   * Removed dependencies, since you can use whichever subset of Rango
   * There is Rango::Router.app instead of Project.router
+
+= Version 0.1.3, 22/12/2009,
+  * Logger is now configurable, you don't have to use any particular one
+  * Rango doesn't depend on RubyExts anymore
+  * Fixed status and headers settings in controller
+  * Fixed partial, extend_block and created includes for required-like functionality for templates
+  * Generators refactored, better env support
+  * Rango::Controller#redirect returns escaped location URL
+  * More modularity and granularity, Rango now plays nicely with other frameworks
+  * Refactored controller and it's now possible to write strategies for arguments passed to views
+  * ActionArgs for passing data from params to views (default behaviour in stack application)
+  * Rango itself use bundler rather than git submodules
+  * rake hooks will install task for removing whitespace in pre-commit hook, contributors should use it!
