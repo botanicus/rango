@@ -55,25 +55,19 @@ module Rango
     # post/base.html
     # base.html: here it will be rendered, so we need block to returns the correct block code
     # @since 0.0.2
+    # @version 0.1.1.3
     def block(name, value = nil, &block)
-      value = self._template.scope.capture(&block) if value.nil? && block
-      self._template.blocks[name] ||= value
+      raise ArgumentError, "Block has to have a name!" if name.nil?
+      raise ArgumentError, "You have to provide value or block, not both of them!" if value && block
+      self._template.blocks[name] ||= begin
+        block ? self._template.scope.capture(&block) : value
+      end
       return self._template.blocks[name]
     end
 
     # - extend_block(:head) do
     #   != pupu :lighter, syntax: "html", theme: "standard"
     #   != block(:head)
-    #
-    # TODO: something more intuitive like:
-    # - block(:head) do
-    #   != pupu :lighter, syntax: "html", theme: "standard"
-    #   != block(:head)
-    #
-    # OR even:
-    # - block(:head) do
-    #   != pupu :lighter, syntax: "html", theme: "standard"
-    #   = superblock
     def extend_block(name, value = nil, &block)
       value = self._template.scope.capture(&block) if value.nil? && block
       self._template.blocks[name] += value
@@ -82,6 +76,7 @@ module Rango
 
     # partial "products/list"
     # @since 0.0.2
+    # @version 0.1.1.3
     def partial(template, context = Hash.new)
       if template.match(%r[/])
         path, last = File.split(template)[0..-1]
@@ -94,11 +89,12 @@ module Rango
       return template.render(context)
     end
 
+    # @since 0.1.1.3
     def includes(template, context = Hash.new)
       template = Rango::Template.new(template, self) # self is scope
       template.supertemplate = self._template.path
       template.render(context)
-      return nil
+      return true
     end
 
     # extends "base.html"
