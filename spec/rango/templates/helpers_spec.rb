@@ -82,4 +82,28 @@ describe Rango::TemplateHelpers do
       output.strip.should eql("Original")
     end
   end
+
+  describe "enhance_block" do
+    it "should work even if the block isn't defined so far" do
+      output = Rango::RenderMixin.render("enhance_block/standalone.html")
+      output.strip.should eql("Hello World!")
+    end
+
+    it "should not raise argument error if name isn't specified" do
+      -> { Rango::RenderMixin.render("enhance_block/name_error.html") }.should_not raise_error(NameError)
+    end
+
+    it "should raise argument error if both value and block is provided" do
+      -> { Rango::RenderMixin.render("enhance_block/error.html") }.should raise_error(ArgumentError)
+    end
+
+    it "should work with super()-like inheritance" do
+      Rango::RenderMixin.render("enhance_block/basic.html")
+    end
+
+    it "should do nothing if the value or block is nil" do
+      output = Rango::RenderMixin.render("enhance_block/nil.html")
+      output.strip.should eql("Original")
+    end
+  end
 end
