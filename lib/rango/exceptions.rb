@@ -29,7 +29,7 @@ module Rango
     end
 
     def to_response
-      headers = self.headers.reverse_merge("Content-Type" => self.content_type)
+      headers = {"Content-Type" => self.content_type}.merge(self.headers)
       [self.status, headers, [self.message]]
     end
 

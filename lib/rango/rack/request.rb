@@ -92,19 +92,15 @@ module Rango
       end
     end
 
-    def DELETE
-      normalize_params(super)
-    end
-
     def params
-      input = [self.GET, self.POST, self.PUT, self.DELETE]
+      input = [self.GET, self.POST, self.PUT]
       input.inject(Hash.new) do |result, hash|
-        result.merge!(hash)
+        hash ? result.merge!(hash) : result
       end
     end
 
     def cookies
-      super.except("rack.session").symbolize_keys
+      super.tap { |cookies| cookies.delete("rack.session") }.symbolize_keys
     end
 
     def form

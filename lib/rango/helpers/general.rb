@@ -46,7 +46,7 @@ module Rango
         options[:size]     = args[0] || 75
         options[:omission] = args[1] || "..."
       end
-      options.reverse_merge!(:size => 75, :omission => "...")
+      options = {size: 75, omission: "..."}.merge(options)
       text.scan(/(\S+)(\s+)/)[0..options[:size]].flatten.join << options[:omission] if text
     end
   end
