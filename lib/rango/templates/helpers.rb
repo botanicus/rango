@@ -93,13 +93,13 @@ module Rango
       else
         template = "_#{template}"
       end
-      template = Rango::Template.new(template, self) # self is scope
+      template = Rango::Template.new(template, self.dup) # self is scope and we have to .dup it because otherwise we will rewrite _template and everything will broke
       return template.render(context)
     end
 
     # @since 0.1.1.3
     def includes(template, context = Hash.new)
-      template = Rango::Template.new(template, self) # self is scope
+      template = Rango::Template.new(template, self.dup) # self is scope and we have to .dup it because otherwise we will rewrite _template and everything will broke
       template.render(context)
       return true
     end

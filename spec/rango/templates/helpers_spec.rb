@@ -23,7 +23,17 @@ describe Rango::TemplateHelpers do
     end
 
     it "should work with blocks" do
-      Rango::RenderMixin.render("includes.html")
+      Rango::RenderMixin.render("includes/includes.html")
+    end
+
+    it "should work with extends" do
+      output = Rango::RenderMixin.render("includes/integration.html")
+      output.strip.should eql("by Jakub Stastny")
+    end
+
+    it "should work with extends" do
+      output = Rango::RenderMixin.render("includes/integration2.html")
+      output.strip.should eql("by Jakub Stastny")
     end
   end
 
