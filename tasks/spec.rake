@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 desc "Run specs"
-task :spec, :path do |task, args|
-  exec "./script/spec --options spec/spec.opts #{args.path || "spec"}"
+task :spec, :spec do |task, args|
+  exec "./script/spec --options spec/spec.opts #{args.spec || "spec"}"
 end
 
 desc "Create stubs of all library files."

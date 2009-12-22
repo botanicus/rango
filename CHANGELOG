@@ -46,6 +46,7 @@
   * There is Rango::Router.app instead of Project.router
 
 = Version 0.1.3, 22/12/2009,
+  * Sequel support
   * Logger is now configurable, you don't have to use any particular one
   * Rango doesn't depend on RubyExts anymore
   * Fixed status and headers settings in controller
