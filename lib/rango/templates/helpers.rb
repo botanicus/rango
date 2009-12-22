@@ -70,7 +70,7 @@ module Rango
     #   != block(:head)
     def extend_block(name, value = nil, &block)
       value = self._template.scope.capture(&block) if value.nil? && block
-      self._template.blocks[name] += value
+      self._template.blocks[name] += "\n#{value}" if value
       return self._template.blocks[name]
     end
 
