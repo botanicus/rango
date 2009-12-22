@@ -61,8 +61,25 @@ describe Rango::TemplateHelpers do
   end
 
   describe "extend_block" do
+    it "should raise argument error if name isn't specified" do
+      -> { Rango::RenderMixin.render("extend_block/name_error.html") }.should raise_error(NameError)
+    end
+
+    it "should raise argument error if both value and block is provided" do
+      -> { Rango::RenderMixin.render("extend_block/error.html") }.should raise_error(ArgumentError)
+    end
+
+    it "should raise argument error if block of given name doesn't exist so far" do
+      -> { Rango::RenderMixin.render("extend_block/error2.html") }.should raise_error
+    end
+
     it "should work with super()-like inheritance" do
-      Rango::RenderMixin.render("extend_block.html")
+      Rango::RenderMixin.render("extend_block/basic.html")
+    end
+
+    it "should do nothing if the value or block is nil" do
+      output = Rango::RenderMixin.render("extend_block/nil.html")
+      output.strip.should eql("Original")
     end
   end
 end

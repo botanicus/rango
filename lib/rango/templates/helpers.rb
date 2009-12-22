@@ -69,6 +69,15 @@ module Rango
     #   != pupu :lighter, syntax: "html", theme: "standard"
     #   != block(:head)
     def extend_block(name, value = nil, &block)
+      unless self._template.blocks[name]
+        raise NameError, "Block #{name.inspect} wasn't defined yet, you can't extend it!"
+      end
+      self.enhance_block(name, value, &block)
+    end
+
+    def enhance_block(name, value = nil, &block)
+      raise ArgumentError, "Block has to have a name!" if name.nil?
+      raise ArgumentError, "You have to provide value or block, not both of them!" if value && block
       value = self._template.scope.capture(&block) if value.nil? && block
       self._template.blocks[name] += "\n#{value}" if value
       return self._template.blocks[name]
