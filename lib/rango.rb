@@ -34,7 +34,9 @@ module Rango
   def self.logger
     @@logger ||= begin
       require "simple-logger"
-      logger = SimpleLogger::Logger.new(STDOUT)
+      SimpleLogger::Logger.new(STDOUT).tap do |logger|
+        logger.autoflush = true # disable in your code for production!
+      end
     rescue LoadError
       require "logger"
       Logger.new(STDOUT).tap do |logger|

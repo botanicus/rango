@@ -23,7 +23,8 @@ if Rango.development?
   Rango.logger = SimpleLogger::Logger.new(STDOUT)
   Rango.logger.autoflush = true
 else
-  Rango.logger = SimpleLogger::PlainLogger.new("log/#{Rango.environment}.log")
+  Rango.logger = SimpleLogger::Plain.new("log/#{Rango.environment}.log")
+  Rango.logger.autoflush = false
 end
 
 # write log at exit
