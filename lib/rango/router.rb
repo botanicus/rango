@@ -6,7 +6,7 @@ module Rango
   module UrlHelper
     # url(:login)
     def url(*args)
-      raise "Your router or your router adapter doesn't support this method"
+      raise NotImplementedError, "Your router or your router adapter doesn't support this method"
     end
   end
 

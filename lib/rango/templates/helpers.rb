@@ -55,19 +55,17 @@ module Rango
     # post/base.html
     # base.html: here it will be rendered, so we need block to returns the correct block code
     # @since 0.0.2
-    # @version 0.1.1.3
+    # @version 0.2
     def block(name, value = nil, &block)
       raise ArgumentError, "Block has to have a name!" if name.nil?
       raise ArgumentError, "You have to provide value or block, not both of them!" if value && block
-      self._template.blocks[name] ||= begin
-        block ? self._template.scope.capture(&block) : value
-      end
+      self._template.blocks[name] ||= block ? self._template.scope.capture(&block) : value
       return self._template.blocks[name]
     end
 
     # - extend_block(:head) do
-    #   != pupu :lighter, syntax: "html", theme: "standard"
-    #   != block(:head)
+    #   = pupu :lighter, syntax: "html", theme: "standard"
+    #   = block(:head)
     def extend_block(name, value = nil, &block)
       unless self._template.blocks[name]
         raise NameError, "Block #{name.inspect} wasn't defined yet, you can't extend it!"
@@ -83,28 +81,34 @@ module Rango
       return self._template.blocks[name]
     end
 
-    # partial "products/list"
-    # @since 0.0.2
-    # @version 0.1.1.3
-    def partial(template, context = Hash.new)
-      if template.match(%r[/])
-        path, last = File.split(template)[0..-1]
-        template = File.join(path, "_#{last}")
-      else
-        template = "_#{template}"
-      end
+    # Low-level rendering method for templates.
+    #
+    # @since 0.2
+    # @example
+    #   render "base.html"
+    #   render "./base.html"
+    #   render "../base.html"
+    def render(template, context = Hash.new)
+      normalize_template_path(template)
       original_template = self._template
       template = Rango::Template.new(template, self) # self is scope
       self._template = original_template
       return template.render(context)
     end
 
-    # @since 0.1.1.3
+    # partial "products/list"
+    # @since 0.0.2
+    # @version 0.2
+    def partial(template, context = Hash.new)
+      # NOTE: we can't use File.split because it normalize the path,
+      # so "./base.html" will be the same as "base.html", but it shouldn't be
+      *path, basename = template.split("/")
+      render File.join(*path, "_#{basename}")
+    end
+
+    # @since 0.2
     def includes(template, context = Hash.new)
-      original_template = self._template
-      template = Rango::Template.new(template, self) # self is scope
-      self._template = original_template
-      template.render(context)
+      render template, context
       return true
     end
 
@@ -112,7 +116,18 @@ module Rango
     # @since 0.0.2
     def extends(path)
       # we can't just create a new template, because it has to do it after it reads the whole file
-      self._template.supertemplate = path
+      self._template.supertemplate = normalize_template_path(path)
+    end
+
+    # @since 0.2
+    def normalize_template_path(template)
+      if template.start_with?("./")
+        File.expand_path(File.join(File.dirname(self._template.fullpath), template))
+      elsif template.start_with?("../")
+        File.expand_path(File.join(File.dirname(self._template.fullpath), "..", template))
+      else
+        template
+      end
     end
   end
 end

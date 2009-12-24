@@ -21,12 +21,14 @@ module <%= @name.camel_case %>
       if self.respond_to?(exception.to_snakecase)
         self.send(exception.to_snakecase, exception)
       else
-        begin
-          render "errors/#{exception.status}.html"
-        rescue TemplateNotFound
-          render "errors/500.html"
-        end
+        render_http_error_template(exception)
       end
+    end
+
+    def render_http_error_template(exception)
+      render "errors/#{exception.status}.html"
+    rescue TemplateNotFound
+      render "errors/500.html"
     end
   end
 

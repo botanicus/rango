@@ -96,11 +96,21 @@ module Rango
 
     ARGV.delete("-i") # otherwise irb will read it
     ENV["RACK_ENV"] = Rango.environment # for racksh
-    unless try_require("racksh/boot")
+
+    begin
+      require "racksh/boot"
+    rescue LoadError
       Rango.logger.info("For more goodies install racksh gem")
-      try_require "irb/completion" # some people can have ruby compliled without readline
+    else
       Rango::Utils.load_rackup # so you can use Rango::Router.app etc
     end
+
+    begin
+      require "irb/completion"
+    rescue LoadError
+      # some people can have ruby compliled without readline
+    end
+
     IRB.start
   end
 end

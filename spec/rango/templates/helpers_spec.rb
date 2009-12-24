@@ -16,6 +16,12 @@ describe Rango::TemplateHelpers do
     it "should be able to specify additional context which isn't propagated to the parent template"
   end
 
+  describe "#render" do
+    it "should consider 'path.html' as a path relative to Template.template_paths"
+    it "should consider './path.html' as a path relative to the current template"
+    it "should look for '../path.html' in the parent directory of directory with current template"
+  end
+
   describe "#includes" do
     require "rango/mixins/render"
     it "should return true" do

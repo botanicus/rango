@@ -33,17 +33,19 @@ module Rango
     end
 
     module ClassMethods
-      def inherited(subclass)
-        inherit_filters(subclass, :before)
-        inherit_filters(subclass, :after)
-        inherit_filters(subclass, :before_render)
-        inherit_filters(subclass, :after_render)
-        inherit_filters(subclass, :before_display)
-        inherit_filters(subclass, :after_display)
+      #def inherited(subclass)
+      #  subclass.before_filters = self.before_filters.dup
+      #  subclass.after_filters  = self.after_filters.dup
+      #end
+
+      # @since 0.2
+      def before_filters
+        @@before_filters ||= Hash.new
       end
 
-      def inherit_filters(subclass, name)
-        subclass.send("#{name}_filters=", self.send("#{name}_filters").dup)
+      # @since 0.2
+      def after_filters
+        @@after_filters ||= Hash.new
       end
 
       # before :login
@@ -61,15 +63,6 @@ module Rango
       # @since 0.0.2
       def get_filters(type)
         self.send("#{type}_filters")
-      end
-
-      # @since 0.0.2
-      def before_filters
-        @before_filters ||= Hash.new
-      end
-
-      def after_filters
-        @after_filters ||= Hash.new
       end
     end
   end
