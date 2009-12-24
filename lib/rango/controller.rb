@@ -51,7 +51,7 @@ module Rango
     def to_response
       self.response.write(self.run_action)
       #self.response.finish
-      [response.status, response.headers, response.body] # this way we got real body rather than response object
+      [response.status, response.headers, [response.body]] # this way we got real body rather than response object
     rescue HttpError => exception
       self.rescue_http_error(exception)
     end
