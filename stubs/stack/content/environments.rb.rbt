@@ -20,11 +20,10 @@ end
 <% end %>
 
 if Rango.development?
-  Rango.logger = Extlib::Logger.new(STDOUT)
-  Rango.logger.extend(Extlib::ColorfulLogger)
+  Rango.logger = SimpleLogger::Logger.new(STDOUT)
   Rango.logger.autoflush = true
 else
-  Rango.logger = Extlib::Logger.new("log/#{Rango.environment}.log")
+  Rango.logger = SimpleLogger::PlainLogger.new("log/#{Rango.environment}.log")
 end
 
 # write log at exit

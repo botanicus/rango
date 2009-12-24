@@ -33,12 +33,12 @@ module Rango
 
   def self.logger
     @@logger ||= begin
-      require "colorful-logger"
-      logger = ColorfulLogger.new(STDOUT)
+      require "simple-logger"
+      logger = SimpleLogger::Logger.new(STDOUT)
     rescue LoadError
       require "logger"
       logger = Logger.new(STDOUT)
-      logger.warn("Using stdlib logger. If you want something more fancy, install colorful-logger.")
+      logger.warn("Using stdlib logger. If you want something more fancy with colors and #flush, install simple-logger.")
     ensure
       logger
     end

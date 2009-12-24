@@ -53,9 +53,11 @@ gem "racksh", require_as: nil#, git: "git://github.com/sickill/racksh.git"
 gem "warden"
 <% end %>
 
+gem "simple-logger"#, git: "git://github.com/botanicus/simple-logger.git"
+#gem "media-path"#, git: "git://github.com/botanicus/media-path.git" # for asset helpers
+
 # === Environment-Specific Setup === #
 only(:development) do
-  gem "colorful-logger"#, git: "git://github.com/botanicus/colorful-logger.git"
   gem "shotgun", require_as: nil#, git: "git://github.com/rtomayko/shotgun.git"
 end
 
