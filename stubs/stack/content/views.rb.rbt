@@ -7,14 +7,18 @@ require "rango/controller"
 require "rango/mixins/filters"
 require "rango/mixins/rendering"
 require "rango/mixins/message"
+<% if RUBY_VERSION > "1.9.2" %>
 require "rango/mixins/action_args"
+<% end %>
 
 module <%= @name.camel_case %>
   class Application < Rango::Controller
     include Rango::FiltersMixin
     include Rango::MessageMixin
     include Rango::ExplicitRendering
+    <% if RUBY_VERSION > "1.9.2" %>
     include Rango::ActionArgsMixin
+    <% end %>
 
     # http://wiki.github.com/botanicus/rango/errors-handling
     def render_http_error(exception)

@@ -16,6 +16,11 @@
 gem "rango"#, git: "git://github.com/botanicus/rango.git"
 gem "rack"#, git: "git://github.com/rack/rack.git"
 gem "tilt"#, git: "git://github.com/rtomayko/tilt.git"
+<% if RUBY_VERSION < "1.9.2" %>
+# This is for Method#parameters which is used in action args mixin
+# However it doesn't work for me, I'm getting segmentation fault
+#gem "methopara"#, git: "git://github.com/genki/methopara.git"
+<% end %>
 
 # router
 <% case @router %>

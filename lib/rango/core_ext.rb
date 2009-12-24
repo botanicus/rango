@@ -102,10 +102,3 @@ class Hash
     end
   end
 end
-
-module Kernel
-  def without_warnings
-    status_quo, $VERBOSE = $VERBOSE, nil
-    block.call; $VERBOSE = status_quo
-  end
-end
