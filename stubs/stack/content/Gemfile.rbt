@@ -54,7 +54,7 @@ gem "warden"
 <% end %>
 
 gem "simple-logger"#, git: "git://github.com/botanicus/simple-logger.git"
-#gem "media-path"#, git: "git://github.com/botanicus/media-path.git" # for asset helpers
+gem "media-path"#, git: "git://github.com/botanicus/media-path.git" # for asset helpers
 
 # === Environment-Specific Setup === #
 only(:development) do
