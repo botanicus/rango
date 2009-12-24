@@ -4,7 +4,7 @@
 # rack/test or whatever, it's bundler job to do it
 
 # load test environment include dependencies
-RANGO_ENV = "test"
+RACK_ENV = "test"
 require_relative "../init.rb"
 
 # load config.ru

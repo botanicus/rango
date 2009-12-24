@@ -94,9 +94,6 @@ module Rango
     require "irb"
     require "rango/utils"
 
-    ARGV.delete("-i") # otherwise irb will read it
-    ENV["RACK_ENV"] = Rango.environment # for racksh
-
     begin
       require "racksh/boot"
     rescue LoadError
@@ -111,6 +108,7 @@ module Rango
       # some people can have ruby compliled without readline
     end
 
+    ARGV.delete("-i") # otherwise irb will read it
     IRB.start
   end
 end
