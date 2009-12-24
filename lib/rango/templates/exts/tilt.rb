@@ -5,7 +5,7 @@ require "rango/mixins/chainable"
 
 module Tilt
   ErubisTemplate.class_eval do
-    extend RubyExts::Chainable
+    extend Chainable
     chainable do
       def initialize_engine
         super
@@ -15,7 +15,7 @@ module Tilt
   end
 
   HamlTemplate.class_eval do
-    extend RubyExts::Chainable
+    extend Chainable
     chainable do
       def initialize_engine
         super
