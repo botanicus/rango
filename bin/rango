@@ -33,7 +33,6 @@ end
 begin
   ARGV.shift || usage # create
   generator_name = ARGV.shift
-  SimpleTemplater.logger = Rango.logger
   templater = SimpleTemplater.new(:rango)
   # This enables you to create custom generators for Rango
   load File.join(File.dirname(base), "..", "simple-templater.scope") # neccesary if we run rango locally and not from RubyGems
