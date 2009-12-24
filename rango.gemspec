@@ -34,12 +34,9 @@ Gem::Specification.new do |s|
   # Rango isn't a monolithic framework, so you might want
   # to use just one specific part of it, so it has no sense
   # to specify dependencies for the whole gem. If you want
-  # to install everything, just run gem install rango --development
+  # to install everything what you need for start with Rango,
+  # just run gem install rango --development
 
-  # Unfortunatelly Rack has Mongrel as a development dependency and since Mongrel can't be compiled on Ruby 1.9, it won't work. Tell Rack team to fix this shit, not me.
-  s.add_development_dependency "rack", ">= 1.0.1"
-  s.add_development_dependency "tilt", ">= 0.3"
-  s.add_development_dependency "media-path", ">= 0.1.1"
   s.add_development_dependency "simple-templater", ">= 0.0.1.2"
   s.add_development_dependency "bundler"
 
