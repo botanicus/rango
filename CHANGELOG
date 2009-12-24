@@ -58,3 +58,4 @@
   * ActionArgs for passing data from params to views (default behaviour in stack application)
   * Rango itself use bundler rather than git submodules
   * rake hooks will install task for removing whitespace in pre-commit hook, contributors should use it!
+  * Template helpers can work with paths relative to current template via ./path.html resp. ../path.html. All other paths are relative to the template paths.
