@@ -21,10 +21,10 @@ end
 
 if Rango.development?
   Rango.logger = SimpleLogger::Logger.new(STDOUT)
-  Rango.logger.autoflush = true
+  Rango.logger.auto_flush = true
 else
   Rango.logger = SimpleLogger::Plain.new("log/#{Rango.environment}.log")
-  Rango.logger.autoflush = false
+  Rango.logger.auto_flush = false
 end
 
 # write log at exit
