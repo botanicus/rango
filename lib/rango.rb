@@ -33,12 +33,12 @@ module Rango
 
   def self.logger
     @@logger ||= begin
-      require "extlib/logger"
-      logger = Extlib::Logger.new(STDOUT)
+      require "colorful-logger"
+      logger = ColorfulLogger.new(STDOUT)
     rescue LoadError
       require "logger"
       logger = Logger.new(STDOUT)
-      logger.debug("Using stdlib logger")
+      logger.warn("Using stdlib logger. If you want something more fancy, install colorful-logger.")
     ensure
       logger
     end
