@@ -37,10 +37,9 @@ module Rango
       logger = SimpleLogger::Logger.new(STDOUT)
     rescue LoadError
       require "logger"
-      logger = Logger.new(STDOUT)
-      logger.warn("Using stdlib logger. If you want something more fancy with colors and #flush, install simple-logger.")
-    ensure
-      logger
+      Logger.new(STDOUT).tap do |logger|
+        logger.warn("Using stdlib logger. If you want something more fancy with colors and #flush, install simple-logger.")
+      end
     end
   end
 
