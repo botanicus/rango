@@ -4,7 +4,12 @@
 # ... but what if I need full path? It should be tested if file exist, of course
 # javascript Path.new("design/whatever.js")
 require "rango/helpers"
-require "media-path"
+
+begin
+  require "media-path"
+rescue LoadError
+  raise LoadError, "You have to install media-path gem!"
+end
 
 module Rango
   module Helpers

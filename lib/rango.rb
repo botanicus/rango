@@ -9,9 +9,6 @@ unless $:.include?(rango_lib) || $:.include?(File.expand_path(rango_lib))
   $:.unshift(rango_lib)
 end
 
-# It should solve problems with encoding in URL (flash messages) and templates
-Encoding.default_internal = "utf-8"
-
 module Rango
   # all the helpers are in Rango::Helpers
   # so if you want to register your own, just
