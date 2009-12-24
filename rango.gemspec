@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.has_rdoc = true
 
   # files
-  s.files = Dir.glob("{bin,lib,spec,stubs}/**/*") + %w[CHANGELOG CONTRIBUTORS LICENSE Rakefile README.textile simple-templater.scope] + Dir.glob("stubs/**/.gitignore")
+  s.files = Dir.glob("{bin,lib,spec,stubs}/**/*") + %w[CHANGELOG CONTRIBUTORS LICENSE Rakefile README.textile simple-templater.scope] + Dir.glob("stubs/**/.*") # so .gitignore, .rvmrc, .rvmrc.rbt etc will be in gem
   s.executables = ["rango"]
   s.default_executable = "rango"
   s.require_paths = ["lib"]
