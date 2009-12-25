@@ -31,6 +31,23 @@ module Rango
     @@media_root ||= File.join(self.root, "media")
   end
 
+  # Basic environment support. Use rango/environments.rb for more advanced behaviour.
+  #
+  # @since 0.0.1
+  # @return [String] Returns current environment name.
+  def self.environment
+    @@environment ||= "development"
+  end
+
+  def self.environment=(environment)
+    @@environment = environment
+  end
+
+  def self.environment?(environment)
+    self.environment.eql?(environment.to_s)
+  end
+
+  # logger
   def self.logger
     @@logger ||= begin
       require "simple-logger"
