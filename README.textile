@@ -14,6 +14,7 @@ h1. Installation via "Rip":http://hellorip.com
 h1. How to Contribute To Rango
 
 Contributions to Rango is easy, you don't have to create a ticket or something, the only thing you really have to do is write good code. Before you send a pull request, please ensure that you:
+* Have no trailing whitespace in your code (if you run @rake hooks@, you get git pre-commit hook which take care about it)
 * Wrote YARD documentation
 * Wrote specs and run them under at least under Ruby 1.9.1, ideally under all the supported Ruby platforms:
 
