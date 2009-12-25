@@ -1,5 +1,8 @@
 # encoding: utf-8
 
+# http://wiki.github.com/botanicus/rango/environments-support
+require "rango/environments"
+
 # database connection
 <% case @orm %>
 <% when "sequel" %>

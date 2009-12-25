@@ -22,20 +22,15 @@ end
 
 require "rango/stacks/controller"
 
-# http://wiki.github.com/botanicus/rango/environments-support
-require "rango/environments"
-
-environment = (RACK_ENV if defined?(RACK_ENV)) || ENV["RACK_ENV"] || "development"
-ENV["RACK_ENV"] = (RACK_ENV ||= environment)
-unless %w[test development stage production].include?(environment)
-  abort "Unknown environment: #{environment}"
+unless %w[test development stage production].include?(Rango.environment)
+  abort "Unknown environment: #{Rango.environment}"
 end
 
 # we need to load dependencies before boot, so bootloaders will be called
-Rango.logger.info("Loading dependencies for #{environment}")
-Bundler.require_env(environment)
+Rango.logger.info("Loading dependencies for #{Rango.environment}")
+Bundler.require_env(Rango.environment)
 
-Rango.boot(environment: environment)
+Rango.boot
 
 # environment-specific settings
 require_relative "environments"
