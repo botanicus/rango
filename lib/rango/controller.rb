@@ -10,6 +10,7 @@ require "rango/rack/request"
 module Rango
   class Controller
     include Rango::UrlHelper
+    include Rango::Exceptions
     extend Forwardable
     # for routers
     def self.dispatcher(action)
@@ -52,7 +53,7 @@ module Rango
       self.run_action
       #self.response.finish # do we need this?
       [response.status, response.headers, [response.body]] # this way we got real body rather than response object
-    rescue Rango::Exceptions::HttpError => exception
+    rescue HttpError => exception
       self.rescue_http_error(exception)
     end
 
