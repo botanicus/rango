@@ -1,15 +1,15 @@
 h1. Installation via RubyGems
 
-* Daily builds: @gem install rango --pre@
-* Stable version: @gem install rango@
-* JRuby: @jruby --1.9 -S gem install rango@
+* Daily builds: @gem install rango --pre@ and @gem install simple-templater@. RubyGems don't work with prerelease gems properly, so you can't just run @gem install simple-templater rango --pre@. The trouble is when you are installing with @--pre@, RubyGems are looking just for prerelease gems, but Erubis, which is dependency of simple-templater, doesn't have any prerelease gem.
+* Stable version: @gem install simple-templater rango@
+* JRuby: @jruby --1.9 -S gem install simple-templater rango@ is how you should install Rango for JRuby. Unfortunately I'm getting strange errors here. Don't forget the @--1.9@ argument, because Rango can be installed just on Ruby 1.9.
 
 _Rango itself doesn't define any runtime dependencies, since you may want to use just a subset of Rango, i. e. just template layer. If you are using stack generator, you get @Gemfile@ with usual dependencies, so @gem bundle@ will take care about it._
 
 h1. Installation via "Rip":http://hellorip.com
 
 * Install edge version: @rip install git://github.com/botanicus/rango.git@
-* Install tagged version: @rip install git://github.com/botanicus/rango.git 0.1@
+* Install tagged version: @rip install git://github.com/botanicus/rango.git 0.2@
 
 h1. How to Contribute To Rango
 
