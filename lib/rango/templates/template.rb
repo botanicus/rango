@@ -6,7 +6,7 @@ require "rango/templates/helpers"
 require "rango/exceptions"
 
 module Rango
-  module Errors # so we can catch it with other HTTP errors
+  module Exceptions # so we can catch it with other HTTP errors
     TemplateNotFound = Class.new(NotFound)
   end
 

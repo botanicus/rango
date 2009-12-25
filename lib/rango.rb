@@ -36,7 +36,7 @@ module Rango
   # @since 0.0.1
   # @return [String] Returns current environment name.
   def self.environment
-    self.environment ||= self.set_environment
+    @@environment ||= self.set_environment
   end
 
   def self.set_environment
@@ -44,7 +44,8 @@ module Rango
   end
 
   def self.environment=(environment)
-    ENV["RACK_ENV"] = ::RACK_ENV = @@environment = environment
+    ENV["RACK_ENV"] = @@environment = environment
+    const_set(:RACK_ENV, environment)
   end
 
   def self.environment?(environment)

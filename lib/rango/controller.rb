@@ -52,7 +52,7 @@ module Rango
       self.run_action
       #self.response.finish # do we need this?
       [response.status, response.headers, [response.body]] # this way we got real body rather than response object
-    rescue HttpError => exception
+    rescue Rango::Exceptions::HttpError => exception
       self.rescue_http_error(exception)
     end
 
