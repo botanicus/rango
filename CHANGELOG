@@ -60,3 +60,6 @@
   * rake hooks will install task for removing whitespace in pre-commit hook, contributors should use it!
   * Template helpers can work with paths relative to current template via ./path.html resp. ../path.html. All other paths are relative to the template paths.
   * Use simple-logger as a default logger or standar logger if the simple-logger isn't installed.
+
+= Version 0.2.1
+  * More inteligent environments handling, just use Rango.environment and it will detect the proper one from ENV["RACK_ENV"], RACK_ENV constant or it will defaults to development. Rango.environment=(environment) will set all these variables so everything will stay consistent.
