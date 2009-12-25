@@ -2,11 +2,7 @@
 
 echo "Entering pre-commit hook ..."
 
-function modified() {
-  git status | egrep "(modified|new file):" | awk -F: '{ print $2 }' | ruby -ne 'puts $_.strip'
-}
-
-for file in $(modified); do
+for file in $(git diff --staged --name-only); do
   echo "Normalizing $file ..."
   if test -f $file; then
     if ./script/normalize.rb "$file"; then
