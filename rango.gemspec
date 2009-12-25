@@ -40,7 +40,20 @@ Gem::Specification.new do |s|
   s.add_development_dependency "simple-templater", ">= 0.0.1.2"
   s.add_development_dependency "bundler"
 
-  s.post_install_message = File.read("CHANGELOG")
+  changes = File.readlines("CHANGELOG").inject([nil, Hash.new]) do |pair, line|
+    version, hash = pair
+    if line.match(/^=/)
+      version = line.chomp.sub(/^= /, "")
+      hash[version] = Array.new
+    elsif line.match(/^\s+\* /)
+      hash[version].push(line.chomp)
+    else # skip empty lines
+    end
+    [version, hash]
+  end.last
+
+  last_version = changes.keys.last
+  s.post_install_message = [last_version, changes[last_version].join("\n")].join("\n")
 
   # RubyForge
   s.rubyforge_project = "rango"
