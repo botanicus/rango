@@ -40,20 +40,14 @@ Gem::Specification.new do |s|
   s.add_development_dependency "simple-templater", ">= 0.0.1.2"
   s.add_development_dependency "bundler"
 
-  changes = File.readlines("CHANGELOG").inject([nil, Hash.new]) do |pair, line|
-    version, hash = pair
-    if line.match(/^=/)
-      version = line.chomp.sub(/^= /, "")
-      hash[version] = Array.new
-    elsif line.match(/^\s+\* /)
-      hash[version].push(line.chomp)
-    else # skip empty lines
-    end
-    [version, hash]
-  end.last
-
-  last_version = changes.keys.last
-  s.post_install_message = [last_version, changes[last_version].join("\n")].join("\n")
+  begin
+    require "changelog"
+  rescue LoadError
+    warn "You have to have changelog gem installed for post install message"
+  else
+    changelog = CHANGELOG.new(File.join(File.dirname(__FILE__), "CHANGELOG"))
+    s.post_install_message = "=== Changes in the last Rango ===\n  - #{changelog.last_version_changes.join("\n-  ")}"
+  end
 
   # RubyForge
   s.rubyforge_project = "rango"
