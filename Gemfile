@@ -1,5 +1,7 @@
 bundle_path "gems"
 
+gem "nake"
+
 gem "tilt"
 gem "rack"
 gem "methopara", git: "git://github.com/genki/methopara.git"
