@@ -7,18 +7,18 @@ module Rango
     end
 
     # for Rango::Controller
-    def process_action(method)
-      self.run_filters(:before, method)
-      super(method)
-      self.run_filters(:after, method)
+    def invoke_action(action)
+      self.run_filters(:before, action)
+      super(action)
+      self.run_filters(:after, action)
     end
 
     # @since 0.0.2
-    def run_filters(name, method)
+    def run_filters(name, action)
       # Rango.logger.debug(self.class.instance_variables)
-      # #Rango.logger.inspect(name: name, method: method)
+      # Rango.logger.inspect(name: name, action: action)
       self.class.get_filters(name).each do |filter_method, options|
-        unless options[:except] && options[:except].include?(method)
+        unless options[:except] && options[:except].include?(action)
           if filter_method.is_a?(Symbol) && self.respond_to?(filter_method)
             Rango.logger.info("Calling filter #{filter_method} for controller #{self}")
             self.send(filter_method)
