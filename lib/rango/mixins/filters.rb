@@ -4,6 +4,11 @@ module Rango
   module FiltersMixin
     def self.included(controller)
       controller.extend(ClassMethods)
+      class << controller
+        attr_accessor :before_filters
+        attr_accessor :after_filters
+      end
+      controller.before_filters = controller.after_filters = Hash.new
     end
 
     # for Rango::Controller
@@ -38,18 +43,8 @@ module Rango
       #  subclass.after_filters  = self.after_filters.dup
       #end
 
-      # @since 0.2
-      def before_filters
-        @@before_filters ||= Hash.new
-      end
-
-      # @since 0.2
-      def after_filters
-        @@after_filters ||= Hash.new
-      end
-
       # before :login
-      # before :login, actions: [:send]
+      # before :login, except: [:send]
       # @since 0.0.2
       def before(action = nil, options = Hash.new, &block)
         self.before_filters[action || block] = options

@@ -57,10 +57,10 @@ module Rango
 
     # @since 0.0.2
     def render(context = Hash.new)
-      raise Errors::TemplateNotFound.new("Template #{self.path} wasn't found in these template_paths: #{self.class.template_paths.inspect}") if self.fullpath.nil?
+      raise Exceptions::TemplateNotFound.new("Template #{self.path} wasn't found in these template_paths: #{self.class.template_paths.inspect}") if self.fullpath.nil?
       value = self.template.render(self.scope, context)
       Rango.logger.info("Rendering template #{self.path}")
-      # #Rango.logger.inspect(self.blocks)
+      # Rango.logger.inspect(self.blocks)
       if self.supertemplate
         Rango.logger.debug("Extends call: #{self.supertemplate}")
         supertemplate = self.class.new(self.supertemplate, self.scope)
