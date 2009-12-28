@@ -4,11 +4,6 @@ module Rango
   module FiltersMixin
     def self.included(controller)
       controller.extend(ClassMethods)
-      class << controller
-        attr_accessor :before_filters
-        attr_accessor :after_filters
-      end
-      controller.before_filters = controller.after_filters = Hash.new
     end
 
     # for Rango::Controller
@@ -38,10 +33,24 @@ module Rango
     end
 
     module ClassMethods
-      #def inherited(subclass)
-      #  subclass.before_filters = self.before_filters.dup
-      #  subclass.after_filters  = self.after_filters.dup
-      #end
+      # If you are using your own inherited hook, you have
+      # to use super here, otherwise your filters won't work!
+      def inherited(subclass)
+        subclass.before_filters = self.before_filters.dup
+        subclass.after_filters  = self.after_filters.dup
+      end
+
+      # @since 0.2
+      # we can't use class variables because they
+      # are shared between parent and child classes
+      def before_filters
+        @before_filters ||= Hash.new
+      end
+
+      # @since 0.2
+      def after_filters
+        @after_filters ||= Hash.new
+      end
 
       # before :login
       # before :login, except: [:send]
