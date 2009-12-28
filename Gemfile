@@ -1,6 +1,7 @@
 bundle_path "gems"
 
 gem "nake"
+gem "code-cleaner"
 
 gem "tilt"
 gem "rack"
