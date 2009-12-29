@@ -14,14 +14,6 @@ require "nake/tasks/spec"
 require "nake/tasks/release"
 
 load "code-cleaner.nake"
-Task["hooks:whitespace:install"].define do
-  ARGV.clear.push(".git/hooks/pre-commit")
-  ARGF.inplace_mode = ""
-  while line = ARGF.gets
-    puts %{export PATH="script:$PATH"} if ARGF.lineno.eql?(2)
-    puts line
-  end
-end
 
 unless File.exist?(".git/hooks/pre-commit")
   warn "If you want to contribute to Rango, please run ./tasks.rb hooks:whitespace:install to get Git pre-commit hook for removing trailing whitespace"
@@ -38,6 +30,12 @@ Task[:build].config[:gemspec] = "rango.gemspec"
 Task[:prerelease].config[:gemspec] = "rango.pre.gemspec"
 Task[:release].config[:name] = "rango"
 Task[:release].config[:version] = Rango::VERSION
+
+Nake::Task["hooks:whitespace:install"].tap do |task|
+  task.config[:path] = "script"
+  task.config[:encoding] = "utf-8"
+  task.config[:whitelist] = '(bin/[^/]+|.+\.(rb|rake|nake|thor|task))$'
+end
 
 # http://github.com/somebee/rbench/tree/master
 Task.new(:bm) do |task|
