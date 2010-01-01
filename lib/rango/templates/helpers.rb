@@ -98,12 +98,12 @@ module Rango
 
     # partial "products/list"
     # @since 0.0.2
-    # @version 0.2
+    # @version 0.2.1
     def partial(template, context = Hash.new)
       # NOTE: we can't use File.split because it normalize the path,
       # so "./base.html" will be the same as "base.html", but it shouldn't be
       *path, basename = template.split("/")
-      render File.join(*path, "_#{basename}")
+      render File.join(*path, "_#{basename}"), context
     end
 
     # @since 0.2
