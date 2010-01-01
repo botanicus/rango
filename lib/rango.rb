@@ -10,6 +10,8 @@ unless $:.include?(rango_lib) || $:.include?(File.expand_path(rango_lib))
 end
 
 module Rango
+  VERSION ||= "0.2.1"
+
   # all the helpers are in Rango::Helpers
   # so if you want to register your own, just
   # Rango::Helpers.send(:include, Pupu::Helpers)
