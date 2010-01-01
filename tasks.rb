@@ -19,7 +19,7 @@ unless File.exist?(".git/hooks/pre-commit")
   warn "If you want to contribute to Rango, please run ./tasks.rb hooks:whitespace:install to get Git pre-commit hook for removing trailing whitespace"
 end
 
-require_relative "lib/rango/version"
+require_relative "lib/rango"
 
 # Setup encoding, so all the operations
 # with strings from another files will work
