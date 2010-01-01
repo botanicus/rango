@@ -30,7 +30,7 @@ describe Rango::Template do
   describe "#render" do
     it "should raise TemplateNotFound if template can't be found" do
       template = Rango::Template.new("idonotexist.html")
-      -> { template.render }.should raise_error(Rango::Errors::TemplateNotFound)
+      -> { template.render }.should raise_error(Rango::Exceptions::TemplateNotFound)
     end
 
     it "should render" do

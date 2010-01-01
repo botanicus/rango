@@ -42,7 +42,7 @@ describe Rango::RenderMixin do
     end
 
     it "should raise TemplateNotFound if template wasn't found" do
-      -> { render "idonotexist.html" }.should raise_error(Rango::Errors::TemplateNotFound)
+      -> { render "idonotexist.html" }.should raise_error(Rango::Exceptions::TemplateNotFound)
     end
   end
 end
