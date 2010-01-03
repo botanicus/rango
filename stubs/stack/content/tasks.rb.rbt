@@ -21,12 +21,16 @@ load "rango/orm/tasks/<%= @orm %>.nake"
 <% if @git_deployer %>
 begin
   load "git-deployer.nake"
+  Task["deployer:setup"].config[:servers] = {
+    server1: {
+      user: "TODO",
+      host: "TODO",
+      repo: "/var/sources/<%= @name %>.git",
+      path: "/var/www/<%= @name %>"
+    }
+  }
 rescue LoadError
-  abort "You have to install git-deployer gem!"
-else
-  Task["deployer:setup"].config[:user] = "botanicus"
-  Task["deployer:setup"].config[:host] = "95.170.245.30"
-  Task["deployer:setup"].config[:path] = "/var/www/megasamolepky.cz"
+  warn "You have to install git-deployer gem if you want to deploy to remote servers!"
 end
 <% end %>
 
