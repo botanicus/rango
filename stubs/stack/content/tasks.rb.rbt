@@ -1,0 +1,46 @@
+#!/usr/bin/env nake
+# encoding: utf-8
+
+require_relative "gems/environment.rb"
+
+# Boot environment
+# This task isn't useful as is, but a lot of Rango tasks expect this
+# will exist and take an optional argument with name of environment
+Task.new(:environment) do |task|
+  task.hidden = true
+  task.define do |environment = nil, options|
+    RACK_ENV = environment || ENV["RACK_ENV"] || "development"
+    require_relative "init.rb"
+  end
+end
+
+#load "pupu/tasks/pupu.nake"
+load "rango/tasks/spec.nake"
+load "rango/orm/tasks/<%= @orm %>.nake"
+
+<% if @git_deployer %>
+begin
+  load "git-deployer.nake"
+rescue LoadError
+  abort "You have to install git-deployer gem!"
+else
+  Task["deployer:setup"].config[:user] = "botanicus"
+  Task["deployer:setup"].config[:host] = "95.170.245.30"
+  Task["deployer:setup"].config[:path] = "/var/www/megasamolepky.cz"
+end
+<% end %>
+
+<% if @code_cleaner %>
+begin
+  load "code-cleaner.nake"
+rescue LoadError
+  abort "You have to install code-cleaner gem!"
+else
+  Task["hooks:whitespace:install"].tap do |task|
+    task.config[:path] = "bin"
+    task.config[:encoding] = "utf-8"
+    task.config[:whitelist] = '(bin/[^/]+|.+\.(rb|rake|nake|thor|task))$'
+    #task.config[:blacklist]
+  end
+end
+<% end %>

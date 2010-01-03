@@ -22,6 +22,15 @@ gem "tilt"#, git: "git://github.com/rtomayko/tilt.git"
 #gem "methopara"#, git: "git://github.com/genki/methopara.git"
 <% end %>
 
+gem "nake"#, git: "git://github.com/botanicus/nake.git"
+<% if @code_cleaner %>
+gem "code-cleaner"#, git: "git://github.com/botanicus/code-cleaner.git"
+<% end %>
+<% if @git_deployer %>
+gem "git-deployer"#, git: "git://github.com/botanicus/git-deployer.git"
+<% end %>
+
+
 # router
 <% case @router %>
 <% when "usher" %>
