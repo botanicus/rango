@@ -67,10 +67,16 @@ module Rango
     def_delegators :response, :headers, :headers=
 
     # @since 0.0.2
+    # @version 0.2.1
     # @return [String] Escaped URL (which is RFC recommendation)
-    def redirect(url, options = Hash.new)
-      self.status = 302
-      self.headers["Location"] = URI.escape(url)
+    def redirect(location, status = 301)
+      if (300.399).include?(status)
+        exception = Redirection.new(location)
+        exception.status = status
+        raise exception
+      else
+        raise ArgumentError, "Status has to be between 300 and 399"
+      end
     end
 
     attr_reader :env
