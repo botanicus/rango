@@ -1,2 +1,0 @@
-# http://rvm.beginrescueend.com/rvmrc
-rvm 1.9.2-head%<%= @name %>
