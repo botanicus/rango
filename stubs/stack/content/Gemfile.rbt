@@ -59,6 +59,9 @@ gem "dm-aggregates"#, git: "git://github.com/datamapper/dm-more.git" # for count
 <% when "sequel" %>
 gem "sequel"#, git: "git://github.com/jeremyevans/sequel.git"
 
+<% when "mongomapper" %>
+gem "mongo_mapper"#, git: "git://github.com/jnunemaker/mongomapper.git"
+
 <% end %>
 # NOTE: do not use require_as: nil because if you do so, bundler will require the library anyway
 # Check last section of http://wiki.github.com/merb/merb/howto-using-the-bundler for more informations

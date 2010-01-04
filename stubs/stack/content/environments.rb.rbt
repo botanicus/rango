@@ -20,6 +20,8 @@ when "development", "production", "staging"
 when "test", "spec", "cucumber"
   DataMapper.setup(:default, "sqlite3::memory:")
 end
+<% when "mongomapper" %>
+MongoMapper.database = "todo-#{Rango.environment}"
 <% end %>
 
 if Rango.development?

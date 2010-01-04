@@ -63,3 +63,4 @@
 
 = Version 0.2.1
   * More inteligent environments handling, just use Rango.environment and it will detect the proper one from ENV["RACK_ENV"], RACK_ENV constant or it will defaults to development. Rango.environment=(environment) will set all these variables so everything will stay consistent.
+  * MongoMapper supported in stack generator (rango create stack blog --orm=mongomapper)

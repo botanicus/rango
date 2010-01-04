@@ -16,5 +16,14 @@ module <%= @name.camel_case %>
   end
 
   <% end %>
+  
+  <% when "mongomapper" %>
+  class <%= model.camel_case %>
+    include MongoMapper::Document
+    key :title, String
+    key :slug,  String, index: true
+  end
+
+  <% end %>
   <% end %>
 end

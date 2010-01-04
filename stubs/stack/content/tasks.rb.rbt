@@ -16,7 +16,9 @@ end
 
 #load "pupu/tasks/pupu.nake"
 load "rango/tasks/spec.nake"
+<% unless @orm.eql?("mongomapper") %>
 load "rango/orm/tasks/<%= @orm %>.nake"
+<% end %>
 
 <% if @git_deployer %>
 begin
