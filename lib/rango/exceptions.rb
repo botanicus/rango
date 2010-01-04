@@ -24,7 +24,15 @@ module Rango
         self.class.name.split("::").last.snake_case
       end
 
-      def status() self.class::STATUS end
+      # Time to time you really need to change the status. Take a look
+      # for example on Controller#redirect, I create a new instance of
+      # Redirection, which is base class for all the redirection related
+      # exceptions and then set the status from arguments.
+      attr_writter :status
+      def status
+        @status ||= self.class::STATUS
+      end
+
       def content_type
         @content_type || self.class::CONTENT_TYPE
       end
@@ -69,7 +77,7 @@ module Rango
       # this will work even in filters or in environments without controllers
       def initialize(location)
         super
-        @headers["Location"] = location
+        @headers["Location"] = URI.escape(location)
       end
     }
 
