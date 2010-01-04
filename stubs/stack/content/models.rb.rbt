@@ -15,8 +15,6 @@ module <%= @name.camel_case %>
     # TODO: implement <%= model %> model
   end
 
-  <% end %>
-  
   <% when "mongomapper" %>
   class <%= model.camel_case %>
     include MongoMapper::Document
