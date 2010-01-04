@@ -34,8 +34,9 @@ module Rango
         [self.status, headers, [self.message]]
       end
 
+      @@required_constants ||= [:STATUS, :CONTENT_TYPE]
       def self.const_missing(name)
-        if [:STATUS, :CONTENT_TYPE].include?(name)
+        if @@required_constants.include?(name)
           raise NameError, "Every descendant of HttpError class has to have defined constant #{name}."
         else
           super(name)
@@ -61,7 +62,17 @@ module Rango
     Error206 = PartialContent = Class.new(Rango::Exceptions::Successful) { STATUS ||= 206 }
 
     # redirection
-    Redirection = Class.new(Rango::Exceptions::HttpError)
+    Redirection = Class.new(Rango::Exceptions::HttpError) {
+      @@required_constants.push(:LOCATION)
+      # use raise MovedPermanently, "http://example.com"
+      # Yes, you can use just redirect method from the controller, but
+      # this will work even in filters or in environments without controllers
+      def initialize(location)
+        super
+        @headers["Location"] = location
+      end
+    }
+
     Error300 = MultipleChoices = Class.new(Rango::Exceptions::Redirection) { STATUS ||= 300 }
     Error301 = MovedPermanently = Class.new(Rango::Exceptions::Redirection) { STATUS ||= 301 }
     Error302 = MovedTemporarily = Class.new(Rango::Exceptions::Redirection) { STATUS ||= 302 }
