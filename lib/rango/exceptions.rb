@@ -24,13 +24,15 @@ module Rango
         self.class.name.split("::").last.snake_case
       end
 
-      # Time to time you really need to change the status. Take a look
-      # for example on Controller#redirect, I create a new instance of
-      # Redirection, which is base class for all the redirection related
-      # exceptions and then set the status from arguments.
-      attr_writter :status
       def status
-        @status ||= self.class::STATUS
+        self.class::STATUS
+      end
+
+      # If we have a redirection but we don't know the status yet,
+      # then rather than use raise Error301 we create a new instance
+      # of the Redirection class and set the status manualy
+      def status=(status)
+        self.class.const_set(:STATUS, status)
       end
 
       def content_type
