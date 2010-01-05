@@ -2,16 +2,23 @@
 
 # http://wiki.github.com/botanicus/rango/errors-handling
 
+require "uri"
+
 # superclass of all the controller exceptions
 module Rango
   module Exceptions
     class HttpError < StandardError
       CONTENT_TYPE ||= "text/html"
 
-      attr_accessor :content_type, :headers
-      def initialize(*args)
-        @headers = Hash.new
-        super(*args)
+      # If we have a redirection but we don't know the status yet,
+      # then rather than use raise Error301 we create a new instance
+      # of the Redirection class and set the status manualy
+      attr_accessor :headers, :status
+
+      def initialize(message = self.class.name, status = nil)
+        self.status = status || (self.class::STATUS if self.class.const_defined?(:STATUS))
+        self.headers = {"Content-Type" => self.class::CONTENT_TYPE}
+        super(message)
       end
 
       def inspect
@@ -24,36 +31,8 @@ module Rango
         self.class.name.split("::").last.snake_case
       end
 
-      def status
-        self.class::STATUS
-      end
-
-      # If we have a redirection but we don't know the status yet,
-      # then rather than use raise Error301 we create a new instance
-      # of the Redirection class and set the status manualy
-      def status=(status)
-        self.class.const_set(:STATUS, status)
-      end
-
-      def content_type
-        @content_type || self.class::CONTENT_TYPE
-      end
-
       def to_response
-        headers = {"Content-Type" => self.content_type}.merge(self.headers)
-        [self.status, headers, [self.message]]
-      end
-
-      def self.required_constants
-        [:STATUS, :CONTENT_TYPE]
-      end
-
-      def self.const_missing(name)
-        if required_constants.include?(name)
-          raise NameError, "Every descendant of HttpError class has to have defined constant #{name}."
-        else
-          super(name)
-        end
+        [self.status, self.headers, [self.message]]
       end
     end
 
@@ -76,16 +55,18 @@ module Rango
 
     # redirection
     class Redirection < Rango::Exceptions::HttpError
-      def self.required_constants
-        super.push(:LOCATION)
+      attr_writer :location
+      def location
+        @location || message || (self.class::LOCATION if self.class.const_defined?(:LOCATION))
       end
 
       # use raise MovedPermanently, "http://example.com"
       # Yes, you can use just redirect method from the controller, but
       # this will work even in filters or in environments without controllers
-      def initialize(location)
-        super
-        @headers["Location"] = URI.escape(location)
+      def initialize(location, status = nil)
+        super(location, status)
+        location = URI.escape(location)
+        headers["Location"] = location
       end
     end
 
