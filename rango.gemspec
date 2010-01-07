@@ -1,13 +1,9 @@
 #!/usr/bin/env gem build
 # encoding: utf-8
 
-# NOTE: we can't use require_relative because when we run gem build, it use eval for executing this file
-$:.unshift(File.join(File.dirname(__FILE__), "lib"))
-require "rango"
-
 Gem::Specification.new do |s|
   s.name = "rango"
-  s.version = Rango::VERSION
+  s.version = "0.2.1"
   s.authors = ["Jakub Šťastný aka Botanicus"]
   s.homepage = "http://github.com/botanicus/rango"
   s.summary = "Rango is ultralightweight, ultracustomizable, ultracool web framework deeply inspired by Django."
@@ -17,7 +13,7 @@ Gem::Specification.new do |s|
   s.has_rdoc = true
 
   # files
-  s.files = Dir.glob("{bin,lib,spec,stubs}/**/*") + %w[CHANGELOG CONTRIBUTORS LICENSE Rakefile README.textile simple-templater.scope] + Dir.glob("stubs/**/.*") # so .gitignore, .rvmrc, .rvmrc.rbt etc will be in gem
+  s.files = Dir.glob("{bin,lib,spec,stubs}/**/*") + %w[CHANGELOG CONTRIBUTORS LICENSE tasks.rb README.textile simple-templater.scope] + Dir.glob("stubs/**/.*") # so .gitignore, .rvmrc, .rvmrc.rbt etc will be in gem
   s.executables = ["rango"]
   s.default_executable = "rango"
   s.require_paths = ["lib"]
