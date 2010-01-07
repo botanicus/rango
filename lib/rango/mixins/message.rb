@@ -1,17 +1,28 @@
 # encoding: utf-8
 
+require "rango/mixins/chainable"
+
 module Rango
   module MessageMixin
     # The rails-style flash messages
     # @since 0.0.2
     # NOTE: it's important to include this mixin after ImplicitRendering mixin
     def self.included(controller)
+      unless controller.method_defined?(:request)
+        raise "Rango::MessageMixin requires method request to be defined"
+      end
       if controller.method_defined?(:context)
+        Rango.logger.debug("Extending context by message")
         controller.class_eval do
-          def context
-            @context ||= super.merge!(message: self.message)
+          extend Chainable
+          chainable do
+            def context
+              super.merge!(message: self.message)
+            end
           end
         end
+      else
+        Rango.logger.warn("Context method isn't defined")
       end
     end
 
