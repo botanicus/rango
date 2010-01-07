@@ -41,8 +41,8 @@ module Rango
       view.parameters.each do |type, name|
         args.push(self.params[name]) if type.eql?(:req) || (type.eql?(:opt) && !self.params[name].nil?) # this is a bit complex, but we have to do because of rewriting optional args by nil value if we use just map with params[name]
       end
-      puts "Rendering #{self}##{action} with #{args.map(&:inspect).join(", ")}"
-      self.send(action, *args)
+      puts "Rendering #{self.class}##{action} with #{args.map(&:inspect).join(", ")}"
+      self.response.body = self.send(action, *args)
     end
   end
 end
