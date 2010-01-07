@@ -1,0 +1,43 @@
+# encoding: utf-8
+
+# @since 0.0.2.1
+# ./tasks.rb db:migrate test
+Task.new("db:migrate") do |task|
+  task.description = "Perform migration using migrations in schema/migrations"
+  task.define do |environment = "development", options|
+    Task[:environment].call(environment)
+    require "sequel/extensions/migration"
+    Sequel::Migrator.apply(Sequel::Model.db, "db/migrations", options[:version])
+  end
+end
+
+# @since 0.0.2.1
+# ./tasks.rb db:drop:all test
+Task.new("db:drop:all") do |task|
+  task.description = "Drop all the tables"
+  task.define do |environment = "development", options|
+    Task[:environment].call(environment)
+    Sequel::Model.db.drop_table *Sequel::Model.db.tables
+  end
+end
+
+# @since 0.0.2.1
+# ./tasks.rb db:reset test
+Task.new("db:reset") do |task|
+  task.description = "Drop all tables and perform migrations"
+  task.define do |environment = "development", options|
+    Task[:environment].call(environment)
+    Task["db:drop:all"].call
+    Task["db:migrate"]
+  end
+end
+
+# @since 0.0.2.1
+# ./tasks.rb db:truncate test
+Task.new("db:truncate") do |task|
+  task.description = "Truncate all tables in database"
+  task.define do |environment = "development", options|
+    Task[:environment].call(environment)
+    Sequel::Model.db << "TRUNCATE #{db.tables.join(', ')} CASCADE;"
+  end
+end

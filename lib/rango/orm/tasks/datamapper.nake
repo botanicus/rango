@@ -1,0 +1,81 @@
+# encoding: utf-8
+
+# @since 0.0.2.1
+# ./tasks.rb db:automigrate test
+Task.new("db:automigrate") do |task|
+  task.description = "Automigrate the database. It will destroy all the data!"
+  task.define do |environment = "development", options|
+    Task[:environment].call(environment)
+    Rango.logger.info("[#{Rango.environment}] Migrating databases ...")
+    result = DataMapper.auto_migrate!
+    Rango.logger.debug("Result: #{result.inspect}")
+  end
+end
+
+# @since 0.0.2.1
+# ./tasks.rb db:autoupgrade test
+Task.new("db:autoupgrade") do |task|
+  task.description = "Autoupgrade the database structure. Data should stay untouched."
+  task.define do |environment = "development", options|
+    Task[:environment].call(environment)
+    Rango.logger.info("[#{Rango.environment}] Upgrading databases ...")
+    result = DataMapper.auto_upgrade!
+    Rango.logger.debug("Result: #{result.inspect}")
+  end
+end
+
+# @since 0.0.2.1
+# ./tasks.rb db:report test
+Task.new("db:report") do |task|
+  task.description = "Report count of objects in database."
+  task.define do |environment = "development", options|
+    Task[:environment].call(environment)
+    ObjectSpace.classes.each do |klass|
+      if klass.included(DataMapper::Resource)
+        puts "#{model_class}: #{model_class.count}"
+      end
+    end
+  end
+end
+
+Task.new("db:migrate") do |task|
+  task.hidden = true
+  task.define do |*args, options|
+    abort "Use #{$0} db:migrate:up version or #{$0} db:migrate:down version"
+  end
+end
+
+Task.new("db:migrate:load") do |task|
+  task.hidden = true
+  task.define do |environment, options|
+    Task[:environment].call(environment)
+    begin
+      require "dm-migrations/migration_runner"
+    rescue LoadError
+      abort "You have to install dm-migrations gem for this!"
+    end
+    Dir["db/migrations/*.rb"].each do |migration|
+      load migration
+    end
+  end
+end
+
+# @since 0.0.2.1
+# ./tasks.rb db:migrate:up test --version=10
+Task.new("db:migrate:up") do |task|
+  task.description = "Migrate up using migrations."
+  task.define do |environment = "development", options|
+    Task["db:migrate:load"].call(environment)
+    migrate_up!(options[:version])
+  end
+end
+
+# @since 0.0.2.1
+# ./tasks.rb db:migrate:down test --version=10
+Task.new("db:migrate:down") do |task|
+  task.description = "Migrate down using migrations."
+  task.define do |environment = "development", options|
+    Task["db:migrate:load"].call(environment)
+    migrate_down!(options[:version])
+  end
+end
