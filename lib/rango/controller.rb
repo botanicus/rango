@@ -70,7 +70,7 @@ module Rango
     # @version 0.2.1
     # @return [String] Escaped URL (which is RFC recommendation)
     def redirect(location, status = 301)
-      if (300.399).include?(status)
+      if (300..399).include?(status)
         exception = Redirection.new(location)
         exception.status = status
         raise exception
