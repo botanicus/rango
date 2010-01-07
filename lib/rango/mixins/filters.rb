@@ -36,8 +36,8 @@ module Rango
       # If you are using your own inherited hook, you have
       # to use super here, otherwise your filters won't work!
       def inherited(subclass)
-        subclass.before_filters = self.before_filters.dup
-        subclass.after_filters  = self.after_filters.dup
+        subclass.before_filters.replace(self.before_filters)
+        subclass.after_filters.replace(self.after_filters)
       end
 
       # @since 0.2
