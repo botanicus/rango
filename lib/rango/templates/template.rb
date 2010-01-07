@@ -17,7 +17,7 @@ module Rango
 
     # template -> supertemplate is the same relationship as class -> superclass
     # @since 0.0.2
-    attr_accessor :path, :scope, :supertemplate
+    attr_accessor :path, :scope, :supertemplate, :context
 
     # @since 0.0.2
     attr_writer :blocks
@@ -29,7 +29,7 @@ module Rango
     def initialize(path, scope = Object.new)
       self.path  = path#[scope.class.template_prefix.chomp("/"), template].join("/")
       self.scope = scope.extend(TemplateHelpers)
-      self.scope._template = self
+      self.scope.template = self
     end
 
     # @since 0.0.2
@@ -58,9 +58,10 @@ module Rango
     # @since 0.0.2
     def render(context = Hash.new)
       raise Exceptions::TemplateNotFound.new("Template #{self.path} wasn't found in these template_paths: #{self.class.template_paths.inspect}") if self.fullpath.nil?
+      Rango.logger.info("Rendering template #{self.path} with context keys #{context.keys.inspect}")
+      self.context = context
       value = self.template.render(self.scope, context)
-      Rango.logger.info("Rendering template #{self.path}")
-      # Rango.logger.inspect(self.blocks)
+      Rango.logger.debug("Available blocks: #{self.blocks.keys.inspect}")
       if self.supertemplate
         Rango.logger.debug("Extends call: #{self.supertemplate}")
         supertemplate = self.class.new(self.supertemplate, self.scope)
