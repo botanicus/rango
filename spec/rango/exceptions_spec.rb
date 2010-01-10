@@ -1,19 +1,20 @@
 # encoding: utf-8
 
 require_relative "../spec_helper"
+require "rango/exceptions"
 
-describe Rango::HttpError do
+describe Rango::Exceptions do
   before(:each) do
-    @error = Rango::NotFound.new("Post with given ID doesn't exist")
+    @error = Rango::Exceptions::NotFound.new("Post with given ID doesn't exist")
   end
 
   describe "constants" do
     it "should has CONTENT_TYPE" do
-      Rango::HttpError.constants.should include(:CONTENT_TYPE)
+      Rango::Exceptions::HttpError.constants.should include(:CONTENT_TYPE)
     end
-    
+
     it "should xxxxxxxxx" do
-      @class  = Class.new(Rango::HttpError)
+      @class  = Class.new(Rango::Exceptions::HttpError)
       -> { @class::STATUS }.should raise_error(NameError, /has to have defined constant STATUS/)
     end
   end
@@ -51,8 +52,8 @@ describe Rango::HttpError do
       @error.to_snakecase.should eql("not_found")
     end
   end
-  
-  describe "#to_reponse" do
+
+  describe "#to_response" do
     before(:each) do
       @status, @headers, @body = @error.to_response
     end
