@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 <% if defined?(JRUBY_VERSION) %>
 <%= shebang rubypath, ["--1.9", "--disable-gems"] %>
 <% else %>
@@ -20,7 +22,8 @@ rescue LoadError => exception
   abort "LoadError during loading gems/environment: #{exception.message}\nRun gem bundle to fix it."
 end
 
-require "rango/stacks/controller"
+require "rango"
+require "rango/environments"
 
 unless %w[test development stage production].include?(Rango.environment)
   abort "Unknown environment: #{Rango.environment}"
@@ -33,7 +36,7 @@ Bundler.require_env(Rango.environment)
 Rango.boot
 
 # environment-specific settings
-require_relative "environments"
+require_relative "environments.rb"
 
 # register applications
 require_relative "views.rb"
