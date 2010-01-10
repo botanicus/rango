@@ -14,7 +14,7 @@ module Rango
       # then rather than use raise Error301 we create a new instance
       # of the Redirection class and set the status manualy
       attr_accessor :headers, :status
-      
+
       def initialize(message = self.class.name, status = nil)
         self.status = status || (self.class::STATUS if self.class.const_defined?(:STATUS))
         self.headers = {"Content-Type" => self.class::CONTENT_TYPE}
