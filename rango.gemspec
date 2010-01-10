@@ -41,8 +41,7 @@ Gem::Specification.new do |s|
   rescue LoadError
     warn "You have to have changelog gem installed for post install message"
   else
-    changelog = CHANGELOG.new(File.join(File.dirname(__FILE__), "CHANGELOG"))
-    s.post_install_message = "=== Changes in the last Rango ===\n  - #{changelog.last_version_changes.join("\n-  ")}"
+    s.post_install_message = CHANGELOG.new.version_changes
   end
 
   # RubyForge
