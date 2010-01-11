@@ -8,12 +8,20 @@ module Rango
     def tag(tag, content, attrs = Hash.new, &block)
       attrs, content = content, String.new if attrs.empty? && content.is_a?(Hash)
       block.call if block
-      %[<#{tag} #{attrs.to_html_attrs}>#{content}</#{tag}>]
+      %[<#{tag}#{attrs_to_html(attrs)}>#{content}</#{tag}>]
     end
 
     # @since 0.0.2
     def single_tag(tag, attrs = Hash.new)
-      %[<#{tag} #{attrs.to_html_attrs} />]
+      %[<#{tag}#{attrs_to_html(attrs)} />]
+    end
+
+    private
+    def attrs_to_html(attrs)
+      attrs.inject(String.new) do |result, pair|
+        key, value = pair
+        result += " #{key}='#{value}'"
+      end
     end
   end
 end
