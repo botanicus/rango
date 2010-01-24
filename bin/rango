@@ -31,8 +31,8 @@ HELP
 end
 
 begin
-  ARGV.shift || usage # create
-  generator_name = ARGV.shift
+  ARGV.shift.eql?("create") || abort(usage)
+  generator_name = ARGV.shift || abort(usage)
   templater = SimpleTemplater.new(:rango)
   # This enables you to create custom generators for Rango
   load File.join(File.dirname(base), "..", "simple-templater.scope") # neccesary if we run rango locally and not from RubyGems
