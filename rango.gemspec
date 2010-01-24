@@ -1,6 +1,8 @@
 #!/usr/bin/env gem build
 # encoding: utf-8
 
+require "base64"
+
 Gem::Specification.new do |s|
   s.name = "rango"
   s.version = "0.2.1"
@@ -9,12 +11,13 @@ Gem::Specification.new do |s|
   s.summary = "Rango is ultralightweight, ultracustomizable, ultracool web framework deeply inspired by Django."
   s.description = "" # TODO: long description
   s.cert_chain = nil
-  s.email = ["knava.bestvinensis", "gmail.com"].join("@")
+  s.email = Base64.decode64("c3Rhc3RueUAxMDFpZGVhcy5jeg==\n")
   s.has_rdoc = true
 
   # files
-  s.files = Dir.glob("{bin,lib,spec,stubs}/**/*") + %w[CHANGELOG CONTRIBUTORS LICENSE tasks.rb README.textile simple-templater.scope] + Dir.glob("stubs/**/.*") # so .gitignore, .rvmrc, .rvmrc.rbt etc will be in gem
-  s.executables = ["rango"]
+  s.files = `git ls-files`.split("\n")
+
+  Dir["bin/*"].map(&File.method(:basename))
   s.default_executable = "rango"
   s.require_paths = ["lib"]
 
