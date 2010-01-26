@@ -8,17 +8,60 @@ require "uri"
 module Rango
   module Exceptions
     class HttpError < StandardError
-      CONTENT_TYPE ||= "text/html"
+      def self.name=(name)
+        @name = name
+      end
+
+      def self.name
+        @name
+      end
+
+      def name
+        @name ||= self.class.name
+      end
+
+      def self.message=(message)
+        @message = message
+      end
+
+      def self.message
+        @message
+      end
+
+      attr_writer :message
+      def message
+        @message ||= self.class.message
+      end
+
+      def self.status=(status)
+        @status = status
+      end
+
+      def self.status
+        @status
+      end
 
       # If we have a redirection but we don't know the status yet,
       # then rather than use raise Error301 we create a new instance
       # of the Redirection class and set the status manualy
-      attr_accessor :headers, :status
+      attr_writer :status
 
+      def status
+        @status ||= self.class.status
+      end
+
+      def self.headers
+        @headers ||= {"Content-Type" => "text/html"}
+      end
+
+      def headers
+        @headers ||= self.class.headers.dup
+      end
+
+      # raise Redirection.new("/", 301)
       def initialize(message = self.class.name, status = nil)
-        self.status = status || (self.class::STATUS if self.class.const_defined?(:STATUS))
-        self.headers = {"Content-Type" => self.class::CONTENT_TYPE}
-        super(message)
+        self.status = status unless status.nil?
+        self.message = message
       end
 
       def inspect
@@ -32,37 +75,36 @@ module Rango
       end
 
       def to_response
-        [self.status, self.headers, [self.message]]
+        [self.status, self.headers, [self.message].compact]
       end
     end
 
     # http://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 
     # informational
-    Informational = Class.new(Rango::Exceptions::HttpError)
-    Error100 = Continue = Class.new(Rango::Exceptions::Informational) { STATUS ||= 100 }
-    Error101 = SwitchingProtocols = Class.new(Rango::Exceptions::Informational) { STATUS ||= 101 }
+    Informational = Class.new(HttpError)
+    Error100 = Continue = Class.new(Informational)                 { self.status ||= 100; self.name ||= "Continue" }
+    Error101 = SwitchingProtocols = Class.new(Informational)       { self.status ||= 101; self.name ||= "Switching Protocols" }
 
     # successful
-    Successful = Class.new(Rango::Exceptions::HttpError)
-    Error200 = OK = Class.new(Rango::Exceptions::Successful) { STATUS ||= 200 }
-    Error201 = Created = Class.new(Rango::Exceptions::Successful) { STATUS ||= 201 }
-    Error202 = Accepted = Class.new(Rango::Exceptions::Successful) { STATUS ||= 202 }
-    Error203 = NonAuthoritativeInformation = Class.new(Rango::Exceptions::Successful) { STATUS ||= 203 }
-    Error204 = NoContent = Class.new(Rango::Exceptions::Successful) { STATUS ||= 204 }
-    Error205 = ResetContent = Class.new(Rango::Exceptions::Successful) { STATUS ||= 205 }
-    Error206 = PartialContent = Class.new(Rango::Exceptions::Successful) { STATUS ||= 206 }
+    Successful = Class.new(HttpError)
+    Error200 = OK = Class.new(Successful)                          { self.status ||= 200; self.name ||= "OK" }
+    Error201 = Created = Class.new(Successful)                     { self.status ||= 201; self.name ||= "Created" }
+    Error202 = Accepted = Class.new(Successful)                    { self.status ||= 202; self.name ||= "Accepted" }
+    Error203 = NonAuthoritativeInformation = Class.new(Successful) { self.status ||= 203; self.name ||= "Non Authoritative Information" }
+    Error204 = NoContent = Class.new(Successful)                   { self.status ||= 204; self.name ||= "No Content" }
+    Error205 = ResetContent = Class.new(Successful)                { self.status ||= 205; self.name ||= "Reset Content" }
+    Error206 = PartialContent = Class.new(Successful)              { self.status ||= 206; self.name ||= "Partial Content" }
 
     # redirection
-    class Redirection < Rango::Exceptions::HttpError
-      attr_writer :location
-      def location
-        @location || message || (self.class::LOCATION if self.class.const_defined?(:LOCATION))
-      end
+    class Redirection < HttpError
+      self.name ||= "Redirection"
+      alias_method :location, :message
 
       # use raise MovedPermanently, "http://example.com"
       # Yes, you can use just redirect method from the controller, but
       # this will work even in filters or in environments without controllers
+      # raise Redirection.new("/", 301)
       def initialize(location, status = nil)
         super(location, status)
         location = URI.escape(location)
@@ -70,44 +112,44 @@ module Rango
       end
     end
 
-    Error300 = MultipleChoices = Class.new(Rango::Exceptions::Redirection) { STATUS ||= 300 }
-    Error301 = MovedPermanently = Class.new(Rango::Exceptions::Redirection) { STATUS ||= 301 }
-    Error302 = MovedTemporarily = Class.new(Rango::Exceptions::Redirection) { STATUS ||= 302 }
-    Error303 = SeeOther = Class.new(Rango::Exceptions::Redirection) { STATUS ||= 303 }
-    Error304 = NotModified = Class.new(Rango::Exceptions::Redirection) { STATUS ||= 304 }
-    Error305 = UseProxy = Class.new(Rango::Exceptions::Redirection) { STATUS ||= 305 }
-    Error307 = TemporaryRedirect = Class.new(Rango::Exceptions::Redirection) { STATUS ||= 307 }
+    Error300 = MultipleChoices = Class.new(Redirection)             { self.status ||= 300; self.name ||= "Multiple Choices" }
+    Error301 = MovedPermanently = Class.new(Redirection)            { self.status ||= 301; self.name ||= "Moved Permanently" }
+    Error302 = MovedTemporarily = Class.new(Redirection)            { self.status ||= 302; self.name ||= "Moved Temporarily" }
+    Error303 = SeeOther = Class.new(Redirection)                    { self.status ||= 303; self.name ||= "See Other" }
+    Error304 = NotModified = Class.new(Redirection)                 { self.status ||= 304; self.name ||= "Not Modified" }
+    Error305 = UseProxy = Class.new(Redirection)                    { self.status ||= 305; self.name ||= "Use Proxy" }
+    Error307 = TemporaryRedirect = Class.new(Redirection)           { self.status ||= 307; self.name ||= "Temporary Redirect" }
 
     # client error
-    ClientError = Class.new(Rango::Exceptions::HttpError)
-    Error400 = BadRequest = Class.new(Rango::Exceptions::ClientError) { STATUS ||= 400 }
-    MultiPartParseError = Class.new(Rango::Exceptions::BadRequest)
-    Error401 = Unauthorized = Class.new(Rango::Exceptions::ClientError) { STATUS ||= 401 }
-    Error402 = PaymentRequired = Class.new(Rango::Exceptions::ClientError) { STATUS ||= 402 }
-    Error403 = Forbidden = Class.new(Rango::Exceptions::ClientError) { STATUS ||= 403 }
-    Error404 = NotFound = Class.new(Rango::Exceptions::ClientError) { STATUS ||= 404 }
-    ActionNotFound = Class.new(Rango::Exceptions::NotFound)
-    Error405 = MethodNotAllowed = Class.new(Rango::Exceptions::ClientError) { STATUS ||= 405 }
-    Error406 = NotAcceptable = Class.new(Rango::Exceptions::ClientError) { STATUS ||= 406 }
-    Error407 = ProxyAuthenticationRequired = Class.new(Rango::Exceptions::ClientError) { STATUS ||= 407 }
-    Error408 = RequestTimeout = Class.new(Rango::Exceptions::ClientError) { STATUS ||= 408 }
-    Error409 = Conflict = Class.new(Rango::Exceptions::ClientError) { STATUS ||= 409 }
-    Error410 = Gone = Class.new(Rango::Exceptions::ClientError) { STATUS ||= 410 }
-    Error411 = LengthRequired = Class.new(Rango::Exceptions::ClientError) { STATUS ||= 411 }
-    Error412 = PreconditionFailed = Class.new(Rango::Exceptions::ClientError) { STATUS ||= 412 }
-    Error413 = RequestEntityTooLarge = Class.new(Rango::Exceptions::ClientError) { STATUS ||= 413 }
-    Error414 = RequestURITooLarge = Class.new(Rango::Exceptions::ClientError) { STATUS ||= 414 }
-    Error415 = UnsupportedMediaType = Class.new(Rango::Exceptions::ClientError) { STATUS ||= 415 }
-    Error416 = RequestRangeNotSatisfiable = Class.new(Rango::Exceptions::ClientError) { STATUS ||= 416 }
-    Error417 = ExpectationFailed = Class.new(Rango::Exceptions::ClientError) { STATUS ||= 417 }
+    ClientError = Class.new(HttpError)
+    Error400 = BadRequest = Class.new(ClientError)                  { self.status ||= 400; self.name ||= "Bad Request" }
+    MultiPartParseError = Class.new(BadRequest)
+    Error401 = Unauthorized = Class.new(ClientError)                { self.status ||= 401; self.name ||= "Unauthorized" }
+    Error402 = PaymentRequired = Class.new(ClientError)             { self.status ||= 402; self.name ||= "Payment Required" }
+    Error403 = Forbidden = Class.new(ClientError)                   { self.status ||= 403; self.name ||= "Forbidden" }
+    Error404 = NotFound = Class.new(ClientError)                    { self.status ||= 404; self.name ||= "Not Found" }
+    ActionNotFound = Class.new(NotFound)
+    Error405 = MethodNotAllowed = Class.new(ClientError)            { self.status ||= 405; self.name ||= "Method Not Allowed" }
+    Error406 = NotAcceptable = Class.new(ClientError)               { self.status ||= 406; self.name ||= "Not Acceptable" }
+    Error407 = ProxyAuthenticationRequired = Class.new(ClientError) { self.status ||= 407; self.name ||= "Proxy Authentication Required" }
+    Error408 = RequestTimeout = Class.new(ClientError)              { self.status ||= 408; self.name ||= "Request Timeout" }
+    Error409 = Conflict = Class.new(ClientError)                    { self.status ||= 409; self.name ||= "Conflict" }
+    Error410 = Gone = Class.new(ClientError)                        { self.status ||= 410; self.name ||= "Gone" }
+    Error411 = LengthRequired = Class.new(ClientError)              { self.status ||= 411; self.name ||= "Length Required" }
+    Error412 = PreconditionFailed = Class.new(ClientError)          { self.status ||= 412; self.name ||= "Precondition Failed" }
+    Error413 = RequestEntityTooLarge = Class.new(ClientError)       { self.status ||= 413; self.name ||= "Request Entity Too Large" }
+    Error414 = RequestURITooLarge = Class.new(ClientError)          { self.status ||= 414; self.name ||= "Request URI Too Large" }
+    Error415 = UnsupportedMediaType = Class.new(ClientError)        { self.status ||= 415; self.name ||= "Unsupported Media Type" }
+    Error416 = RequestRangeNotSatisfiable = Class.new(ClientError)  { self.status ||= 416; self.name ||= "Request Range Not Satisfiable" }
+    Error417 = ExpectationFailed = Class.new(ClientError)           { self.status ||= 417; self.name ||= "Expectation Failed" }
 
     # server error
-    ServerError = Class.new(Rango::Exceptions::HttpError)
-    Error500 = InternalServerError = Class.new(Rango::Exceptions::ServerError) { STATUS ||= 500 }
-    Error501 = NotImplemented = Class.new(Rango::Exceptions::ServerError) { STATUS ||= 501 }
-    Error502 = BadGateway = Class.new(Rango::Exceptions::ServerError) { STATUS ||= 502 }
-    Error503 = ServiceUnavailable = Class.new(Rango::Exceptions::ServerError) { STATUS ||= 503 }
-    Error504 = GatewayTimeout = Class.new(Rango::Exceptions::ServerError) { STATUS ||= 504 }
-    Error505 = HTTPVersionNotSupported = Class.new(Rango::Exceptions::ServerError) { STATUS ||= 505 }
+    ServerError = Class.new(HttpError)
+    Error500 = InternalServerError = Class.new(ServerError)         { self.status ||= 500; self.name ||= "Internal Server Error" }
+    Error501 = NotImplemented = Class.new(ServerError)              { self.status ||= 501; self.name ||= "Not Implemented" }
+    Error502 = BadGateway = Class.new(ServerError)                  { self.status ||= 502; self.name ||= "Bad Gateway" }
+    Error503 = ServiceUnavailable = Class.new(ServerError)          { self.status ||= 503; self.name ||= "Service Unavailable" }
+    Error504 = GatewayTimeout = Class.new(ServerError)              { self.status ||= 504; self.name ||= "Gateway Timeout" }
+    Error505 = HTTPVersionNotSupported = Class.new(ServerError)     { self.status ||= 505; self.name ||= "HTTP Version Not Supported" }
   end
 end
