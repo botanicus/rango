@@ -3,7 +3,8 @@
 require "usher"
 
 Rango::Router.implement(:usher) do |env|
-  env["rango.router.params"] = env["usher.params"]
+  # when usher routes to the default app, then usher.params is nil
+  env["rango.router.params"] = env["usher.params"] || Hash.new
 end
 
 module Rango
