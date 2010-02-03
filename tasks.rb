@@ -18,7 +18,7 @@ begin
   Nake::Task["hooks:whitespace:install"].tap do |task|
     task.config[:path] = "script"
     task.config[:encoding] = "utf-8"
-    task.config[:whitelist] = '(bin/[^/]+|Gemfile|.+\.(rb|rake|nake|thor|task|gemspec|rbt))$'
+    task.config[:whitelist] = '(bin/[^/]+|Gemfile|.+\.(rb|rake|nake|thor|task|gemspec))$'
   end
 rescue LoadError
   warn "If you want to contribute to Rango, please install code-cleaner and then run ./tasks.rb hooks:whitespace:install to get Git pre-commit hook for removing trailing whitespace."
