@@ -25,7 +25,10 @@ module Rango
       end
 
       def self.message
-        @message
+        @message ||= begin
+          self.superclass.message
+        rescue NoMethodError
+        end
       end
 
       attr_writer :message
@@ -38,7 +41,10 @@ module Rango
       end
 
       def self.status
-        @status
+        @status ||= begin
+          self.superclass.status
+        rescue NoMethodError
+        end
       end
 
       # If we have a redirection but we don't know the status yet,
