@@ -3,6 +3,60 @@
 require "rango/mixins/render"
 
 module Rango
+  module FormatMixin
+    def self.extended
+    end
+
+    def inherited
+    end
+
+    attr_writer :format
+    def formats
+      @formats ||= Hash.new { |hash, format| hash[:html] if hash.has_key?(:html) }
+    end
+
+    # format(:json) do |object|
+    #   object.to_json
+    # end
+    def format(format, &block)
+      self.formats[:format] = block
+    end
+  end
+  module StackRendering
+    include Rango::RenderMixin
+    def template_dirname
+      self.class.name.gsub("::", "/").camel_case
+    end
+
+    def template_basename
+      request["router.action"]
+    end
+
+    #def template_basename
+    #  case request["router.action"]
+    #  when "show"
+    #    self.class.name.singularize
+    #  when "index"
+    #  else
+    #  end
+    #end
+
+    def template_path
+      File.join(template_dirname, template_basename)
+    end
+
+    def render(context = Hash.new)
+      super(self.template_path, self.scope, self.context.merge!(context))
+    end
+
+    def display(object)
+      render
+    rescue TemplateNotFound
+      callback = self.formats[request.action]
+      callback.call
+    end
+  end
+
   module ExplicitRendering
     include Rango::RenderMixin
     def render(template, context = Hash.new)
