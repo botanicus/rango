@@ -1,65 +1,36 @@
-<%= shebang "./init.rb", %w[-p 4000 -s thin] %>
+<%= shebang "./bin/shotgun", %w[-p 4000 -s thin] %>
 # encoding: utf-8
 
-require "rango/rack/middlewares/basic"
+# Shebang:
+#   - bin/shotgun
+#   - bin/rackup
 
-# Load init.rb even if config.ru is just loaded 
-# This comes handy in Passenger etc, but it's still
-# useful to have config.ru as an executable, because
-# it's easy to have default arguments for bin/rackup
-require_relative "init.rb" unless $0.eql?(__FILE__)
-<% if @warden %>
+# Try to keep this file as small as possible.
+# You should put here rack-specific stuff which means mainly
+# middleware initialization (Rack::Builder#use) and setting
+# rack endpoint (Rack::Builder#run). Middleware setup should be placed into rackup.rb
 
-# warden authentication
-# wiki.github.com/hassox/warden/setup
-require "warden"
+# In fact
+#   - It's a stupid idea to evaluate the whole file in context of a Rack::Builder instance
+#   - You can't use __END__ in config.ru because of the eval
+#   - File vs. Rack::File
 
-use Warden::Manager do |manager|
-  manager.default_strategies :password
-  # Rango::Controller has class method call which will call Rango::Controller.reroute(action),
-  # for example Login.route_to(:login) which will set login action of Login controller as default
-  # Internally it just rewrites env["rango.controller"] and env["rango.action"] to "Login", resp. "login"
-  manager.failure_app = Login
+unless __FILE__.eql?("(eval)")
+  require "init.rb"
+  require "rackup.rb" 
+else
+  puts "~ Running config.ru #{self.inspect}"
+  use Rango::Middlewares::Basic
+
+  # <% if @warden %>
+  # use Warden::Manager do |manager|
+  #   manager.default_strategies :password
+  #   # Rango::Controller has class method call which will call Rango::Controller.reroute(action),
+  #   # for example Login.route_to(:login) which will set login action of Login controller as default
+  #   # Internally it just rewrites env["rango.controller"] and env["rango.action"] to "Login", resp. "login"
+  #   manager.failure_app = Login
+  # end
+  # 
+  # <% end %>
+  run lambda { |env| [200, Hash.new, ["hey"]] }
 end
-
-# See also wiki.github.com/hassox/warden/callbacks
-Warden::Manager.serialize_into_session { |user| user.id }
-Warden::Manager.serialize_from_session { |key| User.get(id) }
-
-# Go to login
-Warden::Manager.before_failure do |env, opts|
-  Login.route_to env, "login"
-end
-
-Warden::Strategies.add(:password) do
-  def authenticate!
-    User.new # TODO
-  end
-end
-<% end %>
-
-# http://wiki.github.com/botanicus/rango/routers
-Rango::Router.use(:<%= @router.to_sym %>)
-
-<% case @router %>
-<% when "usher" %>
-# http://github.com/joshbuddy/usher
-Rango::Router.app = Usher::Interface.for(:rack) do
-  get("/").to(<%= @name.camel_case %>::ShowCase.dispatcher(:index)).name(:showcase)
-end
-<% when "rack-mount" %>
-# http://github.com/josh/rack-mount
-Rango::Router.app = Rack::Mount::RouteSet.new do |set|
-  # add_route takes a rack application and conditions to match with
-  # conditions may be strings or regexps
-  # See Rack::Mount::RouteSet#add_route for more options.
-  set.add_route <%= @name.camel_case %>::ShowCase.dispatcher(:index), method: "get", path: "/"
-end
-<% when "rack-router" %>
-# TODO: routes
-<% when "urlmap" %>
-# TODO: routes
-<% end %>
-
-use Rango::Middlewares::Basic
-run Rango::Router.app
