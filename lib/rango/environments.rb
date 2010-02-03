@@ -8,7 +8,7 @@ module Rango
     @@environments ||= {
       development: ["development"],
       testing:     ["test", "spec", "cucumber"],
-      production:  ["stage", "production"]
+      production:  ["stagging", "production"]
     }
   end
 

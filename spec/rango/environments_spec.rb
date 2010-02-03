@@ -23,7 +23,7 @@ describe "Rango environments" do
   end
 
   describe ".production?" do
-    %w{production stage}.each do |environment|
+    %w{production stagging}.each do |environment|
       it "should be true if Rango.environment is '#{environment}'" do
         Rango.environment = environment
         Rango.should be_production
