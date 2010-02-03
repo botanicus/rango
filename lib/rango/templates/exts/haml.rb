@@ -6,7 +6,7 @@
 # Attributes of each tag will reverse merged with his default attributes, so you
 # don't have to write over and over that script tag has attribute `type` with value
 # `text/javascript`. For example, `%script` compiles to `<script type="text/javascript"></script>`.
-# Defaults to `{:script => {:type => "text/javascript"}, :form => {:method => "POST"}}`
+# Defaults to `{script: {type: "text/javascript"}, form: {method: "POST"}}`
 
 module Haml
   class Engine
