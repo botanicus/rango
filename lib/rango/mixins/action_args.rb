@@ -10,11 +10,9 @@
 # => [[:req, :name], [:opt, :params], [:rest, :args]]
 
 if RUBY_VERSION < "1.9.2"
-  begin
-    require "methopara"
-  rescue LoadError
-    raise LoadError, "Method#parameters is part of Ruby 1.9.2 and higher. If you want to use this feature with Ruby 1.9.1, you have to install methopara gem (http://github.com/genki/methopara)"
-  end
+  raise <<-EOF
+Method#parameters is a part of Ruby 1.9.2 and higher, you can't use it with Ruby #{RUBY_VERSION}.
+  EOF
 end
 
 module Rango

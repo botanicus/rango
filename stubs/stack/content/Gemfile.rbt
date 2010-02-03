@@ -16,12 +16,6 @@
 gem "rango"#, git: "git://github.com/botanicus/rango.git"
 gem "rack"#, git: "git://github.com/rack/rack.git"
 gem "tilt"#, git: "git://github.com/rtomayko/tilt.git"
-gem "pancake"#, git: "git://github.com/hassox/pancake.git"
-<% if RUBY_VERSION < "1.9.2" %>
-# This is for Method#parameters which is used in action args mixin
-# However it doesn't work for me, I'm getting segmentation fault
-#gem "methopara"#, git: "git://github.com/genki/methopara.git"
-<% end %>
 
 gem "nake"#, git: "git://github.com/botanicus/nake.git"
 <% if @code_cleaner %>
@@ -31,6 +25,9 @@ gem "code-cleaner"#, git: "git://github.com/botanicus/code-cleaner.git"
 gem "git-deployer"#, git: "git://github.com/botanicus/git-deployer.git"
 <% end %>
 
+gem "helpers"#, git: "git://github.com/botanicus/helpers.git"
+# rack middlewares
+gem "multigiri"#, git: "git://github.com/botanicus/multigiri.git"
 
 # router
 <% case @router %>

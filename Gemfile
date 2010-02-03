@@ -11,7 +11,6 @@ gem "code-cleaner"
 
 gem "tilt"
 gem "rack"
-gem "methopara", git: "git://github.com/genki/methopara.git"
 
 gem "haml"
 gem "erubis"
