@@ -4,6 +4,8 @@
 require "rack"
 require "rango/rack/middlewares/basic"
 
+require_relative "urls"
+
 puts "~ Running rackup.rb"
 
 # <% if @warden %>
