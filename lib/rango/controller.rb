@@ -96,7 +96,20 @@ module Rango
 
     def router_params
       @router_params ||= begin
-        self.env["rango.router.params"].symbolize_keys || raise("rango.router.params property has to be setup at least to empty hash")
+        params = self.env["rango.router.params"]
+        raise "rango.router.params property has to be setup at least to empty hash" if params.nil?
+
+        symbolize_keys = lambda do |hash|
+          hash.reduce(Hash.new) do |hash, pair|
+            if pair.last.is_a?(Hash)
+              hash.merge(pair.first.to_sym => symbolize_keys.call(pair.last))
+            else
+              hash.merge(pair.first.to_sym => pair.last)
+            end
+          end
+        end
+
+        symbolize_keys.call(params)
       end
     end
 
