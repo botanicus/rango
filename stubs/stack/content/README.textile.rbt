@@ -1,0 +1,7 @@
+h1. About
+
+h1. Setup
+
+h1. Links
+
+* "Source Code":http://github.com/<%= @gh_user %>/<%= @name %>

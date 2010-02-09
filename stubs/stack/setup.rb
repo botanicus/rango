@@ -5,6 +5,9 @@
 # manipulating with one object, rather than returning new one.
 
 # rango create app blog --models=post,tag --controllers=posts,tags --router=usher|rack-router|rack-mount --template-engine=erubis --no-code-cleaner --no-git-deployer
+
+require "base64"
+
 hook do |generator, context|
   models = [context[:models]].compact.flatten # the flatten thing: if you have --models=post, it would be just a string
   controllers = [context[:controllers]].compact.flatten
@@ -14,4 +17,5 @@ hook do |generator, context|
   context[:template_engine] = "haml" unless context[:template_engine]
   context[:git_deployer] = true unless context.has_key?(:git_deployer)
   context[:code_cleaner] = true unless context.has_key?(:git_deployer)
+  context[:email_hash] = Base64.encode64(context[:email])
 end

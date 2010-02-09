@@ -1,0 +1,8 @@
+# encoding: utf-8
+
+# initializers
+require "<%= @name %>/initializers/url.rb"
+
+# after environment is set
+require "<%= @name %>/views.rb"
+require "<%= @name %>/models.rb"
