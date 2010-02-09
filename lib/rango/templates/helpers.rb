@@ -103,7 +103,7 @@ module Rango
       # NOTE: we can't use File.split because it normalize the path,
       # so "./base.html" will be the same as "base.html", but it shouldn't be
       *path, basename = template.split("/")
-      render File.join(*path, "_#{basename}"), self.template.context.merge(extra_context)
+      render File.join(path.join("/"), "_#{basename}"), self.template.context.merge(extra_context)
     end
 
     # @since 0.2
