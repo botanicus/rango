@@ -4,10 +4,7 @@ if RUBY_VERSION < "1.9.1"
   raise "Rango requires at least Ruby 1.9.1. If you run JRuby, please ensure you used the --1.9 switch for JRuby command."
 end
 
-rango_lib = File.dirname(__FILE__)
-unless $:.include?(rango_lib) || $:.include?(File.expand_path(rango_lib))
-  $:.unshift(rango_lib)
-end
+require "rango/cli"
 
 module Rango
   VERSION = "0.2.1"
@@ -111,29 +108,5 @@ module Rango
   def self.loaded?(relative_path) # would work just with Kernel#require, not with Kernel#load, I know that the name may be misleading, but better than required?
     full_path = File.expand_path(File.join(File.dirname(__FILE__), relative_path))
     $LOADED_FEATURES.any? { |file| file == full_path }
-  end
-
-  # Start IRB interactive session
-  # @since 0.0.1
-  def self.interactive
-    require "irb"
-    require "rango/utils"
-
-    begin
-      require "racksh/boot"
-    rescue LoadError
-      Rango.logger.info("For more goodies install racksh gem")
-    else
-      Rango::Utils.load_rackup # so you can use Rango::Router.app etc
-    end
-
-    begin
-      require "irb/completion"
-    rescue LoadError
-      # some people can have ruby compliled without readline
-    end
-
-    ARGV.delete("-i") # otherwise irb will read it
-    IRB.start
   end
 end
