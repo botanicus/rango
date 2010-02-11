@@ -53,6 +53,8 @@ module Rango
       self.run_action
       #self.response.finish # do we need this?
       [response.status, response.headers, [response.body]] # this way we got real body rather than response object
+    rescue Redirection => redirection
+      redirection.to_response
     rescue HttpError => exception
       self.rescue_http_error(exception)
     end
@@ -66,12 +68,22 @@ module Rango
     def_delegators :response, :status, :status=
     def_delegators :response, :headers, :headers=
 
+    # absolute_uri "http://google.com" => "http://google.com"
+    # absolute_uri "/products" => "http://localhost:4000/products"
+    def absolute_uri(path)
+      if path.match(/^https?:\/{2}/)
+        path
+      else
+        (request.base_url.chomp("/") + path).chomp("/")
+      end
+    end
+
     # @since 0.0.2
     # @version 0.2.1
     # @return [String] Escaped URL (which is RFC recommendation)
     def redirect(location, status = 301)
       if (300..399).include?(status)
-        exception = Redirection.new(location)
+        exception = Redirection.new(absolute_uri(location))
         exception.status = status
         raise exception
       else
