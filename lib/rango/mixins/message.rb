@@ -19,6 +19,23 @@ module Rango
             def context
               super.merge!(message: self.message)
             end
+
+            def redirect(uri, status = 301, options = Hash.new)
+              status, options = 301, status if status.is_a?(Hash)
+              if options.respond_to?(:inject)
+                # redirect "/post", error: "Try again"
+                # ?msg[error]="Try again"
+                uri = options.inject(uri) do |uri, pair|
+                  type, message = pair
+                  uri + "?msg[#{type}]=#{message}"
+                end
+              else
+                # redirect "/post", "Try again"
+                # ?msg="Try again"
+                uri.concat("?msg=#{options}")
+              end
+              super(uri, status)
+            end
           end
         end
       else
@@ -28,28 +45,6 @@ module Rango
 
     def message
       @message ||= (request.GET[:msg] || Hash.new)
-    end
-
-    # @since 0.0.2
-    def redirect(url, options = Hash.new)
-      url = [self.request.base_url.chomp("/"), url].join("/").chomp("/") unless url.match(/^http/)
-
-      if options.respond_to?(:inject)
-        # redirect "/post", error: "Try again"
-        # ?msg[error]="Try again"
-        url = options.inject(url) do |url, pair|
-          type, message = pair
-          url + "?msg[#{type}]=#{message}"
-        end
-      else
-        # redirect "/post", "Try again"
-        # ?msg="Try again"
-        url.concat("?msg=#{options}")
-      end
-
-      self.status = 302
-      self.headers["Location"] = URI.escape(url)
-      return String.new
     end
   end
 end
