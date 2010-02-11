@@ -4,6 +4,8 @@ require "rango"
 require "rango/templates/template"
 
 module Rango
+  SubtemplateNotFound = Class.new(StandardError)
+
   module TemplateHelpers
     def self.extended(scope)
       class << scope
@@ -48,7 +50,7 @@ module Rango
     end
 
     def self.included(scope_class)
-      scope_class.class_eval { attr_accessor :template}
+      scope_class.class_eval { attr_accessor :template }
     end
 
     # post/show.html: it's block is the block we like to see in output
@@ -88,12 +90,14 @@ module Rango
     #   render "base.html"
     #   render "./base.html"
     #   render "../base.html"
-    def render(template, context = Hash.new)
-      normalize_template_path(template)
+    def render(path, context = Hash.new)
+      full_path = normalize_template_path(path)
       original_template = self.template
-      template = Rango::Template.new(template, self) # self is scope
+      template = Rango::Template.new(full_path, self) # self is scope
       self.template = original_template
       return template.render(context)
+    rescue Exceptions::TemplateNotFound # FIXME: this doesn't work
+      raise SubtemplateNotFound, "Template #{path} doesn't exist in #{full_path}"
     end
 
     # partial "products/list"
