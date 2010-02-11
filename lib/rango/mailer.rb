@@ -11,6 +11,12 @@ module Rango
   class Mailer
     @@config = {smtp: ["localhost", 25]}
 
+    def self.mail(options = Hash.new)
+      self.new(options[:from]).tap do |mailer|
+        mailer.body = options[:body]
+      end
+    end
+
     attr_accessor :to, :to_alias
     attr_accessor :from, :from_alias
     attr_accessor :body, :subject
