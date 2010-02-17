@@ -5,7 +5,7 @@ require "base64"
 
 Gem::Specification.new do |s|
   s.name = "rango"
-  s.version = "0.2.1"
+  s.version = "0.3"
   s.authors = ["Jakub Šťastný aka Botanicus"]
   s.homepage = "http://github.com/botanicus/rango"
   s.summary = "Rango is ultralightweight, ultracustomizable, ultracool web framework deeply inspired by Django."
@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   # Ruby version to 1.9, even if it actually is 1.9.1
   s.required_ruby_version = ::Gem::Requirement.new("~> 1.9")
 
-  # === Dependencies ===
+  # Dependencies
   # RubyGems has runtime dependencies (add_dependency) and
   # development dependencies (add_development_dependency)
   # Rango isn't a monolithic framework, so you might want
