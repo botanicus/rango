@@ -1,13 +1,14 @@
-#!./script/nake
+#!/usr/bin/env nake
 # encoding: utf-8
 
 begin
-  require_relative "gems/environment.rb"
+  require File.expand_path("../.bundle/environment", __FILE__)
 rescue LoadError
-  abort "You have to install bundler and run gem bundle first!"
+  require "bundler"
+  Bundler.setup
 end
 
-ENV["PATH"] = "script:#{ENV["PATH"]}"
+$LOAD_PATH.unshift(File.expand_path("../lib", __FILE__))
 
 require "nake/tasks/gem"
 require "nake/tasks/spec"
