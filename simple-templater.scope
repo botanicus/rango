@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 SimpleTemplater.scope(:rango) do
   root = File.join(File.dirname(__FILE__))
   Dir["#{root}/stubs/*"].each do |path|
