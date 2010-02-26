@@ -59,7 +59,7 @@ module Rango
     def render(context = Hash.new)
       raise Exceptions::TemplateNotFound.new("Template #{self.path} wasn't found in these template_paths: #{self.class.template_paths.inspect}") if self.fullpath.nil?
       Rango.logger.info("Rendering template #{self.path} with context keys #{context.keys.inspect}")
-      self.context = context
+      self.scope.context = self.context = context # so we can access context in the scope object as well
       value = self.template.render(self.scope, context)
       Rango.logger.debug("Available blocks: #{self.blocks.keys.inspect}")
       if self.supertemplate

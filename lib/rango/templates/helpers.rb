@@ -10,6 +10,7 @@ module Rango
     def self.extended(scope)
       class << scope
         attr_accessor :template
+        attr_accessor :context
         # @example Capture being used in a .html.erb page:
         #   <% @foo = capture do %>
         #     <p>Some Foo content!</p>
