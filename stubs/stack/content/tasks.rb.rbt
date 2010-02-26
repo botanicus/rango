@@ -1,7 +1,14 @@
 #!/usr/bin/env nake
 # encoding: utf-8
 
-require_relative "gems/environment.rb"
+begin
+  require File.expand_path("../.bundle/environment", __FILE__)
+rescue LoadError
+  require "bundler"
+  Bundler.setup
+end
+
+$LOAD_PATH.unshift(File.expand_path("../lib", __FILE__))
 
 # Boot environment
 # This task isn't useful as is, but a lot of Rango tasks expect this

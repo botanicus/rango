@@ -29,7 +29,7 @@ Rango.boot
 
 $LOAD_PATH.unshift(File.expand_path("../lib", __FILE__))
 
-require "<%= name %>"
+require "<%= @name %>"
 
 # Available arguments:
 #   ./init.rb -i

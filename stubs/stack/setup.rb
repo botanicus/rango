@@ -17,5 +17,5 @@ hook do |generator, context|
   context[:template_engine] = "haml" unless context[:template_engine]
   context[:git_deployer] = true unless context.has_key?(:git_deployer)
   context[:code_cleaner] = true unless context.has_key?(:git_deployer)
-  context[:email_hash] = Base64.encode64(context[:email])
+  context[:email_hash] = Base64.encode64(context[:email]) if context[:email]
 end
