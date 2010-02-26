@@ -3,19 +3,13 @@
 class Page
   class << self
     # @since 0.0.2
-    attr_writer :current
-
-    # @since 0.0.2
     attr_accessor :route_hook
 
-    # @since 0.0.2
-    def current
-      Rango.logger.debug("Page initialized: #{@current.inspect}")
-      return @current
+    # @since 0.2.2
+    attr_writer :per_page
+    def per_page
+      @per_page ||= 10
     end
-
-    # Page.current = page # implicitly in datamapper.rb
-    # paginate Page.current
 
     # register_route_hook do ... end
     # OR
