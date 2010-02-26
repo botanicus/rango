@@ -79,7 +79,7 @@ module Rango
       raise ArgumentError, "Block has to have a name!" if name.nil?
       raise ArgumentError, "You have to provide value or block, not both of them!" if value && block
       value = self.template.scope.capture(&block) if value.nil? && block
-      self.template.blocks[name] = "#{self.template.blocks[name]}\n#{value}" if value
+      self.template.blocks[name] = value if value
       return self.template.blocks[name]
     end
 
