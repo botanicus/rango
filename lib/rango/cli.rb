@@ -2,10 +2,11 @@
 
 module Rango
   def self.parse(args = ARGV)
+    return if args.empty?
     # if you will run this script with -i argument, interactive session will begin
     Rango.interactive if ARGV.delete("-i")
     # so it can work as a runner
-    load ARGV.shift if File.exist?(ARGV.first)
+    load ARGV.shift if ARGV.first && File.exist?(ARGV.first)
   end
 
   # Start IRB interactive session
