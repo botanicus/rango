@@ -10,9 +10,4 @@
 tmp/*
 log/*
 
-*.gem
-pkg/*
-
-bin
-gems/*
-!gems/cache
+/*.gem
