@@ -37,7 +37,7 @@ Gem::Specification.new do |s|
   # just run gem install rango --development
 
   s.add_development_dependency "simple-templater", ">= 0.0.1.2"
-  s.add_development_dependency "bundler"
+  s.add_development_dependency "bundler", ">= 0.9"
 
   begin
     require "changelog"
