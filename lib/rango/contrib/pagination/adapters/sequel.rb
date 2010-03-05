@@ -6,7 +6,7 @@ module Rango
       module Dataset
         # @since 0.2.2
         def paginate(current = 1, per_page = Page.per_page, options = Hash.new)
-          current = 1 if current.nil?
+          current = current ? current.to_i : 1 # current can be nil or "1"
           page = Page.new(current: current, count: self.count, per_page: per_page)
           return page, limit(per_page, (current - 1) * per_page)
         end
