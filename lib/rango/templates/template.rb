@@ -36,7 +36,7 @@ module Rango
     def fullpath
       @fullpath ||= begin
         if self.path.match(/^(\/|\.)/) # /foo or ./foo
-          Dir[self.path, "#{self.path}.*"].first
+          Dir[self.path, "#{self.path}.*"].find {|file| !File.directory?(file)}
         else
           self.find_in_template_paths
         end
@@ -75,7 +75,7 @@ module Rango
     def find_in_template_paths
       self.class.template_paths.each do |directory|
         path = File.join(directory, self.path)
-        return Dir[path, "#{path}.*"].first
+        return Dir[path, "#{path}.*"].find {|file| !File.directory?(file)}
       end
     end
   end
