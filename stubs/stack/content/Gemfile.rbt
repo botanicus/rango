@@ -1,12 +1,15 @@
 # encoding: utf-8
 
-# === Usage === #
-# Run gem bundle for installation. You have to have bundler gem installed.
+# Enable downloading gems from gemcutter
+source :gemcutter
 
-# http://github.com/wycats/bundler
-# http://litanyagainstfear.com/blog/2009/10/14/gem-bundler-is-the-future
-# http://yehudakatz.com/2009/11/03/using-the-new-gem-bundler-today
-# http://www.engineyard.com/blog/2009/using-the-rubygems-bundler-for-your-app
+# === Usage === #
+# Run bundle install for installation and bundle pack for
+# locking gem packages (not the gems themselves) into vendor.
+# You have to have bundler gem installed.
+
+# http://github.com/carlhuda/bundler
+# http://yehudakatz.com/2010/02/01/bundler-0-9-heading-toward-1-0
 
 # === Shared Gems === #
 # Specify a dependency on rango. When the bundler downloads gems,
@@ -63,7 +66,7 @@ gem "mongo_mapper"#, git: "git://github.com/jnunemaker/mongomapper.git"
 <% end %>
 # NOTE: do not use require_as: nil because if you do so, bundler will require the library anyway
 # Check last section of http://wiki.github.com/merb/merb/howto-using-the-bundler for more informations
-only(:bundle) do
+group(:bundle) do
   gem "thin"#, git: "git://github.com/macournoyer/thin.git" # there seems to be some problems with latest thin
   #gem "unicorn"#, git: "git://repo.or.cz/unicorn.git"
   gem "racksh"#, git: "git://github.com/sickill/racksh.git"
@@ -77,14 +80,14 @@ gem "simple-logger"#, git: "git://github.com/botanicus/simple-logger.git"
 gem "media-path"#, git: "git://github.com/botanicus/media-path.git" # for asset helpers
 
 # === Environment-Specific Setup === #
-except(:stage, :production) do
+group(:development, :test) do
   <% case @orm %>
   <% when "datamapper" %>
   gem "do_sqlite3"#, git: "git://github.com/datamapper/do.git"
   <% end %>
 end
 
-only(:stage, :production) do
+group(:stage, :production) do
   <% case @orm %>
   <% when "datamapper" %>
   gem "do_mysql"#, git: "git://github.com/datamapper/do.git"
@@ -93,35 +96,12 @@ only(:stage, :production) do
   <% end %>
 end
 
-only(:test, :cucumber) do
+group(:test, :cucumber) do
   gem "rspec"#, git: "git://github.com/dchelimsky/rspec.git"
   gem "rack-test", require_as: "rack/test"#, git: "git://github.com/brynary/rack-test.git"
   gem "webrat"#, git: "git://github.com/brynary/webrat.git"
 end
 
-only(:cucumber) do
+group(:cucumber) do
   gem "cucumber"#, git: "git://github.com/aslakhellesoy/cucumber.git"
 end
-
-# === Bundler Setup === #
-# Specify where the bundled gems should be stashed. This directory will
-# be a gem repository where all gems are downloaded to and installed to.
-#
-# This is an optional setting.
-# The default is: vendor/gems
-bundle_path "gems"
-
-# Specify where gem executables should be copied to.
-#
-# This is an optional setting.
-# The default is: bin
-bin_path "bin"
-
-# Specify that rubygems should be completely disabled. This means that it
-# will be impossible to require it and that available gems will be
-# limited exclusively to gems that have been bundled.
-#
-# The default is to automatically require rubygems. There is also a
-# `disable_system_gems` option that will limit available rubygems to
-# the ones that have been bundled.
-disable_rubygems
