@@ -113,7 +113,7 @@ module Rango
 
     # @since 0.2
     def includes(template, context = Hash.new)
-      render template, context
+      render normalize_template_path(template), context
       return true
     end
 
