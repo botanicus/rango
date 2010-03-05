@@ -32,7 +32,7 @@ module Rango
     # any particular router and your router might not provide this
     # functionality. In this case you can always use this generic view.
     # get("/index.php").to(Rango::GV.redirect("/"))
-    def self.redirect(url, status = 302)
+    def self.redirect(url, status = 301)
       Rango::Mini.app do |request, response|
         response.redirect(url, status)
         return String.new

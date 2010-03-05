@@ -91,7 +91,7 @@ module Rango
     # @since 0.0.2
     # @version 0.2.1
     # @return [String] Escaped URL (which is RFC recommendation)
-    def redirect(location, status = 301, &block)
+    def redirect(location, status = 303, &block)
       if (300..399).include?(status)
         exception = Redirection.new(absolute_uri(location))
         exception.status = status

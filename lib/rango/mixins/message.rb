@@ -20,8 +20,8 @@ module Rango
               super.merge!(message: self.message)
             end
 
-            def redirect(uri, status = 301, options = Hash.new, &block)
-              status, options = 301, status if status.is_a?(Hash)
+            def redirect(uri, status = 303, options = Hash.new, &block)
+              status, options = 303, status if status.is_a?(Hash)
               if options.respond_to?(:inject)
                 # redirect "/post", error: "Try again"
                 # ?msg[error]="Try again"

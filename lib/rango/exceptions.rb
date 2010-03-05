@@ -137,7 +137,7 @@ module Rango
     Error300 = MultipleChoices = Class.new(Redirection)             { self.status ||= 300; self.name ||= "Multiple Choices" }
     Error301 = MovedPermanently = Class.new(Redirection)            { self.status ||= 301; self.name ||= "Moved Permanently" }
     Error302 = MovedTemporarily = Class.new(Redirection)            { self.status ||= 302; self.name ||= "Moved Temporarily" }
-    Error303 = SeeOther = Class.new(Redirection)                    { self.status ||= 303; self.name ||= "See Other" }
+    Error303 = SeeOther = Class.new(Redirection)                    { self.status ||= 303; self.name ||= "See Other" } # this is the redirect you want to use after POST
     Error304 = NotModified = Class.new(Redirection)                 { self.status ||= 304; self.name ||= "Not Modified" }
     Error305 = UseProxy = Class.new(Redirection)                    { self.status ||= 305; self.name ||= "Use Proxy" }
     Error307 = TemporaryRedirect = Class.new(Redirection)           { self.status ||= 307; self.name ||= "Temporary Redirect" }
