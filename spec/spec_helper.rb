@@ -6,9 +6,13 @@ STUBS_ROOT = File.join(SPEC_ROOT, "stubs")
 $:.unshift File.join(SPEC_ROOT, "..", "lib")
 
 begin
-  require_relative "../gems/environment"
+  # Require the preresolved locked set of gems.
+  require File.expand_path('../.bundle/environment', __FILE__)
 rescue LoadError
-  abort "Run gem bundle --cached"
+  # Fallback on doing the resolve at runtime.
+  require "rubygems"
+  require "bundler"
+  Bundler.setup
 end
 
 require "spec" # so you can run ruby spec/rango/whatever_spec.rb
