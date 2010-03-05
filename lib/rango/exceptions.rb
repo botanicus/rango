@@ -24,6 +24,12 @@ module Rango
         @message = message
       end
 
+      # backtrace isn't writable, but we want to set it time to time, see Controller.call
+      attr_writer :backtrace
+      def backtrace
+        super || @backtrace
+      end
+
       def self.message
         @message ||= begin
           self.superclass.message
@@ -106,6 +112,16 @@ module Rango
     class Redirection < HttpError
       self.name ||= "Redirection"
       alias_method :location, :message
+
+      def body
+        %{Please follow <a href="#{URI.escape(self.location)}">#{self.location}</a>}
+      end
+
+      def to_response
+        super.tap do |response|
+          response[2] = [self.body]
+        end
+      end
 
       # use raise MovedPermanently, "http://example.com"
       # Yes, you can use just redirect method from the controller, but

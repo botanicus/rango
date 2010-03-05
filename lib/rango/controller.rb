@@ -6,6 +6,7 @@ require "forwardable"
 require "rango/router"
 require "rango/exceptions"
 require "rango/rack/request"
+require "rango/environments"
 
 module Rango
   class Controller
@@ -57,6 +58,15 @@ module Rango
       redirection.to_response
     rescue HttpError => exception
       self.rescue_http_error(exception)
+    rescue Exception => exception # so we can be sure that all the exceptions which occures in controller can be captured by rescue_http_error method
+      if Rango.development?
+        raise exception
+      else
+        message = "#{exception.class}: #{exception.message}"
+        server_error = InternalServerError.new(message)
+        server_error.backtrace = caller
+        self.rescue_http_error(server_error)
+      end
     end
 
     # @since 0.0.1
@@ -81,10 +91,12 @@ module Rango
     # @since 0.0.2
     # @version 0.2.1
     # @return [String] Escaped URL (which is RFC recommendation)
-    def redirect(location, status = 301)
+    def redirect(location, status = 301, &block)
       if (300..399).include?(status)
         exception = Redirection.new(absolute_uri(location))
         exception.status = status
+        exception.headers["Set-Cookie"] = response["Set-Cookie"] # otherwise it don't save cookies
+        block.call(exception) unless block.nil?
         raise exception
       else
         raise ArgumentError, "Status has to be between 300 and 399"

@@ -20,7 +20,7 @@ module Rango
               super.merge!(message: self.message)
             end
 
-            def redirect(uri, status = 301, options = Hash.new)
+            def redirect(uri, status = 301, options = Hash.new, &block)
               status, options = 301, status if status.is_a?(Hash)
               if options.respond_to?(:inject)
                 # redirect "/post", error: "Try again"
@@ -44,7 +44,12 @@ module Rango
     end
 
     def message
-      @message ||= (request.GET[:msg] || Hash.new)
+      @message ||= begin
+        messages = request.GET[:msg] || Hash.new
+        messages.inject(Hash.new) do |result, pair|
+          result.merge(pair[0] => pair[1].force_encoding(Encoding.default_external))
+        end
+      end
     end
   end
 end
