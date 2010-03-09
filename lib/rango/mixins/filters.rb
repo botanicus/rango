@@ -38,6 +38,7 @@ module Rango
       def inherited(subclass)
         subclass.before_filters.replace(self.before_filters)
         subclass.after_filters.replace(self.after_filters)
+        super
       end
 
       # @since 0.2
