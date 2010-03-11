@@ -7,7 +7,7 @@ require "rango/exceptions"
 
 module Rango
   module Exceptions # so we can catch it with other HTTP errors
-    TemplateNotFound = Class.new(NotFound)
+    TemplateNotFound = Class.new(NotFound) { self.name = "Template Not Found" }
   end
 
   class Template
