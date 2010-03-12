@@ -1,36 +1,37 @@
 # encoding: utf-8
 
 require "tilt"
-require "rango/mixins/chainable"
 
-module Tilt
-  ErubisTemplate.class_eval do
-    extend Chainable
-    chainable do
+module Rango
+  module TiltExtensions
+    module Erubis
       def initialize_engine
         super
         require "rango/templates/exts/erubis"
       end
     end
-  end
 
-  # Tilt::HamlTemplate.options[:default_attributes] = {script: {type: "text/javascript"}, form: {method: "POST"}}
-  HamlTemplate.class_eval do
-    extend Chainable
+    # Tilt::HamlTemplate.options[:default_attributes] = {script: {type: "text/javascript"}, form: {method: "POST"}}
+    module Haml
+      def self.included(klass)
+        klass.send(:remove_method, :initialize_engine)
+        def klass.options
+          @options ||= Hash.new
+        end
+      end
 
-    def self.options
-      @options ||= Hash.new
-    end
-
-    chainable do
       def initialize_engine
-        super
+        require_template_library 'haml' unless defined? ::Haml::Engine
         require "rango/templates/exts/haml"
       end
 
-      def haml_options
-        super.merge!(self.class.options)
+      def initialize(*args)
+        super
+        self.options.merge!(self.class.options)
       end
     end
   end
 end
+
+Tilt::ErubisTemplate.send(:include, Rango::TiltExtensions::Erubis)
+Tilt::HamlTemplate.send(:include, Rango::TiltExtensions::Haml)
