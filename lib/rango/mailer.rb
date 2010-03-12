@@ -1,48 +1,28 @@
 # encoding: utf-8
 
-require "net/smtp"
-
-# Mailer.new("noreply@rangoproject.org", "RangoProject.org")
-#  self.to = "tony@example.com"
-#  self.subject = "Just hey"
-#  self.body = "Hey Tony, what's up?"
+# mail("rango@project.org", "joe@doe.com", "Free VIAGRA") do
+#   render "mails/spam.html"
 # end
+begin
+  require "mail"
+rescue LoadError
+  raise "You have to install mail gem!"
+end
+
 module Rango
-  class Mailer
-    @@config = {smtp: ["localhost", 25]}
-
-    def self.mail(options = Hash.new)
-      self.new(options[:from]).tap do |mailer|
-        mailer.body = options[:body]
+  module Mailing
+    def mail(to, from, subject, &block)
+      Mail.deliver do |mail|
+        mail.to = to
+        mail.from = from
+        mail.subject = subject
+        mail.body = block.call
+        puts self
       end
-    end
-
-    attr_accessor :to, :to_alias
-    attr_accessor :from, :from_alias
-    attr_accessor :body, :subject
-
-    def initialize(from, from_alias = from, &block)
-      @from, @from_alias = from, from_alias
-      unless block.nil?
-        block.instance_eval(&block)
-        block.send
-      end
-    end
-
-    def raw
-      <<-EOF
-From: #{from_alias} <#{from}>
-To: #{to_alias} <#{to}>
-Subject: #{subject}
-
-#{body}
-      EOF
-    end
-
-    def send(to)
-      Net::SMTP.start(*@@config[:smtp]) do |smtp|
-        smtp.send_message(self.raw, @from, to)
-      end
+    rescue Errno::ECONNREFUSED
+      Rango.logger.error("E-mail from #{caller[0]} can't be send due to refused connection to the SMTP server")
     end
   end
 end
+
+Rango::Controller.send(:include, Rango::Mailing)

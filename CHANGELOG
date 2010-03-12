@@ -75,3 +75,6 @@
   * [FIX] Cookies are passed into the redirect request
   * [FIX] All non-http exceptions which occur in controller are captured and passed to rescue_http_error as a new instance of InternalServerError, except development environment where we want to get the Rack error screen.
   * [FIX] Fixed encoding problem in messages. It's actually Rack fault, but hey.
+
+= Version 0.2.4
+  * Removed all helpers, if you need some, use http://github.com/botanicus/helpers

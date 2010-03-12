@@ -5,6 +5,8 @@ if RUBY_VERSION < "1.9.1"
 end
 
 require "rango/cli"
+require "rango/version"
+require "pathname"
 
 module Rango
   # all the helpers are in Rango::Helpers
@@ -13,19 +15,19 @@ module Rango
   Helpers ||= Module.new
 
   def self.root=(root)
-    @@root = root
+    @@root = Pathname.new(root)
   end
 
   def self.root
-    @@root ||= Dir.pwd
+    @@root ||= Pathname.new(Dir.pwd)
   end
 
   def self.media_root=(media_root)
-    @@media_root = media_root
+    @@media_root = Pathname.new(media_root)
   end
 
   def self.media_root
-    @@media_root ||= File.join(self.root, "media")
+    @@media_root ||= self.root.join("media")
   end
 
   # Basic environment support. Use rango/environments.rb for more advanced behaviour.

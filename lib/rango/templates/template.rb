@@ -12,7 +12,7 @@ module Rango
 
   class Template
     def self.template_paths
-      @@template_paths ||= [File.join(Rango.root, "templates")]
+      @@template_paths ||= [Rango.root.join("templates").to_s]
     end
 
     # template -> supertemplate is the same relationship as class -> superclass

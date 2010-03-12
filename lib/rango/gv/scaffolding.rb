@@ -5,7 +5,6 @@ require "rango/mini"
 require "rango/mixins/render"
 
 require "rango" # Rango.root
-Rango::Template.template_paths.push(File.join(Rango.root, "templates"))
 
 # NOTE: this is just proof of concept, do not use it so far!
 # However this is the way how we can use CRUD in Rango.
