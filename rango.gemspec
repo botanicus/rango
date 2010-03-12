@@ -2,10 +2,11 @@
 # encoding: utf-8
 
 require "base64"
+require File.expand_path("../lib/rango/version", __FILE__)
 
 Gem::Specification.new do |s|
   s.name = "rango"
-  s.version = "0.3"
+  s.version = Rango::VERSION
   s.authors = ["Jakub Šťastný aka Botanicus"]
   s.homepage = "http://github.com/botanicus/rango"
   s.summary = "Rango is ultralightweight, ultracustomizable, ultracool web framework deeply inspired by Django."
