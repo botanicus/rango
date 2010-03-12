@@ -13,8 +13,7 @@ module Haml
     alias_method :__initialize__, :initialize
     def initialize(template, options = Hash.new)
       __initialize__(template, options)
-      @options[:default_attributes] = Hash.new
-      # symbolize keys
+      @options[:default_attributes] ||= Hash.new
       @options[:default_attributes] = @options[:default_attributes].inject(Hash.new) do |options, pair|
         options.merge(pair.first.to_sym => pair.last)
       end
@@ -29,6 +28,18 @@ module Haml
         attributes = default_attributes.merge(attributes)
       end
       __prerender_tag__(name, self_close, attributes)
+    end
+  end
+
+  class Buffer
+    alias_method :__open_tag__, :open_tag
+    def open_tag(name, self_closing, try_one_line, preserve_tag, escape_html, class_id,
+                 nuke_outer_whitespace, nuke_inner_whitespace, obj_ref, content, *attributes_hashes)
+      if Tilt::HamlTemplate.options[:default_attributes][name.to_sym]
+        attributes_hashes.first.merge!(Tilt::HamlTemplate.options[:default_attributes][name.to_sym])
+      end
+      __open_tag__(name, self_closing, try_one_line, preserve_tag, escape_html, class_id,
+                    nuke_outer_whitespace, nuke_inner_whitespace, obj_ref, content, *attributes_hashes)
     end
   end
 end
