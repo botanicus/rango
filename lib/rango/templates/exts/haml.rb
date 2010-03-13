@@ -24,7 +24,8 @@ module Haml
     def open_tag(name, self_closing, try_one_line, preserve_tag, escape_html, class_id,
                  nuke_outer_whitespace, nuke_inner_whitespace, obj_ref, content, *attributes_hashes)
       defaults = Tilt::HamlTemplate.options[:default_attributes][name.to_sym]
-      attributes_hashes.first.merge!(defaults) if defaults
+      attributes_hashes.unshift(defaults) if defaults
+
       __open_tag__(name, self_closing, try_one_line, preserve_tag, escape_html, class_id,
                     nuke_outer_whitespace, nuke_inner_whitespace, obj_ref, content, *attributes_hashes)
     end
