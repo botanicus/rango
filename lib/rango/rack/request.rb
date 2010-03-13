@@ -159,7 +159,10 @@ module Rango
 
     protected
     def normalize_params(hash)
-      hash.deep_symbolize_keys.tap { |hash| hash.delete(:_method) }
+      hash.extend(ParamsMixin)
+      hash.each do |key, value|
+        normalize_params(value) if value.is_a?(Hash)
+      end
     end
   end
 end

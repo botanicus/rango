@@ -102,3 +102,17 @@ class Hash
     end
   end
 end
+
+module ParamsMixin
+  def [](key)
+    super(key.to_s)
+  end
+
+  def []=(key, value)
+    super(key.to_s, value)
+  end
+
+  def keys
+    super.map(&:to_sym)
+  end
+end
