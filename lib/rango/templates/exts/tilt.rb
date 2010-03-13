@@ -22,7 +22,7 @@ module Rango
 
       def initialize_engine
         require_template_library 'haml' unless defined? ::Haml::Engine
-        require "rango/templates/exts/haml"
+        require "rango/templates/exts/haml" if self.class.options[:default_attributes]
       end
 
       def initialize(*args)
