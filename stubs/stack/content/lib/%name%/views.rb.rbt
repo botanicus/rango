@@ -2,7 +2,6 @@
 
 # http://wiki.github.com/botanicus/rango/controllers
 
-require "rango/helpers"
 require "rango/stacks/controller"
 <% if RUBY_VERSION > "1.9.2" %>
 require "rango/mixins/action_args"
