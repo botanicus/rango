@@ -51,5 +51,6 @@ module Rango
         end
       end
     end
+    alias_method :flash, :message
   end
 end
