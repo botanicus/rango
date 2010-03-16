@@ -84,6 +84,15 @@ module Rango
       return self.template.blocks[name]
     end
 
+    # Clears default content of given block.
+    #
+    # @example
+    #   clear_block(:flyout)
+    def clear_block(name)
+      raise ArgumentError, "You need to specify name of block to clear." if name.nil?
+      self.template.blocks[name] = String.new
+    end
+
     # Low-level rendering method for templates.
     #
     # @since 0.2

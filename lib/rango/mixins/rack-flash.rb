@@ -5,10 +5,12 @@ require "rango/mixins/chainable"
 # @see http://nakajima.github.com/rack-flash
 # @example
 #   use Rack::Flash
-#   env["rack-flash"]["notice"]
+#   message["notice"]
+#   flash["notice"]
 #   OR
 #   use Rack::Flash, accessorize: [:notice, :error]
-#   env["rack-flash"].notice
+#   message.notice
+#   flash.notice
 module Rango
   module RackFlashMixin
     # @since 0.2.4
@@ -40,7 +42,7 @@ module Rango
 
     def message
       @message ||= begin
-        request.env["rack-flash"].force_encoding(Encoding.default_external))
+        request.env["x-rack.flash"]
       end
     end
     alias_method :flash, :message
