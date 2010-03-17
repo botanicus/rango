@@ -152,7 +152,22 @@ module Rango
     end
 
     def render_http_error(exception)
-      "EXCEPTION"
+      exception["Content-Type"] = "text/html"
+      if Rango.production?
+        <<-EOF
+<h1>Application Error</h1>
+<p>
+  The application you are trying to reach has currently some issues. Please contact our team and tell us about the troubles. Thank you.
+</p>
+        EOF
+      else
+        <<-EOF
+<h1>#{exception.class}: #{exception.message}</h1>
+<ul>
+  <li>#{exception.backtrace.join("</li><li>")}</li>
+</ul>
+        EOF
+      end
     end
   end
 end
