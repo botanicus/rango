@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+source :gemcutter
+
 gem "nake"
 gem "code-cleaner"
 
