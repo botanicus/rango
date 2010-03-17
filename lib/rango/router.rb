@@ -3,7 +3,9 @@
 require "rango" # for helpers
 
 module Rango
-  class Exceptions::RouterNotInitialized < StandardError; end
+  module Exceptions
+    class RouterNotInitialized < StandardError; end
+  end
 
   module UrlHelper
     # url(:login)
