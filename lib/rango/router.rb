@@ -3,6 +3,8 @@
 require "rango" # for helpers
 
 module Rango
+  class Exceptions::RouterNotInitialized < StandardError; end
+
   module UrlHelper
     # url(:login)
     def url(*args)
@@ -16,8 +18,8 @@ module Rango
     @@routers ||= Hash.new
     def self.app
       @@app
-    rescue
-      raise "You have to assign your router application to Rango::Router.app\nFor example Rango::Router.app = Usher::Interface.for(:rack, &block)"
+    rescue NameError
+      raise Exceptions::RouterNotInitialized, "You have to assign your router application to Rango::Router.app\nFor example Rango::Router.app = Usher::Interface.for(:rack, &block)"
     end
 
     def self.app=(app)
