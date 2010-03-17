@@ -13,12 +13,20 @@ describe ParamsMixin do
       @mash = {key: "value"}.extend(ParamsMixin)
     end
 
-    it "should work with strings" do
+    it "should work with a string as a key" do
       @mash["key"].should eql("value")
     end
 
-    it "should work with symbols" do
+    it "should work with a symbol as a key" do
       @mash[:key].should eql("value")
+    end
+
+    it "should not cause any issues if the key isn't a string nor a symbol" do
+      object = Object.new
+      lambda {
+        @mash[object] = "test"
+        @mash[object].should eql("test")
+      }.should_not raise_error
     end
 
     it "should set the value with key if key is a string" do
