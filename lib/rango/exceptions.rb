@@ -83,7 +83,7 @@ module Rango
       # @returns [String]
       # @example NotFound.new.to_snakecase # "not_found"
       def to_snakecase
-        self.class.name.split("::").last.snake_case
+        self.class.name.gsub(" ", "_").downcase
       end
 
       def to_response

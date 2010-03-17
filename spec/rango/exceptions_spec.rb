@@ -22,9 +22,7 @@ describe Rango::Exceptions do
 
   describe "#to_snakecase" do
     it "should returns snakecased name of class" do
-      pending "Rewrite without String#snakecase" do
-        @error.to_snakecase.should eql("not_found")
-      end
+      @error.to_snakecase.should eql("not_found")
     end
   end
 
