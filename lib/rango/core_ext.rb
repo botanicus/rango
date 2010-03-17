@@ -104,15 +104,44 @@ class Hash
 end
 
 module ParamsMixin
+  def self.switch_string_to_symbol_or_back(value)
+    if value.is_a?(String)
+      value.to_sym
+    elsif value.is_a?(Symbol)
+      value.to_s
+    else
+      value
+    end
+  end
+
+  def self.convert(hash)
+    hash.extend(ParamsMixin)
+    hash.each do |key, value|
+      self.convert(value) if value.is_a?(Hash)
+    end
+  end
+
   def [](key)
-    super(key.to_s)
+    if self.has_key?(key)
+      super(key)
+    elsif key2 = ParamsMixin.switch_string_to_symbol_or_back(key)
+      super(key2)
+    else # get the default value or run the default block
+      super(key)
+    end
   end
 
   def []=(key, value)
-    super(key.to_s, value)
+    if self.has_key?(key)
+      super(key, value)
+    elsif key2 = ParamsMixin.switch_string_to_symbol_or_back(key)
+      super(key2, value)
+    else # get the default value or run the default block
+      super(key, value)
+    end
   end
 
   def keys
-    super.map(&:to_sym)
+    super.map(&:to_s)
   end
 end
