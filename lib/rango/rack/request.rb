@@ -66,11 +66,11 @@ module Rango
     end
 
     def GET
-      normalize_params(super)
+      ParamsMixin.convert(super)
     end
 
     def POST
-      normalize_params(super)
+      ParamsMixin.convert(super)
     end
 
     def PUT
@@ -85,7 +85,7 @@ module Rango
             @env["rack.request.form_hash"] = Utils.parse_query(@env["rack.request.form_vars"])
             @env["rack.input"].rewind if @env["rack.input"].respond_to?(:rewind)
           end
-          normalize_params(@env["rack.request.form_hash"])
+          ParamsMixin.convert(@env["rack.request.form_hash"])
         else
           {}
         end
@@ -104,16 +104,14 @@ module Rango
     end
 
     def form
-      normalize_params(env["rack.request.form_hash"] || Hash.new)
+      ParamsMixin.convert(env["rack.request.form_hash"] || Hash.new)
     end
 
     def session
       @env['rack.session'] ||= {}
     end
 
-    def ajax?
-      env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest"
-    end
+    alias_method :ajax, :xhr?
 
     # @since 0.0.1
     # @example: "cz"
@@ -155,14 +153,6 @@ module Rango
         url << ":#{port}"
       end
       url
-    end
-
-    protected
-    def normalize_params(hash)
-      hash.extend(ParamsMixin)
-      hash.each do |key, value|
-        normalize_params(value) if value.is_a?(Hash)
-      end
     end
   end
 end
