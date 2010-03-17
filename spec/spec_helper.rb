@@ -3,11 +3,11 @@
 SPEC_ROOT  = File.dirname(__FILE__)
 STUBS_ROOT = File.join(SPEC_ROOT, "stubs")
 
-$:.unshift File.join(SPEC_ROOT, "..", "lib")
+$:.unshift(File.join(SPEC_ROOT, "..", "lib"))
 
 begin
   # Require the preresolved locked set of gems.
-  require File.expand_path('../.bundle/environment', __FILE__)
+  require File.expand_path("../.bundle/environment", __FILE__)
 rescue LoadError
   # Fallback on doing the resolve at runtime.
   require "rubygems"
@@ -31,7 +31,7 @@ end
 module Spec
   module Matchers
     def match(expected)
-      Matcher.new :match, expected do |expected|
+      Matcher.new(:match, expected) do |expected|
         match do |actual|
           actual.match(expected)
         end
