@@ -5,5 +5,5 @@
 .yardoc
 
 script/*
-gems/*
-!gems/cache
+.bundle
+.rvmrc
