@@ -140,7 +140,7 @@ module Rango
     end
 
     def render_http_error(exception)
-      exception["Content-Type"] = "text/html"
+      exception.headers["Content-Type"] = "text/html"
       if Rango.production?
         <<-EOF
 <h1>Application Error</h1>
