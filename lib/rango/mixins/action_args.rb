@@ -9,9 +9,9 @@
 # method(:test).parameters
 # => [[:req, :name], [:opt, :params], [:rest, :args]]
 
-if RUBY_VERSION < "1.9.2"
+unless Kernel.method(:require).respond_to?(:parameters)
   raise <<-EOF
-Method#parameters is a part of Ruby 1.9.2 and higher, you can't use it with Ruby #{RUBY_VERSION}.
+For action args mixin you need to have Method#parameters defined. This method is defined in 1.9.2 and higher or you can use genkhi/methopara on GitHub to get it working in Ruby 1.9.1, if it will work, but it never did for me.
   EOF
 end
 
