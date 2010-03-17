@@ -4,13 +4,6 @@ require "tilt"
 
 module Rango
   module TiltExtensions
-    module Erubis
-      def initialize_engine
-        super
-        require "rango/templates/exts/erubis"
-      end
-    end
-
     # Tilt::HamlTemplate.options[:default_attributes] = {script: {type: "text/javascript"}, form: {method: "POST"}}
     module Haml
       def self.included(klass)
@@ -33,5 +26,4 @@ module Rango
   end
 end
 
-Tilt::ErubisTemplate.send(:include, Rango::TiltExtensions::Erubis)
 Tilt::HamlTemplate.send(:include, Rango::TiltExtensions::Haml)
