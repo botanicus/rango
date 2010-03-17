@@ -12,7 +12,7 @@ module Rango
   # all the helpers are in Rango::Helpers
   # so if you want to register your own, just
   # Rango::Helpers.send(:include, Pupu::Helpers)
-  Helpers ||= Module.new
+  module Helpers; end
 
   def self.root=(root)
     @@root = Pathname.new(root)
