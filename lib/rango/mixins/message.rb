@@ -45,9 +45,13 @@ module Rango
 
     def message
       @message ||= begin
-        messages = request.GET[:msg] || Hash.new
-        messages.inject(Hash.new) do |result, pair|
-          result.merge(pair[0] => pair[1].force_encoding(Encoding.default_external))
+        messages = request.GET[:msg] || String.new
+        if messages.is_a?(String)
+          messages.force_encoding(Encoding.default_external)
+        elsif messages.is_a?(Hash)
+          messages.inject(Hash.new) do |result, pair|
+            result.merge(pair[0] => pair[1].force_encoding(Encoding.default_external))
+          end
         end
       end
     end
