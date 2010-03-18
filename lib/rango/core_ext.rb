@@ -150,4 +150,8 @@ module ParamsMixin
   def keys
     super.map { |key| key.to_s if key.is_a?(Symbol) }
   end
+
+  def merge(*args)
+    super(*args).extend(ParamsMixin)
+  end
 end
