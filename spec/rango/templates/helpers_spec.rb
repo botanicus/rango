@@ -9,17 +9,31 @@ describe Rango::TemplateHelpers do
   include Rango::TemplateHelpers
   describe "#partial" do
     it "should work" do
+      pending "This can't work because self.template doesn't exist, we have to use render mixin"
       partial "basic.html"
     end
 
-    it "should share context with the parent template"
-    it "should be able to specify additional context which isn't propagated to the parent template"
+    it "should share context with the parent template" do
+      pending
+    end
+
+    it "should be able to specify additional context which isn't propagated to the parent template" do
+      pending
+    end
   end
 
   describe "#render" do
-    it "should consider 'path.html' as a path relative to Template.template_paths"
-    it "should consider './path.html' as a path relative to the current template"
-    it "should look for '../path.html' in the parent directory of directory with current template"
+    it "should consider 'path.html' as a path relative to Template.template_paths" do
+      pending
+    end
+
+    it "should consider './path.html' as a path relative to the current template" do
+      pending
+    end
+
+    it "should look for '../path.html' in the parent directory of directory with current template" do
+      pending
+    end
   end
 
   describe "#includes" do
