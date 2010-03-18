@@ -5,6 +5,7 @@ require "rango/environments"
 
 describe "Rango environments" do
   it "should defaults to development" do
+    pending "This should be part of test suite testing boot & default setup which obviously can't run in the same Ruby instance because all the requires etc are global"
     Rango.environment.should eql("development")
   end
 
