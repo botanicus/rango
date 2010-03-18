@@ -17,6 +17,10 @@ end
 
 require "spec" # so you can run ruby spec/rango/whatever_spec.rb
 
+require "rango"
+require "logger"
+Rango.logger = Logger.new("/dev/null")
+
 class RecursiveOpenStruct < OpenStruct
   def initialize(attributes = Hash.new)
     attributes.each do |key, value|
@@ -37,5 +41,11 @@ module Spec
         end
       end
     end
+  end
+end
+
+Spec::Runner.configure do |config|
+  config.before(:all) do
+    Rango.environment = "test"
   end
 end
