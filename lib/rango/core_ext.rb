@@ -141,7 +141,13 @@ module ParamsMixin
     end
   end
 
+  # This might be very nasty if you expect a symbol,
+  # but we can't just call #to_sym on it because of
+  # security. Symbols aren't GCed, so if someone would
+  # send a lot of requests with different keys, it will
+  # crash your app or even server because it would run
+  # out of memory.
   def keys
-    super.map(&:to_s)
+    super.map { |key| key.to_s if key.is_a?(Symbol) }
   end
 end
