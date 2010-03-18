@@ -18,10 +18,11 @@ end
 module Rango
   module ActionArgsMixin
     def invoke_action(action)
-      view     = self.method(action)
-      names    = view.parameters.map { |type, name| name }
-      types    = view.parameters.map { |type, name| type }
-      required = view.parameters.map { |type, name| name if type.eql?(:req) }.compact
+      view       = self.method(action)
+      parameters = view.parameters.map! { |type, name| [type, name.to_s] }
+      names      = parameters.map { |type, name| name }
+      types      = parameters.map { |type, name| type }
+      required   = parameters.map { |type, name| name if type.eql?(:req) }.compact
 
       # validate types
       if types.include?(:rest)
@@ -36,7 +37,7 @@ module Rango
       end
 
       args = Array.new
-      view.parameters.each do |type, name|
+      parameters.each do |type, name|
         args.push(self.params[name]) if type.eql?(:req) || (type.eql?(:opt) && !self.params[name].nil?) # this is a bit complex, but we have to do because of rewriting optional args by nil value if we use just map with params[name]
       end
       puts "Rendering #{self.class}##{action} with #{args.map(&:inspect).join(", ")}"
