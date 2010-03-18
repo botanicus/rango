@@ -2,10 +2,6 @@
 
 require_relative "../../spec_helper"
 
-require "rango"
-require "logger"
-Rango.logger = Logger.new("/dev/null")
-
 require "rango/controller"
 require "rango/mixins/action_args"
 
