@@ -64,25 +64,35 @@ describe Rango::MessageMixin do
 
   describe "#redirect" do
     before(:each) do
-      @env  = Rack::MockRequest.env_for("/")
-      Posts = Class.new(Rango::Controller) { include Rango::MessageMixin }
-      @controller = Posts.new(@env)
+      @env        = Rack::MockRequest.env_for("/")
+      @controller = TestController.new(@env)
     end
 
     it "should be satisfied just with url" do
-      @controller.redirect("/")
-      @controller.status.should eql(302)
-      @controller.headers["Location"].should eql("http://example.org/")
+      begin
+        @controller.redirect("/")
+      rescue Rango::Exceptions::Redirection => redirection
+        redirection.status.should eql(303)
+        redirection.headers["Location"].should eql("http://example.org")
+      end
     end
 
     it "should be satisfied just with url" do
-      @controller.redirect("/", "Try again")
-      @controller.headers["Location"].should eql("http://example.org/?msg=Try%20again")
+      begin
+        @controller.redirect("/", "Try again")
+      rescue Rango::Exceptions::Redirection => redirection
+        redirection.status.should eql(303)
+        redirection.headers["Location"].should eql("http://example.org/?msg=Try%20again")
+      end
     end
 
     it "should be satisfied just with url" do
-      @controller.redirect("/", error: "Try again")
-      @controller.headers["Location"].should eql("http://example.org/?msg[error]=Try%20again")
+      begin
+        @controller.redirect("/", error: "Try again")
+      rescue Rango::Exceptions::Redirection => redirection
+        redirection.status.should eql(303)
+        redirection.headers["Location"].should eql("http://example.org/?msg[error]=Try%20again")
+      end
     end
   end
 end
