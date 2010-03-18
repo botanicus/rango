@@ -59,7 +59,7 @@ module Rango
     rescue HttpError => exception
       self.rescue_http_error(exception)
     rescue Exception => exception # so we can be sure that all the exceptions which occures in controller can be captured by rescue_http_error method
-      if Rango.development?
+      if Rango.development? or Rango.testing?
         raise exception
       else
         message = "#{exception.class}: #{exception.message}"
