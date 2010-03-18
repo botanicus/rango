@@ -111,7 +111,7 @@ module Rango
       @env['rack.session'] ||= {}
     end
 
-    alias_method :ajax, :xhr?
+    alias_method :ajax?, :xhr?
 
     # @since 0.0.1
     # @example: "cz"
