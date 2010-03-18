@@ -119,14 +119,15 @@ module Rango
     def_delegators :request, :cookies, :session
 
     def router_params
-      @router_params ||= begin
-        params = self.env["rango.router.params"]
-        raise "rango.router.params property has to be setup at least to empty hash" if params.nil?
-      end
+      @router_params ||= self.env["rango.router.params"]
     end
 
     def params
-      @params ||= self.request.params.merge(self.router_params).symbolize_keys
+      @params ||= begin
+        params = self.request.params
+        params.merge(self.router_params) if router_params
+        params
+      end
     end
 
     # redefine this method for your controller if you want to provide custom error pages
