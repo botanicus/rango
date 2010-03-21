@@ -80,3 +80,7 @@
   * Removed all helpers, if you need some, use http://github.com/botanicus/helpers
   * [FEATURE] Added rango/mailer with mail helper for sending e-mails
   * Rango.root & Rango.media_path are now instances of Pathname rather than String
+  * rango/environments are no longer optional
+  * Ripple support in stack generator
+  * Removed Erubis support, since it doesn't support <%= block(&block) %> so it's useless for us
+  * Specs are green again
