@@ -42,13 +42,7 @@ gem "rack-mount"#, git: "git://github.com/josh/rack-mount.git"
 gem "rack-router"#, git: "git://github.com/carllerche/rack-router.git"
 <% end %>
 
-# template engine
-<% case @template_engine %>
-<% when "haml" %>
 gem "haml"#, git: "git://github.com/nex3/haml.git"
-<% when "erubis" %>
-gem "erubis"#, git: "git://github.com/genki/erubis.git"
-<% end %>
 
 # ORM
 <% case @orm %>
@@ -63,8 +57,11 @@ gem "sequel"#, git: "git://github.com/jeremyevans/sequel.git"
 <% when "mongomapper" %>
 gem "mongo_mapper"#, git: "git://github.com/jnunemaker/mongomapper.git"
 
+<% when "ripple" %>
+gem "ripple"#, git: "git://github.com/seancribbs/ripple.git"
+
 <% end %>
-# NOTE: do not use require_as: nil because if you do so, bundler will require the library anyway
+# NOTE: do not use require: nil because if you do so, bundler will require the library anyway
 # Check last section of http://wiki.github.com/merb/merb/howto-using-the-bundler for more informations
 group(:bundle) do
   gem "thin"#, git: "git://github.com/macournoyer/thin.git" # there seems to be some problems with latest thin
@@ -98,7 +95,7 @@ end
 
 group(:test, :cucumber) do
   gem "rspec"#, git: "git://github.com/dchelimsky/rspec.git"
-  gem "rack-test", require_as: "rack/test"#, git: "git://github.com/brynary/rack-test.git"
+  gem "rack-test", require: "rack/test"#, git: "git://github.com/brynary/rack-test.git"
   gem "webrat"#, git: "git://github.com/brynary/webrat.git"
 end
 

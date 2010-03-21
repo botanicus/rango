@@ -24,7 +24,6 @@ require "rango"
 
 # we need to load dependencies before boot, so bootloaders will be called
 Rango.logger.info("Loading dependencies for #{Rango.environment}")
-Bundler.require_env(Rango.environment)
 Rango.boot
 
 $LOAD_PATH.unshift(File.expand_path("../lib", __FILE__))
