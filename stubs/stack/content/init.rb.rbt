@@ -1,8 +1,4 @@
-<% if RUBY_PLATFORM.eql?("java") %>
-<%= shebang rubypath, ["--1.9", "--disable-gems"] %>
-<% else %>
-<%= shebang rubypath, ["--disable-gems"] %>
-<% end %>
+#!/usr/bin/env ruby
 # encoding: utf-8
 
 # default encoding setup
@@ -15,9 +11,13 @@ Encoding.default_external = "utf-8"
 
 # bundler
 begin
-  require_relative "gems/environment.rb"
-rescue LoadError => exception
-  abort "LoadError during loading gems/environment: #{exception.message}\nRun gem bundle to fix it."
+  # Require the preresolved locked set of gems.
+  require File.expand_path("../.bundle/environment", __FILE__)
+rescue LoadError
+  # Fallback on doing the resolve at runtime.
+  require "rubygems"
+  require "bundler"
+  Bundler.setup
 end
 
 require "rango"
