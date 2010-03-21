@@ -1,5 +1,0 @@
-# nepridavat middlewares ktere uz jsou v @ins
-# => global rack builder object
-# joshbuddy mel neco na insertovani middlewares
-
-# Rango.rackup.use

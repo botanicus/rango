@@ -1,24 +1,7 @@
 # encoding: utf-8
 
-# http://wiki.github.com/botanicus/rango/routers
-Rango::Router.use(:<%= @router.to_sym %>)
-
-<% case @router %>
-<% when "usher" %>
-# http://github.com/joshbuddy/usher
-Rango::Router.app = Usher::Interface.for(:rack) do
-  get("/").to(<%= @name.camel_case %>::ShowCase.dispatcher(:index)).name(:showcase)
+Rango.after_boot(:setup_router) do
+  Rango::Router.use(:usher)
+  require "<%= @name %>/urls"
+  <%= @name.camel_case %>.rackup { run Rango::Router.app }
 end
-<% when "rack-mount" %>
-# http://github.com/josh/rack-mount
-Rango::Router.app = Rack::Mount::RouteSet.new do |set|
-  # add_route takes a rack application and conditions to match with
-  # conditions may be strings or regexps
-  # See Rack::Mount::RouteSet#add_route for more options.
-  set.add_route <%= @name.camel_case %>::ShowCase.dispatcher(:index), method: "get", path: "/"
-end
-<% when "rack-router" %>
-# TODO: routes
-<% when "urlmap" %>
-# TODO: routes
-<% end %>
