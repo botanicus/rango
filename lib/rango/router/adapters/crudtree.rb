@@ -1,5 +1,12 @@
-require "crudtree/generator"
+# encoding: utf-8
+
 require_relative "usher"
+
+begin
+  require "crudtree/generator"
+rescue LoadError
+  raise LoadError, "You have to install crudtree gem!"
+end
 
 module Rango
   module UrlHelper

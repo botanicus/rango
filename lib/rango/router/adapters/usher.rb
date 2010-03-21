@@ -1,6 +1,10 @@
 # encoding: utf-8
 
-require "usher"
+begin
+  require "usher"
+rescue LoadError
+  raise LoadError, "You have to install usher gem!"
+end
 
 Rango::Router.implement(:usher) do |env|
   # when usher routes to the default app, then usher.params is nil

@@ -30,7 +30,7 @@ module Rango
 
     def self.router
       @@router
-    rescue
+    rescue NameError
       raise "You have to run Rango::Router.use(router_name) first!"
     end
 
