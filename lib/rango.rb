@@ -6,6 +6,7 @@ end
 
 require "rango/cli"
 require "rango/version"
+require "rango/environments"
 require "pathname"
 
 module Rango
