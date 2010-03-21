@@ -1,0 +1,21 @@
+# encoding: utf-8
+
+require "rango/rack/middlewares/basic"
+
+require "multigiri"
+require "multigiri/email_obfuscator"
+# require "multigiri/google_analytics"
+require "multigiri/html5"
+require "multigiri/link_checker"
+require "multigiri/default_attributes"
+require "multigiri/minify"
+
+Rango.after_boot(:rackup) do
+  <%= @name.camel_case %>.rackup do
+    use Rango::Middlewares::Basic
+    run Rango::Router.app
+    # @ins.freeze
+  end
+
+  <%= @name.camel_case %>.rack.freeze
+end

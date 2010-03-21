@@ -1,0 +1,16 @@
+# encoding: utf-8
+
+<% case @orm %>
+<% when "sequel" %>
+require "sequel"
+
+module Megasamolepky
+  def self.db
+    @@db ||= Sequel.connect("do:sqlite3:db/#{Rango.environment}.db")
+  end
+end
+
+Sequel::Model.db = MS.db
+Sequel::Model.plugin(:validation_helpers)
+Sequel::Model.plugin(:timestamps)
+<% end %>
