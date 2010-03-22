@@ -9,6 +9,7 @@ Rango::Router.use(:<%= @router.to_sym %>)
 <% when "usher" %>
 # http://github.com/joshbuddy/usher
 Rango::Router.app = Usher::Interface.for(:rack) do
+  default(<%= @name.camel_case %>::Application.dispatcher(:not_found_handler)) # route not found to the controller so we can properly rescue it
   get("/").to(<%= @name.camel_case %>::ShowCase.dispatcher(:index)).name(:showcase)
 end
 <% when "rack-mount" %>

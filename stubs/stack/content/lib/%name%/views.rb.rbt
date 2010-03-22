@@ -29,6 +29,10 @@ module <%= @name.camel_case %>
     end
   end
 
+  def not_found_handler
+    raise NotFound, "No route found"
+  end
+
   class ShowCase < Application
     def index
       render "index.html"
