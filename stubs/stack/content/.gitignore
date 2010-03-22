@@ -11,3 +11,5 @@ tmp/*
 log/*
 
 /*.gem
+
+.bundle
