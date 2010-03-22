@@ -1,41 +1,11 @@
-<%= shebang "./init.rb" %>
+#!/usr/bin/env ./init.rb
 # encoding: utf-8
 
-require "rack"
-require "rango/rack/middlewares/basic"
+# This is just a wrapper for running shotgun
+require "shotgun"
 
-require_relative "urls"
-
-puts "~ Running rackup.rb"
-
-<% if @warden %>
-
-# warden authentication
-# wiki.github.com/hassox/warden/setup
-require "warden"
-
-# See also wiki.github.com/hassox/warden/callbacks
-Warden::Manager.serialize_into_session { |user| user.id }
-Warden::Manager.serialize_from_session { |key| User.get(id) }
-
-# Go to login
-Warden::Manager.before_failure do |env, opts|
-  Login.route_to env, "login"
+<%= @name.camel_case %>.rackup do
+  self.instance_eval(::File.read("config.ru"))
 end
 
-Warden::Strategies.add(:password) do
-  def authenticate!
-    User.new # TODO
-  end
-end
-<% end %>
-
-# run config.ru
-if File.basename($0).eql?("init.rb")
-  Rack::Builder.new do
-    app = self.instance_eval(::File.read("config.ru"))
-    Rack::Handler::Thin.run(app, Port: 4000)
-  end
-else
-  Rack::Builder.new { self.instance_eval ::File.read("config.ru") }
-end
+Shotgun.new(Hash.new, <%= @name.camel_case %>.rack)

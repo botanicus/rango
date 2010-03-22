@@ -13,9 +13,5 @@ require "multigiri/minify"
 Rango.after_boot(:rackup) do
   <%= @name.camel_case %>.rackup do
     use Rango::Middlewares::Basic
-    run Rango::Router.app
-    # @ins.freeze
   end
-
-  <%= @name.camel_case %>.rack.freeze
 end

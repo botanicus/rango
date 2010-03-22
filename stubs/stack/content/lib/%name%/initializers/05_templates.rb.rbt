@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 require "haml"
-require "pupu/adapters/rango"
+# require "pupu/adapters/rango"
 require "helpers/adapters/rango"
 
 # Haml setup

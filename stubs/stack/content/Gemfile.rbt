@@ -18,7 +18,6 @@ source :gemcutter
 # rango stack
 gem "rango"#, git: "git://github.com/botanicus/rango.git"
 gem "rack"#, git: "git://github.com/rack/rack.git"
-gem "tilt"#, git: "git://github.com/rtomayko/tilt.git"
 
 gem "nake"#, git: "git://github.com/botanicus/nake.git"
 <% if @code_cleaner %>
@@ -28,7 +27,6 @@ gem "code-cleaner"#, git: "git://github.com/botanicus/code-cleaner.git"
 gem "git-deployer"#, git: "git://github.com/botanicus/git-deployer.git"
 <% end %>
 
-gem "helpers"#, git: "git://github.com/botanicus/helpers.git"
 # rack middlewares
 gem "multigiri"#, git: "git://github.com/botanicus/multigiri.git"
 
@@ -42,7 +40,11 @@ gem "rack-mount"#, git: "git://github.com/josh/rack-mount.git"
 gem "rack-router"#, git: "git://github.com/carllerche/rack-router.git"
 <% end %>
 
+gem "tilt"#, git: "git://github.com/rtomayko/tilt.git"
 gem "haml"#, git: "git://github.com/nex3/haml.git"
+gem "helpers"#, git: "git://github.com/botanicus/helpers.git"
+gem "pupu"#, git: "git://github.com/botanicus/pupu.git"
+gem "media-path"#, git: "git://github.com/botanicus/media-path.git" # for asset helpers
 
 # ORM
 <% case @orm %>
@@ -69,12 +71,10 @@ group(:bundle) do
   gem "racksh"#, git: "git://github.com/sickill/racksh.git"
   gem "shotgun"#, git: "git://github.com/rtomayko/shotgun.git"
 end
-<% if @warden %>
+
 gem "warden"
-<% end %>
 
 gem "simple-logger"#, git: "git://github.com/botanicus/simple-logger.git"
-gem "media-path"#, git: "git://github.com/botanicus/media-path.git" # for asset helpers
 
 # === Environment-Specific Setup === #
 group(:development, :test) do
