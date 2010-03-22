@@ -11,7 +11,7 @@ require "warden"
 Warden::Manager.serialize_into_session { |user|  user.email }
 Warden::Manager.serialize_from_session { |email| User[email] }
 
-# NOTE: params are provided by Rack, so we can use params[:key]
+# NOTE: params are provided by Rack, so we can't use params[:key]
 Warden::Strategies.add(:password) do
   def valid?
     (params["email"] && ! params["email"].empty?) &&
