@@ -6,7 +6,7 @@ module Rango
     # if you will run this script with -i argument, interactive session will begin
     Rango.interactive if ARGV.delete("-i")
     # so it can work as a runner
-    load ARGV.shift if ARGV.first && File.exist?(ARGV.first)
+    load ARGV.shift if ARGV.first && File.exist?(ARGV.first) && ARGV.first.end_with?(".rb")
   end
 
   # Start IRB interactive session
