@@ -95,7 +95,9 @@ module Rango
       if (300..399).include?(status)
         exception = Redirection.new(absolute_uri(location))
         exception.status = status
-        exception.headers["Set-Cookie"] = response["Set-Cookie"] # otherwise it don't save cookies
+        if response["Set-Cookie"]
+          exception.headers["Set-Cookie"] = response["Set-Cookie"] # otherwise it don't save cookies
+        end
         block.call(exception) unless block.nil?
         raise exception
       else
