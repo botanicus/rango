@@ -26,10 +26,8 @@ module Rango
     end
 
     def message
-      p [:OR, @message]
       @message ||= begin
         messages = request.GET[:msg] || Hash.new
-        p [[messages]]
         if messages.is_a?(String)
           messages.force_encoding(Encoding.default_external)
         elsif messages.is_a?(Hash)
