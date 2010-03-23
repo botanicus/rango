@@ -89,6 +89,14 @@ module Rango
     def context
       @context ||= {request: self.request}
     end
+
+    def get_context_value(key)
+      @context[key]
+    end
+
+    def set_context_value(key, value)
+      @context[key] = value
+    end
   end
 
   module ImplicitRendering
@@ -99,6 +107,14 @@ module Rango
 
     def render(template) # so you can't specify context
       super template, self.scope
+    end
+
+    def get_context_value(key)
+      instance_variable_get("@#{key}")
+    end
+
+    def set_context_value(key, value)
+      instance_variable_set("@#{key}", value)
     end
   end
 end
