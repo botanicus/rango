@@ -11,8 +11,10 @@ require "rack"
 module Rango
   module Utils
     extend self
+    # @deprecated
     def load_rackup(path = "config.ru")
-      eval("Rack::Builder.new {( #{File.read(path)}\n )}.to_app", nil, File.expand_path(path))
+      app, options = Rack::Builder.parse_file(path)
+      return app
     end
   end
 end
