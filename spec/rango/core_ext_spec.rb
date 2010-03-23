@@ -6,6 +6,16 @@ require "rango/core_ext"
 
 describe ParamsMixin do
   describe ".convert" do
+    it "should work" do
+      mash = ParamsMixin.convert(key: "value")
+      mash["key"].should eql("value")
+    end
+
+    it "should work recursively" do
+      mash = ParamsMixin.convert(key: {inner: "value"})
+      mash["key"].should_not be_nil
+      mash["key"]["inner"].should eql("value")
+    end
   end
 
   describe "getter & setter" do
@@ -37,6 +47,15 @@ describe ParamsMixin do
     it "should set the value with key if key is a symbol" do
       @mash[:key] = "changed"
       @mash["key"].should eql("changed")
+    end
+  end
+
+  describe "#keys" do
+    it "should be array of strings" do
+      object = Object.new
+      hash   = {:a => 1, "b" => 2, object => 3}
+      mash   = hash.extend(ParamsMixin)
+      mash.keys.should eql(["a", "b", object])
     end
   end
 end

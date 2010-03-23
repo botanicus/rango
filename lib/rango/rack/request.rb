@@ -93,9 +93,13 @@ module Rango
     end
 
     def params
-      input = [self.GET, self.POST, self.PUT]
-      input.inject(Hash.new) do |result, hash|
-        hash ? result.merge!(hash) : result
+      @params ||= begin
+        input = [self.GET, self.POST, self.PUT]
+        ParamsMixin.convert(
+          input.inject(Hash.new) do |result, hash|
+            hash ? result.merge!(hash) : result
+          end
+        )
       end
     end
 

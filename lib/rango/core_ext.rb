@@ -84,7 +84,9 @@ module ParamsMixin
   # crash your app or even server because it would run
   # out of memory.
   def keys
-    super.map { |key| key.to_s if key.is_a?(Symbol) }
+    super.map do |key|
+      key.is_a?(Symbol) ? key.to_s : key
+    end
   end
 
   def merge(*args)
