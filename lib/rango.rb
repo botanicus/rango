@@ -48,7 +48,9 @@ module Rango
   def self.environment=(environment)
     ENV["RACK_ENV"] = environment
     @@environment   = environment
+    verbose, $VERBOSE = $VERBOSE, nil
     const_set(:RACK_ENV, environment)
+    $VERBOSE = verbose
   end
 
   def self.environment?(environment)
