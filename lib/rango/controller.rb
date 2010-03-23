@@ -125,7 +125,7 @@ module Rango
     def params
       @params ||= begin
         params = self.request.params
-        params.merge(self.router_params) if router_params
+        params.merge!(self.router_params) if router_params
         params
       end
     end
