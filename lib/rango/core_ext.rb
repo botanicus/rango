@@ -90,4 +90,8 @@ module ParamsMixin
   def merge(*args)
     super(*args).extend(ParamsMixin)
   end
+
+  def merge!(*args)
+    super(*args).extend(ParamsMixin)
+  end
 end
