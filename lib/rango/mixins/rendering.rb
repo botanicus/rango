@@ -22,40 +22,6 @@ module Rango
       self.formats[:format] = block
     end
   end
-  module StackRendering
-    include Rango::RenderMixin
-    def template_dirname
-      self.class.name.gsub("::", "/").camel_case
-    end
-
-    def template_basename
-      request["router.action"]
-    end
-
-    #def template_basename
-    #  case request["router.action"]
-    #  when "show"
-    #    self.class.name.singularize
-    #  when "index"
-    #  else
-    #  end
-    #end
-
-    def template_path
-      File.join(template_dirname, template_basename)
-    end
-
-    def render(context = Hash.new)
-      super(self.template_path, self.scope, self.context.merge!(context))
-    end
-
-    def display(object)
-      render
-    rescue TemplateNotFound
-      callback = self.formats[request.action]
-      callback.call
-    end
-  end
 
   module ExplicitRendering
     include Rango::RenderMixin
@@ -97,6 +63,10 @@ module Rango
     def set_context_value(key, value)
       @context[key] = value
     end
+
+    def context_keys
+      @context.keys
+    end
   end
 
   module ImplicitRendering
@@ -115,6 +85,12 @@ module Rango
 
     def set_context_value(key, value)
       instance_variable_set("@#{key}", value)
+    end
+
+    def context_keys
+      instance_variables.map do |name|
+        name[1..-1].to_sym
+      end
     end
   end
 end
