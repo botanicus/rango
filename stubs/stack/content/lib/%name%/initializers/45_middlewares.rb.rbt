@@ -13,5 +13,16 @@ require "multigiri/minify"
 Rango.after_boot(:rackup) do
   <%= @name.camel_case %>.rackup do
     use Rango::Middlewares::Basic
+
+    use Multigiri::HTML do
+      use Multigiri::HTML5::Forms
+      use Multigiri::HTML5::Hidden
+      use Multigiri::EmailObfuscator
+      # use Multigiri::GoogleAnalytics, :my_tracking_code
+      use Multigiri::DefaultAttributes
+      if Rango.development?
+        use Multigiri::LinkChecker, SimpleLogger::Logger.new("log/links.log")
+      end
+    end
   end
 end
