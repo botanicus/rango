@@ -23,6 +23,12 @@ class String
     return self if self !~ /_/ && self =~ /[A-Z]+.*/
     split('_').map{|e| e.capitalize}.join
   end
+
+  # TODO: this certainly isn't the way to go,
+  # but we need to get & refactor extlib at first
+  def pluralize
+    "#{self}s"
+  end
 end
 
 class Hash
