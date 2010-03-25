@@ -88,4 +88,5 @@
 = Version 0.2.5
   * Conventional rendering mixin for high-level rendering methods like autorender
   * Added RESTController class as a base class for REST controllers
+  * Added CRUDMixin with controller CRUD methods
   * UrlHelper#url can work not just as url(:post, @post.id) but also as url(:post, @post)
