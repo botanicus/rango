@@ -1,10 +1,12 @@
 # encoding: utf-8
 
 require "rango/controller"
+require "rango/mixins/crud"
 require "rango/mixins/conventional_rendering"
 
 module Rango
   class RESTController < Controller
+    include CRUDMixin
     include ConventionalRendering
     def self.object_name=(object_name)
       @@object_name = object_name
@@ -41,58 +43,8 @@ module Rango
       end
     end
 
-    # @api plugin
     def named_route
       self.class.named_route
-    end
-
-    # CRUD methods
-    def index(&block)
-      raise ArgumentError, "You have to provide a block" if block.nil?
-      set_context_value(collection_name, block.call)
-      autorender
-    end
-
-    def show(&block)
-      raise ArgumentError, "You have to provide a block" if block.nil?
-      set_context_value(collection_name, block.call)
-      autorender
-    end
-
-    def new(&block)
-      raise ArgumentError, "You have to provide a block" if block.nil?
-      set_context_value(collection_name, block.call)
-      autorender
-    end
-
-    def edit(&block)
-      raise ArgumentError, "You have to provide a block" if block.nil?
-      set_context_value(collection_name, block.call)
-      autorender
-    end
-
-    def create(notice = "Created successfully", error = "Can't create", &block)
-      raise ArgumentError, "You have to provide a block" if block.nil?
-      object = block.call
-      if object.save
-        message[:notice] = notice
-        redirect url(named_route, object)
-      else
-        message[:error] = error
-        render_relative "show"
-      end
-    end
-
-    def update(notice = "Updated successfully", error = "Can't update", &block)
-      raise ArgumentError, "You have to provide a block" if block.nil?
-      object = block.call
-      if object.save
-        message[:notice] = notice
-        redirect url(named_route, object)
-      else
-        message[:error] = error
-        render_relative "show"
-      end
     end
   end
 end
