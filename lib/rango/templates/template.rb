@@ -28,7 +28,12 @@ module Rango
     # @since 0.0.2
     def initialize(path, scope = Object.new)
       self.path  = path#[scope.class.template_prefix.chomp("/"), template].join("/")
-      self.scope = scope.extend(TemplateHelpers)
+      self.scope = scope
+      self.scope.extend(TemplateHelpers)
+      # this enables template caching
+      unless Rango.development?
+        self.scope.extend(Tilt::CompileSite)
+      end
       self.scope.template = self
     end
 
