@@ -90,3 +90,4 @@
   * Added RESTController class as a base class for REST controllers
   * Added CRUDMixin with controller CRUD methods
   * UrlHelper#url can work not just as url(:post, @post.id) but also as url(:post, @post)
+  * Action args mixin doesn't raise argument error if there are some splat or block arguments

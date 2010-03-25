@@ -21,15 +21,7 @@ module Rango
       view       = self.method(action)
       parameters = view.parameters.map! { |type, name| [type, name.to_s] }
       names      = parameters.map { |type, name| name }
-      types      = parameters.map { |type, name| type }
       required   = parameters.map { |type, name| name if type.eql?(:req) }.compact
-
-      # validate types
-      if types.include?(:rest)
-        raise ArgumentError, "View can't have splat argument. Use just this: def #{action}(#{names[0..-2].join(", ")})"
-      elsif types.include?(:block)
-        raise ArgumentError, "View can't have block argument. Use just this: def #{action}(#{names[0..-2].join(", ")})"
-      end
 
       # validate names
       unless (extra_keys = required - self.params.keys).empty?

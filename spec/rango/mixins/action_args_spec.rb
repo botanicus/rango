@@ -19,10 +19,12 @@ describe Rango::ActionArgsMixin do
       "#{post} - #{msg}"
     end
 
-    def view_with_a_splat(*args)
+    def view_with_a_splat(id, *args)
+      id
     end
 
-    def view_with_a_block(&block)
+    def view_with_a_block(id, &block)
+      id
     end
   end
 
@@ -31,14 +33,16 @@ describe Rango::ActionArgsMixin do
     env.merge("rango.controller.action" => action)
   end
 
-  it "should raise argument error if there is a splat argument" do
-    env = env_for_action(:view_with_a_splat)
-    -> { controller.call(env) }.should raise_error(ArgumentError)
+  it "should ignore splat arguments" do
+    env = env_for_action(:view_with_a_splat, "/?id=12")
+    status, headers, body = controller.call(env)
+    body.should eql(["12"])
   end
 
-  it "should raise argument error if there is a block argument" do
-    env = env_for_action(:view_with_a_block)
-    -> { controller.call(env) }.should raise_error(ArgumentError)
+  it "should ignore block arguments" do
+    env = env_for_action(:view_with_a_block, "/?id=12")
+    status, headers, body = controller.call(env)
+    body.should eql(["12"])
   end
 
   it "should raise argument error if there are arguments which doesn't match any key in params" do
@@ -54,7 +58,6 @@ describe Rango::ActionArgsMixin do
 
   it "should call a view with arguments matching params[argument]" do
     env = env_for_action(:show, "/?id=12&msg=hi") # nevadi ze je tam toho vic
-    instance = controller.new(env)
     status, headers, body = controller.call(env)
     body.should eql(["12"])
   end
