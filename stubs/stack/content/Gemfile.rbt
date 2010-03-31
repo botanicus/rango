@@ -43,6 +43,7 @@ gem "rack-router"#, git: "git://github.com/carllerche/rack-router.git"
 gem "tilt"#, git: "git://github.com/rtomayko/tilt.git"
 gem "haml"#, git: "git://github.com/nex3/haml.git"
 gem "helpers"#, git: "git://github.com/botanicus/helpers.git"
+gem "formidable"#, git: "git://github.com/botanicus/formidable.git"
 gem "pupu"#, git: "git://github.com/botanicus/pupu.git"
 gem "media-path"#, git: "git://github.com/botanicus/media-path.git" # for asset helpers
 
@@ -96,7 +97,7 @@ end
 group(:test, :cucumber) do
   gem "rspec"#, git: "git://github.com/dchelimsky/rspec.git"
   gem "rack-test", require: "rack/test"#, git: "git://github.com/brynary/rack-test.git"
-  gem "webrat"#, git: "git://github.com/brynary/webrat.git"
+  gem "capybara"#, git: "git://github.com/jnicklas/capybara.git"
 end
 
 group(:cucumber) do
