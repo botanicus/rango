@@ -12,6 +12,8 @@ require "rango/utils"
 Rango::Utils.load_rackup
 
 # webrat
+require "webrat"
+
 Webrat.configure do |config|
   config.mode = :rack
 end
