@@ -7,13 +7,15 @@
 RACK_ENV = "test"
 require_relative "../init.rb"
 
+require "spec"
+require "webrat"
+require "rack/test"
+
 # load config.ru
 require "rango/utils"
 Rango::Utils.load_rackup
 
 # webrat
-require "webrat"
-
 Webrat.configure do |config|
   config.mode = :rack
 end
