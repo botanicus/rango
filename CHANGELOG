@@ -93,3 +93,4 @@
   * Action args mixin doesn't raise argument error if there are some splat or block arguments
   * Template caching
   * Fixed gemspec to find executables
+  * First simple MIME support
