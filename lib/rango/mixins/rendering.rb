@@ -4,22 +4,55 @@ require "rango/mixins/render"
 
 module Rango
   module FormatMixin
-    def self.extended
+    MIME_TYPES = Rack::Mime::MIME_TYPES
+    def self.included(controller)
+      controller.class_eval do
+        extend ClassMethods
+        extend Module.new {
+          def inherited(subclass)
+            subclass.formats = self.formats
+          end
+        }
+      end
     end
 
-    def inherited
+    def initialize(*args)
+      super(*args)
+      set_content_type
     end
 
-    attr_writer :format
-    def formats
-      @formats ||= Hash.new { |hash, format| hash[:html] if hash.has_key?(:html) }
+    def set_content_type # rango::controller
+      # accept ...
+    end
+    def set_content_type
+      super
+      unless headers["Content-Type"]
+        format = request.router_params[:format]
+        unless format.nil?
+          mime = self.class::MIME_TYPES[format]
+          headers["Content-Type"] = mime
+        end
+      end
     end
 
-    # format(:json) do |object|
-    #   object.to_json
-    # end
-    def format(format, &block)
-      self.formats[:format] = block
+    module ClassMethods
+      attr_writer :format
+      def formats
+        @formats ||= Hash.new do |hash, format|
+          raise BadRequest, "Unsupported format"
+        end
+      end
+
+      # format(:json) do |object|
+      #   object.to_json
+      # end
+      def format(format = nil, &block)
+        if format
+          self.formats[:format] = block
+        else
+          self.formats.default_proc = block
+        end
+      end
     end
   end
 
