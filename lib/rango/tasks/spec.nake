@@ -3,7 +3,6 @@
 Task.new(:spec) do |task|
   task.description = "Run specs"
   task.define do |path = "spec", options|
-    path = args.path ? "spec" : args.path
-    sh "./bin/spec --options spec/spec.opts #{path}"
+    sh "./bin/spec --options spec/spec.opts #{path || "spec"}"
   end
 end
