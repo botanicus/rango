@@ -91,3 +91,5 @@
   * Added CRUDMixin with controller CRUD methods
   * UrlHelper#url can work not just as url(:post, @post.id) but also as url(:post, @post)
   * Action args mixin doesn't raise argument error if there are some splat or block arguments
+  * Template caching
+  * Fixed gemspec to find executables
