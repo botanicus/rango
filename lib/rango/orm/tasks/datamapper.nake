@@ -7,7 +7,7 @@ Task.new("db:automigrate") do |task|
   task.define do |environment = "development", options|
     Task[:environment].call(environment)
     Rango.logger.info("[#{Rango.environment}] Migrating databases ...")
-    result = DataMapper.auto_migrate!
+    result = ::DataMapper.auto_migrate!
     Rango.logger.debug("Result: #{result.inspect}")
   end
 end
@@ -19,7 +19,7 @@ Task.new("db:autoupgrade") do |task|
   task.define do |environment = "development", options|
     Task[:environment].call(environment)
     Rango.logger.info("[#{Rango.environment}] Upgrading databases ...")
-    result = DataMapper.auto_upgrade!
+    result = ::DataMapper.auto_upgrade!
     Rango.logger.debug("Result: #{result.inspect}")
   end
 end
@@ -31,7 +31,7 @@ Task.new("db:report") do |task|
   task.define do |environment = "development", options|
     Task[:environment].call(environment)
     ObjectSpace.classes.each do |klass|
-      if klass.included(DataMapper::Resource)
+      if klass.included(::DataMapper::Resource)
         puts "#{model_class}: #{model_class.count}"
       end
     end
