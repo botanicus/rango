@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   # files
   s.files = `git ls-files`.split("\n")
 
-  Dir["bin/*"].map(&File.method(:basename))
+  s.executables = Dir["bin/*"].map(&File.method(:basename))
   s.default_executable = "rango"
   s.require_paths = ["lib"]
 
