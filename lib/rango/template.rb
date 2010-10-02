@@ -7,3 +7,4 @@ rescue LoadError
 end
 
 TemplateInheritance::Template.paths << Rango.root.join("templates").to_s
+TemplateInheritance.logger = Rango.logger
