@@ -57,7 +57,7 @@ module Rango
 
     def display(object)
       autorender
-    rescue TemplateNotFound
+    rescue TemplateInheritance::TemplateNotFound
       callback = self.formats[request.action]
       callback.call
     end

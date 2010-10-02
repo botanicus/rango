@@ -24,7 +24,7 @@ module <%= @name.camel_case %>
 
     def render_http_error_template(exception)
       render "errors/#{exception.status}.html"
-    rescue TemplateNotFound
+    rescue TemplateInheritance::TemplateNotFound
       render "errors/500.html"
     end
   end

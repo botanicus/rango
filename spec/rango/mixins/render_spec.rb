@@ -41,8 +41,8 @@ describe Rango::RenderMixin do
       body.should match(/Hi\!/)
     end
 
-    it "should raise TemplateNotFound if template wasn't found" do
-      -> { render "idonotexist.html" }.should raise_error(Rango::Exceptions::TemplateNotFound)
+    it "should raise TemplateInheritance::TemplateNotFound if template wasn't found" do
+      -> { render "idonotexist.html" }.should raise_error(TemplateInheritance::TemplateNotFound)
     end
   end
 end
