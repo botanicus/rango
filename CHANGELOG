@@ -1,49 +1,36 @@
-= Version 0.0.1 Miracle Born
-  * Just basics
+= Version 0.2.5
+  * Conventional rendering mixin for high-level rendering methods like autorender
+  * Added RESTController class as a base class for REST controllers
+  * Added CRUDMixin with controller CRUD methods
+  * UrlHelper#url can work not just as url(:post, @post.id) but also as url(:post, @post)
+  * Action args mixin doesn't raise argument error if there are some splat or block arguments
+  * Template caching
+  * Fixed gemspec to find executables
+  * First simple MIME support
 
-= Version 0.0.2 MVC Princess
-  * static files middleware
-  * MVC layer
-  * sessions, cookies
-  * integrated merb-auth
+= Version 0.2.4
+  * Removed all helpers, if you need some, use http://github.com/botanicus/helpers
+  * [FEATURE] Added rango/mailer with mail helper for sending e-mails
+  * Rango.root & Rango.media_path are now instances of Pathname rather than String
+  * rango/environments are no longer optional
+  * Ripple support in stack generator
+  * Removed Erubis support, since it doesn't support <%= block(&block) %> so it's useless for us
+  * Specs are green again
 
-= Version 0.0.3
+= Version 0.2.3
+  * Experimental support for bundler 0.9
+  * Controller#redirect takes a block where you get the exception, so you can set headers etc
+  * [FIX] Cookies are passed into the redirect request
+  * [FIX] All non-http exceptions which occur in controller are captured and passed to rescue_http_error as a new instance of InternalServerError, except development environment where we want to get the Rack error screen.
+  * [FIX] Fixed encoding problem in messages. It's actually Rack fault, but hey.
 
-= Version 0.0.4
+= Version 0.2.2
+  * Sequel support in contrib/pagination
 
-= Version 0.1
-  * [FEATURE] environments support
-  * [FEATURE] installation without RubyGems
-  * [FEATURE] HTTP caching
-  * [FEATURE] Hooks for Rendering
-  * [SPECS]   Integration with RunCodeRun.com
-  * [SPECS]   All specs passing
-  * SimpleTemplater, RubyExts & CLI
-  * [FEATURE] Bundler Support
-  * [FEATURE] Generic view
-  * [FEATURE] Project generator
-  * [FEATURE] Rack-mount support
-
-= Version 0.1.1
-  * Tilt support
-  * Removed old merb-helpers
-  * Reworked generic views
-  * Default attributes for Haml
-  * MessagesMixin and FiltersMixin were divided from Rango::Controller
-  * Shebang is just ruby rather than ruby1.9, so it plays well with rvm
-  * ImplicitRendering and ExplicitRendering mixins for using locals
-    vs. rendering in context of current controller instance
-
-= Version 0.1.2, 13/12/2009
-  * Sequel support
-  * Project generator renamed to stack generator
-  * Removed app and bigapp generators
-  * Added migration task for DataMapper
-  * Removed layer of ORM adapters
-  * Removed Project constant and settings
-  * Much more modular design
-  * Removed dependencies, since you can use whichever subset of Rango
-  * There is Rango::Router.app instead of Project.router
+= Version 0.2.1
+  * More inteligent environments handling, just use Rango.environment and it will detect the proper one from ENV["RACK_ENV"], RACK_ENV constant or it will defaults to development. Rango.environment=(environment) will set all these variables so everything will stay consistent.
+  * MongoMapper supported in stack generator (rango create stack blog --orm=mongomapper)
+  * Added Rango::StackController which is more complete than just basic Rango::Controller
 
 = Version 0.2.0, 24/12/2009
   * Sequel support
@@ -61,36 +48,48 @@
   * Template helpers can work with paths relative to current template via ./path.html resp. ../path.html. All other paths are relative to the template paths.
   * Use simple-logger as a default logger or standar logger if the simple-logger isn't installed.
 
-= Version 0.2.1
-  * More inteligent environments handling, just use Rango.environment and it will detect the proper one from ENV["RACK_ENV"], RACK_ENV constant or it will defaults to development. Rango.environment=(environment) will set all these variables so everything will stay consistent.
-  * MongoMapper supported in stack generator (rango create stack blog --orm=mongomapper)
-  * Added Rango::StackController which is more complete than just basic Rango::Controller
+= Version 0.1.2, 13/12/2009
+  * Sequel support
+  * Project generator renamed to stack generator
+  * Removed app and bigapp generators
+  * Added migration task for DataMapper
+  * Removed layer of ORM adapters
+  * Removed Project constant and settings
+  * Much more modular design
+  * Removed dependencies, since you can use whichever subset of Rango
+  * There is Rango::Router.app instead of Project.router
 
-= Version 0.2.2
-  * Sequel support in contrib/pagination
+= Version 0.1.1
+  * Tilt support
+  * Removed old merb-helpers
+  * Reworked generic views
+  * Default attributes for Haml
+  * MessagesMixin and FiltersMixin were divided from Rango::Controller
+  * Shebang is just ruby rather than ruby1.9, so it plays well with rvm
+  * ImplicitRendering and ExplicitRendering mixins for using locals
 
-= Version 0.2.3
-  * Experimental support for bundler 0.9
-  * Controller#redirect takes a block where you get the exception, so you can set headers etc
-  * [FIX] Cookies are passed into the redirect request
-  * [FIX] All non-http exceptions which occur in controller are captured and passed to rescue_http_error as a new instance of InternalServerError, except development environment where we want to get the Rack error screen.
-  * [FIX] Fixed encoding problem in messages. It's actually Rack fault, but hey.
+= Version 0.1
+  * [FEATURE] environments support
+  * [FEATURE] installation without RubyGems
+  * [FEATURE] HTTP caching
+  * [FEATURE] Hooks for Rendering
+  * [SPECS]   Integration with RunCodeRun.com
+  * [SPECS]   All specs passing
+  * SimpleTemplater, RubyExts & CLI
+  * [FEATURE] Bundler Support
+  * [FEATURE] Generic view
+  * [FEATURE] Project generator
+  * [FEATURE] Rack-mount support
 
-= Version 0.2.4
-  * Removed all helpers, if you need some, use http://github.com/botanicus/helpers
-  * [FEATURE] Added rango/mailer with mail helper for sending e-mails
-  * Rango.root & Rango.media_path are now instances of Pathname rather than String
-  * rango/environments are no longer optional
-  * Ripple support in stack generator
-  * Removed Erubis support, since it doesn't support <%= block(&block) %> so it's useless for us
-  * Specs are green again
+= Version 0.0.4
 
-= Version 0.2.5
-  * Conventional rendering mixin for high-level rendering methods like autorender
-  * Added RESTController class as a base class for REST controllers
-  * Added CRUDMixin with controller CRUD methods
-  * UrlHelper#url can work not just as url(:post, @post.id) but also as url(:post, @post)
-  * Action args mixin doesn't raise argument error if there are some splat or block arguments
-  * Template caching
-  * Fixed gemspec to find executables
-  * First simple MIME support
+= Version 0.0.3
+
+= Version 0.0.2 MVC Princess
+  * static files middleware
+  * MVC layer
+  * sessions, cookies
+  * integrated merb-auth
+
+= Version 0.0.1 Miracle Born
+  * Just basics
