@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 require "rango" # logger
-require "rango/templates/template"
+require "rango/template"
 
 module Rango
   module RenderMixin
@@ -11,7 +11,7 @@ module Rango
     def render(path, scope = Object.new, context = Hash.new)
       scope, context = Object.new, scope if context.empty? && scope.is_a?(Hash)
       #Rango.logger.inspect(context: context)
-      template = Rango::Template.new(path, scope)
+      template = TemplateInheritance::Template.new(path, scope)
       return template.render(context)
     end
   end

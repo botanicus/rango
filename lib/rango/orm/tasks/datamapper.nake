@@ -1,7 +1,8 @@
 # encoding: utf-8
 
-# lazy-loading for datamapper
-autoload "DataMapper", "dm-core/migrations"
+# TODO: lazy-loading
+require "dm-core"
+require "dm-migrations"
 
 # @since 0.0.2.1
 # ./tasks.rb db:automigrate test
