@@ -6,6 +6,7 @@ require "rango/mixins/render"
 
 module Rango
   module GV
+    # The problem is that if you have an Application class with some shared functionality like error handling (rendering 500.html etc), then this won't work with it.
     def self.static(template, scope = Object.new, context = Hash.new, &hook)
       Rango::Mini.app do |request, response|
         path = template || request.env["rango.router.params"][:template]
